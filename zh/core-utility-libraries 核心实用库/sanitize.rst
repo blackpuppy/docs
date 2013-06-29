@@ -1,19 +1,18 @@
-数据清理Data Sanitization
+Data Sanitization
 #################
 
 .. php:class:: Sanitize
 
-
 CakePHP的Sanitize类可以避免用户提交有害的和其他不需要的数据，Sanitize是核心库
 ，所以可以在代码的任何地方使用，但最好在控制器和模型中用到它。
-
 
 **如果**你用到了CakePHP的ORM方法(如：find() and save())和适当的数组写法(比如：array('field' => $value))而不是原生SQL语句,CakePHP已经帮你做了防sql注入处理，因为sanitization可以用来抵御XSS，通常最好在未经修改和清理输出展示的时候保存原生的html到数据库(For
 sanitization against XSS it's generally better to save raw HTML in
 database without modification and sanitize at the time of
 output/display.)
 
-你需要做的只是在controller中引入Sanitize核心库(你可以在定义控制器的语句之前引入)
+All you need to do is include the Sanitize core library (e.g.
+before the controller class definition)::
 
     App::uses('Sanitize', 'Utility');
     
@@ -22,21 +21,18 @@ output/display.)
         ...
     }
 
-一旦引用，就可以调用Sanitize中的静态方法。
+Once you've done that, you can make calls to Sanitize statically.
 
 .. php:staticmethod:: Sanitize::clean($data, $options)
 
-    :param mixed $data: 需要清理的数据
-    :param mixed $options: 清理时的可用选项, 见下面的说明。
+    :param mixed $data: Data to clean.
+    :param mixed $options: Options to use when cleaning, see below.
 
     This function is an industrial-strength, multi-purpose cleaner,
     meant to be used on entire arrays (like $this->data, for example).
     The function takes an array (or string) and returns the clean
     version. The following cleaning operations are performed on each
     element in the array (recursively):
-
-    这是一个强有力的，多用途的清理数据的方法，可以处理整个数组(比如：$this->data)方法接收一个字符或字符串，返回经过处理的数据
-    下面的清理选项可以递归作用于数组中的每一个元素。
 
     -  Odd spaces (including 0xCA) are replaced with regular spaces.
     -  Double-checking special chars and removal of carriage returns
@@ -45,7 +41,9 @@ output/display.)
        above).
     -  Swapping of user-inputted backslashes with trusted backslashes.
 
-    $options参数可以是个字符串或数组，若为字符串需要提供数据库的连接名，若为数组，可以用下面的选项：
+    The $options argument can either be a string or an array. When a
+    string is provided it's the database connection name. If an array
+    is provided it will be merged with the following options:
 
 
     -  connection
@@ -66,7 +64,7 @@ output/display.)
 
 .. php:staticmethod:: Sanitize::escape($string, $connection)
 
-    :param string $string: 需要清理的字符串。
+    :param string $string: Data to clean.
     :param string $connection: The name of the database to quote the string for, 
         as named in your app/Config/database.php file.
 
@@ -76,16 +74,14 @@ output/display.)
 
 .. php:staticmethod:: Sanitize::html($string, $options = array())
 
-    :param string $string: 需要清理的字符串。
-    :param array $options: 数组类型，见下面的说明。
+    :param string $string: Data to clean.
+    :param array $options: An array of options to use, see below.
 
     This method prepares user-submitted data for display inside HTML.
     This is especially useful if you don't want users to be able to
     break your layouts or insert images or scripts inside of your HTML
     pages. If the $remove option is set to true, HTML content detected
     is removed rather than rendered as HTML entities::
-
-    防止用户注入有害代码，如插入图片或脚本造成破坏页面布局等问题， 如果$remove选项设置为true，会删除HTML内容而不是转化为HTML实体::
 
         $badString = '<font size="99" color="#FF0000">HEY</font><script>...</script>';
         echo Sanitize::html($badString);
@@ -99,17 +95,19 @@ output/display.)
 
 .. php:staticmethod:: Sanitize::paranoid($string, $allowedChars)
 
-    :param string $string: 需要清理的字符串
-    :param array $allowedChars: 数组类型，允许保留的字符，不能包含字母数字。
+    :param string $string: Data to clean.
+    :param array $allowedChars: An array of non alpha numeric characters allowed.
 
-    该函数会清除$string中除字母数字的其他所有字符。若传入第二个参数$allowedChars会保留该数组内的字符
+    This function strips anything out of the target $string that is not
+    a plain-jane alphanumeric character. The function can be made to
+    overlook certain characters by passing them in $allowedChars
     array::
 
         $badString = ";:<script><html><   // >@@#";
         echo Sanitize::paranoid($badString);
-        // 输出: scripthtml
+        // output: scripthtml
         echo Sanitize::paranoid($badString, array(' ', '@'));
-        // 输出: scripthtml    @@  (译者注:空格和字符被保留了)
+        // output: scripthtml    @@
 
 
 .. meta::
