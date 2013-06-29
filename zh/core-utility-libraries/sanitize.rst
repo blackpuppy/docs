@@ -11,8 +11,7 @@ sanitization against XSS it's generally better to save raw HTML in
 database without modification and sanitize at the time of
 output/display.)
 
-All you need to do is include the Sanitize core library (e.g.
-before the controller class definition)::
+你需要做的只是在controller中引入Sanitize核心库(你可以在定义控制器的语句之前引入)::
 
     App::uses('Sanitize', 'Utility');
     
