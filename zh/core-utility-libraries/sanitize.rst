@@ -1,4 +1,4 @@
-Data Sanitization
+数据清理 Data Sanitization
 #################
 
 .. php:class:: Sanitize
