@@ -20,18 +20,15 @@ output/display.)
         ...
     }
 
-Once you've done that, you can make calls to Sanitize statically.
+一旦引用，就可以调用Sanitize中的静态方法。
 
 .. php:staticmethod:: Sanitize::clean($data, $options)
 
     :param mixed $data: Data to clean.
     :param mixed $options: Options to use when cleaning, see below.
 
-    This function is an industrial-strength, multi-purpose cleaner,
-    meant to be used on entire arrays (like $this->data, for example).
-    The function takes an array (or string) and returns the clean
-    version. The following cleaning operations are performed on each
-    element in the array (recursively):
+    这是一个强有力的，多用途的清理数据的方法，可以处理整个数组(比如：$this->data)方法接收一个字符或字符串，返回经过处理的数据
+    下面的清理选项可以递归作用于数组中的每一个元素：
 
     -  Odd spaces (including 0xCA) are replaced with regular spaces.
     -  Double-checking special chars and removal of carriage returns
@@ -40,9 +37,7 @@ Once you've done that, you can make calls to Sanitize statically.
        above).
     -  Swapping of user-inputted backslashes with trusted backslashes.
 
-    The $options argument can either be a string or an array. When a
-    string is provided it's the database connection name. If an array
-    is provided it will be merged with the following options:
+    $options参数可以是个字符串或数组，若为字符串需要提供数据库的连接名，若为数组，可以用下面的选项：
 
 
     -  connection
@@ -94,19 +89,16 @@ Once you've done that, you can make calls to Sanitize statically.
 
 .. php:staticmethod:: Sanitize::paranoid($string, $allowedChars)
 
-    :param string $string: Data to clean.
-    :param array $allowedChars: An array of non alpha numeric characters allowed.
+    :param string $string: 需要清理的字符串
+    :param array $allowedChars: 数组类型，允许保留的字符，不能包含字母数字。
 
-    This function strips anything out of the target $string that is not
-    a plain-jane alphanumeric character. The function can be made to
-    overlook certain characters by passing them in $allowedChars
-    array::
+    该函数会清除$string中除字母数字的其他所有字符。若传入第二个参数$allowedChars会保留该数组内的字符::
 
         $badString = ";:<script><html><   // >@@#";
         echo Sanitize::paranoid($badString);
-        // output: scripthtml
+        // 输出: scripthtml
         echo Sanitize::paranoid($badString, array(' ', '@'));
-        // output: scripthtml    @@
+        // 输出: scripthtml    @@
 
 
 .. meta::
