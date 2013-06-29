@@ -58,8 +58,8 @@ output/display.)
 
 .. php:staticmethod:: Sanitize::escape($string, $connection)
 
-    :param string $string: Data to clean.
-    :param string $connection: The name of the database to quote the string for, 
+    :param string $string: 需要清理的数据
+    :param string $connection: 带引号的数据库名，来源是你的app/Config/database.php文件。The name of the database to quote the string for, 
         as named in your app/Config/database.php file.
 
     Used to escape SQL statements by adding slashes, depending on the
