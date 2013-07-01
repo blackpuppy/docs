@@ -1,16 +1,16 @@
-命名规范 CakePHP Conventions
+命名约定 CakePHP Conventions
 ###################
 
-我们是命名规则的拥护者。虽然需要花费一点时间来学习CakePHP的命名规则,但是遵循下面的规范，你能在开发上省下大把的时间。
+我们是命名规则的拥护者。虽然需要花费一点时间来学习CakePHP的命名规则,但是遵循下面的约定，你能在开发上省下大把的时间。
 
-CakePHP的命名规则汲取了许多开发者多年的经验和实践。这些规则也很容易被重写，即在修改旧系统时显得更为轻松。
+CakePHP的命名约定汲取了许多开发者多年的经验和实践。这些规则也很容易被重写，即在修改旧系统时显得更为轻松。
 
 
 
-控制器命名规范 Controller Conventions
+控制器命名约定 Controller Conventions
 ======================
 
-控制器的名字必须用复数，驼峰法表示。最后缀上``Controller``。``PeopleController``和``LatestArticlesController``都是符合规范的例子。
+控制器的名字必须用复数，驼峰法表示。最后缀上``Controller``。``PeopleController``和``LatestArticlesController``都是符合约定的例子。
 
 控制器的第一个方法应该是``index()`` 方法。当一个请求指定了控制器但没有指定方法时，CakePHP会默认执行那个控制器的
 ``index()`` 方法。例如, 请求地址http://www.example.com/apples/ 会被映射到``ApplesController``控制器的 ``index()``方法
@@ -38,7 +38,7 @@ http://www.example.com/news/\_findNewArticles/ 会报错,
 有关控制器命名的注意事项
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-正如你所见，控制器名用单个单词命名很容易通过通过他的小写字母来访问。例如``ApplesController`` (对应的文件名为'ApplesController.php')可通过http://example.com/apples访问。
+正如你所见，控制器名用单个单词命名很容易通过他的小写字母来访问。例如``ApplesController`` (对应的文件名为'ApplesController.php')可通过http://example.com/apples访问。
 
 多个单词命名的控制器,可通过以下的变换形式访问,他们都是等价的。
 Multiple word controllers *can* be any 'inflected' form which
@@ -57,7 +57,7 @@ equals the controller name so:
 .. 文件和类名命名规则:
 .. _file-and-classname-conventions:
 
-文件和类名命名规范 File and Classname Conventions
+文件和类名命名约定 File and Classname Conventions
 ==============================
 
 通常，文件名和类名相匹配，使用驼峰命名法。举例来说，如果一个类名**MyNiftyClass**它的文件名会是MyNiftyClass.php。 以下是一些如何为各种类型类名命名的例子，这些例子在CakePHP应用程序中大部分会用到：
@@ -72,10 +72,10 @@ equals the controller name so:
 
 每个文件都会被放置于app目录下适当的子目录中。
 
-模型和数据库命名规范
+模型和数据库命名约定
 ==============================
 
-模型名称是单数驼峰形式。 Person、BigPerson和ReallyBigPerson都是符合命名规范的例子。
+模型名称是单数驼峰形式。 Person、BigPerson和ReallyBigPerson都是符合命名约定的例子。
 
 模型对应的数据表名称是复数且以下划线分隔``people``, ``big_people``, 和 ``really_big_people``,
 各自对应上面的模型。
@@ -119,7 +119,7 @@ also use char(36). Cake will then use a unique 36 character uuid
 (String::uuid) whenever you save a new record using the Model::save
 method.
 
-视图命名规范
+视图命名约定
 ================
 
 视图模版文件的名称以下划线分割的形式命名。例如：在PeopleController 中 getPeady() 方法将调用对应的视图文件 /app/View/People/get_ready.ctp。
@@ -137,7 +137,7 @@ method.
    /app/Controller/PeopleController.php
 -  视图模版, 放在 /app/View/People/index.ctp
 
-使用这些规范，CakPHP就知道http://example.com/people/ 这个请求需要去调用PeopleController中的index()方法, 并自动加载Person模型 (即自动与数据库中的 ‘people’表关联), 并将其渲染到对应的视图文件。若没有配置关联，你可以自行创建。None of these relationships have
+使用这些约定，CakPHP就知道http://example.com/people/ 这个请求需要去调用PeopleController中的index()方法, 并自动加载Person模型 (即自动与数据库中的 ‘people’表关联), 并将其渲染到对应的视图文件。若没有配置关联，你可以自行创建。None of these relationships have
 been configured by any means other than by creating classes and
 files that you’d need to create anyway.
 

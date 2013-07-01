@@ -1,8 +1,7 @@
-CakePHP Folder Structure
+CakePHP 目录结构
 ########################
 
-After you've downloaded and extracted CakePHP, these are the files
-and folders you should see:
+在你下载并且解压缩CakePHP之后，会看到这样一些文件和目录：
 
 -  app
 -  lib
@@ -12,65 +11,41 @@ and folders you should see:
 -  index.php
 -  README
 
-You'll notice three main folders:
+有三个主要的目录：
 
--  The *app* folder will be where you work your magic: it’s where
-   your application’s files will be placed.
--  The *lib* folder is where we’ve worked our magic. Make a
-   personal commitment **not** to edit files in this folder. We can’t
-   help you if you’ve modified the core.
--  Finally, the *vendors* folder is where you’ll place third-party
-   PHP libraries you need to use with your CakePHP applications.
+-  *app* 目录是放置你应用程序的地方。
+-  *lib* 目录是CakePHP的核心类库请不要修改里面的东西。
+-  *vendors* 目录可以放置第三方PHP类库，可以被你的应用程序调用
 
-The App Folder
+App目录
 ==============
 
-CakePHP’s app folder is where you will do most of your application
-development. Let’s look a little closer at the folders inside of
-app.
+CakePHP的app目录是应用开发中最常使用的。让我们来更仔细的看里面有些什么。
 
 Config
-    Holds the (few) configuration files CakePHP uses. Database
-    connection details, bootstrapping, core configuration files and
-    more should be stored here.
+    CakePHP使用的配置文件。数据库连接信息，bootstrapping，核心配置文件。
 Controller
-    Contains your application’s controllers and their components.
+    控制器和组件。
 Lib
-    Contains 1st party libraries that do not come from 3rd parties or
-    external vendors. This allows you to separate your organization's
-    internal libraries from vendor libraries.
+    包含一些不是来自于第三方或外部库。这将你的内部库和外部库中分开。
 Locale
-    Stores string files for internationalization.
+    包含国际化的文件。
 Model
-    Contains your application’s models, behaviors, and datasources.
+    包含应用程序的模型、行为和数据源。
 Plugin
-    Contains plugin packages.
+    包含插件包
 tmp
-    This is where CakePHP stores temporary data. The actual data it
-    stores depends on how you have CakePHP configured, but this folder
-    is usually used to store model descriptions, logs, and sometimes
-    session information.
-
-    Make sure that this folder exists and that it is writable,
-    otherwise the performance of your application will be severely
-    impacted. In debug mode, CakePHP will warn you if it is not the
-    case.
+    这是用来保存CakePHP临时数据的。保存的资料是看你如何设定CakePHP，但这个目录通常用来储存模型描述、log和session信息。
+    请确保此目录存在并且可写，否则 应用程序的性能将受到严重
+    影响，在调试模式，会出现警告。
 
 Vendor
-    Any third-party classes or libraries should be placed here. Doing
-    so makes them easy to access using the App::import('vendor',
-    'name') function. Keen observers will note that this seems
-    redundant, as there is also a vendors folder at the top level of
-    our directory structure. We'll get into the differences between the
-    two when we discuss managing multiple applications and more complex
-    system setups.
+    所有的第三方类或库应该被放置在这个目录。可以简单的用 App::import('vendor',
+    'name') 方法来使用。 细心的同学会注意到和app平级目录下面也有一个vendors目录，当我们讨论到管理多个应用程序和较为复杂的系统配置时，会明白两者之间的差异。
 View
-    Presentational files are placed here: elements, error pages,
-    helpers, layouts, and view files.
+    展示层的文件被放置在此处:元素(elements)、错误页面(error pages)、助手(helpers)、布局(layouts)和视图文件(view files)。
 webroot
-    In a production setup, this folder should serve as the document
-    root for your application. Folders here also serve as holding
-    places for CSS stylesheets, images, and JavaScript files.
+    在开发阶段，此目录是应用程序的根目录，包含CSS,图片和JavaScript 文件。
 
 
 .. meta::
