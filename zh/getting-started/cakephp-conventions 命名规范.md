@@ -7,7 +7,7 @@ CakePHP的命名规则汲取了许多开发者多年的经验和实践。这些�
 
 
 
-控制器规范 Controller Conventions
+控制器命名规范 Controller Conventions
 ======================
 
 控制器的名字必须用复数，驼峰法表示。最后缀上``Controller``。``PeopleController``和``LatestArticlesController``都是符合规范的例子。
@@ -33,60 +33,35 @@ CakePHP的命名规则汲取了许多开发者多年的经验和实践。这些�
 
 用户可以访问http://www.example.com/news/latest/ 页面, 而访问
 http://www.example.com/news/\_findNewArticles/ 会报错,
-因为该方法名前带了下划线，你也可以使用PHP的访问修饰符来表明一个方法可否通过URL地址访问。非Public方法是不能直接访问的。
+因为该方法名前带了下划线，你也可以使用PHP的访问修饰符来表明一个方法可否通过URL地址访问。非Public方法是不能直接访问。
 
 有关控制器命名的注意事项
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-正如你所见，控制器名用单个单词命令很容易通过通过他的小写字母来访问。例如``ApplesController`` (对应的文件名为'ApplesController.php')可通过http://example.com/apples访问。
+正如你所见，控制器名用单个单词命名很容易通过通过他的小写字母来访问。例如``ApplesController`` (对应的文件名为'ApplesController.php')可通过http://example.com/apples访问。
 
 多个单词命名的控制器,可通过以下的变换形式访问,他们都是等价的。
+Multiple word controllers *can* be any 'inflected' form which
+equals the controller name so:
+
 - /redApples
 - /RedApples
 - /Red_apples
 - /red_apples
 
-As you've just seen, single word controllers map easily to a simple
-lower case URL path. For example, ``ApplesController`` (which would
-be defined in the file name 'ApplesController.php') is accessed
-from http://example.com/apples.
-
-Multiple word controllers *can* be any 'inflected' form which
-equals the controller name so:
-
-
--  /redApples
--  /RedApples
--  /Red\_apples
--  /red\_apples
-
 以上都能访问到RedApples控制器的index方法，不管怎样, 按照命名规则的约定，你的url应该由小写字母和下划线组成,因此/red_apples/go_pick可以访问到
 ``RedApplesController::go_pick``。
 
-will all resolve to the index of the RedApples controller. However,
-the convention is that your urls are lowercase and underscored,
-therefore /red\_apples/go\_pick is the correct form to access the
-``RedApplesController::go_pick`` action.
-
 有关CakePHP的URL和参数处理，参见:ref:`路由配置 routes-configuration`
-
-For more information on CakePHP URLs and parameter handling, see
-:ref:`routes-configuration`.
 
 .. 文件和类名命名规则:
 .. _file-and-classname-conventions:
 
-File and Classname Conventions
+文件和类名命名规范 File and Classname Conventions
 ==============================
 
-通常，文件名和类名相匹配，使用驼峰命名法。举例来说，如果一个类名**MyNiftyClass**它的文件名会是MyNiftyClass.php。 以下是一些如何为类命名文件的例子，这些例子在CakePHP应用程序中大部分会用到：
+通常，文件名和类名相匹配，使用驼峰命名法。举例来说，如果一个类名**MyNiftyClass**它的文件名会是MyNiftyClass.php。 以下是一些如何为各种类型类名命名的例子，这些例子在CakePHP应用程序中大部分会用到：
 
-
-In general, filenames match the classnames, which are
-CamelCased. So if you have a class **MyNiftyClass**, then in Cake,
-the file should be named **MyNiftyClass.php**. Below are
-examples of how to name the file for each of the different types of
-classes you would typically use in a CakePHP application:
 -  控制器类 **KissesAndHugsController** 被命名为 **KissesAndHugsController.php** 
 -  组件类 **MyHandyComponent** 被命名为 **MyHandyComponent.php**
 -  模型类 **OptionValue** 被命名为 **OptionValue.php**
@@ -97,38 +72,24 @@ classes you would typically use in a CakePHP application:
 
 每个文件都会被放置于app目录下适当的子目录中。
 
-模型和数据库命名规则
+模型和数据库命名规范
 ==============================
 
-模型名称是单数驼峰形式. Person、BigPerson和ReallyBigPerson都是符合命名规范的例子。
+模型名称是单数驼峰形式。 Person、BigPerson和ReallyBigPerson都是符合命名规范的例子。
 
 模型对应的数据表名称是复数且以下划线分隔``people``, ``big_people``, 和 ``really_big_people``,
 各自对应上面的模型。
 
-你可以使用实用库中的 :php:class:`Inflector`这个类中的方法去检测单词的单复数. 参见
+你可以使用实用库中的 :php:class:`Inflector`这个类中的方法去检测单词的单复数。参见
 :doc:`/core-utility-libraries/inflector`。
 
 字段名由多个单词包含的下划线组成，如first_name。
 
-外键在hasMany、belongsTo或hasOne关系中随着相关模型在之后加上_id是被认可的。所以如果一个糕点师有许多饼乾，饼乾这个数据表透过baker_id外键将参考到糕点师这个数据表。复数单词的数据表名如category_types，她的外键应该为category_type_id。
+hasMany、belongsTo或hasOne关系模型中的外键名称会在相关模型在之后缀上_id。如果一个Baker表有许多Cake，cakes这个数据表会通过baker_id这个外键与bakers表关联。复数单词的数据表名如category_types，她的外键应该为category_type_id。
 
-结合数据表，使用hasAndBelongsToMany (HABTM)关系在模型之间的命名方式必需依照字母先后次序(是apples_zebras而不是zebras_apples)。
+连接多个数据表，使用hasAndBelongsToMany (HABTM)关系模型之间的命名方式必需依照字母先后次序(是apples_zebras而不是zebras_apples)。
 
 所有数据表与CakePHP模型互动(除了join数据表)需要有一个主键使每一列单一识别。如果你希望使用无单一识别主键的数据表，像是你的posts_tags结合数据表，CakePHP的命名规则就是加在数据表名称的单一主键。
-
-CakePHP不支援复合主键。在这情况下你要直接操作你的结合数据表资料，这代表你需要使用直接查询呼叫或是增加主键来使用一般的模型。例如:
-
-Foreign keys in hasMany, belongsTo or hasOne relationships are
-recognized by default as the (singular) name of the related table
-followed by \_id. So if a Baker hasMany Cake, the cakes table will
-refer to the bakers table via a baker\_id foreign key. For a
-multiple worded table like category\_types, the foreign key would
-be category\_type\_id.
-
-Join tables, used in hasAndBelongsToMany (HABTM) relationships
-between models should be named after the model tables they will
-join in alphabetical order (apples\_zebras rather than
-zebras\_apples).
 
 All tables with which CakePHP models interact (with the exception
 of join tables), require a singular primary key to uniquely
@@ -136,6 +97,9 @@ identify each row. If you wish to model a table which does not have
 a single-field primary key, CakePHP's convention is that a
 single-field primary key is added to the table. You have to add a
 single-field primary key if you want to use that table's model.
+
+CakePHP不支持复合主键。在这情况下你要直接操作你的连接数据表数据，你需要使用model中的query方法:ref:`query <model-query>`直接查询或是增加主键作为标准的模型。例如:
+
 
 CakePHP does not support composite primary keys. If you want to
 directly manipulate your join table data, use direct
@@ -155,7 +119,7 @@ also use char(36). Cake will then use a unique 36 character uuid
 (String::uuid) whenever you save a new record using the Model::save
 method.
 
-视图命名规则
+视图命名规范
 ================
 
 视图模版文件的名称以下划线分割的形式命名。例如：在PeopleController 中 getPeady() 方法将调用对应的视图文件 /app/View/People/get_ready.ctp。
