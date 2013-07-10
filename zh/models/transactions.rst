@@ -1,24 +1,20 @@
-Transactions
+事务处理
 ############
 
-To perform a transaction, a model's tables must be of a type that
-supports transactions.
 
-All transaction methods must be performed on a model's DataSource
-object. To get a model's DataSource from within the model, use:
+要执行事务，模型所对应的表必须支持事务。
 
-::
+所有的事务处理方法必须通过模型的数据源对象来执行。在模型中获得模型的数据源的方式如下::
 
     $dataSource = $this->getDataSource();
 
-You can then use the data source to start, commit, or roll back
-transactions.
+接着你可以使用数据源来开始、提交或者回滚事务。
 
 ::
 
     $dataSource->begin();
 
-    // Perform some tasks
+    // 执行一些任务
 
     if (/*all's well*/) {
         $dataSource->commit();
@@ -26,35 +22,32 @@ transactions.
         $dataSource->rollback();
     }
 
-Nested Transactions
+嵌套事务 Nested Transactions
 -------------------
 
-It is possible to start a transaction several times using the
-:php:meth:`Datasource::begin()` method. The transaction will finish only when
-the number of `commit` and `rollback` match with begin's.
-
-::
+可以多次使用`Datasource::begin()`方法来开始事务。只有当提交事务或回滚事务的次数与开始事务的次数一致时，事务才会结束::
 
     $dataSource->begin();
-    // Perform some tasks
+    // 执行一些任务
     $dataSource->begin();
-    // More few tasks
-    if (/*latest task ok*/) {
+    // 再执行几个任务
+    if (/*最新的任务执行成功*/) {
         $dataSource->commit();
     } else {
         $dataSource->rollback();
-        // Change something in main task
+        // 在主任务中改变一些东西
     }
     $dataSource->commit();
 
-This will perform the real nested transaction if your database supports it and
-it is enabled in the datasource. The methods will always return true when in
-transaction mode and the nested is not supported or disabled.
+如果数据库支持嵌套事务并且在数据源中开启，嵌套事务会被执行。如果不支持嵌套事务或者没有开启，方法将会总是返回true。
+
+如果你想多次开始事务但不使用嵌套事务，用``$dataSource->useNestedTransactions = false;``来关闭嵌套事务。这将会使用全局事务。
 
 If you want to use multiple begin's but not use the nested transaction from database,
 disable it using ``$dataSource->useNestedTransactions = false;``. It will use only
 the global transaction.
 
+嵌套事务默认设为false。使用``$dataSource->useNestedTransactions = true;``来开启它。
 The real nested transaction is disabled by default. Enable it using
 ``$dataSource->useNestedTransactions = true;``.
 
