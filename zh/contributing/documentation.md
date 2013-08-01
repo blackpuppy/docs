@@ -2,9 +2,9 @@
 ####
 
 给文档做贡献是很简单的。这些文件都托管在http://github.com/cakephp/docs。
-请随意创建分支(fork，易和branch混淆，要找个不同的词)，加入你的
-更改/改进/翻译，然后发出拉取请求来提交你的改动。你甚至可以在github上
-在线地编辑文档，而完全不用下载文件。
+请随意创建分支(fork，易和branch混淆，要找个不同的词)，加入你的更改/改进/翻译，
+然后发出拉取请求来提交你的改动。你甚至可以在github上在线地编辑文档，
+而完全不用下载文件。
 
 翻译
 ====
@@ -15,8 +15,8 @@
 关于翻译的一些忠告:
 
 - 用要翻译的语言来进行浏览、编辑 - 否则你将无法看到哪些已经翻译了。
-- 如果你选择的语言在本书中已经存在，请随意加入。
-- 请使用`非正式形式 <http://en.wikipedia.org/wiki/Register_(linguistics)>`_。
+- 如果你选择的语言在本书中已经存在，请自由加入。
+- 请使用`Informal Form <http://en.wikipedia.org/wiki/Register_(linguistics)>`_。
 - 请将内容和标题一起翻译。
 - 在提交一个更正之前，请先和英文版本的内容进行比较(如果你改正了一些东西，却
   没有整合“上游”的改动，你提交的东西将不会被接受)。
@@ -25,7 +25,7 @@
 - 请不要提交不完整的翻译。
 - 请不要编辑正在改动的部分。
 - 对于标以重音符号的字符，请不要使用
-  `html实体 <http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>`_，
+  `html entities <http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>`_来表示，
   本书使用UTF-8。
 - 请不要显着改变的标记(HTML)或增加新的内容。
 - 如果原始的内容遗漏了某些内容，请先提交修改。
@@ -64,292 +64,274 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 内嵌标记
 --------
 
-* one asterisk: *text* for emphasis (italics),
-* two asterisks: **text** for strong emphasis (boldface), and
-* backquotes: ``text`` for code samples.
+* 一个星号：*文字*为强调(斜体),
+* 两个星号：**文字**为高度强调(粗体)，
+* 反引号：``文字``为代码样本。
 
-If asterisks or backquotes appear in running text and could be confused with inline markup
-delimiters, they have to be escaped with a backslash.
+如果星号或反引号出现在文字中，并易与内嵌标记分隔符混淆，他们必须用一个反斜杠转义。
 
-Inline markup has a few restrictions:
+内嵌标记有一些限制:
 
-* It **may not** be nested.
-* Content may not start or end with whitespace: ``* text*`` is wrong.
-* Content must be separated from surrounding text by non-word characters. Use a
-  backslash escaped space to work around that: ``onelong\ *bolded*\ word``.
+* **不可以**嵌套。
+* 内容不可以以空格开始或结束：``*文本* ``是错误的。
+* 内容必须与周围的文字由非单词字符分隔。可使用反斜杠转义的空格来解决：`` onelong\ *粗体*\ 字``。
 
-Lists
------
+列表
+----
 
-List markup is very similar to markdown.  Unordered lists are indicated by
-starting a line with a single asterisk and a space.  Numbered lists can be
-created with either numerals, or ``#`` for auto numbering::
+列表与markdown非常相似。无序列表以一个星号和一个空格开始。有序列表可以
+数字开始，或以``#``进行自动编号::
 
-    * This is a bullet
-    * So is this.  But this line
-      has two lines.
+    * 这是一点
+    * 这也是。但这一点
+      有两行。
 
-    1. First line
-    2. Second line
+    1. 第一行
+    2. 第二行
 
-    #. Automatic numbering
-    #. Will save you some time.
+    #. 自动编号
+    #. 可以为你节省时间。
 
-Indented lists can also be created, by indenting sections and separating them
-with an empty line::
+也可以创建缩进列表，只需缩进缩进列表那部分，并用一个空行分隔::
 
-    * First line
-    * Second line
+    * 第一行
+    * 第二行
 
-        * Going deeper
-        * Whoah
+        * 缩进
+        * 哇
 
-    * Back to the first level.
+    * 回到第一层。
 
-Definition lists can be created by doing the following::
+定义列表(Definition lists)，可以通过以下方式创建::
 
-    term
-        definition
+    术语
+        定义
     CakePHP
-        An MVC framework for PHP
+        一个基于PHP的MVC框架
 
-Terms cannot be more than one line, but definitions can be multi-line and all
-lines should be indented consistently.
+术语不可超过一行，但定义可以有多行并且所有行应当有同样的缩进。
 
-Links
------
+链接
+----
 
-There are several kinds of links, each with their own uses.
+有几种类型的链接，每个都有自己的用途。
 
-External links
+外部链接
+~~~~~~~~
+
+链接到外部文件如下::
+
+    `外部链接 <http://example.com>`_
+
+上面会产生一个指向http://example.com的链接。
+
+链接到其他页面
 ~~~~~~~~~~~~~~
-
-Links to external documents can be with the following::
-
-    `External Link <http://example.com>`_
-
-The above would generate a link pointing to http://example.com
-
-Links to other pages
-~~~~~~~~~~~~~~~~~~~~
 
 .. rst:role:: doc
 
-    Other pages in the documentation can be linked to using the ``:doc:`` role.
-    You can link to the specified document using either an absolute or relative
-    path reference.  You should omit the ``.rst`` extension.  For example, if
-    the reference ``:doc:`form``` appears in the document ``core-helpers/html``,
-    then the link references ``core-helpers/form``.  If the reference was
-    ``:doc:`/core-helpers```, it would always reference ``/core-helpers``
-    regardless of where it was used.
+    指向文档中其他网页的链接可以使用``:doc:`` role。你可以使用绝对路径或者相对路径，
+    来链接到指定的文件中。请省略``.rst``扩展名。例如，如果链接``:doc:`form```
+    出现在文档`` core-helpers/html``中，则该链接指向``core-helpers/form``。
+    如果链接是``:doc:`/core-helpers```，那么不论它用在那里，总是会指向
+    ``/core-helpers``。
 
-Cross referencing links
-~~~~~~~~~~~~~~~~~~~~~~~
+交叉引用链接
+~~~~~~~~~~~~
 
 .. rst:role:: ref
 
-    You can cross reference any arbitrary title in any document using the
-    ``:ref:`` role.  Link label targets must be unique across the entire
-    documentation.  When creating labels for class methods, it's best to use
-    ``class-method`` as the format for your link label.
+    你可以使用``:ref:`` role交叉引用在任何文件中的任何标题。链接标签指向
+    的目标在整个文档必须是唯一的。当为类的方法创建标签时，最好使用
+    ``class-method``作为您的链接标签的格式。
 
-    The most common use of labels is above a title.  Example::
+    标签最常见的用途是在标题之前。例如::
 
-        .. _label-name:
+        .. 标签名称:
 
-        Section heading
-        ---------------
+        小节标题
+        --------
 
-        More content here.
+        更多内容在这里。
 
-    Elsewhere you could reference the above section using ``:ref:`label-name```.
-    The link's text would be the title that the link preceded.  You can also
-    provide custom link text using ``:ref:`Link text <label-name>```.
+    在其他地方你可以用``:ref:`标签名称```引用上面的小节。链接的文字
+    可以是标签之后的标题。你也可以使用``:ref:`链接文字 <标签名称>```
+    的方式来提供自定义的链接文字。
 
-Describing classes and their contents
--------------------------------------
+描述类和它们的内容
+------------------
 
-The CakePHP documentation uses the `phpdomain
-<http://pypi.python.org/pypi/sphinxcontrib-phpdomain>`_ to provide custom
-directives for describing PHP objects and constructs.  Using these directives
-and roles is required to give proper indexing and cross referencing features.
+CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdomain>`_
+提供自定义指令描述PHP对象和结构。我们必须使用这些指令
+和角色，才能保证正确的索引和交叉引用。
 
-Describing classes and constructs
----------------------------------
+描述类及其组成
+--------------
 
-Each directive populates the index, and or the namespace index.
+每个指令生成索引，或命名空间索引。
 
 .. rst:directive:: .. php:global:: name
 
-   This directive declares a new PHP global variable.
+   这个指令声明一个新的PHP全局变量。
 
 .. rst:directive:: .. php:function:: name(signature)
 
-   Defines a new global function outside of a class.
+   定义一个新的处于类之外的变量函数。
 
 .. rst:directive:: .. php:const:: name
 
-   This directive declares a new PHP constant, you can also use it nested
-   inside a class directive to create class constants.
+   这个指令声明一个新的PHP常量，也可以在一个类的指令之内使用它来创建类的常量。
 
 .. rst:directive:: .. php:exception:: name
 
-   This directive declares a new Exception in the current namespace. The
-   signature can include constructor arguments.
+   这个指令在当前命名空间内声明一个新的PHP异常。其签名可以包括构造函数的参数。
 
 .. rst:directive:: .. php:class:: name
 
-   Describes a class.  Methods, attributes, and constants belonging to the class
-   should be inside this directive's body::
+   描述了一个类。属于该类的方法，属性和常数应该处于这个指令之内::
 
         .. php:class:: MyClass
 
-            Class description
+            类的说明
 
            .. php:method:: method($argument)
 
-           Method description
+           方法的说明
 
 
+   属性，方法和常量不需要嵌套。他们可以直接位于类的声明之后::
    Attributes, methods and constants don't need to be nested.  They can also just
    follow the class declaration::
 
         .. php:class:: MyClass
 
-            Text about the class
+            关于类的文字
 
         .. php:method:: methodName()
 
-            Text about the method
+            关于方法的文字
 
 
    .. seealso:: :rst:dir:`php:method`, :rst:dir:`php:attr`, :rst:dir:`php:const`
 
 .. rst:directive:: .. php:method:: name(signature)
 
-   Describe a class method, its arguments, return value, and exceptions::
+   描述一个类的方法，其参数、返回值以及异常::
 
         .. php:method:: instanceMethod($one, $two)
 
-            :param string $one: The first parameter.
-            :param string $two: The second parameter.
-            :returns: An array of stuff.
+            :param string $one: 第一个参数.
+            :param string $two: 第二个参数.
+            :returns: 一个数组。
             :throws: InvalidArgumentException
 
-           This is an instance method.
+           这是一个实例方法。
 
 .. rst:directive:: .. php:staticmethod:: ClassName::methodName(signature)
 
-    Describe a static method, its arguments, return value and exceptions,
-    see :rst:dir:`php:method` for options.
+    描述了一个静态方法，其参数、返回值以及异常，说明可参考:rst:dir:`php:method`。
 
 .. rst:directive:: .. php:attr:: name
 
-   Describe an property/attribute on a class.
+   描述一个类的属性。
 
-Cross Referencing
-~~~~~~~~~~~~~~~~~
+交叉引用
+~~~~~~~~
 
-The following roles refer to php objects and links are generated if a
-matching directive is found:
+以下(角色很别扭，干脆省略好不好？)指向PHP对象，如果有匹配的指令，就会生成链接：
 
 .. rst:role:: php:func
 
-   Reference a PHP function.
+   指向一个PHP函数。
 
 .. rst:role:: php:global
 
-   Reference a global variable whose name has ``$`` prefix.
+   指向一个全局变量，其名称以“$”开始。
 
 .. rst:role:: php:const
 
-   Reference either a global constant, or a class constant.  Class constants should
-   be preceded by the owning class::
+   指向一个全局常量、或类的常量。类的常量应当以所属类为前缀。
 
-        DateTime has an :php:const:`DateTime::ATOM` constant.
+        DateTime有一个:php:const:`DateTime::ATOM`常量。
 
 .. rst:role:: php:class
 
-   Reference a class by name::
+   指向一个类的名称::
 
      :php:class:`ClassName`
 
 .. rst:role:: php:meth
 
-   Reference a method of a class. This role supports both kinds of methods::
+   指向一个类的方法，支持两种方法::
 
      :php:meth:`DateTime::setDate`
-     :php:meth:`Classname::staticMethod`
+     :php:meth:`类名::静态方法`
 
 .. rst:role:: php:attr
 
-   Reference a property on an object::
+   指向一个对象的属性::
 
       :php:attr:`ClassName::$propertyName`
 
 .. rst:role:: php:exc
 
-   Reference an exception.
+   指向一个异常。
 
 
-Source code
------------
+源代码
+------
 
-Literal code blocks are created by ending a paragraph with ``::``. The literal
-block must be indented, and like all paragraphs be separated by single lines::
+一个段落以``::``结束，就可以创建代码块。该段落必须缩进，且象所有段落一样，
+须以单个空行分隔::
 
-    This is a paragraph::
+    这是一个段落::
 
         while ($i--) {
             doStuff()
         }
 
-    This is regular text again.
+    这又是正常的文字了。
 
-Literal text is not modified or formatted, save that one level of indentation is removed.
+代码的文字不会被改动或格式化，除非缩进的级别被去掉了。
 
 
-Notes and warnings
-------------------
+注释和警告
+----------
 
-There are often times when you want to inform the reader of an important tip,
-special note or a potential hazard. Admonitions in sphinx are used for just
-that.  There are three kinds of admonitions.
+有很多时候，你会想告诉读者一个重要的提示、特别的说明或者可能的危险。
+sphinx中的告诫(这个词似乎略微严厉了一些)正是为了这个目的。有三种类型的告诫。
 
-* ``.. tip::`` Tips are used to document or re-iterate interesting or important
-  information. The content of the directive should be written in complete
-  sentences and include all appropriate punctuation.
-* ``.. note::`` Notes are used to document an especially important piece of
-  information. The content of the directive should be written in complete
-  sentences and include all appropriate punctuation.
-* ``.. warning::`` Warnings are used to document potential stumbling blocks, or
-  information pertaining to security.  The content of the directive should be
-  written in complete sentences and include all appropriate punctuation.
+* ``.. tip::`` 提示用于说明或重申有趣或者重要的信息。应当使用完整的句子
+  以及任何适当的标点符号。
+* ``.. note::`` 注释是用来说明特别重要的信息。应当使用完整的句子
+  以及任何适当的标点符号。
+* ``.. warning::`` 警告用于描述潜在的障碍，或与安全有关的信息。
+  应当使用完整的句子以及任何适当的标点符号。
 
-All admonitions are made the same::
+所有告诫都是相同的::
 
     .. note::
 
-        Indented and preceded and followed by a blank line. Just like a paragraph.
+        缩进，并且前后都应留有一个空行，就象普通段落一样。
 
-    This text is not part of the note.
+    此文字不是注释的一部分。
 
-Samples
-~~~~~~~
+示例
+~~~~
 
 .. tip::
 
-    This is a helpful tid-bit you probably forgot.
+    这是一条有用的信息，你可能忘记了。
 
 .. note::
 
-    You should pay attention here.
+    你应当注意这里。
 
 .. warning::
 
-    It could be dangerous.
+    它可能有危险。
 
 
 .. meta::
-    :title lang=en: Documentation
+    :title lang=zh: Documentation
     :keywords lang=en: partial translations,translation efforts,html entities,text markup,asfd,asdf,structured text,english content,markdown,formatted text,dot org,repo,consistency,translator,freenode,textile,improvements,syntax,cakephp,submission
