@@ -154,14 +154,14 @@ set to a value greater than 0.
 .. php:staticmethod:: Debugger::excerpt($file, $line, $context)
 
 
-    从指定的绝对路径的文件中抓取片段，并高亮指定的行号$line和他周围$context 行的内容。
+    获得$path(绝对路径)所指向的文件的摘要，并高亮凸显位于第$line行前后$context行的内容。
     Grab an excerpt from the file at $path (which is an absolute
     filepath), highlights line number $line with $context number of
     lines around it.::
 
         pr(Debugger::excerpt(ROOT . DS . LIBS . 'debugger.php', 321, 2));
         
-        //will output the following.
+        //因为$context参数为2，会返回debugger.php文件中第219-323行之间的内容
         Array
         (
             [0] => <code><span style="color: #000000"> * @access public</span></code>
