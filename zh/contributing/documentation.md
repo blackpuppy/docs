@@ -2,9 +2,8 @@
 ####
 
 给文档做贡献是很简单的。这些文件都托管在http://github.com/cakephp/docs。
-请随意创建分支(fork，易和branch混淆，要找个不同的词)，加入你的更改/改进/翻译，
-然后发出拉取请求来提交你的改动。你甚至可以在github上在线地编辑文档，
-而完全不用下载文件。
+请随意复制代码库，加入你的更改/改进/翻译，然后发出拉取请求来提交你的改动。
+你甚至可以在github上在线地编辑文档，而完全不用下载文件。
 
 翻译
 ====
@@ -15,11 +14,11 @@
 关于翻译的一些忠告:
 
 - 用要翻译的语言来进行浏览、编辑 - 否则你将无法看到哪些已经翻译了。
-- 如果你选择的语言在本书中已经存在，请自由加入。
+- 如果你选择的语言在本书中已经存在，请随意加入。
 - 请使用`Informal Form <http://en.wikipedia.org/wiki/Register_(linguistics)>`_。
 - 请将内容和标题一起翻译。
-- 在提交一个更正之前，请先和英文版本的内容进行比较(如果你改正了一些东西，却
-  没有整合“上游”的改动，你提交的东西将不会被接受)。
+- 在提交一个更正之前，请先和英文版本的内容进行比较(如果你改正了一些东西，
+  却没有整合“上游”的改动，你提交的东西将不会被接受)。
 - 如果你要写一个术语，请把它放在``<em>``标签之内。比如，"asdf asdf *Controller* asdf"
   或者"asdf asdf Kontroller (*Controller*) asfd"，请适为选用。
 - 请不要提交不完整的翻译。
@@ -27,16 +26,16 @@
 - 对于标以重音符号的字符，请不要使用
   `html entities <http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>`_来表示，
   本书使用UTF-8。
-- 请不要显着改变的标记(HTML)或增加新的内容。
-- 如果原始的内容遗漏了某些内容，请先提交修改。
+- 请不要显著改变标记(HTML)或增加新的内容。
+- 如果原始的内容遗漏了某些信息，请先提交(对原始内容的)更正。
 
 文档格式指南
 ============
 
 这份新的CakePHP文档是以`ReST formatted text <http://en.wikipedia.org/wiki/ReStructuredText>`_格式写的。
 ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语法。
-在为CakePHP的文档做出贡献时，为了保持一致性，建议你遵循下面的准则，来你格式化和
-组织你的文字。
+在为CakePHP的文档做出贡献时，为了保持一致性，建议你遵循下面的准则，
+来你格式化和组织你的文字。
 
 每行的长度
 ----------
@@ -68,13 +67,13 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 * 两个星号：**文字**为高度强调(粗体)，
 * 反引号：``文字``为代码样本。
 
-如果星号或反引号出现在文字中，并易与内嵌标记分隔符混淆，他们必须用一个反斜杠转义。
+如果星号或反引号出现在文字中，并易与内嵌标记分隔符混淆，则必须用一个反斜杠转义。
 
 内嵌标记有一些限制:
 
 * **不可以**嵌套。
-* 内容不可以以空格开始或结束：``*文本* ``是错误的。
-* 内容必须与周围的文字由非单词字符分隔。可使用反斜杠转义的空格来解决：`` onelong\ *粗体*\ 字``。
+* 内容不可以以空格开始或结束: ``* 文本*``是错误的。
+* 内容必须与周围的文字由非文字字符分隔，这可以使用反斜杠转义的空格来解决：``一个长的\ *粗体*\ 词汇``。
 
 列表
 ----
@@ -130,9 +129,9 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 
 .. rst:role:: doc
 
-    指向文档中其他网页的链接可以使用``:doc:`` role。你可以使用绝对路径或者相对路径，
+    指向文档中其他网页的链接可以使用``:doc:``角色。你可以使用绝对路径或者相对路径，
     来链接到指定的文件中。请省略``.rst``扩展名。例如，如果链接``:doc:`form```
-    出现在文档`` core-helpers/html``中，则该链接指向``core-helpers/form``。
+    出现在文档``core-helpers/html``中，则该链接指向``core-helpers/form``。
     如果链接是``:doc:`/core-helpers```，那么不论它用在那里，总是会指向
     ``/core-helpers``。
 
@@ -141,7 +140,7 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 
 .. rst:role:: ref
 
-    你可以使用``:ref:`` role交叉引用在任何文件中的任何标题。链接标签指向
+    你可以使用``:ref:``角色交叉引用在任何文件中的任何标题。链接标签指向
     的目标在整个文档必须是唯一的。当为类的方法创建标签时，最好使用
     ``class-method``作为您的链接标签的格式。
 
@@ -162,8 +161,7 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 ------------------
 
 CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdomain>`_
-提供自定义指令描述PHP对象和结构。我们必须使用这些指令
-和角色，才能保证正确的索引和交叉引用。
+提供自定义指令描述PHP对象和结构。我们必须使用这些指令和角色，才能保证正确的索引和交叉引用。
 
 描述类及其组成
 --------------
@@ -176,7 +174,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:directive:: .. php:function:: name(signature)
 
-   定义一个新的处于类之外的变量函数。
+   定义一个新的处于类之外的函数。
 
 .. rst:directive:: .. php:const:: name
 
@@ -188,7 +186,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:directive:: .. php:class:: name
 
-   描述了一个类。属于该类的方法，属性和常数应该处于这个指令之内::
+   描述了一个类。属于该类的方法、属性和常数应该处于这个指令之内::
 
         .. php:class:: MyClass
 
@@ -200,8 +198,6 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 
    属性，方法和常量不需要嵌套。他们可以直接位于类的声明之后::
-   Attributes, methods and constants don't need to be nested.  They can also just
-   follow the class declaration::
 
         .. php:class:: MyClass
 
@@ -229,7 +225,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:directive:: .. php:staticmethod:: ClassName::methodName(signature)
 
-    描述了一个静态方法，其参数、返回值以及异常，说明可参考:rst:dir:`php:method`。
+    描述了一个静态方法，其参数、返回值以及异常，选项可参看:rst:dir:`php:method`。
 
 .. rst:directive:: .. php:attr:: name
 
@@ -238,7 +234,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 交叉引用
 ~~~~~~~~
 
-以下(角色很别扭，干脆省略好不好？)指向PHP对象，如果有匹配的指令，就会生成链接：
+以下角色指向PHP对象，如果有匹配的指令，就会生成链接：
 
 .. rst:role:: php:func
 
@@ -246,7 +242,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:role:: php:global
 
-   指向一个全局变量，其名称以“$”开始。
+   指向一个名称以“$”开始的全局变量。
 
 .. rst:role:: php:const
 
@@ -256,13 +252,13 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:role:: php:class
 
-   指向一个类的名称::
+   指向一个以名称标识的类::
 
      :php:class:`ClassName`
 
 .. rst:role:: php:meth
 
-   指向一个类的方法，支持两种方法::
+   指向一个类的方法，该角色支持两种方法::
 
      :php:meth:`DateTime::setDate`
      :php:meth:`类名::静态方法`
@@ -292,14 +288,14 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
     这又是正常的文字了。
 
-代码的文字不会被改动或格式化，除非缩进的级别被去掉了。
+代码的文字不会被改动或格式化，除非缩进的级别被取消。
 
 
 注释和警告
 ----------
 
 有很多时候，你会想告诉读者一个重要的提示、特别的说明或者可能的危险。
-sphinx中的告诫(这个词似乎略微严厉了一些)正是为了这个目的。有三种类型的告诫。
+sphinx中的告诫正是为了这个目的。有三种类型的告诫。
 
 * ``.. tip::`` 提示用于说明或重申有趣或者重要的信息。应当使用完整的句子
   以及任何适当的标点符号。
