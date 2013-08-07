@@ -1,23 +1,19 @@
-Error Handling
+错误处理 Error Handling
 ##############
 
-For 2.0 ``Object::cakeError()`` has been removed. Instead it has been replaced with
-a number of exceptions.  All of the core classes that previously called cakeError
-are now throwing exceptions.  This lets you either choose to handle the errors
-in your application code, or let the built in exception handling deal with them.
+2.0中``Object::cakeError()``已经被移除。被很多异常方法替代。
+所有的核心类，以前被称作cakeError，现在会抛出异常。这使得你要么选择在应用程序代码中处理错误
+或者在内建的异常处理处理它们。
 
-There is more control than ever for error and exception handling in CakePHP 2.0.
-You can configure which methods you want to set as the default error handler,
-and exception handler using configure.
+在CakePHP 2.0中关于错误和异常处理有更多的控制。您可以配置用哪些方法设置为默认的错误处理程序,
+和异常处理程序。
 
-Error configuration
+
+错误配置 Error configuration
 ===================
 
-Error configuration is done inside your application's ``app/Config/core.php``
-file.  You can define a callback to be fired each time your application triggers
-any PHP error - exceptions are handled :doc:`/development/exceptions` separately.
-The callback can be any PHP callable, including an anonymous function.  The 
-default error handling configuration looks like::
+错误配置是在项目程序的``app/Config/core.php``文件中，可以定义一个回调函数当每次程序遇到错误被触发。
+异常配置部分见:doc:`/development/exceptions`，回调函数可以是个匿名函数。默认的错误处理配置可以是这样::
 
     Configure::write('Error', array(
         'handler' => 'ErrorHandler::handleError',
@@ -25,7 +21,7 @@ default error handling configuration looks like::
         'trace' => true
     ));
 
-You have 5 built-in options when configuring error handlers:
+有5个内置的选项来配置错误处理:
 
 * ``handler`` - callback - The callback to handle errors. You can set this to any
   callable type, including anonymous functions.

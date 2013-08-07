@@ -1,13 +1,11 @@
-Additional Methods and Properties
+额外的方法和属性
 #################################
 
-While CakePHP’s model functions should get you where you need to
-go, don’t forget that model classes are just that: classes that
-allow you to write your own methods or define your own properties.
+虽然CakePHP的模型函数应该在你需要的地方才用到，但不要忘了他的本质: 类
+你可以在模型中定义自己的方法和属性。 
 
-Any operation that handles the saving and fetching of data is best
-housed in your model classes. This concept is often referred to as
-the fat model.
+处理任何保存或获取数据的操作最好都写在模型中。这个概念通常被称为fat model。
+
 
 ::
 
@@ -20,7 +18,7 @@ the fat model.
         }
     }
 
-This ``getRecent()`` method can now be used within the controller.
+这个``getRecent()``方法现在可以被运用在控制器中。
 
 ::
 
@@ -29,16 +27,63 @@ This ``getRecent()`` method can now be used within the controller.
 :php:meth:`Model::associations()`
 =================================
 
-Get associations::
+获得关联信息::
 
     $result = $this->Example->associations();
-    // $result equals array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany')
+    // $result 等于 array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany')
 
 :php:meth:`Model::buildQuery(string $type = 'first', array $query = array())`
+
 =============================================================================
 
+通过给定的数据生成查询语句的数组。
 Builds the query array that is used by the data source to generate the query to
 fetch the data.
+
+译者注：
+    $this->Post->buildQuery();
+返回结果：
+    Array
+    (
+        [conditions] => 
+        [fields] => 
+        [joins] => Array
+            (
+            )
+
+        [limit] => 1
+        [offset] => 
+        [order] => Array
+            (
+                [0] => 
+            )
+
+        [page] => 1
+        [group] => 
+        [callbacks] => 1
+    )
+当传入参数    
+    $this->Post->buildQuery('all',array('page'=>'5','limit'=>7));    
+返回结果：
+    Array
+    (
+        [conditions] => 
+        [fields] => 
+        [joins] => Array
+            (
+            )
+
+        [limit] => 7
+        [offset] => 28
+        [order] => Array
+            (
+                [0] => 
+            )
+
+        [page] => 5
+        [group] => 
+        [callbacks] => 1
+    )
 
 :php:meth:`Model::deconstruct(string $field, mixed $data)`
 ==========================================================
@@ -48,12 +93,14 @@ Deconstructs a complex data type (array or object) into a single field value.
 :php:meth:`Model::escapeField(string $field = null, string $alias = null)`
 ==========================================================================
 
+转义列名并前缀上模型名，转义是按照当前数据库驱动的规则
 Escapes the field name and prepends the model name. Escaping is done according
 to the current database driver's rules.
 
 :php:meth:`Model::exists($id)`
 ==============================
 
+如果存在特定ID记录，返回true。
 Returns true if a record with the particular ID exists.
 
 If ID is not provided it calls :php:meth:`Model::getID()` to obtain the current record ID to verify, and
@@ -76,37 +123,39 @@ ascertain the existence of the record in persistent storage.
 :php:meth:`Model::getAffectedRows()`
 ====================================
 
+返回上次查询的影响行的数量
 Returns the number of rows affected by the last query.
 
 :php:meth:`Model::getAssociated(string $type = null)`
 =====================================================
 
+获取关联此模型的所有模型。
 Gets all the models with which this model is associated.
 
 :php:meth:`Model::getColumnType(string $column)`
 ================================================
 
-Returns the column type of a column in the model.
+返回模型中指定列的列类型。
 
 :php:meth:`Model::getColumnTypes()`
 ===================================
 
-Returns an associative array of field names and column types.
+返回模型中所有的列名和列类型的关联数组。
 
 :php:meth:`Model::getID(integer $list = 0)`
 ===========================================
 
-Returns the current record's ID.
+返回当前记录的ID.
 
 :php:meth:`Model::getInsertID()`
 ================================
 
-Returns the ID of the last record this model inserted.
+返回上一条插入记录的ID.
 
 :php:meth:`Model::getLastInsertID()`
 ====================================
 
-Alias to ``getInsertID()``.
+``getInsertID()``的别名.
 
 .. meta::
     :title lang=en: Additional Methods and Properties

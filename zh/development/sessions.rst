@@ -1,26 +1,25 @@
 Sessions
 ########
 
-CakePHP provides a wrapper and suite of utility features on top of PHP's native
-``session`` extension.  Sessions allow you to identify unique users across the
-requests and store persistent data for specific users. Unlike Cookies, session
-data is not available on the client side.  Usage of the ``$_SESSION`` is generally
-avoided in CakePHP, and instead usage of the Session classes is preferred.
+CakePHP将PHP中的``session``进行了封装处理。Session可以认证用户权限还可以为特定用户持续存储一些数据。
+跟Cookies不同，session在客户端不可用。通常在CakePHP中请避免使用``$_SESSION``，最好使用Session类中提供的方法。
 
 
-Session Configuration
+Session配置
 =====================
 
-Session configuration is stored in ``Configure``, and the session classes will
-retrieve it from there as needed. Session configuration is stored under the top
-level ``Session`` key, and a number of options are available:
+Session配置存储在``Configure``, session类获取这些配置。Session配置存储在以``Session``为键名的顶级命名中，
+有很多可用的选项:
 
-* ``Session.cookie`` - Change the name of the session cookie.
+* ``Session.cookie`` - 改变session cookie的名字。Change the name of the session cookie.
 
-* ``Session.timeout`` - The number of *minutes* before CakePHP's session handler expires the session.
-  This affects ``Session.autoRegenerate`` (below), and is handled by CakeSession.
+* ``Session.timeout`` - 数字代表*分钟*，即session的有效分钟数。会影响到下面的``Session.autoRegenerate``，它是
+由CakeSession处理的。
 
-* ``Session.cookieTimeout`` - The number of *minutes* before the session cookie expires.
+* ``Session.cookieTimeout`` - 数字代表*分钟*，在session cookie，如果被定义，会使用和``Session.timeout``同样的值。
+这会影响到session cookie，它是PHP自己处理的。
+
+The number of *minutes* before the session cookie expires.
   If this is undefined, it will use the same value as ``Session.timeout``.
   This affects the session cookie, and is handled by PHP itself.
 
@@ -60,6 +59,9 @@ disable this::
         )
     ));
 
+在2.0中，Session cookie存放路径默认是``/``，可以使用``session.cookie_path``
+ini标识项目程序中的目录。
+
 Session cookie paths default to ``/`` in 2.0, to change this you can use the
 ``session.cookie_path`` ini flag to the directory path of your application::
 
@@ -70,18 +72,20 @@ Session cookie paths default to ``/`` in 2.0, to change this you can use the
         )
     ));
 
-Built-in Session handlers & configuration
+内置Session处理&配置 Built-in Session handlers & configuration
 =========================================
 
-CakePHP comes with several built in session configurations.  You can either use
-these as the basis for your session configuration, or you can create a fully
-custom solution.  To use defaults, simply set the 'defaults' key to the name of
+CakePHP提供几个内置的session配置。你可以当作基本配置也可以自己创建一个解决方案。
+
+To use defaults, simply set the 'defaults' key to the name of
 the default you want to use.  You can then override any sub setting by declaring
 it in your Session config::
 
     Configure::write('Session', array(
         'defaults' => 'php'
     ));
+
+上面使用内置的'php'的session配置，可以添加额外信息。
 
 The above will use the built-in 'php' session configuration.  You could augment
 part or all of it by doing the following::
@@ -92,6 +96,8 @@ part or all of it by doing the following::
         'cookie' => 'my_app',
         'timeout' => 4320 //3 days
     ));
+
+上面的操作会覆盖timeout和cookie名用于'php'的session配置，内置的配置如下:
 
 The above overrides the timeout and cookie name for the 'php' session
 configuration.  The built-in configurations are:
