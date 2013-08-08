@@ -1,35 +1,32 @@
-Coding Standards
-################
+编码规范
+########
 
-Cake Developers will use the following coding standards.
+Cake开发人员将使用下面的编码规范。
 
-It is recommended that others developing CakeIngredients follow the same
-standards.
+我们建议其他开发Cake组成部分的人员也应当遵循同样的规范。
 
-You can use the `CakePHP Code Sniffer
-<https://github.com/cakephp/cakephp-codesniffer>`_ to check that your code
-follows required standards.
+你可以使用`CakePHP Code Sniffer <https://github.com/cakephp/cakephp-codesniffer>`_来
+检查你的代码是否遵循了必要的规范。
 
-Adding new features
-===================
+添加新特性
+==========
 
-No new features should be added, without having their own tests – which
-should be passed before committing them to the repository.
+添加新特性，必须伴随相应的测试用例，在提交到代码仓库前，测试用例必须通过。
 
-Indentation
-===========
+缩进
+====
 
-One tab will be used for indentation.
+缩进使用一个制表符。
 
-So, indentation should look like this::
+所以，缩进应当看起来象这样::
 
-    // base level
-        // level 1
-            // level 2
-        // level 1
-    // base level
+    // 底层
+        // 第1层
+            // 第2层
+        // 第1层
+    // 底层
 
-Or::
+或者::
 
     $booleanVariable = true;
     $stringVariable = 'moose';
@@ -40,11 +37,11 @@ Or::
         }
     }
 
-Control Structures
-==================
+控制结构
+========
 
-Control structures are for example "``if``", "``for``", "``foreach``",
-"``while``", "``switch``" etc. Below, an example with "``if``"::
+控制结构是"``if``"，"``for``"，"``foreach``"，"``while``"，"``switch``"这些。
+下面是使用"``if``"的一个例子::
 
     if ((expr_1) || (expr_2)) {
         // action_1;
@@ -54,63 +51,55 @@ Control structures are for example "``if``", "``for``", "``foreach``",
         // default_action;
     }
 
-*  In the control structures there should be 1 (one) space before the
-   first parenthesis and 1 (one) space between the last parenthesis and
-   the opening bracket.
-*  Always use curly brackets in control structures, even if they are not
-   needed. They increase the readability of the code, and they give you
-   fewer logical errors.
-*  Opening curly brackets should be placed on the same line as the
-   control structure. Closing curly brackets should be placed on new
-   lines, and they should have same indentation level as the control
-   structure. The statement included in curly brackets should begin on a
-   new line, and code contained within it should gain a new level of
-   indentation.
+*  在控制结构中，在第一个括号之前应该有一个空格，在最后一个括号和开始的大括
+   号之间也应该有一个空格。
+*  在控制结构中总是使用大括号，即使他们是不必要的。这会提高代码的可读性，也
+   导致较少的逻辑错误。
+*  开始的大括号应与控制结构放在同一行上。结束的大括号应该新起一行，并且与控制
+   结构应该有相同的缩进级别。包括在大括号中的语句应该新起一行，其代码也应该再
+   缩进一层。
 
 ::
 
-    // wrong = no brackets, badly placed statement
+    // 错 = 没有大括号，语句的位置也不对
     if (expr) statement;
 
-    // wrong = no brackets
+    // 错 = 没有大括号
     if (expr)
         statement;
 
-    // good
+    // 正确
     if (expr) {
         statement;
     }
 
-Ternary Operator
-----------------
+三元运算符
+----------
 
-Ternary operators are permissible when the entire ternary operation fits
-on one line. Longer ternaries should be split into ``if else``
-statements. Ternary operators should not ever be nested. Optionally
-parentheses can be used around the condition check of the ternary for
-clarity::
+当整个三元运算可以放在一行之内时，三元运算符是允许的。更长的三元运算就应该分成
+``if else``语句。三元运算符绝不允许嵌套。括号虽然不必须，但是可以用在三元运算的
+条件检查之外，使其更清晰::
 
-    //Good, simple and readable
+    //很好，简答，已读
     $variable = isset($options['variable']) ? $options['variable'] : true;
 
-    //Nested ternaries are bad
+    //嵌套的三元运算不好
     $variable = isset($options['variable']) ? isset($options['othervar']) ? true : false : false;
 
 
-View files
-----------
+视图文件
+--------
 
-In view files (.ctp files) developers should use keyword control structures.
-Keyword control structures are easier to read in complex view files. Control
-structures can either be contained in a larger PHP block, or in separate PHP
-tags::
+在视图文件(.ctp files)中，开发人员使用关键词控制结构。关键词控制结构
+在复杂视图文件中更容易阅读。控制结构可以放在一段大的PHP代码段落中，也可以放
+在单独的PHP标签中::
 
     <?php
     if ($isAdmin):
         echo '<p>You are the admin user.</p>';
     endif;
     ?>
-    <p>The following is also acceptable:</p>
+    <p>下面也是可以接受的:</p>
     <?php if ($isAdmin): ?>
         <p>You are the admin user.</p>
     <?php endif; ?>
@@ -200,7 +189,7 @@ processed if they are the first thing in a DocBlock line, for example::
      */
     function bar() {
     }
-     
+
     /**
      * Foo function
      */

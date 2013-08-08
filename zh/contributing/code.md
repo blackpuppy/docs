@@ -24,17 +24,17 @@
     如果你对Git完全陌生，我们强烈建议你阅读优秀且免费的
     `ProGit<http://progit.org>`_这本书。
 
-从github获得一份CakePHP源程序的克隆(<em>clone</em>)。
+从github获得一份CakePHP源程序的克隆(*clone*)。
 
 * 如果你没有`github <http://github.com>`_的账号，创建一个。
-* 点击**Fork**按键，复制(<em>fork</em>)一份
+* 点击**Fork**按键，复制(*fork*)一份
   `CakePHP repository <http://github.com/cakephp/cakephp>`_的源码。
 
-你的复制完成后，从你的复制仓库(<em>repository</em>)克隆(<em>clone</em>)到你的本地机器::
+你的复制完成后，从你的复制仓库(*repository*)克隆(*clone*)到你的本地机器::
 
     git clone git@github.com:你的账号/cakephp.git
 
-把原始的CakePHP仓库添加为远程仓库(<em>remote repository</em>)。
+把原始的CakePHP仓库添加为远程仓库(*remote repository*)。
 以后你会使用它来抓取CakePHP仓库的改动，保持与CakePHP仓库一致::
 
     cd cakephp
@@ -47,8 +47,8 @@
 制作补丁
 ========
 
-每次当你要修复一个臭虫(<em>bug</em>)、增加一个特性或做一个改进时，创建一个主题分支
-(<em>topic branch</em>)。
+每次当你要修复一个臭虫(*bug*)、增加一个特性或做一个改进时，创建一个主题分支
+(*topic branch*)。
 
 你创建的分支，应根据你的修复/改进所适用的版本。例如，如果你正在修复``2.3``版本中
 的一个臭虫，那么你就应当以``2.3``的分支为基础来创建你的分支。如果你做的改动是对
@@ -65,7 +65,7 @@
     名称。例如ticket-1234，超棒的特性
 
 上述命令将创建基于上游(CakePHP)2.3分支的一个本地分支。进行你的臭虫修复工作，
-根据你的需要做任意多次的提交(<em>commit</em>)。不过你要牢记以下几点:
+根据你的需要做任意多次的提交(*commit*)。不过你要牢记以下几点:
 
 * 遵循:doc:`/contributing/cakephp-coding-conventions`。
 * 添加一个测试用例来说明错误修复好了，或者新特性能够工作。
@@ -83,7 +83,7 @@
     git checkout <branch_name>
     git rebase 2.3
 
-这将抓取+合并自从你开始之后CakePHP中的任何改动。然后，它将衍合(<em>rebase</em>)
+这将抓取+合并自从你开始之后CakePHP中的任何改动。然后，它将衍合(*rebase*)
 - 或者说，在当前代码的基础上重新应用你的改动。在“衍合``过程中你可能会遇到冲突。
 如果衍合过早退出，你可以使用``git status``命令来查看哪些文件发生冲突/没有合并。
 解决每个冲突，然后继续衍合::
@@ -91,8 +91,8 @@
     git add <filename> # 针对每一个发生冲突的文件。
     git rebase --continue
 
-检查所有的测试仍然通过。然后把你的分支推送(<em>push</em>)到你的复制
-(<em>fork</em>)仓库上::
+检查所有的测试仍然通过。然后把你的分支推送(*push*)到你的复制
+(*fork*)仓库上::
 
     git push origin <branch-name>
 
@@ -110,9 +110,9 @@
   则请选择**master**为合并目标。
 * 如果你的改动是一个**新特性**或者为框架新增的功能，那么你应选择下一个版本号对应
   的分支。例如，如果目前的稳定版本是``2.2.2``，则接受新特性的分支将是``2.3``。
-* 如果你的改动是打破(<em>breaks</em>)了现有的功能或API，那么你就应当选择再下一个
-  主要版本。例如，如果当前的版本是``2.2.2``，那么下一次现有的功能可以被突破(<em>
-  broken</em>)就是在``3.0``版本了，所以你应该针对这一分支。
+* 如果你的改动打破(*breaks*)了现有的功能或API，那么你就应当选择再下一个
+  主要版本。例如，如果当前的版本是``2.2.2``，那么下一次现有的功能可以被打破(*
+  broken*)就是在``3.0``版本了，所以你应该针对这一分支。
 
 
 .. note::

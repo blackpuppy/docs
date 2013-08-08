@@ -2,7 +2,7 @@
 ####
 
 给文档做贡献是很简单的。这些文件都托管在http://github.com/cakephp/docs。
-请随意复制(<em>fork</em>)代码仓库，加入你的更改/改进/翻译，
+请随意复制(*fork*)代码仓库，加入你的更改/改进/翻译，
 然后发出拉取请求来提交你的改动。
 你甚至可以在github上在线地编辑文档，而完全不用下载文件。
 
@@ -46,7 +46,7 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 标题和小节
 ----------
 
-小节的标题要在下一行以至少相同长度的标点符号来标识。
+小节的标题要在它的下一行以至少相同长度的标点符号来标识。
 
 - ``#`` 用来标识网页标题。
 - ``=`` 用于标识在一个页面中的小节。
@@ -102,7 +102,7 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 
     * 回到第一层。
 
-定义列表(Definition lists)，可以通过以下方式创建::
+定义列表(*Definition lists*)，可以通过以下方式创建::
 
     术语
         定义
@@ -130,7 +130,7 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 
 .. rst:role:: doc
 
-    指向文档中其他网页的链接可以使用``:doc:``角色(<em>role</em>)。
+    指向文档中其他网页的链接可以使用``:doc:``角色(*role*)。
     你可以使用绝对路径或者相对路径，来链接到指定的文件中。请省略``.rst``
     扩展名。例如，如果链接``:doc:`form```出现在文档``core-helpers/html``
     中，则该链接指向``core-helpers/form``。如果链接是
@@ -230,7 +230,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:directive:: .. php:attr:: name
 
-   描述一个类的属性(<em>property/attribute</em>)。
+   描述一个类的属性(*property/attribute*)。
 
 交叉引用
 ~~~~~~~~
@@ -296,7 +296,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 ----------
 
 有很多时候，你会想告诉读者一个重要的提示、特别的说明或者可能的危险。
-sphinx中的告诫(<em>Admonition</em>)正是为了这个目的。有三种类型的告诫。
+sphinx中的告诫(*Admonition*)正是为了这个目的。有三种类型的告诫。
 
 * ``.. tip::`` 提示用于说明或重申有趣或者重要的信息。应当使用完整的句子
   以及任何适当的标点符号。
