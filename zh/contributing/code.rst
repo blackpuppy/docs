@@ -1,63 +1,59 @@
-Code
+代码
 ####
 
-Patches and pull requests are the best ways to contribute code back to CakePHP.
-Patches can be either attached to tickets in `lighthouse
-<http://cakephp.lighthouseapp.com>`_. Pull requests can be created in github,
-and are generally a better way to contribute code.
+补丁和拉取请求是为CakePHP贡献代码最好的方式。补丁可以附在`lighthouse
+<http://cakephp.lighthouseapp.com>`_上的问题报告中。拉取请求可以在github中创建，
+通常是贡献代码更好的方式。
 
-Initial setup
-=============
+初始设置
+========
 
-Before working on patches for CakePHP, it's a good idea to get your environment
-setup.  You'll need the following software:
+在开始为CakePHP制作补丁之前，最好先把你的环境设置好。你需要下列软件：
 
 * Git
-* PHP 5.2.8 or greater
-* PHPUnit 3.5.10 or greater
+* PHP 5.2.8或更高版本
+* PHPUnit 3.5.10或更高版本
 
-Set up your user information with your name/handle and working email address::
+设置你的用户信息，包括你的名字/账号和电子邮件::
 
     git config --global user.name 'Bob Barker'
     git config --global user.email 'bob.barker@example.com'
 
 .. note::
 
-    If you are new to Git, we highly recommend you to read the excellent and free 
-    `ProGit <http://progit.org>`_ book.
+    如果你对Git完全陌生，我们强烈建议你阅读优秀且免费的
+    `ProGit<http://progit.org>`_这本书。
 
-Get a clone of the CakePHP source code from github:
+从github获得一份CakePHP源程序的克隆(<em>clone</em>)。
 
-* If you don't have a `github <http://github.com>`_ account, create one.
-* Fork the `CakePHP repository <http://github.com/cakephp/cakephp>`_ by clicking
-  the **Fork** button.
+* 如果你没有`github <http://github.com>`_的账号，创建一个。
+* 点击**Fork**按键，复制(<em>fork</em>)一份
+  `CakePHP repository <http://github.com/cakephp/cakephp>`_的源码。
 
-After your fork is made, clone your fork to your local machine::
+你的复制完成后，从你的复制仓库(<em>repository</em>)克隆(<em>clone</em>)到你的本地机器::
 
-    git clone git@github.com:YOURNAME/cakephp.git
+    git clone git@github.com:你的账号/cakephp.git
 
-Add the original CakePHP repository as a remote repository.  You'll use this
-later to fetch changes from the CakePHP repository.  This will let you stay up
-to date with CakePHP::
+把原始的CakePHP仓库添加为远程仓库(<em>remote repository</em>)。
+以后你会使用它来抓取CakePHP仓库的改动，保持与CakePHP仓库一致::
 
     cd cakephp
     git remote add upstream git://github.com/cakephp/cakephp.git
 
-Now that you have CakePHP setup you should be able to define a ``$test``
-:ref:`database connection <database-configuration>`, and 
-:ref:`run all the tests <running-tests>`.
+现在你已经搭建好了CakePHP的环境。你应该能够定义一个``$test``
+:ref:`数据库连接 <database-configuration>`，并且
+:ref:`运行所有的测试 <running-tests>`。
 
-Working on a patch
-==================
+制作补丁
+========
 
-Each time you want to work on a bug, feature or enhancement create a topic
-branch.
+每次当你要修复一个臭虫(<em>bug</em>)、增加一个特性或做一个改进时，创建一个主题分支
+(<em>topic branch</em>)。
 
-The branch you create should be based on the version that your fix/enhancement
-is for.  For example if you are fixing a bug in ``2.3`` you would want to use
-the ``2.3`` branch as the base for your branch.  If your change is a bug fix
-for the current stable release, you should use the ``master`` branch. This
-makes merging your changes in later much simpler::
+你创建的分支，应根据你的修复/改进所适用的版本。例如，如果你正在修复``2.3``版本中
+的一个臭虫，那么你就应当以``2.3``的分支为基础来创建你的分支。如果你做的改动是对
+当前的稳定版本的一个臭虫的修复，你就应当使用``master``分支。这样以后合并改动时
+就会简单多了::
 
     # fixing a bug on 2.3
     git fetch upstream
@@ -65,23 +61,21 @@ makes merging your changes in later much simpler::
 
 .. tip::
 
-    Use a descriptive name for your branch, referencing the ticket or feature
-    name is a good convention. e.g. ticket-1234, feature-awesome
+    作为一个良好的习惯，为你的分支起一个描述性的名称，可以引用问题跟踪报告或特性
+    名称。例如ticket-1234，超棒的特性
 
-The above will create a local branch based on the upstream (CakePHP) 2.3 branch.
-Work on your fix, and make as many commits as you need; but keep in mind the
-following:
+上述命令将创建基于上游(CakePHP)2.3分支的一个本地分支。进行你的臭虫修复工作，
+根据你的需要做任意多次的提交(<em>commit</em>)。不过你要牢记以下几点:
 
-* Follow the :doc:`/contributing/cakephp-coding-conventions`.
-* Add a test case to show the bug is fixed, or that the new feature works.
-* Keep your commits logical, and write good clear and concise commit messages.
+* 遵循:doc:`/contributing/cakephp-coding-conventions`。
+* 添加一个测试用例来说明错误修复好了，或者新特性能够工作。
+* 使你的提交保持逻辑性，提交信息应当清晰、简洁。
 
 
-Submitting a pull request
-=========================
+提交拉取请求
+============
 
-Once your changes are done and you're ready for them to be merged into CakePHP,
-you'll want to update your branch::
+一旦你的改动完成了，并且可以合并到CakePHP中去了，你就应当更新你的分支::
 
     git checkout 2.3
     git fetch upstream
@@ -89,52 +83,46 @@ you'll want to update your branch::
     git checkout <branch_name>
     git rebase 2.3
 
-This will fetch + merge in any changes that have happened in CakePHP since you
-started.  It will then rebase - or replay your changes on top of the current
-code.  You might encounter a conflict during the ``rebase``.  If the rebase
-quits early you can see which files are conflicted/un-merged with ``git status``.
-Resolve each conflict, and then continue the rebase::
+这将抓取+合并自从你开始之后CakePHP中的任何改动。然后，它将衍合(<em>rebase</em>)
+- 或者说，在当前代码的基础上重新应用你的改动。在“衍合``过程中你可能会遇到冲突。
+如果衍合过早退出，你可以使用``git status``命令来查看哪些文件发生冲突/没有合并。
+解决每个冲突，然后继续衍合::
 
-    git add <filename> # do this for each conflicted file.
+    git add <filename> # 针对每一个发生冲突的文件。
     git rebase --continue
 
-Check that all your tests continue to pass.  Then push your branch to your
-fork::
+检查所有的测试仍然通过。然后把你的分支推送(<em>push</em>)到你的复制
+(<em>fork</em>)仓库上::
 
     git push origin <branch-name>
 
-Once your branch is on github, you can discuss it on the
-`cakephp-core <http://groups.google.com/group/cakephp-core>`_ mailing list or
-submit a pull request on github. 
+一旦你的分支在github上，你就可以在
+`cakephp-core <http://groups.google.com/group/cakephp-core>`_邮件列表上进行讨论
+或在github上提交拉取请求。
 
-Choosing where your changes will be merged into
------------------------------------------------
+选择你的改动会被合并到哪里
+--------------------------
 
-When making pull requests you should make sure you select the correct base
-branch, as you cannot edit it once the pull request is created.
+当提交拉取请求时，你应该确保你选择了正确的分支作为基础，因为拉取请求一经创建就
+无法更改。
 
-* If your change is a **bugfix** and doesn't introduce new functionality and only
-  corrects existing behavior that is present in the current release.  Then
-  choose **master** as your merge target.
-* If your change is a **new feature** or an addition to the framework, then you
-  should choose the branch with the next version number.  For example if the
-  current stable release is ``2.2.2``, the branch accepting new features will be
-  ``2.3``
-* If your change is a breaks existing functionality, or API's then you'll have
-  to choose then next major release.  For example, if the current release is
-  ``2.2.2`` then the next time existing behavior can be broken will be in
-  ``3.0`` so you should target that branch.
+* 如果你的改动是一个**错误修正**，并不引入新功能，只是纠正当前版本中现有的行为，
+  则请选择**master**为合并目标。
+* 如果你的改动是一个**新特性**或者为框架新增的功能，那么你应选择下一个版本号对应
+  的分支。例如，如果目前的稳定版本是``2.2.2``，则接受新特性的分支将是``2.3``。
+* 如果你的改动是打破(<em>breaks</em>)了现有的功能或API，那么你就应当选择再下一个
+  主要版本。例如，如果当前的版本是``2.2.2``，那么下一次现有的功能可以被突破(<em>
+  broken</em>)就是在``3.0``版本了，所以你应该针对这一分支。
 
 
 .. note::
 
-    Remember that all code you contribute to CakePHP will be licensed under the
-    MIT License, and the `Cake Software Foundation <http://cakefoundation.org/pages/about>`_
-    will become the owner of any contributed code and all contributed code is
-    subject to the `Contributors license agreement <http://cakefoundation.org/pages/cla>`_.
+    请记住，所有你贡献给CakePHP的代码将被置于MIT许可之下，
+    `Cake Software Foundation <http://cakefoundation.org/pages/about>`_将会成为
+    任何贡献的代码的所有者，并且所有贡献的代码将受`贡献者许可协议
+    <http://cakefoundation.org/pages/cla>`_的约束。
 
-All bug fixes merged into a maintenance branch will also be merged into upcoming
-releases periodically by the core team.
+所有合并到维护分支中的臭虫修复，也将被核心团队定期地合并到即将发布的下一个版本。
 
 
 .. meta::

@@ -2,7 +2,8 @@
 ####
 
 给文档做贡献是很简单的。这些文件都托管在http://github.com/cakephp/docs。
-请随意复制代码库，加入你的更改/改进/翻译，然后发出拉取请求来提交你的改动。
+请随意复制(<em>fork</em>)代码仓库，加入你的更改/改进/翻译，
+然后发出拉取请求来提交你的改动。
 你甚至可以在github上在线地编辑文档，而完全不用下载文件。
 
 翻译
@@ -19,13 +20,13 @@
 - 请将内容和标题一起翻译。
 - 在提交一个更正之前，请先和英文版本的内容进行比较(如果你改正了一些东西，
   却没有整合“上游”的改动，你提交的东西将不会被接受)。
-- 如果你要写一个术语，请把它放在``<em>``标签之内。比如，"asdf asdf *Controller* asdf"
+- 如果你要写一个英文术语，请把它放在``<em>``标签之内。比如，"asdf asdf *Controller* asdf"
   或者"asdf asdf Kontroller (*Controller*) asfd"，请适为选用。
 - 请不要提交不完整的翻译。
 - 请不要编辑正在改动的部分。
 - 对于标以重音符号的字符，请不要使用
-  `html entities <http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>`_来表示，
-  本书使用UTF-8。
+  `html entities <http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>`_
+  来表示，本书使用UTF-8。
 - 请不要显著改变标记(HTML)或增加新的内容。
 - 如果原始的内容遗漏了某些信息，请先提交(对原始内容的)更正。
 
@@ -129,11 +130,11 @@ ReST (Re Structured Text)是与markdown或者textile类似的纯文本标记语�
 
 .. rst:role:: doc
 
-    指向文档中其他网页的链接可以使用``:doc:``角色。你可以使用绝对路径或者相对路径，
-    来链接到指定的文件中。请省略``.rst``扩展名。例如，如果链接``:doc:`form```
-    出现在文档``core-helpers/html``中，则该链接指向``core-helpers/form``。
-    如果链接是``:doc:`/core-helpers```，那么不论它用在那里，总是会指向
-    ``/core-helpers``。
+    指向文档中其他网页的链接可以使用``:doc:``角色(<em>role</em>)。
+    你可以使用绝对路径或者相对路径，来链接到指定的文件中。请省略``.rst``
+    扩展名。例如，如果链接``:doc:`form```出现在文档``core-helpers/html``
+    中，则该链接指向``core-helpers/form``。如果链接是
+    ``:doc:`/core-helpers```，那么不论它用在那里，总是会指向``/core-helpers``。
 
 交叉引用链接
 ~~~~~~~~~~~~
@@ -229,7 +230,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 
 .. rst:directive:: .. php:attr:: name
 
-   描述一个类的属性。
+   描述一个类的属性(<em>property/attribute</em>)。
 
 交叉引用
 ~~~~~~~~
@@ -295,7 +296,7 @@ CakePHP文档使用`phpdomain <http://pypi.python.org/pypi/sphinxcontrib-phpdoma
 ----------
 
 有很多时候，你会想告诉读者一个重要的提示、特别的说明或者可能的危险。
-sphinx中的告诫正是为了这个目的。有三种类型的告诫。
+sphinx中的告诫(<em>Admonition</em>)正是为了这个目的。有三种类型的告诫。
 
 * ``.. tip::`` 提示用于说明或重申有趣或者重要的信息。应当使用完整的句子
   以及任何适当的标点符号。
