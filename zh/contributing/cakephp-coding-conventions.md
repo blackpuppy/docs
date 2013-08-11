@@ -31,9 +31,9 @@ Cake开发人员将使用下面的编码规范。
     $booleanVariable = true;
     $stringVariable = 'moose';
     if ($booleanVariable) {
-        echo 'Boolean value is true';
-        if ($stringVariable === 'moose') {
-            echo 'We have encountered a moose';
+        echo '布尔值为真';
+        if ($stringVariable === '驼鹿') {
+            echo '我们遇到了一只驼鹿';
         }
     }
 
@@ -80,7 +80,7 @@ Cake开发人员将使用下面的编码规范。
 ``if else``语句。三元运算符绝不允许嵌套。括号虽然不必须，但是可以用在三元运算的
 条件检查之外，使其更清晰::
 
-    //很好，简答，已读
+    //很好，简单，易读
     $variable = isset($options['variable']) ? $options['variable'] : true;
 
     //嵌套的三元运算不好
@@ -91,8 +91,8 @@ Cake开发人员将使用下面的编码规范。
 --------
 
 在视图文件(.ctp files)中，开发人员使用关键词控制结构。关键词控制结构
-在复杂视图文件中更容易阅读。控制结构可以放在一段大的PHP代码段落中，也可以放
-在单独的PHP标签中::
+在复杂的视图文件中更容易阅读。控制结构可以放在一段大的PHP代码段落中，
+也可以放在单独的PHP标签中::
 
     <?php
     if ($isAdmin):
@@ -105,22 +105,19 @@ Cake开发人员将使用下面的编码规范。
     <?php endif; ?>
 
 
-Function Calls
-==============
+函数调用
+========
 
-Functions should be called without space between function's name and
-starting bracket. There should be one space between every parameter of a
-function call::
+在函数调用中，函数名和开始的括号之间不允许有空格，在每个参数之间应当有一个空格::
 
     $var = foo($bar, $bar2, $bar3);
 
-As you can see above there should be one space on both sides of equals
-sign (=).
+如上所示，在等号(=)的两边都应该有一个空格。
 
-Method definition
-=================
+方法的定义
+==========
 
-Example of a function definition::
+函数定义的例子::
 
     function someFunction($arg1, $arg2 = '') {
         if (expr) {
@@ -129,10 +126,8 @@ Example of a function definition::
         return $var;
     }
 
-Parameters with a default value, should be placed last in function
-definition. Try to make your functions return something, at least true
-or false = so it can be determined whether the function call was
-successful::
+带缺省值的参数应该放在函数定义的最后。尽量让你的函数返回一些东西, 至少是
+true或者false = 这样就可以判断函数调用是否成功::
 
     public function connection($dns, $persistent = false) {
         if (is_array($dns)) {
@@ -147,16 +142,14 @@ successful::
         return true;
     }
 
-There are spaces on both side of the equals sign.
+等号两边都有空格。
 
-Commenting code
-===============
+代码的注释
+==========
 
-All comments should be written in English, and should in a clear way
-describe the commented block of code.
+所有的注释都应该是英文, 并且应该清楚地描述被注释的代码段。
 
-Comments can include the following `phpDocumentor <http://phpdoc.org>`_
-tags:
+注释可以包括以下`phpDocumentor <http://phpdoc.org>`_标签:
 
 *  `@access <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.access.pkg.html>`_
 *  `@author <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.author.pkg.html>`_
@@ -171,19 +164,19 @@ tags:
 *  `@tutorial <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.tutorial.pkg.html>`_
 *  `@version <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.version.pkg.html>`_
 
-PhpDoc tags are very much like JavaDoc tags in Java. Tags are only
-processed if they are the first thing in a DocBlock line, for example::
+PhpDoc标签非常类似于Java中的JavaDoc标签。标签只有最先出现在
+DocBlock行中才会起作用, 例如::
 
     /**
      * Tag example.
-     * @author this tag is parsed, but this @version is ignored
-     * @version 1.0 this tag is also parsed
+     * @author 这个标签会被处理, 但这个@version会被忽略
+     * @version 1.0 这个标签也会被处理
      */
 
 ::
 
     /**
-     * Example of inline phpDoc tags.
+     * 内嵌phpDoc的例子。
      *
      * This function works hard with foo() to rule the world.
      */
@@ -196,58 +189,55 @@ processed if they are the first thing in a DocBlock line, for example::
     function foo() {
     }
 
-Comment blocks, with the exception of the first block in a file, should
-always be preceded by a newline.
+所有注释段, 除了一个文件中的第一段, 之前总是应当有一个空行。
 
-Including files
-===============
-
-When including files with classes or libraries, use only and always the
-`require\_once <http://php.net/require_once>`_ function.
-
-PHP tags
+包括文件
 ========
 
-Always use long tags (``<?php ?>``) Instead of short tags (<? ?>).
+当包括类或者库的文件时, 总是只使用`require\_once
+<http://php.net/require_once>`_函数。
 
-Naming convention
-=================
+PHP标签
+=======
 
-Functions
----------
+总是使用长标签(``<?php ?>``), 而不用短标签(<? ?>)。
 
-Write all functions in camelBack::
+命名规则
+========
+
+函数
+----
+
+所有函数名都应为camelBack::
 
     function longFunctionName() {
     }
 
-Classes
--------
+类
+--
 
-Class names should be written in CamelCase, for example::
+类名应为CamelCase, 例如::
 
     class ExampleClass {
     }
 
-Variables
----------
+变量
+----
 
-Variable names should be as descriptive as possible, but also as short
-as possible. Normal variables should start with a lowercase letter, and
-should be written in camelBack in case of multiple words. Variables
-containing objects should start with a capital letter, and in some way
-associate to the class the variable is an object of. Example::
+变量名应当尽可能具有描述性, 但同时越短越好。普通变量应当以小写字母开头,
+如果含有多个词, 则应当为camelBack。对象变量的变量名应当以大写字母开头,
+并且与对象所属的类应当以某种方式相关联。例如::
 
     $user = 'John';
     $users = array('John', 'Hans', 'Arne');
 
     $Dispatcher = new Dispatcher();
 
-Member visibility
------------------
+成员的可见范围
+--------------
 
-Use PHP5's private and protected keywords for methods and variables.  Additionally,
-protected method or variable names start with a single underscore ("\_"). Example::
+方法和变量应当使用PHP5的private和protected关键字。另外,
+protected的方法和变量应当以一个下划线开头("\_")。例如::
 
     class A {
         protected $_iAmAProtectedVariable;
@@ -257,7 +247,7 @@ protected method or variable names start with a single underscore ("\_"). Exampl
         }
     }
 
-Private methods or variable names start with double underscore ("\_\_"). Example::
+私有方法和变量应当以双下划线("\_\_")开头。例如::
 
     class A {
         private $__iAmAPrivateVariable;
@@ -267,77 +257,72 @@ Private methods or variable names start with double underscore ("\_\_"). Example
         }
     }
 
-Method Chaining
----------------
+方法链接
+--------
 
-Method chaining should have multiple methods spread across separate lines, and
-indented with one tab::
+方法链接时, 多个方法应当在各自的行上, 并且缩进一个制表符::
 
     $email->from('foo@example.com')
         ->to('bar@example.com')
         ->subject('A great message')
         ->send();
 
-Example addresses
------------------
+示例地址
+--------
 
-For all example URL and mail addresses use "example.com", "example.org"
-and "example.net", for example:
+所有示例用的网址和电子邮箱地址应当使用"example.com", "example.org"
+和"example.net", 例如:
 
-*  Email: someone@example.com
-*  WWW: `http://www.example.com <http://www.example.com>`_
+*  电子邮箱地址: someone@example.com
+*  网址: `http://www.example.com <http://www.example.com>`_
 *  FTP: `ftp://ftp.example.com <ftp://ftp.example.com>`_
 
-The ``example.com`` domain name has been reserved for this (see :rfc:`2606`) and is recommended
-for use in documentation or as examples.
+``example.com``域名已为此目的而保留(参见:rfc:`2606`), 建议在文档中或者作为例子使用。
 
-Files
------
+文件
+----
 
-File names which do not contain classes should be lowercased and underscored, for
-example:
+不包含类的文件, 其文件名应当小写, 并且以下划线分隔单词, 例如:
 
 ::
 
     long_file_name.php
 
-Variable types
---------------
+变量类型
+--------
 
-Variable types for use in DocBlocks:
+DocBlock中使用的变量类型:
 
-Type
-    Description
+类型
+    描述
 mixed
-    A variable with undefined (or multiple) type.
+    有未定义(或多种)类型的变量。
 integer
-    Integer type variable (whole number).
+    整数类型变量(整数)。
 float
-    Float type (point number).
+    浮点数类型(浮点数)。
 boolean
-    Logical type (true or false).
+    逻辑类型(true或者false)。
 string
-    String type (any value in " " or ' ').
+    字符串类型(位于" "或' '中的任何值)。
 array
-    Array type.
+    数组类型。
 object
-    Object type.
+    对象类型。
 resource
-    Resource type (returned by for example mysql\_connect()).
-    Remember that when you specify the type as mixed, you should indicate
-    whether it is unknown, or what the possible types are.
+    资源类型(例如由mysql\_connect()返回的)。
+    记住, 如果你指定了混合类型, 则需指明是未知, 或者可以是哪些类型。
 
-Constants
----------
+常量
+----
 
-Constants should be defined in capital letters:
+常量名称应当大写:
 
 ::
 
     define('CONSTANT', 1);
 
-If a constant name consists of multiple words, they should be separated
-by an underscore character, for example:
+如果常量名称由多个单词组成的，则应当用下划线分隔，例如：
 
 ::
 
