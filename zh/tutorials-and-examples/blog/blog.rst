@@ -1,43 +1,43 @@
-blog½Ì³Ì
+blogæ•™ç¨‹
 *************
 
-»¶Ó­Ê¹ÓÃCakePHP¡£Õâ¸ö½Ì³Ì»áÈÃÄãÁË½â¸ü¶àÓÐ¹ØCakePHPÊÇÈçºÎ¹¤×÷µÄ¡£ÎÒÃÇµÄÄ¿µÄÊÇÌá¸ßÉú²úÁ¦ºÍÊ¹±àÂë¸üÓÐÈ¤£ºÎÒÃÇÏ£Íûµ±ÄãÉîÈë´úÂëÊ±»á¸ÐÊÜµ½¡£
+æ¬¢è¿Žä½¿ç”¨CakePHPã€‚è¿™ä¸ªæ•™ç¨‹ä¼šè®©ä½ äº†è§£æ›´å¤šæœ‰å…³CakePHPæ˜¯å¦‚ä½•å·¥ä½œçš„ã€‚æˆ‘ä»¬çš„ç›®çš„æ˜¯æé«˜ç”Ÿäº§åŠ›å’Œä½¿ç¼–ç æ›´æœ‰è¶£ï¼šæˆ‘ä»¬å¸Œæœ›å½“ä½ æ·±å…¥ä»£ç æ—¶ä¼šæ„Ÿå—åˆ°ã€‚
 
-Õâ¸ö½Ì³Ì½«Ö¸µ¼Äã½¨Á¢Ò»¸ö¼òµ¥µÄblogÓ¦ÓÃ£¬ÎÒÃÇ½«»á»ñµÃºÍ°²×°Cake£¬½¨Á¢²¢ÅäÖÃÊý¾Ý¿â£¬´´½¨×ã¹»µÄÓ¦ÓÃÂß¼­È¥ÁÐ³öÎÄÕÂÇåµ¥£¬Ìí¼Ó¡¢±à¼­¡¢É¾³ýblogÎÄÕÂ¡£
+è¿™ä¸ªæ•™ç¨‹å°†æŒ‡å¯¼ä½ å»ºç«‹ä¸€ä¸ªç®€å•çš„blogåº”ç”¨ï¼Œæˆ‘ä»¬å°†ä¼šèŽ·å¾—å’Œå®‰è£…Cakeï¼Œå»ºç«‹å¹¶é…ç½®æ•°æ®åº“ï¼Œåˆ›å»ºè¶³å¤Ÿçš„åº”ç”¨é€»è¾‘åŽ»åˆ—å‡ºæ–‡ç« æ¸…å•ï¼Œæ·»åŠ ã€ç¼–è¾‘ã€åˆ é™¤blogæ–‡ç« ã€‚
 
-ÕâÊÇÄãËùÐèÒªµÄ:
+è¿™æ˜¯ä½ æ‰€éœ€è¦çš„:
 
-#. Ò»¸öÔËÐÐÖÐµÄweb·þÎñÆ÷¡£ÎÒÃÇ½«¼Ù¶¨ÄãÊ¹ÓÃµÄÊÇ Apache,
-   Ê¹ÓÃÆäËû·þÎñÆ÷µÄÉèÖÃ£¨»ò²½Öè£©Ò²²î²»¶à¡£. ÎÒÃÇ½«»áÉÔÎ¢¸Ä¶¯
-   ·þÎñÆ÷µÄÅäÖÃÎÄ¼þ, µ«´ó¶àÊýÇé¿öÏÂ Cake ½«²»ÐèÒªÈÎºÎÅäÖÃµÄ¸Ä
-   ¶¯¾Í¿ÉÒÔÅÜÆðÀ´£¬È·±£ÄãµÄPHPµÄ°æ±¾ÊÇ 5.2.8 »ò¸ü¸ß¡£
-#. Ò»¸öÊý¾Ý¿â·þÎñÆ÷¡£ÔÚ±¾½Ì³ÌÖÐÎÒÃÇ½«Ê¹ÓÃ MySQL Êý¾Ý¿â¡£
-   Äã½«»áÐèÒª¶ÔSQLÓÐÒ»¶¨µÄÁË½âÒÔ±ã´´½¨Ò»¸öÊý¾Ý¿â£ºCake½«´Ó
-   ÕâÀï½Ó¹ÜÊý¾Ý¿â¡£Ê¹ÓÃMySQLµÄÍ¬Ê±ÒªÈ·±£ÄãÔÚPHPÖÐ¿ªÆô
-   ÁË ``pdo_mysql`` Ä£¿é.
-#. »ù´¡µÄ PHP ÖªÊ¶. ÄãÊ¹ÓÃÃæÏò¶ÔÃæ±à³ÌÔ½¶àÔ½ºÃ£¬µ«Èç¹ûÄãÖ»ÊÇ
-    Ò»¸ö³ÌÐòÃÔÒ²²»Òªº¦ÅÂ¡£
-#. ×îºó, Äã½«ÐèÒª¶ÔMVC±à³ÌÄ£Ê½ÓÐ»ù±¾µÄÁË½â¡£ 
-    ÔÚÕâÀï¿ÉÒÔÕÒµ½Ò»¸ö¿ìËÙµÄ¼ò½é:doc:`/cakephp-overview/
-	understanding-model-view-controller`.²»ÓÃµ£ÐÄ, Ö»ÊÇ°ëÕÅÖ½¶øÒÑ.
+#. ä¸€ä¸ªè¿è¡Œä¸­çš„webæœåŠ¡å™¨ã€‚æˆ‘ä»¬å°†å‡å®šä½ ä½¿ç”¨çš„æ˜¯ Apache,
+   ä½¿ç”¨å…¶ä»–æœåŠ¡å™¨çš„è®¾ç½®ï¼ˆæˆ–æ­¥éª¤ï¼‰ä¹Ÿå·®ä¸å¤šã€‚. æˆ‘ä»¬å°†ä¼šç¨å¾®æ”¹åŠ¨
+   æœåŠ¡å™¨çš„é…ç½®æ–‡ä»¶, ä½†å¤§å¤šæ•°æƒ…å†µä¸‹ Cake å°†ä¸éœ€è¦ä»»ä½•é…ç½®çš„æ”¹
+   åŠ¨å°±å¯ä»¥è·‘èµ·æ¥ï¼Œç¡®ä¿ä½ çš„PHPçš„ç‰ˆæœ¬æ˜¯ 5.2.8 æˆ–æ›´é«˜ã€‚
+#. ä¸€ä¸ªæ•°æ®åº“æœåŠ¡å™¨ã€‚åœ¨æœ¬æ•™ç¨‹ä¸­æˆ‘ä»¬å°†ä½¿ç”¨ MySQL æ•°æ®åº“ã€‚
+   ä½ å°†ä¼šéœ€è¦å¯¹SQLæœ‰ä¸€å®šçš„äº†è§£ä»¥ä¾¿åˆ›å»ºä¸€ä¸ªæ•°æ®åº“ï¼šCakeå°†ä»Ž
+   è¿™é‡ŒæŽ¥ç®¡æ•°æ®åº“ã€‚ä½¿ç”¨MySQLçš„åŒæ—¶è¦ç¡®ä¿ä½ åœ¨PHPä¸­å¼€å¯
+   äº† ``pdo_mysql`` æ¨¡å—.
+#. åŸºç¡€çš„ PHP çŸ¥è¯†. ä½ ä½¿ç”¨é¢å‘å¯¹é¢ç¼–ç¨‹è¶Šå¤šè¶Šå¥½ï¼Œä½†å¦‚æžœä½ åªæ˜¯
+    ä¸€ä¸ªç¨‹åºè¿·ä¹Ÿä¸è¦å®³æ€•ã€‚
+#. æœ€åŽ, ä½ å°†éœ€è¦å¯¹MVCç¼–ç¨‹æ¨¡å¼æœ‰åŸºæœ¬çš„äº†è§£ã€‚ 
+    åœ¨è¿™é‡Œå¯ä»¥æ‰¾åˆ°ä¸€ä¸ªå¿«é€Ÿçš„ç®€ä»‹:doc:`/cakephp-overview/
+	understanding-model-view-controller`.ä¸ç”¨æ‹…å¿ƒ, åªæ˜¯åŠå¼ çº¸è€Œå·².
 
-ÈÃÎÒÃÇ¿ªÊ¼°É£¡
+è®©æˆ‘ä»¬å¼€å§‹å§ï¼
 
-»ñÈ¡ Cake
+èŽ·å– Cake
 ============
 
-Ê×ÏÈ£¬ÈÃÎÒÃÇ»ñÈ¡Ò»·Ý×îÐÂµÄCakeµÄ´úÂë¿½±´¡£
+é¦–å…ˆï¼Œè®©æˆ‘ä»¬èŽ·å–ä¸€ä»½æœ€æ–°çš„Cakeçš„ä»£ç æ‹·è´ã€‚
 
-Òª»ñµÃ×îÐÂµÄ´úÂë£¬Òª·ÃÎÊÔÚ GitHub ÉÏµÄ CakePHP ÏîÄ¿:
+è¦èŽ·å¾—æœ€æ–°çš„ä»£ç ï¼Œè¦è®¿é—®åœ¨ GitHub ä¸Šçš„ CakePHP é¡¹ç›®:
 `https://github.com/cakephp/cakephp/tags <https://github.com/cakephp/cakephp/tags>`_
-²¢ÏÂÔØ×îÐÂµÄ·¢ÐÐ°æ 2.0
+å¹¶ä¸‹è½½æœ€æ–°çš„å‘è¡Œç‰ˆ 2.0
 
-ÄãÒ²¿ÉÒÔÍ¨¹ýgit¼ì³ö×îÐÂµÄ´úÂë
+ä½ ä¹Ÿå¯ä»¥é€šè¿‡gitæ£€å‡ºæœ€æ–°çš„ä»£ç 
 `git <http://git-scm.com/>`_.
 ``git clone git://github.com/cakephp/cakephp.git``
 
-²»¹ÜÄãÊÇÍ¨¹ýÊ²Ã´·½Ê½ÏÂÔØµÄ£¬½«ÏÂÔØºóµÄ´úÂë·Åµ½ÄãµÄ
-¸ùÄ¿Â¼Àï¡£ÕâÐ©¶¼Íê³Éºó£¬°²×°µÄÄ¿Â¼¿´ÆðÀ´ÊÇÕâÑù::
+ä¸ç®¡ä½ æ˜¯é€šè¿‡ä»€ä¹ˆæ–¹å¼ä¸‹è½½çš„ï¼Œå°†ä¸‹è½½åŽçš„ä»£ç æ”¾åˆ°ä½ çš„
+æ ¹ç›®å½•é‡Œã€‚è¿™äº›éƒ½å®ŒæˆåŽï¼Œå®‰è£…çš„ç›®å½•çœ‹èµ·æ¥æ˜¯è¿™æ ·::
 
     /path_to_document_root
         /app
@@ -48,16 +48,16 @@ blog½Ì³Ì
         index.php
         README
 
-ÏÖÔÚÊÇ¸öºÃÊ±»úÈ¥ÁË½âÒ»ÏÂCakeÊÇÈçºÎ×éÖ¯Ä¿Â¼µÄ£ºÇë²ÎÔÄ :doc:`/getting-started/cakephp-folder-structure` ÕÂ½Ú ¡£
+çŽ°åœ¨æ˜¯ä¸ªå¥½æ—¶æœºåŽ»äº†è§£ä¸€ä¸‹Cakeæ˜¯å¦‚ä½•ç»„ç»‡ç›®å½•çš„ï¼šè¯·å‚é˜… :doc:`/getting-started/cakephp-folder-structure` ç« èŠ‚ ã€‚
 
-´´½¨ Blog µÄÊý¾Ý¿â
+åˆ›å»º Blog çš„æ•°æ®åº“
 ==========================
 
-ÏÂÒ»²½£¬ÉèÖÃblogµÄÊý¾Ý¿â£¬Èç¹û»¹Ã»ÓÐ×öÕâÐ©£¬¾Í´´½¨Ò»¸ö±¾½Ì³ÌÒªÓÃµÄ
-¿ÕµÄÊý¾Ý¿â£¬Ãû×ÖËæ±ãÆð¡£ÏÖÔÚÎÒÃÇÒª´´½¨Ò»¸ö±íÀ´´æ´¢ÎÒÃÇµÄÎÄÕÂ£¬È»ºó
-ÔÙÐ´Èë¼¸ÆªÎÄÕÂ²âÊÔÓÃ£¬ÔÚÊý¾Ý¿âÀïÃæÖ´ÐÐÏÂÁÐSQLÓï¾ä::
+ä¸‹ä¸€æ­¥ï¼Œè®¾ç½®blogçš„æ•°æ®åº“ï¼Œå¦‚æžœè¿˜æ²¡æœ‰åšè¿™äº›ï¼Œå°±åˆ›å»ºä¸€ä¸ªæœ¬æ•™ç¨‹è¦ç”¨çš„
+ç©ºçš„æ•°æ®åº“ï¼Œåå­—éšä¾¿èµ·ã€‚çŽ°åœ¨æˆ‘ä»¬è¦åˆ›å»ºä¸€ä¸ªè¡¨æ¥å­˜å‚¨æˆ‘ä»¬çš„æ–‡ç« ï¼Œç„¶åŽ
+å†å†™å…¥å‡ ç¯‡æ–‡ç« æµ‹è¯•ç”¨ï¼Œåœ¨æ•°æ®åº“é‡Œé¢æ‰§è¡Œä¸‹åˆ—SQLè¯­å¥::
 
-    /* Ê×ÏÈ£¬´´½¨ÎÒÃÇµÄÈÕÖ¾±í: */
+    /* é¦–å…ˆï¼Œåˆ›å»ºæˆ‘ä»¬çš„æ—¥å¿—è¡¨: */
     CREATE TABLE posts (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(50),
@@ -66,7 +66,7 @@ blog½Ì³Ì
         modified DATETIME DEFAULT NULL
     );
     
-    /* È»ºó£¬²åÈëÒ»Ð©ÈÕÖ¾µÄ¼ÇÂ¼·½±ãºó±ß²âÊÔÓÃ: */
+    /* ç„¶åŽï¼Œæ’å…¥ä¸€äº›æ—¥å¿—çš„è®°å½•æ–¹ä¾¿åŽè¾¹æµ‹è¯•ç”¨: */
     INSERT INTO posts (title,body,created)
         VALUES ('The title', 'This is the post body.', NOW());
     INSERT INTO posts (title,body,created)
@@ -75,27 +75,27 @@ blog½Ì³Ì
         VALUES ('Title strikes back', 'This is really exciting! Not.', NOW());
 
 
-±íºÍÁÐµÄÃû×Ö²¢²»ÊÇËæÒâÈ¡µÄ£¬Èç¹ûÄã×ñÑ­CakeµÄÊý¾Ý¿âÃüÃûÔ¼¶¨£¬
-ÒÔ¼°ÆäÀàµÄÃüÃûÔ¼¶¨£¨²é¿´ÎÄµµ :doc:`/getting-started/cakephp-conventions`£©
-Äã½«¿ÉÒÔÀûÓÃÐí¶àÏÖ³ÉµÄ¹¦ÄÜ²¢±ÜÃâÅäÖÃ¡£
-CakeÊÇ¾ßÓÐ×ã¹»µÄÁé»îÐÔ£¬ÒÔÊÊÓ¦¼´Ê¹×î»µµÄ
-ÒÅÁôµÄÊý¾Ý¿â¼Ü¹¹, ²¢×ñÊØÔ¼¶¨£¬½ÚÊ¡ÄúµÄÊ±¼ä¡£
+è¡¨å’Œåˆ—çš„åå­—å¹¶ä¸æ˜¯éšæ„å–çš„ï¼Œå¦‚æžœä½ éµå¾ªCakeçš„æ•°æ®åº“å‘½åçº¦å®šï¼Œ
+ä»¥åŠå…¶ç±»çš„å‘½åçº¦å®šï¼ˆæŸ¥çœ‹æ–‡æ¡£ :doc:`/getting-started/cakephp-conventions`ï¼‰
+ä½ å°†å¯ä»¥åˆ©ç”¨è®¸å¤šçŽ°æˆçš„åŠŸèƒ½å¹¶é¿å…é…ç½®ã€‚
+Cakeæ˜¯å…·æœ‰è¶³å¤Ÿçš„çµæ´»æ€§ï¼Œä»¥é€‚åº”å³ä½¿æœ€åçš„
+é—ç•™çš„æ•°æ®åº“æž¶æž„, å¹¶éµå®ˆçº¦å®šï¼ŒèŠ‚çœæ‚¨çš„æ—¶é—´ã€‚
 
-²é¿´ :doc:`/getting-started/cakephp-conventions` »ñµÃ¸ü¶àµÄÐÅÏ¢,
-µ«ÎÒÖ»ÏëËµ£¬±í'posts'½«»á×Ô¶¯¹³µ½£¨°ó¶¨µ½£©ÎÒÃÇµÄÄ£ÐÍPost£¬¶Ô±íµÄ
-'ÐÞ¸Ä'ºÍ'´´½¨'½«±»Cake×Ô¶¯µØ¹ÜÀí¡£
+æŸ¥çœ‹ :doc:`/getting-started/cakephp-conventions` èŽ·å¾—æ›´å¤šçš„ä¿¡æ¯,
+ä½†æˆ‘åªæƒ³è¯´ï¼Œè¡¨'posts'å°†ä¼šè‡ªåŠ¨é’©åˆ°ï¼ˆç»‘å®šåˆ°ï¼‰æˆ‘ä»¬çš„æ¨¡åž‹Postï¼Œå¯¹è¡¨çš„
+'ä¿®æ”¹'å’Œ'åˆ›å»º'å°†è¢«Cakeè‡ªåŠ¨åœ°ç®¡ç†ã€‚
 
-Cake Êý¾Ý¿â ÅäÖÃ
+Cake æ•°æ®åº“ é…ç½®
 ===========================
 
-½ÓÏÂÀ´:ÈÃÎÒÃÇ¸æËßCakeÎÒÃÇµÄÊý¾Ý¿â·ÅÔÚÄÇÀïÒÔ¼°ÈçºÎÈ¥Á¬½Ó
-¶ÔÓÚÐí¶àÈËÀ´Ëµ£¬Õâ½«ÊÇµÚÒ»´ÎÒ²ÊÇ×îºóÒ»´ÎÅäÖÃ¡£
+æŽ¥ä¸‹æ¥:è®©æˆ‘ä»¬å‘Šè¯‰Cakeæˆ‘ä»¬çš„æ•°æ®åº“æ”¾åœ¨é‚£é‡Œä»¥åŠå¦‚ä½•åŽ»è¿žæŽ¥
+å¯¹äºŽè®¸å¤šäººæ¥è¯´ï¼Œè¿™å°†æ˜¯ç¬¬ä¸€æ¬¡ä¹Ÿæ˜¯æœ€åŽä¸€æ¬¡é…ç½®ã€‚
 
-ÔÚ``/app/Config/database.php.default``¿ÉÒÔÕÒµ½Ò»·ÝCakePHPµÄÅäÖÃÎÄ¼þ. 
-¸´ÖÆ²¢·ÅÔÚÕâ¸öÄ¿Â¼ÖÐ£¬ÖØÃüÃûÎª ``database.php``.
+åœ¨``/app/Config/database.php.default``å¯ä»¥æ‰¾åˆ°ä¸€ä»½CakePHPçš„é…ç½®æ–‡ä»¶. 
+å¤åˆ¶å¹¶æ”¾åœ¨è¿™ä¸ªç›®å½•ä¸­ï¼Œé‡å‘½åä¸º ``database.php``.
 
-Õâ¸öÅäÖÃÎÄ¼þÓ¦¸Ã·Ç³£Ö±½Ó£º ½ö½öÌæ»»µô ``$default`` Êý¾ÝÖÐÏàÓ¦µÄÖµ¼´¿É£¨»»³ÉÄãµÄÊý¾Ý¿â°²×°ÅäÖÃµÄÖµ£©¡£
-Ò»¸öÍêÕûµÄÅäÖÃÀý×Ó¿´ÆðÀ´Ó¦¸ÃÊÇÕâÑù::
+è¿™ä¸ªé…ç½®æ–‡ä»¶åº”è¯¥éžå¸¸ç›´æŽ¥ï¼š ä»…ä»…æ›¿æ¢æŽ‰ ``$default`` æ•°æ®ä¸­ç›¸åº”çš„å€¼å³å¯ï¼ˆæ¢æˆä½ çš„æ•°æ®åº“å®‰è£…é…ç½®çš„å€¼ï¼‰ã€‚
+ä¸€ä¸ªå®Œæ•´çš„é…ç½®ä¾‹å­çœ‹èµ·æ¥åº”è¯¥æ˜¯è¿™æ ·::
 
     public $default = array(
         'datasource' => 'Database/Mysql',
@@ -110,59 +110,59 @@ Cake Êý¾Ý¿â ÅäÖÃ
         'encoding' => ''
     );
 
-Ò»µ©ÄãÒÑ¾­±£´æÁËÐÂµÄ ``database.php`` ÎÄ¼þ, ÄãÓ¦¸ÃÄÜ¹»´ò¿ªÄãµÄä¯ÀÀÆ÷
-²¢¿´µ½CakeµÄ»¶Ó­Ò³£¬Ëü»á¸æËßÄãÄãµÄÊý¾Ý¿âÁ¬½ÓÎÄ¼þÒÑ¾­±»ÕÒµ½£¬CakeÒÑ¾­
-³É¹¦Á¬½Óµ½Êý¾Ý¿âÁË¡£
+ä¸€æ—¦ä½ å·²ç»ä¿å­˜äº†æ–°çš„ ``database.php`` æ–‡ä»¶, ä½ åº”è¯¥èƒ½å¤Ÿæ‰“å¼€ä½ çš„æµè§ˆå™¨
+å¹¶çœ‹åˆ°Cakeçš„æ¬¢è¿Žé¡µï¼Œå®ƒä¼šå‘Šè¯‰ä½ ä½ çš„æ•°æ®åº“è¿žæŽ¥æ–‡ä»¶å·²ç»è¢«æ‰¾åˆ°ï¼ŒCakeå·²ç»
+æˆåŠŸè¿žæŽ¥åˆ°æ•°æ®åº“äº†ã€‚
 
-.. ×¢Òâ::
+.. æ³¨æ„::
 
-    ¼Ç×¡Èç¹ûÄãÐèÒªÊ¹ÓÃ PDO£¬ÄãÐèÒªÔÚphp.iniÖÐ¼¤»î pdo_mysql Ä£¿é¡£
+    è®°ä½å¦‚æžœä½ éœ€è¦ä½¿ç”¨ PDOï¼Œä½ éœ€è¦åœ¨php.iniä¸­æ¿€æ´» pdo_mysql æ¨¡å—ã€‚
 
-¿ÉÑ¡µÄÅäÖÃ
+å¯é€‰çš„é…ç½®
 ======================
 
-ÕâÀïÓÐÈý¸öÆäËûµÄÑ¡Ïî¿ÉÒÔÉèÖÃ£¬´ó¶àÊý¿ª·¢Õß¶¼Íê³ÉÁËÕâÐ©ÈÎÎñÇåµ¥£¬
-µ«Ëü²¢²»ÊÇ±¾´Î½Ì³ÌÖÐËù±ØÐëÒªÇóµÄ¡£Ò»¸öÊÇ¶¨Òå×Ô¶¨Òå×Ö·û´®£¨»òÕß¡®salt¡¯£¬
-ÒëÕß×¢£ºsaltÊÇÃÜÂë±£»¤ÖÐÓÃÓÚÉú³ÉÃÜÂë¹þÏ£µÄÒ»¸öËæ»ú×Ö·û´®£©
-ÒÔÉú³É°²È«¹þÏ££¬µÚ¶þ¸öÊÇ×Ô¶¨ÒåÒ»¸öÊý×Ö£¨»òÕß¡®seed¡¯£©ÓÃÀ´¼ÓÃÜ£¬µÚÈý¸öÊÇ
-ÔÊÐíCakePHP¶ÔÄ¿Â¼ ``tmp`` ÓµÓÐÐ´È¨ÏÞ¡£
+è¿™é‡Œæœ‰ä¸‰ä¸ªå…¶ä»–çš„é€‰é¡¹å¯ä»¥è®¾ç½®ï¼Œå¤§å¤šæ•°å¼€å‘è€…éƒ½å®Œæˆäº†è¿™äº›ä»»åŠ¡æ¸…å•ï¼Œ
+ä½†å®ƒå¹¶ä¸æ˜¯æœ¬æ¬¡æ•™ç¨‹ä¸­æ‰€å¿…é¡»è¦æ±‚çš„ã€‚ä¸€ä¸ªæ˜¯å®šä¹‰è‡ªå®šä¹‰å­—ç¬¦ä¸²ï¼ˆæˆ–è€…â€˜saltâ€™ï¼Œ
+è¯‘è€…æ³¨ï¼šsaltæ˜¯å¯†ç ä¿æŠ¤ä¸­ç”¨äºŽç”Ÿæˆå¯†ç å“ˆå¸Œçš„ä¸€ä¸ªéšæœºå­—ç¬¦ä¸²ï¼‰
+ä»¥ç”Ÿæˆå®‰å…¨å“ˆå¸Œï¼Œç¬¬äºŒä¸ªæ˜¯è‡ªå®šä¹‰ä¸€ä¸ªæ•°å­—ï¼ˆæˆ–è€…â€˜seedâ€™ï¼‰ç”¨æ¥åŠ å¯†ï¼Œç¬¬ä¸‰ä¸ªæ˜¯
+å…è®¸CakePHPå¯¹ç›®å½• ``tmp`` æ‹¥æœ‰å†™æƒé™ã€‚
 
-°²È«Êý×éÊÇÓÃÀ´Éú³É¹þÏ£µÄ£¬¿ÉÒÔÔÚ ``/app/Config/core.php`` line 187 ¸Ä±äsaltµÄÖµ¡£
-Ëü²¢²»»á¹ØÐÄÐÂµÄÖµÊÇÊ²Ã´£¬ÒòÎªËüºÜÄÑ±»²Â³öÀ´::
+å®‰å…¨æ•°ç»„æ˜¯ç”¨æ¥ç”Ÿæˆå“ˆå¸Œçš„ï¼Œå¯ä»¥åœ¨ ``/app/Config/core.php`` line 187 æ”¹å˜saltçš„å€¼ã€‚
+å®ƒå¹¶ä¸ä¼šå…³å¿ƒæ–°çš„å€¼æ˜¯ä»€ä¹ˆï¼Œå› ä¸ºå®ƒå¾ˆéš¾è¢«çŒœå‡ºæ¥::
 
     /**
-     * Ò»¸öËæ»úµÄ×Ö·û´®£¬½«±»ÓÃÀ´Éú³É°²È«µÄ¹þÏ£
+     * ä¸€ä¸ªéšæœºçš„å­—ç¬¦ä¸²ï¼Œå°†è¢«ç”¨æ¥ç”Ÿæˆå®‰å…¨çš„å“ˆå¸Œ
      */
     Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
 
-ÃÜÂëÖÖ×ÓÓÃÀ´¼ÓÃÜºÍ½âÃÜ×Ö·û´®. ÔÚ ``/app/Config/core.php`` line 192 ÖÐ
-¸Ä±äseedµÄÖµ.Í¬salt£¬ËüÍ¬ÑùÄÑÒÔ±»²Âµ½::
+å¯†ç ç§å­ç”¨æ¥åŠ å¯†å’Œè§£å¯†å­—ç¬¦ä¸². åœ¨ ``/app/Config/core.php`` line 192 ä¸­
+æ”¹å˜seedçš„å€¼.åŒsaltï¼Œå®ƒåŒæ ·éš¾ä»¥è¢«çŒœåˆ°::
 
     /**
-     * Ò»¸öËæ»ú×Ö·û´® (Ö»º¬ÓÐÊý×Ö) £¬½«±»ÓÃÀ´¼ÓÃÜºÍ½âÃÜ.
+     * ä¸€ä¸ªéšæœºå­—ç¬¦ä¸² (åªå«æœ‰æ•°å­—) ï¼Œå°†è¢«ç”¨æ¥åŠ å¯†å’Œè§£å¯†.
      */
     Configure::write('Security.cipherSeed', '7485712659625147843639846751');
 
-×îºóµÄÈÎÎñÊÇÈÃÄ¿Â¼ ``app/tmp``  ¿ÉÒÔ±»webÐ´¡£×îºÃµÄ·½·¨ÊÇÕÒ³öÄãµÄ
-webserverÓÃ»§ÊÇË­ (``<?php echo `whoami`; ?>``) ²¢½«Ä¿Â¼ ``app/tmp`` ¸ÄÎª¸ÃÓÃ»§ÓµÓÐ. 
-ÔÚ \*nix µÄÏµÍ³ÖÐµÄÃüÁî»áÊÇ::
+æœ€åŽçš„ä»»åŠ¡æ˜¯è®©ç›®å½• ``app/tmp``  å¯ä»¥è¢«webå†™ã€‚æœ€å¥½çš„æ–¹æ³•æ˜¯æ‰¾å‡ºä½ çš„
+webserverç”¨æˆ·æ˜¯è° (``<?php echo `whoami`; ?>``) å¹¶å°†ç›®å½• ``app/tmp`` æ”¹ä¸ºè¯¥ç”¨æˆ·æ‹¥æœ‰. 
+åœ¨ \*nix çš„ç³»ç»Ÿä¸­çš„å‘½ä»¤ä¼šæ˜¯::
 
     $ chown -R www-data app/tmp
 
-Èç¹ûÒòÎªÆäËûÔ­Òò CakePHP ²»ÄÜÐ´Èëµ½¸ÃÄ¿Â¼, ÔÚ·ÇÉú²úÄ£Ê½ÖÐÄã½«»á±»¾¯¸æ¡£
+å¦‚æžœå› ä¸ºå…¶ä»–åŽŸå›  CakePHP ä¸èƒ½å†™å…¥åˆ°è¯¥ç›®å½•, åœ¨éžç”Ÿäº§æ¨¡å¼ä¸­ä½ å°†ä¼šè¢«è­¦å‘Šã€‚
 
-×¢Òâ mod\_rewrite
+æ³¨æ„ mod\_rewrite
 ======================
 
-Å¼¶ûÒ»¸öÐÂµÄÓÃ»§½«»áÔâÓöµ½mod\_rewrite ÎÊÌâ. ÀýÈçÈç¹ûCakePHP µÄ»¶Ó­Ò³¿´ÆðÀ´²»ÑÅ¹Û (²»ÏÔÊ¾Í¼Æ¬£¬»òÕßÃ»ÓÐcssµÄÑùÊ½),
-Õâ¾Í¿ÉÄÜÊÇ mod\_rewriteÔÚÄãµÄÏµÍ³ÖÐÃ»Æð×÷ÓÃ. Çë¼ì²éÄãµÄwebserverµÄurlÖØÐ´:
+å¶å°”ä¸€ä¸ªæ–°çš„ç”¨æˆ·å°†ä¼šé­é‡åˆ°mod\_rewrite é—®é¢˜. ä¾‹å¦‚å¦‚æžœCakePHP çš„æ¬¢è¿Žé¡µçœ‹èµ·æ¥ä¸é›…è§‚ (ä¸æ˜¾ç¤ºå›¾ç‰‡ï¼Œæˆ–è€…æ²¡æœ‰cssçš„æ ·å¼),
+è¿™å°±å¯èƒ½æ˜¯ mod\_rewriteåœ¨ä½ çš„ç³»ç»Ÿä¸­æ²¡èµ·ä½œç”¨. è¯·æ£€æŸ¥ä½ çš„webserverçš„urlé‡å†™:
 
 .. toctree::
 
     /installation/url-rewriting
 
 
-½ÓÏÂÀ´½øÈë :doc:`/tutorials-and-examples/blog/part-two` ¿ªÊ¼½¨Á¢µÚÒ»¸ö CakePHP Ó¦ÓÃ.
+æŽ¥ä¸‹æ¥è¿›å…¥ :doc:`/tutorials-and-examples/blog/part-two` å¼€å§‹å»ºç«‹ç¬¬ä¸€ä¸ª CakePHP åº”ç”¨.
 
 
 .. meta::

@@ -1,46 +1,46 @@
-Blog ½Ì³Ì - Ìí¼ÓÒ»¸ö²ã
+Blog æ•™ç¨‹ - æ·»åŠ ä¸€ä¸ªå±‚
 ******************************
 
-´´½¨Ò»¸ö Post Ä£ÐÍ
+åˆ›å»ºä¸€ä¸ª Post æ¨¡åž‹
 ===================
 
-Ä£ÐÍÀàÊÇ CakePHP Ó¦ÓÃµÄ»ù´¡. Í¨¹ý´´½¨Ò»¸ö CakePHP Ä£ÐÍ½«»áÁªÏµµ½Êý¾Ý¿â,
-ÎªÁË½«À´È¥×öÊÓÍ¼¡¢Ìí¼Ó¡¢±à¼­ºÍÉ¾³ý²Ù×÷£¬ÈÃÎÒÃÇÏÈ°ÑÒ»Ð©»ù´¡¹¤×÷×ö×ã¡£
+æ¨¡åž‹ç±»æ˜¯ CakePHP åº”ç”¨çš„åŸºç¡€. é€šè¿‡åˆ›å»ºä¸€ä¸ª CakePHP æ¨¡åž‹å°†ä¼šè”ç³»åˆ°æ•°æ®åº“,
+ä¸ºäº†å°†æ¥åŽ»åšè§†å›¾ã€æ·»åŠ ã€ç¼–è¾‘å’Œåˆ é™¤æ“ä½œï¼Œè®©æˆ‘ä»¬å…ˆæŠŠä¸€äº›åŸºç¡€å·¥ä½œåšè¶³ã€‚
 
-CakePHP µÄÄ£ÐÍÀàÎÄ¼þÔÚ  ``/app/Model`` , ÎÒÃÇ´´½¨µÄÎÄ¼þ½«±£´æ
-Îª  ``/app/Model/Post.php`` .¸ÃÎÄ¼þÄÚÈÝÓ¦Îª::
+CakePHP çš„æ¨¡åž‹ç±»æ–‡ä»¶åœ¨  ``/app/Model`` , æˆ‘ä»¬åˆ›å»ºçš„æ–‡ä»¶å°†ä¿å­˜
+ä¸º  ``/app/Model/Post.php`` .è¯¥æ–‡ä»¶å†…å®¹åº”ä¸º::
 
     class Post extends AppModel {
     }
 
-ÔÚ CakePHP ÖÐ£¬ÃüÃûÔ¼¶¨ºÜÖØÒª. Í¨¹ýÃüÃûÎÒÃÇµÄÄ£ÐÍÎª
-Post, CakePHP ÄÜ×Ô¶¯½«ÈÃ¸ÃÄ£ÐÍ±»PostsControllerÊ¹ÓÃ£¬²¢±»°ó¶¨µ½Êý¾Ý¿âÖÐÃûÎª "posts" µÄ±í¡£
+åœ¨ CakePHP ä¸­ï¼Œå‘½åçº¦å®šå¾ˆé‡è¦. é€šè¿‡å‘½åæˆ‘ä»¬çš„æ¨¡åž‹ä¸º
+Post, CakePHP èƒ½è‡ªåŠ¨å°†è®©è¯¥æ¨¡åž‹è¢«PostsControllerä½¿ç”¨ï¼Œå¹¶è¢«ç»‘å®šåˆ°æ•°æ®åº“ä¸­åä¸º "posts" çš„è¡¨ã€‚
 
-.. ×¢Òâ::
+.. æ³¨æ„::
 
-    Èç¹ûCakePHP²»ÄÜÔÚ /app/Model ÕÒµ½Ïà¹ØµÄÎÄ¼þ£¬Ëü½«×Ô¶¯ÎªÄã´´½¨Ò»¸öÄ£ÐÍ¶ÔÏó. 
-	ÕâÑùµÄ»°£¬Èç¹ûÄãÃ»ÓÐÕýÈ·ÃüÃûÄãµÄÎÄ¼þ(±ÈÈçÃüÃûÎª post.php »ò
-    posts.php)£¬CakePHP½«»áºöÂÔÄãµÄÅäÖÃ²¢Ê¹ÓÃÄ¬ÈÏµÄÅäÖÃ¡£
-
-
-¹ØÓÚÄ£ÐÍµÄ¸ü¶àÐÅÏ¢, ±ÈÈç±íÇ°×º, »Øµ÷, ÑéÖ¤,Çë²é¿´ÊÖ²áÖÐµÄÎÄµµ :doc:`/Models` ÕÂ½Ú.
+    å¦‚æžœCakePHPä¸èƒ½åœ¨ /app/Model æ‰¾åˆ°ç›¸å…³çš„æ–‡ä»¶ï¼Œå®ƒå°†è‡ªåŠ¨ä¸ºä½ åˆ›å»ºä¸€ä¸ªæ¨¡åž‹å¯¹è±¡. 
+	è¿™æ ·çš„è¯ï¼Œå¦‚æžœä½ æ²¡æœ‰æ­£ç¡®å‘½åä½ çš„æ–‡ä»¶(æ¯”å¦‚å‘½åä¸º post.php æˆ–
+    posts.php)ï¼ŒCakePHPå°†ä¼šå¿½ç•¥ä½ çš„é…ç½®å¹¶ä½¿ç”¨é»˜è®¤çš„é…ç½®ã€‚
 
 
-´´½¨Ò»¸öPostsµÄ¿ØÖÆÆ÷
+å…³äºŽæ¨¡åž‹çš„æ›´å¤šä¿¡æ¯, æ¯”å¦‚è¡¨å‰ç¼€, å›žè°ƒ, éªŒè¯,è¯·æŸ¥çœ‹æ‰‹å†Œä¸­çš„æ–‡æ¡£ :doc:`/Models` ç« èŠ‚.
+
+
+åˆ›å»ºä¸€ä¸ªPostsçš„æŽ§åˆ¶å™¨
 =========================
 
-½ÓÏÂÀ´, ÎªÎÒÃÇµÄposts´´½¨Ò»¸ö¿ØÖÆÆ÷. ¿ØÖÆÆ÷ÊÇËùÓÐµÄpostÏà¹Ø
-µÄÊÂÎïÂß¼­ .¼òµ¥Ëµ, ËüÊÇºÍÄ£ÐÍÒ»Æð½«postÏà¹ØµÄ¹¤×÷Íê³ÉµÄµØ·½¡£
-°Ñ¸ÃÎÄ¼þ±£´æÎª ``PostsController.php`` £¬·ÅÔÚ  ``/app/Controller`` Ä¿Â¼ÏÂ¡£
-ÕâÊÇ¿ØÖÆÆ÷µÄ»ù±¾ÄÚÈÝ::
+æŽ¥ä¸‹æ¥, ä¸ºæˆ‘ä»¬çš„postsåˆ›å»ºä¸€ä¸ªæŽ§åˆ¶å™¨. æŽ§åˆ¶å™¨æ˜¯æ‰€æœ‰çš„postç›¸å…³
+çš„äº‹ç‰©é€»è¾‘ .ç®€å•è¯´, å®ƒæ˜¯å’Œæ¨¡åž‹ä¸€èµ·å°†postç›¸å…³çš„å·¥ä½œå®Œæˆçš„åœ°æ–¹ã€‚
+æŠŠè¯¥æ–‡ä»¶ä¿å­˜ä¸º ``PostsController.php`` ï¼Œæ”¾åœ¨  ``/app/Controller`` ç›®å½•ä¸‹ã€‚
+è¿™æ˜¯æŽ§åˆ¶å™¨çš„åŸºæœ¬å†…å®¹::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
     }
 
-ÏÖÔÚ, Ìí¼ÓÒ»¸ö¶¯×÷. ¶¯×÷Ò»°ã´ú±íÓ¦ÓÃÖÐÒ»¸öµ¥¶ÀµÄº¯Êý»òÕß½Ó¿Ú¡£ÀýÈç£¬
-µ±ÓÃ»§ÇëÇó www.example.com/posts/index (Í¬ www.example.com/posts/ ),
-ËûÃÇ½«»áÆÚÍû¿´µ½postsµÄÁÐ±í£¬Õâ¸ö¶¯×÷µÄ´úÂë»áÊÇÕâÑù::
+çŽ°åœ¨, æ·»åŠ ä¸€ä¸ªåŠ¨ä½œ. åŠ¨ä½œä¸€èˆ¬ä»£è¡¨åº”ç”¨ä¸­ä¸€ä¸ªå•ç‹¬çš„å‡½æ•°æˆ–è€…æŽ¥å£ã€‚ä¾‹å¦‚ï¼Œ
+å½“ç”¨æˆ·è¯·æ±‚ www.example.com/posts/index (åŒ www.example.com/posts/ ),
+ä»–ä»¬å°†ä¼šæœŸæœ›çœ‹åˆ°postsçš„åˆ—è¡¨ï¼Œè¿™ä¸ªåŠ¨ä½œçš„ä»£ç ä¼šæ˜¯è¿™æ ·::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
@@ -50,35 +50,35 @@ Post, CakePHP ÄÜ×Ô¶¯½«ÈÃ¸ÃÄ£ÐÍ±»PostsControllerÊ¹ÓÃ£¬²¢±»°ó¶¨µ½Êý¾Ý¿âÖÐÃûÎª "pos
         }
     }
 
-ÈÃÎÒÀ´½âÊÍÏÂ¸Ã¶¯×÷.Í¨¹ýÔÚÎÒÃÇµÄ PostsController¶¨Òåº¯Êý  ``index()``
-, ÓÃ»§ÃûÏÖÔÚ¿ÉÒÔÍ¨¹ýÇëÇó·ÃÎÊwww.example.com/posts/index
-À´·ÃÎÊ¸ÃÂß¼­.Í¬ÑùµÄ, Èç¹û¶¨ÒåÒ»¸öº¯Êý ``foobar()`` , ÓÃ»§½«¿ÉÒÔÍ¨¹ýÇëÇó www.example.com/posts/foobar À´·ÃÎÊ.
+è®©æˆ‘æ¥è§£é‡Šä¸‹è¯¥åŠ¨ä½œ.é€šè¿‡åœ¨æˆ‘ä»¬çš„ PostsControllerå®šä¹‰å‡½æ•°  ``index()``
+, ç”¨æˆ·åçŽ°åœ¨å¯ä»¥é€šè¿‡è¯·æ±‚è®¿é—®www.example.com/posts/index
+æ¥è®¿é—®è¯¥é€»è¾‘.åŒæ ·çš„, å¦‚æžœå®šä¹‰ä¸€ä¸ªå‡½æ•° ``foobar()`` , ç”¨æˆ·å°†å¯ä»¥é€šè¿‡è¯·æ±‚ www.example.com/posts/foobar æ¥è®¿é—®.
 
-.. ¾¯¸æ::
+.. è­¦å‘Š::
 
-	Äã½«»á±»ÓÕµ¼È¥ÃüÃû¿ØÖÆÆ÷ºÍ¶¯×÷µÄÕýÈ·µÄ·½Ê½È¥»ñÈ¡Ò»¸öÕýÈ·µÄURL¡£
-	×ñÑ­CakePHPµÄÃüÃû¹æ·¶£¬´´½¨Ò×¶ÁÒ×Àí½âµÄ¶¯×÷Ãû×Ö£¬Äã¿ÉÒÔÊ¹ÓÃ¡°routes¡±½«URLÓ³Éäµ½
-	ÄãµÄ´úÂëÖÐ£¬Õâ¸öºóÃæ»áÌáµ½¡£
+	ä½ å°†ä¼šè¢«è¯±å¯¼åŽ»å‘½åæŽ§åˆ¶å™¨å’ŒåŠ¨ä½œçš„æ­£ç¡®çš„æ–¹å¼åŽ»èŽ·å–ä¸€ä¸ªæ­£ç¡®çš„URLã€‚
+	éµå¾ªCakePHPçš„å‘½åè§„èŒƒï¼Œåˆ›å»ºæ˜“è¯»æ˜“ç†è§£çš„åŠ¨ä½œåå­—ï¼Œä½ å¯ä»¥ä½¿ç”¨â€œroutesâ€å°†URLæ˜ å°„åˆ°
+	ä½ çš„ä»£ç ä¸­ï¼Œè¿™ä¸ªåŽé¢ä¼šæåˆ°ã€‚
 
-ÔÚ¶¯×÷ÖÐÊ¹ÓÃ ``set()`` Õâ¸öµ¥¶ÀµÄ²Ù×÷À´´Ó¿ØÖÆÆ÷ÖÐ´«µÝÊý¾Ýµ½ÊÓÍ¼ÖÐ¡£
-ÊÓÍ¼ÖÐµÄ'posts'±äÁ¿µÈ¼ÛÓÚPost Ä£ÐÍÖÐ ``find('all')`` µÄ·µ»ØÖµ¡£ÎÒÃÇµÄ
-``$this->Post`` ÔÚPost Ä£ÐÍÖÐ¿ÉÓÃÊÇÒòÎªÎÒÃÇ×ñÑ­µÄCakeµÄÃüÃû¹æ·¶¡£
+åœ¨åŠ¨ä½œä¸­ä½¿ç”¨ ``set()`` è¿™ä¸ªå•ç‹¬çš„æ“ä½œæ¥ä»ŽæŽ§åˆ¶å™¨ä¸­ä¼ é€’æ•°æ®åˆ°è§†å›¾ä¸­ã€‚
+è§†å›¾ä¸­çš„'posts'å˜é‡ç­‰ä»·äºŽPost æ¨¡åž‹ä¸­ ``find('all')`` çš„è¿”å›žå€¼ã€‚æˆ‘ä»¬çš„
+``$this->Post`` åœ¨Post æ¨¡åž‹ä¸­å¯ç”¨æ˜¯å› ä¸ºæˆ‘ä»¬éµå¾ªçš„Cakeçš„å‘½åè§„èŒƒã€‚
 
-ÔÚ:doc:`/controllers` ÕÂ½ÚÁË½â¸ü¶àµÄ¹ØÓÚCakeµÄ¿ØÖÆÆ÷µÄÐÅÏ¢.
+åœ¨:doc:`/controllers` ç« èŠ‚äº†è§£æ›´å¤šçš„å…³äºŽCakeçš„æŽ§åˆ¶å™¨çš„ä¿¡æ¯.
 
-´´½¨ Post ÊÓÍ¼
+åˆ›å»º Post è§†å›¾
 ===================
 
-¸ù¾ÝÎÒÃÇµÄÄ£ÐÍÒÑ¾­ÓÐÁËÊý¾Ý,Ó¦ÓÃÂß¼­ÒÔ¼°¿ØÖÆÆ÷ÖÐ¶¨ÒåµÄ¹¤×÷Á÷, 
-ÏÖÔÚÈÃÎÒÃÇ´´½¨Ò»¸öindex¶¯×÷µÄÊÓÍ¼¡£
+æ ¹æ®æˆ‘ä»¬çš„æ¨¡åž‹å·²ç»æœ‰äº†æ•°æ®,åº”ç”¨é€»è¾‘ä»¥åŠæŽ§åˆ¶å™¨ä¸­å®šä¹‰çš„å·¥ä½œæµ, 
+çŽ°åœ¨è®©æˆ‘ä»¬åˆ›å»ºä¸€ä¸ªindexåŠ¨ä½œçš„è§†å›¾ã€‚
 
-Cake µÄÊÓÍ¼½ö½öÊÇÔÚÓ¦ÓÃµÄ²¼¾ÖÖÐÕ¹Ê¾ÑùÊ½µÄÆ¬¶Î¡£¶Ô´ó¶àÊýÓ¦ÓÃ£¬ËûÃÇÊÇ
-HTML ºÍ PHP »ìºÏµÄ, µ«ËüÃÇ×îÖÕ¿ÉÄÜÊÇ XML, CSV, ÉõÖÁÊÇ¶þ½øÖÆÊý¾Ý.
+Cake çš„è§†å›¾ä»…ä»…æ˜¯åœ¨åº”ç”¨çš„å¸ƒå±€ä¸­å±•ç¤ºæ ·å¼çš„ç‰‡æ®µã€‚å¯¹å¤§å¤šæ•°åº”ç”¨ï¼Œä»–ä»¬æ˜¯
+HTML å’Œ PHP æ··åˆçš„, ä½†å®ƒä»¬æœ€ç»ˆå¯èƒ½æ˜¯ XML, CSV, ç”šè‡³æ˜¯äºŒè¿›åˆ¶æ•°æ®.
 
-²¼¾ÖÊÇÃèÊöÊÓÍ¼°ü×°µÄ´úÂë£¬¿ÉÒÔ±»¶¨ÒåºÍ×ª»»µÄ£¬µ«ÏÖÔÚ£¬ÈÃÎÒÃÇÏÈÊ¹ÓÃÄ¬ÈÏµÄ²¼¾Ö¡£
+å¸ƒå±€æ˜¯æè¿°è§†å›¾åŒ…è£…çš„ä»£ç ï¼Œå¯ä»¥è¢«å®šä¹‰å’Œè½¬æ¢çš„ï¼Œä½†çŽ°åœ¨ï¼Œè®©æˆ‘ä»¬å…ˆä½¿ç”¨é»˜è®¤çš„å¸ƒå±€ã€‚
 
-»¹¼ÇµÃÉÏÒ»½ÚÖÐÎÒÃÇÊÇÊ¹ÓÃ  ``set()`` ·½·¨À´¶Ô 'posts'  ±äÁ¿¸³ÖµÂð£¿
-ÄÇ½«°ÑÖµ´«µÝµ½ÊÓÍ¼ÖÐ,´úÂëÈçÏÂ::
+è¿˜è®°å¾—ä¸Šä¸€èŠ‚ä¸­æˆ‘ä»¬æ˜¯ä½¿ç”¨  ``set()`` æ–¹æ³•æ¥å¯¹ 'posts'  å˜é‡èµ‹å€¼å—ï¼Ÿ
+é‚£å°†æŠŠå€¼ä¼ é€’åˆ°è§†å›¾ä¸­,ä»£ç å¦‚ä¸‹::
 
     // print_r($posts) output:
 
@@ -119,9 +119,9 @@ HTML ºÍ PHP »ìºÏµÄ, µ«ËüÃÇ×îÖÕ¿ÉÄÜÊÇ XML, CSV, ÉõÖÁÊÇ¶þ½øÖÆÊý¾Ý.
             )
     )
 
-CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
- (ÔÚ±¾ÀýÖÐÎÒÃÇÐèÒªÃüÃûÎª 'Posts'  ).½«postµÄÊý¾ÝÏÔÊ¾ÔÚ±í¸ñÖÐ£¬
-ÊÓÍ¼µÄ´úÂë»áÊÇÕâÑù
+Cakeçš„è§†å›¾ä¿å­˜åœ¨ ``/app/View`` ç›®å½•ä¸­ï¼Œå¯¹åº”ç›¸åº”çš„æŽ§åˆ¶å™¨
+ (åœ¨æœ¬ä¾‹ä¸­æˆ‘ä»¬éœ€è¦å‘½åä¸º 'Posts'  ).å°†postçš„æ•°æ®æ˜¾ç¤ºåœ¨è¡¨æ ¼ä¸­ï¼Œ
+è§†å›¾çš„ä»£ç ä¼šæ˜¯è¿™æ ·
 
 .. code-block:: php
 
@@ -135,7 +135,7 @@ CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
             <th>Created</th>
         </tr>
 
-        <!-- ±éÀú $posts Êý×é, ÊäÈëpostµÄÐÅÏ¢ -->
+        <!-- éåŽ† $posts æ•°ç»„, è¾“å…¥postçš„ä¿¡æ¯ -->
 
         <?php foreach ($posts as $post): ?>
         <tr>
@@ -150,24 +150,24 @@ CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
         <?php unset($post); ?>
     </table>
 
-Ï£ÍûÕâÑù»á¿´ÆðÀ´¼òµ¥Ð©.
+å¸Œæœ›è¿™æ ·ä¼šçœ‹èµ·æ¥ç®€å•äº›.
 
-ÄãÒ²ÐíÒÑ¾­×¢Òâµ½ÁË ``$this->Html`` Õâ¸ö¶ÔÏó,ÕâÊÇ CakePHP :php:class:`HtmlHelper`  Àà
-µÄÒ»¸öÊ¾Àý. CakePHPÌá¹©ÁËÒ»Ð©helpersÀ´Ê¹Á´½Ó£¬±í¸ñÊä³ö£¬JavaScript ºÍ Ajax ¼ò±ã.
-Äã¿ÉÒÔÔÚÕâÀï¿´µ½ÈçºÎÊ¹ÓÃËüÃÇ  :doc:`/views/helpers` , µ«ÖµµÃ×¢ÒâµÄÊÇ ``link()`` ·½·¨½«
-»á²úÉúÒ»¸ö HTMLÁ´½ÓºÍ±êÌâ(µÚÒ»¸ö±äÁ¿)£¬ÒÔ¼°URL (µÚ¶þ¸ö±äÁ¿).
+ä½ ä¹Ÿè®¸å·²ç»æ³¨æ„åˆ°äº† ``$this->Html`` è¿™ä¸ªå¯¹è±¡,è¿™æ˜¯ CakePHP :php:class:`HtmlHelper`  ç±»
+çš„ä¸€ä¸ªç¤ºä¾‹. CakePHPæä¾›äº†ä¸€äº›helpersæ¥ä½¿é“¾æŽ¥ï¼Œè¡¨æ ¼è¾“å‡ºï¼ŒJavaScript å’Œ Ajax ç®€ä¾¿.
+ä½ å¯ä»¥åœ¨è¿™é‡Œçœ‹åˆ°å¦‚ä½•ä½¿ç”¨å®ƒä»¬  :doc:`/views/helpers` , ä½†å€¼å¾—æ³¨æ„çš„æ˜¯ ``link()`` æ–¹æ³•å°†
+ä¼šäº§ç”Ÿä¸€ä¸ª HTMLé“¾æŽ¥å’Œæ ‡é¢˜(ç¬¬ä¸€ä¸ªå˜é‡)ï¼Œä»¥åŠURL (ç¬¬äºŒä¸ªå˜é‡).
 
-µ±ÔÚCakeÖÐÖ¸¶¨URLÊ±, ÍÆ¼öÊ¹ÓÃÊý×é¸ñÊ½. ÔÚRoutesÕÂ½ÚÖÐÎÒÃÇ»á½²µ½ÕâÐ©Ï¸½Ú.
-Ê¹ÓÃÊý¾Ý¸ñÊ½À´±íÊ¾URLÔÊÐíÄãÀûÓÃCakePHPµÄ·´ÏòÂ·ÓÉ¹¦ÄÜ£¬ÄãÒ²¿ÉÒÔ¶¨Òå»ùÓÚÓ¦ÓÃµÄÏà¶ÔÂ·¾¶£¬
-Ïñ/controller/action/param1/param2ÕâÑù
+å½“åœ¨Cakeä¸­æŒ‡å®šURLæ—¶, æŽ¨èä½¿ç”¨æ•°ç»„æ ¼å¼. åœ¨Routesç« èŠ‚ä¸­æˆ‘ä»¬ä¼šè®²åˆ°è¿™äº›ç»†èŠ‚.
+ä½¿ç”¨æ•°æ®æ ¼å¼æ¥è¡¨ç¤ºURLå…è®¸ä½ åˆ©ç”¨CakePHPçš„åå‘è·¯ç”±åŠŸèƒ½ï¼Œä½ ä¹Ÿå¯ä»¥å®šä¹‰åŸºäºŽåº”ç”¨çš„ç›¸å¯¹è·¯å¾„ï¼Œ
+åƒ/controller/action/param1/param2è¿™æ ·
 
-ÏÖÔÚ£¬Äã¿ÉÒÔ´ò¿ªä¯ÀÀÆ÷£¬ÊäÈëµØÖ· http://www.example.com/posts/index . 
-ÄãÓ¦¸Ã¿ÉÒÔ¿´µ½ÄãµÄÊÓÍ¼£¬±êÌâºÍ±í¸ñÖÐpostsµÄÁÐ±í¶¼ÊÇÕýÈ·µÄ¸ñÊ½¡£
+çŽ°åœ¨ï¼Œä½ å¯ä»¥æ‰“å¼€æµè§ˆå™¨ï¼Œè¾“å…¥åœ°å€ http://www.example.com/posts/index . 
+ä½ åº”è¯¥å¯ä»¥çœ‹åˆ°ä½ çš„è§†å›¾ï¼Œæ ‡é¢˜å’Œè¡¨æ ¼ä¸­postsçš„åˆ—è¡¨éƒ½æ˜¯æ­£ç¡®çš„æ ¼å¼ã€‚
 
-Èç¹ûÄãÔÚµã»÷ÁËÎÒÃÇÔÚÕâ¸öÊÓÍ¼ÖÐ´´½¨µÄÁ´½Ó£¨Ö¸ÏòURL /posts/view/some\_id 
-µÄpostµÄ±êÌâµÄÁ´½Ó£©£¬CakePHP½«»á¸æÖªÄã»¹Ã»ÓÐ¶¨ÒåÕâ¸ö¶¯×÷£¬Èç¹ûÄãÃ»ÓÐ±»
-Í¨Öª£¬ÄÇ¾ÍÊÇÊ²Ã´µØ·½³ö´íÁË»òÕßÄãÊµ¼ÊÉÏÒÑ¾­ÍµÍµ¶¨ÒåÁË£¬ºÃ°É£¬ÎÒÃÇÀ´´´½¨Õâ¸ö
-¶¯×÷°É¡£ÔÚPostsController::
+å¦‚æžœä½ åœ¨ç‚¹å‡»äº†æˆ‘ä»¬åœ¨è¿™ä¸ªè§†å›¾ä¸­åˆ›å»ºçš„é“¾æŽ¥ï¼ˆæŒ‡å‘URL /posts/view/some\_id 
+çš„postçš„æ ‡é¢˜çš„é“¾æŽ¥ï¼‰ï¼ŒCakePHPå°†ä¼šå‘ŠçŸ¥ä½ è¿˜æ²¡æœ‰å®šä¹‰è¿™ä¸ªåŠ¨ä½œï¼Œå¦‚æžœä½ æ²¡æœ‰è¢«
+é€šçŸ¥ï¼Œé‚£å°±æ˜¯ä»€ä¹ˆåœ°æ–¹å‡ºé”™äº†æˆ–è€…ä½ å®žé™…ä¸Šå·²ç»å·å·å®šä¹‰äº†ï¼Œå¥½å§ï¼Œæˆ‘ä»¬æ¥åˆ›å»ºè¿™ä¸ª
+åŠ¨ä½œå§ã€‚åœ¨PostsController::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
@@ -189,19 +189,19 @@ CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
         }
     }
 
- ``set()`` ÒÑ¾­ºÜÊìÏ¤ÁË°É£¿ ×¢Òâµ½ÎÒÃÇÊ¹ÓÃ ``findById()`` 
- ¶ø²»ÊÇ ``find('all')`` £¬ÒòÎªÎÒÃÇÖµÏëÒªÒ»¸öpostµÄÐÅÏ¢¡£
+ ``set()`` å·²ç»å¾ˆç†Ÿæ‚‰äº†å§ï¼Ÿ æ³¨æ„åˆ°æˆ‘ä»¬ä½¿ç”¨ ``findById()`` 
+ è€Œä¸æ˜¯ ``find('all')`` ï¼Œå› ä¸ºæˆ‘ä»¬å€¼æƒ³è¦ä¸€ä¸ªpostçš„ä¿¡æ¯ã€‚
 
-×¢Òâµ½ÎÒÃÇµÄÊÓÍ¼¶¯×÷ÐèÒªÒ»¸ö²ÎÊý£¬postµÄID¡£Õâ¸ö²ÎÊýÊÇÍ¨¹ý
-ÇëÇóµÄURLÀ´´«µÝµÄ£¬Èç¹ûÒ»¸öÓÃ»§ÇëÇó ``/posts/view/3`` ,ÄÇÃ´Öµ
-'3' ¾Í»á¸³Öµ¸ø ``$id`` .
+æ³¨æ„åˆ°æˆ‘ä»¬çš„è§†å›¾åŠ¨ä½œéœ€è¦ä¸€ä¸ªå‚æ•°ï¼Œpostçš„IDã€‚è¿™ä¸ªå‚æ•°æ˜¯é€šè¿‡
+è¯·æ±‚çš„URLæ¥ä¼ é€’çš„ï¼Œå¦‚æžœä¸€ä¸ªç”¨æˆ·è¯·æ±‚ ``/posts/view/3`` ,é‚£ä¹ˆå€¼
+'3' å°±ä¼šèµ‹å€¼ç»™ ``$id`` .
 
-ÎÒÃÇÒ²×öÁËÐ©´íÎó¼ì²éÀ´È·±£ÓÃ»§È·ÊµÊÇÒª·ÃÎÊÒ»¸ö¼ÇÂ¼£¬Èç¹ûÒ»¸öÓÃ»§
-ÇëÇó ``/posts/view`` , ÎÒÃÇ¾ÍÅ×³öÒ»¸ö ``NotFoundException``  Òì³£À´
-ÈÃ CakePHP ErrorHandler ´¦Àí. ÎÒÃÇÒ²¼ÓÈëÁËÒ»¸öÍ¬ÑùµÄ¼ì²éÀ´±£Ö¤ÓÃ»§
-·ÃÎÊµÄ¼ÇÂ¼ÊÇ´æÔÚµÄ¡£
+æˆ‘ä»¬ä¹Ÿåšäº†äº›é”™è¯¯æ£€æŸ¥æ¥ç¡®ä¿ç”¨æˆ·ç¡®å®žæ˜¯è¦è®¿é—®ä¸€ä¸ªè®°å½•ï¼Œå¦‚æžœä¸€ä¸ªç”¨æˆ·
+è¯·æ±‚ ``/posts/view`` , æˆ‘ä»¬å°±æŠ›å‡ºä¸€ä¸ª ``NotFoundException``  å¼‚å¸¸æ¥
+è®© CakePHP ErrorHandler å¤„ç†. æˆ‘ä»¬ä¹ŸåŠ å…¥äº†ä¸€ä¸ªåŒæ ·çš„æ£€æŸ¥æ¥ä¿è¯ç”¨æˆ·
+è®¿é—®çš„è®°å½•æ˜¯å­˜åœ¨çš„ã€‚
 
-ÏÖÔÚÈÃÎÒÃÇ½¨Á¢Õâ¸öÊÓÍ¼²¢½«Ëü·ÅÔÚ ``/app/View/Posts/view.ctp``
+çŽ°åœ¨è®©æˆ‘ä»¬å»ºç«‹è¿™ä¸ªè§†å›¾å¹¶å°†å®ƒæ”¾åœ¨ ``/app/View/Posts/view.ctp``
 
 .. code-block:: php
 
@@ -213,14 +213,14 @@ CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
 
     <p><?php echo h($post['Post']['body']); ?></p>
 
-ÑéÖ¤ÎÒÃÇËù×öµÄÊÇ¿ÉÒÔ¹¤×÷µÄ£¬´ò¿ªä¯ÀÀÆ÷·ÃÎÊ ``/posts/index``  »òÕßÊÖ¶¯ÊäÈë²é¿´Ò»¸öpostµÄÇëÇó ``/posts/view/1`` .
+éªŒè¯æˆ‘ä»¬æ‰€åšçš„æ˜¯å¯ä»¥å·¥ä½œçš„ï¼Œæ‰“å¼€æµè§ˆå™¨è®¿é—® ``/posts/index``  æˆ–è€…æ‰‹åŠ¨è¾“å…¥æŸ¥çœ‹ä¸€ä¸ªpostçš„è¯·æ±‚ ``/posts/view/1`` .
 
-Ìí¼Ó Posts
+æ·»åŠ  Posts
 ============
 
-´ÓÊý¾Ý¿âÖÐ¶Á³ö²¢ÏÔÊ¾postsÊÇÒ»¸öºÃµÄ¿ªÊ¼£¬ÏÖÔÚÑÝÊ¾ÈçºÎÌí¼ÓÒ»¸öÐÂµÄposts¡£
+ä»Žæ•°æ®åº“ä¸­è¯»å‡ºå¹¶æ˜¾ç¤ºpostsæ˜¯ä¸€ä¸ªå¥½çš„å¼€å§‹ï¼ŒçŽ°åœ¨æ¼”ç¤ºå¦‚ä½•æ·»åŠ ä¸€ä¸ªæ–°çš„postsã€‚
 
-Ê×ÏÈ£¬´ÓÔÚ¿ØÖÆÆ÷PostsControllerÖÐ´´½¨¶¯×÷ ``add()``  ¿ªÊ¼::
+é¦–å…ˆï¼Œä»Žåœ¨æŽ§åˆ¶å™¨PostsControllerä¸­åˆ›å»ºåŠ¨ä½œ ``add()``  å¼€å§‹::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form', 'Session');
@@ -255,39 +255,39 @@ CakeµÄÊÓÍ¼±£´æÔÚ ``/app/View`` Ä¿Â¼ÖÐ£¬¶ÔÓ¦ÏàÓ¦µÄ¿ØÖÆÆ÷
         }
     }
 
-.. ×¢Òâ::
+.. æ³¨æ„::
 
-    ÄãÐèÒªµ¼Èë SessionComponent - ÒÔ¼° SessionHelper - µ½ÄãÓÃµ½µÄ¿ØÖÆÆ÷ÖÐ. 
-	Èç¹ûÐèÒªµÄ»°£¬µ¼Èëµ½ÄãµÄAppController.
+    ä½ éœ€è¦å¯¼å…¥ SessionComponent - ä»¥åŠ SessionHelper - åˆ°ä½ ç”¨åˆ°çš„æŽ§åˆ¶å™¨ä¸­. 
+	å¦‚æžœéœ€è¦çš„è¯ï¼Œå¯¼å…¥åˆ°ä½ çš„AppController.
 
-ÕâÊÇ ``add()`` ¶¯×÷Ëù×öµÄ: Èç¹ûÕâ¸ö HTTP ÇëÇóµÄ·½·¨ÊÇ POST, ½«Ê¹ÓÃ Post Ä£ÐÍ½«Êý¾Ý±£´æ.
-Èç¹ûÒòÎªÆäËûÔ­ÒòÃ»ÓÐ±£´æ£¬¾ÍÔÚÊÓÍ¼ÖÐäÖÈ¾£¬Õâ¸öÈÃÎÒÃÇÓÐ»ú»á¸øÓÃ»§ÏÔÊ¾ÑéÖ¤ºóµÄ´íÎó»òÆäËû¾¯¸æµÈ¡£
+è¿™æ˜¯ ``add()`` åŠ¨ä½œæ‰€åšçš„: å¦‚æžœè¿™ä¸ª HTTP è¯·æ±‚çš„æ–¹æ³•æ˜¯ POST, å°†ä½¿ç”¨ Post æ¨¡åž‹å°†æ•°æ®ä¿å­˜.
+å¦‚æžœå› ä¸ºå…¶ä»–åŽŸå› æ²¡æœ‰ä¿å­˜ï¼Œå°±åœ¨è§†å›¾ä¸­æ¸²æŸ“ï¼Œè¿™ä¸ªè®©æˆ‘ä»¬æœ‰æœºä¼šç»™ç”¨æˆ·æ˜¾ç¤ºéªŒè¯åŽçš„é”™è¯¯æˆ–å…¶ä»–è­¦å‘Šç­‰ã€‚
 
-ÈÎºÎ CakePHP ÇëÇó°üÀ¨Ò»¸ö ``CakeRequest`` ¶ÔÏó£¬Ëü¿ÉÒÔÍ¨¹ý ``$this->request`` À´·ÃÎÊ. 
-Õâ¸öÇëÇó¶ÔÏó°üº¬ÁËÊÕµ½µÄÇëÇóµÄÓÐÓÃ²¢ÇÒÄÜ¹»±»ÓÃÀ´¿ØÖÆÄãµÄÓ¦ÓÃµÄÁ÷Ïò¡£ÔÚ±¾ÀýÖÐ,ÎÒÃÇÊ¹ÓÃ  
- :php:meth:`CakeRequest::is()` ·½·¨À´¼ì²éÕâ¸öÇëÇóÊÇ·ñÊÇÒ»¸ö HTTP POST ÇëÇó.
+ä»»ä½• CakePHP è¯·æ±‚åŒ…æ‹¬ä¸€ä¸ª ``CakeRequest`` å¯¹è±¡ï¼Œå®ƒå¯ä»¥é€šè¿‡ ``$this->request`` æ¥è®¿é—®. 
+è¿™ä¸ªè¯·æ±‚å¯¹è±¡åŒ…å«äº†æ”¶åˆ°çš„è¯·æ±‚çš„æœ‰ç”¨å¹¶ä¸”èƒ½å¤Ÿè¢«ç”¨æ¥æŽ§åˆ¶ä½ çš„åº”ç”¨çš„æµå‘ã€‚åœ¨æœ¬ä¾‹ä¸­,æˆ‘ä»¬ä½¿ç”¨  
+ :php:meth:`CakeRequest::is()` æ–¹æ³•æ¥æ£€æŸ¥è¿™ä¸ªè¯·æ±‚æ˜¯å¦æ˜¯ä¸€ä¸ª HTTP POST è¯·æ±‚.
 
-µ±Ò»¸öÓÃ»§ÔÚÄãµÄÓ¦ÓÃÖÐÊ¹ÓÃÒ»¸ö±íµ¥ POST Êý¾Ý, ÆäÐÅÏ¢±£´æÔÚ ``$this->request->data`` . 
-Äã¿ÉÒÔÊ¹ÓÃ :php:func:`pr()`  »ò :php:func:`debug()` º¯Êý´òÓ¡³öÆäÐÅÏ¢¡£
+å½“ä¸€ä¸ªç”¨æˆ·åœ¨ä½ çš„åº”ç”¨ä¸­ä½¿ç”¨ä¸€ä¸ªè¡¨å• POST æ•°æ®, å…¶ä¿¡æ¯ä¿å­˜åœ¨ ``$this->request->data`` . 
+ä½ å¯ä»¥ä½¿ç”¨ :php:func:`pr()`  æˆ– :php:func:`debug()` å‡½æ•°æ‰“å°å‡ºå…¶ä¿¡æ¯ã€‚
 
-ÎÒÃÇÊ¹ÓÃ SessionComponent's :php:meth:`SessionComponent::setFlash()`
-·½·¨À´ÉèÖÃÒ»¸öÐÅÏ¢ÔÚÒ³ÃæÖØ¶¨ÏòºóÀ´ÏÔÊ¾»á»°±äÁ¿£¬ÔÚÕâ¸ö²¼¾ÖÖÐÎÒÃÇÓÃ 
- :php:func:`SessionHelper::flash` ÏÔÊ¾ÐÅÏ¢²¢Çå¿ÕÏà¹ØµÄ»á»°±äÁ¿¡£¿ØÖÆÆ÷µÄ :php:meth:`Controller::redirect` º¯ÊýÖØ¶¨ÏòÒ³Ãæµ½ÆäËûµÄ URL.²ÎÊý ``array('action' => 'index')``
-·­ÒëURL µ½/posts ¼´ posts ¿ØÖÆÆ÷µÄindex¶¯×÷.
-Äã¿ÉÒÔÏ¸²é :php:func:`Router::url()`  º¯ÊýÔÚ `API <http://api20.cakephp.org>` ÖÐµÄ¶àÖÖURL¸ñÊ½¡£
+æˆ‘ä»¬ä½¿ç”¨ SessionComponent's :php:meth:`SessionComponent::setFlash()`
+æ–¹æ³•æ¥è®¾ç½®ä¸€ä¸ªä¿¡æ¯åœ¨é¡µé¢é‡å®šå‘åŽæ¥æ˜¾ç¤ºä¼šè¯å˜é‡ï¼Œåœ¨è¿™ä¸ªå¸ƒå±€ä¸­æˆ‘ä»¬ç”¨ 
+ :php:func:`SessionHelper::flash` æ˜¾ç¤ºä¿¡æ¯å¹¶æ¸…ç©ºç›¸å…³çš„ä¼šè¯å˜é‡ã€‚æŽ§åˆ¶å™¨çš„ :php:meth:`Controller::redirect` å‡½æ•°é‡å®šå‘é¡µé¢åˆ°å…¶ä»–çš„ URL.å‚æ•° ``array('action' => 'index')``
+ç¿»è¯‘URL åˆ°/posts å³ posts æŽ§åˆ¶å™¨çš„indexåŠ¨ä½œ.
+ä½ å¯ä»¥ç»†æŸ¥ :php:func:`Router::url()`  å‡½æ•°åœ¨ `API <http://api20.cakephp.org>` ä¸­çš„å¤šç§URLæ ¼å¼ã€‚
 
-µ÷ÓÃ ``save()`` ·½·¨½«»á¼ì²é´íÎóÑéÖ¤ºÍÓÐÈÎºÎÎÊÌâÊ±È¡Ïû±£´æ¡£ÎÒÃÇ
-½«»áÔÚ½ÓÏÂÀ´µÄÐ¡½ÚÀïÃæÌÖÂÛÈçºÎ´¦ÀíÕâÐ©´íÎó¡£
+è°ƒç”¨ ``save()`` æ–¹æ³•å°†ä¼šæ£€æŸ¥é”™è¯¯éªŒè¯å’Œæœ‰ä»»ä½•é—®é¢˜æ—¶å–æ¶ˆä¿å­˜ã€‚æˆ‘ä»¬
+å°†ä¼šåœ¨æŽ¥ä¸‹æ¥çš„å°èŠ‚é‡Œé¢è®¨è®ºå¦‚ä½•å¤„ç†è¿™äº›é”™è¯¯ã€‚
 
-Êý¾ÝÑéÖ¤
+æ•°æ®éªŒè¯
 ===============
 
-Cake¸¶³öºÜ´óµÄÅ¬Á¦À´°ÚÍÑ±íµ¥ÊäÈëµÄÑéÖ¤µÄµ¥µ÷£¬Ã¿Ò»¸öÈË¶¼ºÞ±àÂëÎÞÊýµÄ±í¸ñºÍËûÃÇµÄ
-ÑéÖ¤²¿·Ö£¬CakePHPÈÃÕâÐ©¹¤×÷¼òµ¥ºÍ¿ìËÙ¡£
+Cakeä»˜å‡ºå¾ˆå¤§çš„åŠªåŠ›æ¥æ‘†è„±è¡¨å•è¾“å…¥çš„éªŒè¯çš„å•è°ƒï¼Œæ¯ä¸€ä¸ªäººéƒ½æ¨ç¼–ç æ— æ•°çš„è¡¨æ ¼å’Œä»–ä»¬çš„
+éªŒè¯éƒ¨åˆ†ï¼ŒCakePHPè®©è¿™äº›å·¥ä½œç®€å•å’Œå¿«é€Ÿã€‚
 
-ÀûÓÃÑéÖ¤¹¦ÄÜ£¬Äã½«ÐèÒªÔÚÊÓÍ¼ÖÐÊ¹ÓÃCakeµÄ FormHelper ¡£Õâ¸ö :php:class:`FormHelper`  Ä¬ÈÏÔÚËùÓÐÊÓÍ¼ÖÐ¶¼¿ÉÒÔÍ¨¹ý ``$this->Form`` ·ÃÎÊ.
+åˆ©ç”¨éªŒè¯åŠŸèƒ½ï¼Œä½ å°†éœ€è¦åœ¨è§†å›¾ä¸­ä½¿ç”¨Cakeçš„ FormHelper ã€‚è¿™ä¸ª :php:class:`FormHelper`  é»˜è®¤åœ¨æ‰€æœ‰è§†å›¾ä¸­éƒ½å¯ä»¥é€šè¿‡ ``$this->Form`` è®¿é—®.
 
-ÕâÊÇÎÒÃÇµÄÌí¼ÓpostµÄÊÓÍ¼:
+è¿™æ˜¯æˆ‘ä»¬çš„æ·»åŠ postçš„è§†å›¾:
 
 .. code-block:: php
 
@@ -301,34 +301,34 @@ Cake¸¶³öºÜ´óµÄÅ¬Á¦À´°ÚÍÑ±íµ¥ÊäÈëµÄÑéÖ¤µÄµ¥µ÷£¬Ã¿Ò»¸öÈË¶¼ºÞ±àÂëÎÞÊýµÄ±í¸ñºÍËûÃÇµÄ
     echo $this->Form->end('Save Post');
     ?>
 
-ÕâÀï£¬ÎÒÃÇÊ¹ÓÃ FormHelper À´¶¯Ì¬Éú³ÉÒ»¸ö HTML±íµ¥. 
-ÕâÀïÓÃ ``$this->Form->create()`` À´Éú³É:
+è¿™é‡Œï¼Œæˆ‘ä»¬ä½¿ç”¨ FormHelper æ¥åŠ¨æ€ç”Ÿæˆä¸€ä¸ª HTMLè¡¨å•. 
+è¿™é‡Œç”¨ ``$this->Form->create()`` æ¥ç”Ÿæˆ:
 
 .. code-block:: html
 
     <form id="PostAddForm" method="post" action="/posts/add">
 
-Èç¹û ``create()`` ²»´ø²ÎÁ¿, Ëü¼Ù¶¨ÄãÒª½¨Á¢Ò»¸öÌá½»µ±Ç°¿ØÖÆÆ÷µÄ
-``add()`` ¶¯×÷ (»òÕß ``edit()`` ¶¯×÷ £¬µ± ``id`` ÓÐÖµÊ±), Í¨¹ý POST ·½·¨.
+å¦‚æžœ ``create()`` ä¸å¸¦å‚é‡, å®ƒå‡å®šä½ è¦å»ºç«‹ä¸€ä¸ªæäº¤å½“å‰æŽ§åˆ¶å™¨çš„
+``add()`` åŠ¨ä½œ (æˆ–è€… ``edit()`` åŠ¨ä½œ ï¼Œå½“ ``id`` æœ‰å€¼æ—¶), é€šè¿‡ POST æ–¹æ³•.
 
-Õâ¸ö ``$this->Form->input()`` ·½·¨±»ÓÃÀ´´´½¨Í¬ÃûµÄ±íµ¥ÔªËØ .
-µÚÒ»¸ö²ÎÊý¸æËß CakePHP ¹ØÁªµ½ÄÇ¸ö×Ö¶Î,µÚ¶þ¸ö²ÎÊýÈÃÄã¶¨ÒåÒ»ÏµÁÐÑ¡Ïî¡£ÔÚÕâÀï£¬
-ÎÒÃÇ¶¨ÒåÎÄ±¾ÇøµÄÐÐÊý¡£Äã½«×¢Òâµ½ :``input()``  ½«»áÊä³ö²»Í¬µÄ±íµ¥ÔªËØ£¬Æä¸ù¾ÝµÄÊÇÄ£ÐÍÖÐ¸Ã×Ö¶ÎµÄ¶¨Òå.
+è¿™ä¸ª ``$this->Form->input()`` æ–¹æ³•è¢«ç”¨æ¥åˆ›å»ºåŒåçš„è¡¨å•å…ƒç´  .
+ç¬¬ä¸€ä¸ªå‚æ•°å‘Šè¯‰ CakePHP å…³è”åˆ°é‚£ä¸ªå­—æ®µ,ç¬¬äºŒä¸ªå‚æ•°è®©ä½ å®šä¹‰ä¸€ç³»åˆ—é€‰é¡¹ã€‚åœ¨è¿™é‡Œï¼Œ
+æˆ‘ä»¬å®šä¹‰æ–‡æœ¬åŒºçš„è¡Œæ•°ã€‚ä½ å°†æ³¨æ„åˆ° :``input()``  å°†ä¼šè¾“å‡ºä¸åŒçš„è¡¨å•å…ƒç´ ï¼Œå…¶æ ¹æ®çš„æ˜¯æ¨¡åž‹ä¸­è¯¥å­—æ®µçš„å®šä¹‰.
 
-``$this->Form->end()``  Éú³ÉÒ»¸öÌá½»°´Å¥²¢½áÊø±íµ¥. 
- ``end()`` µÄµÚÒ»¸ö²ÎÊý¿ÉÒÔÓÃÀ´¶¨ÒåÌá½»°´Å¥ÉÏµÄÎÄ×Ö. 
-ÔÚÕâÀïÓÐ¸ü¶àhelperµÄÐÅÏ¢ :doc:`/views/helpers` .
+``$this->Form->end()``  ç”Ÿæˆä¸€ä¸ªæäº¤æŒ‰é’®å¹¶ç»“æŸè¡¨å•. 
+ ``end()`` çš„ç¬¬ä¸€ä¸ªå‚æ•°å¯ä»¥ç”¨æ¥å®šä¹‰æäº¤æŒ‰é’®ä¸Šçš„æ–‡å­—. 
+åœ¨è¿™é‡Œæœ‰æ›´å¤šhelperçš„ä¿¡æ¯ :doc:`/views/helpers` .
 
-ÏÖÔÚÈÃÎÒÃÇ»ØÈ¥²¢¸üÐÂÎÒÃÇµÄ ``/app/View/Posts/index.ctp`` ÊÓÍ¼£¬
-Ìí¼Ó "Add Post" Á´½Ó. ÔÚ  ``<table>`` Ç°Ìí¼ÓÈçÏÂ´úÂë ::
+çŽ°åœ¨è®©æˆ‘ä»¬å›žåŽ»å¹¶æ›´æ–°æˆ‘ä»¬çš„ ``/app/View/Posts/index.ctp`` è§†å›¾ï¼Œ
+æ·»åŠ  "Add Post" é“¾æŽ¥. åœ¨  ``<table>`` å‰æ·»åŠ å¦‚ä¸‹ä»£ç  ::
 
     <?php echo $this->Html->link(
         'Add Post',
         array('controller' => 'posts', 'action' => 'add')
     ); ?>
 
-Äã¿ÉÄÜÓÐÐ©ÒÉ»ó£ºÔõÃ´¸æËßCakePHPÎÒµÄÑéÖ¤ÒªÇóÄØ£¿ÑéÖ¤µÄ¹æÔòÊÇÔÚÄ£ÐÍÖÐ¶¨ÒåµÄ¡£
- ÈÃÎÒÃÇ¼ì²éÒ»ÏÂPost Ä£ÐÍ²¢×öÒ»Ð©µ÷Õû::
+ä½ å¯èƒ½æœ‰äº›ç–‘æƒ‘ï¼šæ€Žä¹ˆå‘Šè¯‰CakePHPæˆ‘çš„éªŒè¯è¦æ±‚å‘¢ï¼ŸéªŒè¯çš„è§„åˆ™æ˜¯åœ¨æ¨¡åž‹ä¸­å®šä¹‰çš„ã€‚
+ è®©æˆ‘ä»¬æ£€æŸ¥ä¸€ä¸‹Post æ¨¡åž‹å¹¶åšä¸€äº›è°ƒæ•´::
 
     class Post extends AppModel {
         public $validate = array(
@@ -341,22 +341,22 @@ Cake¸¶³öºÜ´óµÄÅ¬Á¦À´°ÚÍÑ±íµ¥ÊäÈëµÄÑéÖ¤µÄµ¥µ÷£¬Ã¿Ò»¸öÈË¶¼ºÞ±àÂëÎÞÊýµÄ±í¸ñºÍËûÃÇµÄ
         );
     }
 
-``$validate`` Êý×é¸æËß CakePHP µ± ``save()`` ·½·¨±»µ÷ÓÃÊ±ÈçºÎÈ¥ÑéÖ¤ÄãµÄÊý¾Ý£¬
-ÕâÀï£¬ÎÒ¶¨ÒåÁËbodyºÍ±êÌâµÄ×Ö¶Î²»ÄÜÎª¿Õ£¬CakePHPµÄÑéÖ¤ÒýÇæºÜÇ¿´ó
-ÓÐÐí¶àÄÚ½¨µÄÑéÖ¤¹æÔò£¨ÐÅÓÃ¿¨¡¢µç×ÓÓÊ¼þ£¬µÈ£©²¢ÇÒÁé»î±ãÓÚÄãÔö¼Ó×Ô¼ºµÄÑéÖ¤¹æÔò¡£
-¸ü¶àÐÅÏ¢ÇëÒÆ²½ :doc:`/Models/data-validation`.
+``$validate`` æ•°ç»„å‘Šè¯‰ CakePHP å½“ ``save()`` æ–¹æ³•è¢«è°ƒç”¨æ—¶å¦‚ä½•åŽ»éªŒè¯ä½ çš„æ•°æ®ï¼Œ
+è¿™é‡Œï¼Œæˆ‘å®šä¹‰äº†bodyå’Œæ ‡é¢˜çš„å­—æ®µä¸èƒ½ä¸ºç©ºï¼ŒCakePHPçš„éªŒè¯å¼•æ“Žå¾ˆå¼ºå¤§
+æœ‰è®¸å¤šå†…å»ºçš„éªŒè¯è§„åˆ™ï¼ˆä¿¡ç”¨å¡ã€ç”µå­é‚®ä»¶ï¼Œç­‰ï¼‰å¹¶ä¸”çµæ´»ä¾¿äºŽä½ å¢žåŠ è‡ªå·±çš„éªŒè¯è§„åˆ™ã€‚
+æ›´å¤šä¿¡æ¯è¯·ç§»æ­¥ :doc:`/Models/data-validation`.
 
 
-ÏÖÔÚÄãÒÑ¾­Íê³ÉÁËÑéÖ¤¹æÔò²¿·Ö£¬Ê¹ÓÃ±¾Ó¦ÓÃÀ´³¢ÊÔÌí¼ÓÒ»¸öpost£¬ÔÚ±êÌâ»òÕßbody²¿·Ö
-Áô¿Õ¿´¿´ÑéÖ¤²¿·ÖÈçºÎÆð×÷ÓÃµÄ¡£ÒòÎªÎÒÃÇÒÑ¾­Ê¹ÓÃÁËFormHelperµÄ
- :php:meth:`FormHelper::input()`  ·½·¨ À´´´½¨ÎÒÃÇµÄ±íµ¥ÔªËØ£¬ÎÒÃÇ
-µÄÑéÖ¤´íÎóÐÅÏ¢½«»á×Ô¶¯ÏÔÊ¾¡£
+çŽ°åœ¨ä½ å·²ç»å®Œæˆäº†éªŒè¯è§„åˆ™éƒ¨åˆ†ï¼Œä½¿ç”¨æœ¬åº”ç”¨æ¥å°è¯•æ·»åŠ ä¸€ä¸ªpostï¼Œåœ¨æ ‡é¢˜æˆ–è€…bodyéƒ¨åˆ†
+ç•™ç©ºçœ‹çœ‹éªŒè¯éƒ¨åˆ†å¦‚ä½•èµ·ä½œç”¨çš„ã€‚å› ä¸ºæˆ‘ä»¬å·²ç»ä½¿ç”¨äº†FormHelperçš„
+ :php:meth:`FormHelper::input()`  æ–¹æ³• æ¥åˆ›å»ºæˆ‘ä»¬çš„è¡¨å•å…ƒç´ ï¼Œæˆ‘ä»¬
+çš„éªŒè¯é”™è¯¯ä¿¡æ¯å°†ä¼šè‡ªåŠ¨æ˜¾ç¤ºã€‚
 
-±à¼­Posts
+ç¼–è¾‘Posts
 =============
 
-Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
-½¨Á¢¶¯×÷£¬È»ºóÊÇÊÓÍ¼¡£¿ØÖÆÆ÷PostsControllerÖÐµÄ¶¯×÷ ``edit()`` »áÊÇÕâÑù::
+Postç¼–è¾‘:å¼€å§‹å§. ä½ çŽ°åœ¨å·²ç»æ˜¯ä¸ªCakePHPä¸“ä¸šäººå£«å•¦, æ‰€ä»¥ä½ çŽ°åœ¨å·²ç»é€‰æ‹©äº†ä¸€ä¸ªæ¨¡å¼.
+å»ºç«‹åŠ¨ä½œï¼Œç„¶åŽæ˜¯è§†å›¾ã€‚æŽ§åˆ¶å™¨PostsControllerä¸­çš„åŠ¨ä½œ ``edit()`` ä¼šæ˜¯è¿™æ ·::
 
     public function edit($id = null) {
         if (!$id) {
@@ -383,16 +383,16 @@ Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
         }
     }
 
-Õâ¸ö¶¯×÷Ê×ÏÈÈ·±£ÓÃ»§ÒÑ¾­·ÃÎÊµ½ÁËÒ»¸öÒÑ´æµÄ¼ÇÂ¼¡£Èç¹ûËûÃÇÃ»ÓÐ´«Èë ``$id``  µÄÖµ»òÕßpost
-Ã»ÓÐÕÒµ½£¬¾ÍÅ×³ö ``NotFoundException`` Òì³£ÈÃ CakePHP ErrorHandler À´´¦Àí.
+è¿™ä¸ªåŠ¨ä½œé¦–å…ˆç¡®ä¿ç”¨æˆ·å·²ç»è®¿é—®åˆ°äº†ä¸€ä¸ªå·²å­˜çš„è®°å½•ã€‚å¦‚æžœä»–ä»¬æ²¡æœ‰ä¼ å…¥ ``$id``  çš„å€¼æˆ–è€…post
+æ²¡æœ‰æ‰¾åˆ°ï¼Œå°±æŠ›å‡º ``NotFoundException`` å¼‚å¸¸è®© CakePHP ErrorHandler æ¥å¤„ç†.
 
-½Ó×Å£¬¼ì²éÕâ¸öÇëÇóÊÇ·ñÊÇÒ»¸öPOSTÇëÇó£¬Èç¹ûÊÇ£¬È»ºóÎÒÃÇÊ¹ÓÃPOSTÖÐµÄÊý¾ÝÀ´
-¸üÐÂPost¼ÇÂ¼£¬·ñÔò¾ÍÍË»Ø²¢½«ÑéÖ¤µÄ´íÎóÏÔÊ¾¸øÓÃ»§¡£
+æŽ¥ç€ï¼Œæ£€æŸ¥è¿™ä¸ªè¯·æ±‚æ˜¯å¦æ˜¯ä¸€ä¸ªPOSTè¯·æ±‚ï¼Œå¦‚æžœæ˜¯ï¼Œç„¶åŽæˆ‘ä»¬ä½¿ç”¨POSTä¸­çš„æ•°æ®æ¥
+æ›´æ–°Postè®°å½•ï¼Œå¦åˆ™å°±é€€å›žå¹¶å°†éªŒè¯çš„é”™è¯¯æ˜¾ç¤ºç»™ç”¨æˆ·ã€‚
 
-Èç¹û ``$this->request->data`` ÖÐÃ»ÓÐÊý¾Ý¼¯£¬ÎÒÃÇ¼òµ¥µÄÉèÖÃÎªÇ°Ò»¸ö»ñµÃµÄpost¡£
+å¦‚æžœ ``$this->request->data`` ä¸­æ²¡æœ‰æ•°æ®é›†ï¼Œæˆ‘ä»¬ç®€å•çš„è®¾ç½®ä¸ºå‰ä¸€ä¸ªèŽ·å¾—çš„postã€‚
 
 
-±à¼­postµÄÊÓÍ¼»áÊÇÕâÑù:
+ç¼–è¾‘postçš„è§†å›¾ä¼šæ˜¯è¿™æ ·:
 
 .. code-block:: php
 
@@ -406,12 +406,12 @@ Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
         echo $this->Form->input('id', array('type' => 'hidden'));
         echo $this->Form->end('Save Post');
 
-Õâ¸öÊÓÍ¼Êä³ö±à¼­±í¸ñ£¨ÌîÈëÁËÒ»Ð©Öµ£©£¬ÒÔ¼°Ò»Ð©ÑéÖ¤ÐèÒªµÄ´íÎóÐÅÏ¢¡£
+è¿™ä¸ªè§†å›¾è¾“å‡ºç¼–è¾‘è¡¨æ ¼ï¼ˆå¡«å…¥äº†ä¸€äº›å€¼ï¼‰ï¼Œä»¥åŠä¸€äº›éªŒè¯éœ€è¦çš„é”™è¯¯ä¿¡æ¯ã€‚
 
-ÎÒÃÇÔÚÕâÀïÐèÒª×¢ÒâµÄÊÇ£ºÈç¹ûÓÐ 'id'£¬CakePHP ½«¼ÙÉèÄãÔÚ±à¼­Ò»¸öÄ£ÐÍ.
-Èç¹ûÃ»ÓÐ 'id' , µ±µ÷ÓÃ ``save()``  Ê±£¬Cake ½«¼ÙÉèÄãÕýÔÚ²åÈëÒ»¸öÐÂµÄÄ£ÐÍ.
+æˆ‘ä»¬åœ¨è¿™é‡Œéœ€è¦æ³¨æ„çš„æ˜¯ï¼šå¦‚æžœæœ‰ 'id'ï¼ŒCakePHP å°†å‡è®¾ä½ åœ¨ç¼–è¾‘ä¸€ä¸ªæ¨¡åž‹.
+å¦‚æžœæ²¡æœ‰ 'id' , å½“è°ƒç”¨ ``save()``  æ—¶ï¼ŒCake å°†å‡è®¾ä½ æ­£åœ¨æ’å…¥ä¸€ä¸ªæ–°çš„æ¨¡åž‹.
 
-ÄãÏÖÔÚ¿ÉÒÔ¸üÐÂÄãµÄindexÊÓÍ¼ÁË£¬Ìí¼ÓpostsµÄ±à¼­Á´½Ó¡£:
+ä½ çŽ°åœ¨å¯ä»¥æ›´æ–°ä½ çš„indexè§†å›¾äº†ï¼Œæ·»åŠ postsçš„ç¼–è¾‘é“¾æŽ¥ã€‚:
 
 .. code-block:: php
 
@@ -446,10 +446,10 @@ Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
 
     </table>
 
-É¾³ýPosts
+åˆ é™¤Posts
 ==============
 
-½ÓÏÂÀ´, Ôö¼ÓÉ¾³ýposts¹¦ÄÜ. ÔÚPostsControllerÖÐÌí¼Ó ``delete()`` ¶¯×÷::
+æŽ¥ä¸‹æ¥, å¢žåŠ åˆ é™¤postsåŠŸèƒ½. åœ¨PostsControllerä¸­æ·»åŠ  ``delete()`` åŠ¨ä½œ::
 
     public function delete($id) {
         if ($this->request->is('get')) {
@@ -462,13 +462,13 @@ Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
         }
     }
 
-Õâ¸öÂß¼­É¾³ýÖ¸¶¨ `$id` µÄposts£¬²¢ÔÚÖØ¶¨Ïòµ½ ``/posts`` ºóÊ¹ÓÃ ``$this->Session->setFlash()`` 
- ÏÔÊ¾¸øÓÃ»§È·ÈÏÐÅÏ¢¡£Èç¹ûÓÃ»§³¢ÊÔÍ¨¹ýGETÇëÇóÉ¾³ýpostÊ±£¬ÎÒÃÇÅ×³öÒì³£¡£
-Î´±»»ñÈ¡µÄÒì³£½«±»CakePHPµÄÒì³£´¦Àí½ØÈ¡²¢ÔÚÒ³ÃæÉÏÏÔÊ¾Ò»¸ö´íÎóÐÅÏ¢¡£
-ÕâÓÐÐí¶àÄÚ½¨µÄÒì³£ :doc:`/development/exceptions`  ¿ÉÒÔÔÚÄãµÄÓ¦ÓÃÖÐÊ¹ÓÃÀ´Éú³É¶àÖÖHTTPµÄ´íÎó¡£
+è¿™ä¸ªé€»è¾‘åˆ é™¤æŒ‡å®š `$id` çš„postsï¼Œå¹¶åœ¨é‡å®šå‘åˆ° ``/posts`` åŽä½¿ç”¨ ``$this->Session->setFlash()`` 
+ æ˜¾ç¤ºç»™ç”¨æˆ·ç¡®è®¤ä¿¡æ¯ã€‚å¦‚æžœç”¨æˆ·å°è¯•é€šè¿‡GETè¯·æ±‚åˆ é™¤postæ—¶ï¼Œæˆ‘ä»¬æŠ›å‡ºå¼‚å¸¸ã€‚
+æœªè¢«èŽ·å–çš„å¼‚å¸¸å°†è¢«CakePHPçš„å¼‚å¸¸å¤„ç†æˆªå–å¹¶åœ¨é¡µé¢ä¸Šæ˜¾ç¤ºä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
+è¿™æœ‰è®¸å¤šå†…å»ºçš„å¼‚å¸¸ :doc:`/development/exceptions`  å¯ä»¥åœ¨ä½ çš„åº”ç”¨ä¸­ä½¿ç”¨æ¥ç”Ÿæˆå¤šç§HTTPçš„é”™è¯¯ã€‚
 
-ÒòÎªÎÒÃÇ½ö½öÊÇÖ´ÐÐÒ»Ð©Âß¼­ºÍÖØ¶¨Ïò£¬ÕâÐ©¶¯×÷Ã»ÓÐÊÓÍ¼£¬Ö»ÐèÔÚindexÊÓÍ¼ÖÐ
-Ìí¼ÓÉ¾³ýÁ´½ÓÀ´ÔÊÐíÓÃ»§É¾³ýposts:
+å› ä¸ºæˆ‘ä»¬ä»…ä»…æ˜¯æ‰§è¡Œä¸€äº›é€»è¾‘å’Œé‡å®šå‘ï¼Œè¿™äº›åŠ¨ä½œæ²¡æœ‰è§†å›¾ï¼Œåªéœ€åœ¨indexè§†å›¾ä¸­
+æ·»åŠ åˆ é™¤é“¾æŽ¥æ¥å…è®¸ç”¨æˆ·åˆ é™¤posts:
 
 .. code-block:: php
 
@@ -508,69 +508,69 @@ Post±à¼­:¿ªÊ¼°É. ÄãÏÖÔÚÒÑ¾­ÊÇ¸öCakePHP×¨ÒµÈËÊ¿À², ËùÒÔÄãÏÖÔÚÒÑ¾­Ñ¡ÔñÁËÒ»¸öÄ£Ê½.
 
     </table>
 
-Ê¹ÓÃ :php:meth:`~FormHelper::postLink()`  ½«´´½¨Ò»¸öÁ´½ÓÊ¹ÓÃJavascripÀ´´´½¨Ò»¸öÉ¾³ýÎÒÃÇpostµÄPOSTÀàÐÍÇëÇó.
-Ê¹ÓÃGETÇëÇóÀ´É¾³ýÄÚÈÝÊÇÎ£ÏÕµÄ,ÒòÎªwebÅÀ³æ½«ÓÐ»ú»áÉ¾³ýÄãËùÓÐµÄÄÚÈÝ.
+ä½¿ç”¨ :php:meth:`~FormHelper::postLink()`  å°†åˆ›å»ºä¸€ä¸ªé“¾æŽ¥ä½¿ç”¨Javascripæ¥åˆ›å»ºä¸€ä¸ªåˆ é™¤æˆ‘ä»¬postçš„POSTç±»åž‹è¯·æ±‚.
+ä½¿ç”¨GETè¯·æ±‚æ¥åˆ é™¤å†…å®¹æ˜¯å±é™©çš„,å› ä¸ºwebçˆ¬è™«å°†æœ‰æœºä¼šåˆ é™¤ä½ æ‰€æœ‰çš„å†…å®¹.
 
-.. ×¢Òâ::
+.. æ³¨æ„::
 
-	Õâ¸öÊÓÍ¼´úÂëÒ²Ê¹ÓÃÁËFormHelper£¬µ±ÓÃ»§ÊÓÍ¼É¾³ýÒ»¸öpostÊ±£¬
-	½«»á¸øÓÃ»§Ò»¸öJavaScriptµÄÈ·ÈÏ¶Ô»°¿òÌáÊ¾¡£
+	è¿™ä¸ªè§†å›¾ä»£ç ä¹Ÿä½¿ç”¨äº†FormHelperï¼Œå½“ç”¨æˆ·è§†å›¾åˆ é™¤ä¸€ä¸ªpostæ—¶ï¼Œ
+	å°†ä¼šç»™ç”¨æˆ·ä¸€ä¸ªJavaScriptçš„ç¡®è®¤å¯¹è¯æ¡†æç¤ºã€‚
 
-Â·ÓÉ
+è·¯ç”±
 ======
 
-Ò»°ãÀ´½², CakePHPÄ¬ÈÏµÄÂ·ÓÉÒÑ¾­×öµÄ¹»ºÃ. ¶ÔÓÃ»§ÓÑºÃÐÔ
-ºÍÍ¨ÓÃËÑË÷ÒýÇæ¼æÈÝÐÔÃô¸ÐµÄ¿ª·¢Õß½«»áÐÀÉÍCakePHPÔÚURL
-Ó³ÉäÉÏËù×öµÄ¹¤×÷. ËùÒÔ£¬ÔÚÕâ¸ö½Ì³ÌÖÐÎÒÃÇ½«½ö½ö×öÒ»¸ö¿ìËÙµÄ¶ÔÂ·ÓÉµÄ¸Ä¶¯¡£
+ä¸€èˆ¬æ¥è®², CakePHPé»˜è®¤çš„è·¯ç”±å·²ç»åšçš„å¤Ÿå¥½. å¯¹ç”¨æˆ·å‹å¥½æ€§
+å’Œé€šç”¨æœç´¢å¼•æ“Žå…¼å®¹æ€§æ•æ„Ÿçš„å¼€å‘è€…å°†ä¼šæ¬£èµCakePHPåœ¨URL
+æ˜ å°„ä¸Šæ‰€åšçš„å·¥ä½œ. æ‰€ä»¥ï¼Œåœ¨è¿™ä¸ªæ•™ç¨‹ä¸­æˆ‘ä»¬å°†ä»…ä»…åšä¸€ä¸ªå¿«é€Ÿçš„å¯¹è·¯ç”±çš„æ”¹åŠ¨ã€‚
 
-ÔÚÕâÀï :ref:`routes-configuration`  ÓÐ¸ü¶àµÄ¸ß¼¶Â·ÓÉ¼¼ÇÉµÄÐÅÏ¢¡£
+åœ¨è¿™é‡Œ :ref:`routes-configuration`  æœ‰æ›´å¤šçš„é«˜çº§è·¯ç”±æŠ€å·§çš„ä¿¡æ¯ã€‚
 
-Ä¬ÈÏÇé¿öÏÂ£¬ CakePHP Ê¹ÓÃPagesControllerÏìÓ¦Ïà¶ÔÕ¾µã¸ùÄ¿Â¼µÄ
-ÇëÇó(ÀýÈç http://www.example.com) , äÖÈ¾ "home" ÊÓÍ¼¡£ÕâÀïÎÒÃÇ½«Í¨¹ý
-ÐÞ¸Äroutes¹æÔò£¬½«ÆäÌæ»»ÎªÎÒÃÇµÄPostsController .
+é»˜è®¤æƒ…å†µä¸‹ï¼Œ CakePHP ä½¿ç”¨PagesControllerå“åº”ç›¸å¯¹ç«™ç‚¹æ ¹ç›®å½•çš„
+è¯·æ±‚(ä¾‹å¦‚ http://www.example.com) , æ¸²æŸ“ "home" è§†å›¾ã€‚è¿™é‡Œæˆ‘ä»¬å°†é€šè¿‡
+ä¿®æ”¹routesè§„åˆ™ï¼Œå°†å…¶æ›¿æ¢ä¸ºæˆ‘ä»¬çš„PostsController .
 
-Cake's µÄÂ·ÓÉÉèÖÃÔÚ ``/app/Config/routes.php``  ÎÄ¼þ. Äã¿ÉÒÔ×¢ÊÍµô»òÕßÉ¾³ýµô
-Ä¬ÈÏµÄÂ·ÓÉrootÉèÖÃ. Èç´úÂëÖÐ::
+Cake's çš„è·¯ç”±è®¾ç½®åœ¨ ``/app/Config/routes.php``  æ–‡ä»¶. ä½ å¯ä»¥æ³¨é‡ŠæŽ‰æˆ–è€…åˆ é™¤æŽ‰
+é»˜è®¤çš„è·¯ç”±rootè®¾ç½®. å¦‚ä»£ç ä¸­::
 
     Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
-ÕâÒ»ÐÐ¶¨ÒåÁË '/' £¬ CakePHPÄ¬ÈÏµÄÊ×Ò³.
-ÎÒÃÇÏëÒªµ½¶¨Òåµ½ÎÒÃÇµÄPosts, ËùÒÔÐÞ¸Ä´úÂëÎª::
+è¿™ä¸€è¡Œå®šä¹‰äº† '/' ï¼Œ CakePHPé»˜è®¤çš„é¦–é¡µ.
+æˆ‘ä»¬æƒ³è¦åˆ°å®šä¹‰åˆ°æˆ‘ä»¬çš„Posts, æ‰€ä»¥ä¿®æ”¹ä»£ç ä¸º::
 
     Router::connect('/', array('controller' => 'posts', 'action' => 'index'));
 
-ÕâÑù¾Í°Ñ '/' µÄ index() ¶¯×÷Ö¸ÏòÎÒÃÇµÄ PostsController.
+è¿™æ ·å°±æŠŠ '/' çš„ index() åŠ¨ä½œæŒ‡å‘æˆ‘ä»¬çš„ PostsController.
 
-.. ×¢Òâ::
+.. æ³¨æ„::
 
-    CakePHPÍ¬ÑùÖ§³Ö '·´Ïò Â·ÓÉ' - ±ÈÈçÉÏÃæµÄÂ·ÓÉÈç¹û¶¨ÒåÎª
-    ``array('controller' => 'posts', 'action' => 'index')``, URL ½«»áÊÇ '/'.
-	Òò´ËºÃµÄ×ö·¨ÊÇ×ÜÊ¹ÓÃÊý×éÀ´¶¨ÒåÄãµÄÂ·ÓÉÖÐµÄURLÈ·±£ËüµÄÖ¸ÏòÎ¨Ò»¡£
+    CakePHPåŒæ ·æ”¯æŒ 'åå‘ è·¯ç”±' - æ¯”å¦‚ä¸Šé¢çš„è·¯ç”±å¦‚æžœå®šä¹‰ä¸º
+    ``array('controller' => 'posts', 'action' => 'index')``, URL å°†ä¼šæ˜¯ '/'.
+	å› æ­¤å¥½çš„åšæ³•æ˜¯æ€»ä½¿ç”¨æ•°ç»„æ¥å®šä¹‰ä½ çš„è·¯ç”±ä¸­çš„URLç¡®ä¿å®ƒçš„æŒ‡å‘å”¯ä¸€ã€‚
 
-½áÂÛ
+ç»“è®º
 ==========
 
-ÓÃÕâÖÖ·½·¨À´´´½¨Ó¦ÓÃ»áÎªÄãÓ®µÃÆ½¾²£¬ÈÙÓþ£¬°®£¬Ç®ÉõÖÁ³¬³öÄã×î·è¿ñµÄ»ÃÏë¡£
-¼òµ¥°É? Õâ¸ö½Ì³Ì·Ç³£»ù±¾. CakePHP Ìá¹©ÁË·Ç³£·Ç³£¶àµÄ¹¦ÄÜÌØÉ«, 
-²¢ÇÒÊÇ·Ç³£Áé»îµÄ£¬ÔÚÕâÀï¾Í²»Ò»Ò»ÐðÐ´ÁË¡£Ê¹ÓÃ¸ÃÊÖ²áÓàÏÂµÄ²¿·Ö×÷Îª´´½¨¸ü¾ßÌØÉ«µÄÓ¦ÓÃµÄÖ¸µ¼°É¡£
+ç”¨è¿™ç§æ–¹æ³•æ¥åˆ›å»ºåº”ç”¨ä¼šä¸ºä½ èµ¢å¾—å¹³é™ï¼Œè£èª‰ï¼Œçˆ±ï¼Œé’±ç”šè‡³è¶…å‡ºä½ æœ€ç–¯ç‹‚çš„å¹»æƒ³ã€‚
+ç®€å•å§? è¿™ä¸ªæ•™ç¨‹éžå¸¸åŸºæœ¬. CakePHP æä¾›äº†éžå¸¸éžå¸¸å¤šçš„åŠŸèƒ½ç‰¹è‰², 
+å¹¶ä¸”æ˜¯éžå¸¸çµæ´»çš„ï¼Œåœ¨è¿™é‡Œå°±ä¸ä¸€ä¸€å™å†™äº†ã€‚ä½¿ç”¨è¯¥æ‰‹å†Œä½™ä¸‹çš„éƒ¨åˆ†ä½œä¸ºåˆ›å»ºæ›´å…·ç‰¹è‰²çš„åº”ç”¨çš„æŒ‡å¯¼å§ã€‚
 
-ÏÖÔÚÄãÒÑ¾­´´½¨ÁËÒ»¸ö»ù±¾µÄCakeÓ¦ÓÃ²¢ÇÒÄãÒÑ¾­¿ÉÒÔ¿ªÊ¼ÕæÕýµÄ×öÊÂÁË¡£
-¿ªÊ¼Äã×Ô¼ºµÄ¹¤³ÌÄÇ¸ö£¬ÔÄ¶ÁÓàÏÂµÄ :doc:`Cookbook </index>`  ºÍ  `API <http://api20.cakephp.org>`_.
+çŽ°åœ¨ä½ å·²ç»åˆ›å»ºäº†ä¸€ä¸ªåŸºæœ¬çš„Cakeåº”ç”¨å¹¶ä¸”ä½ å·²ç»å¯ä»¥å¼€å§‹çœŸæ­£çš„åšäº‹äº†ã€‚
+å¼€å§‹ä½ è‡ªå·±çš„å·¥ç¨‹é‚£ä¸ªï¼Œé˜…è¯»ä½™ä¸‹çš„ :doc:`Cookbook </index>`  å’Œ  `API <http://api20.cakephp.org>`_.
 
-Èç¹ûÐèÒª°ïÖú£¬À´ÕâÀï #cakephp. »¶Ó­Ê¹ÓÃ CakePHP!
+å¦‚æžœéœ€è¦å¸®åŠ©ï¼Œæ¥è¿™é‡Œ #cakephp. æ¬¢è¿Žä½¿ç”¨ CakePHP!
 
-½ÓÏÂÀ´µÄÔÄ¶Á½¨Òé
+æŽ¥ä¸‹æ¥çš„é˜…è¯»å»ºè®®
 ---------------------------
 
-ÕâÊÇÑ§Ï°CakePHPµÄÈËÃÇ½ÓÏÂÀ´³£È¥¿´µÄ:
+è¿™æ˜¯å­¦ä¹ CakePHPçš„äººä»¬æŽ¥ä¸‹æ¥å¸¸åŽ»çœ‹çš„:
 
-1. :ref:`view-layouts`: ×Ô¶¨ÒåÄãµÄÍøÕ¾²¼¾Ö
-2. :ref:`view-elements` µ¼ÈëºÍÖØÓÃÊÓÍ¼Æ¬¶Î
-3. :doc:`/controllers/scaffolding`: ÔÚÐ´´úÂëÇ°£¬¿ìËÙÔ­ÐÍ¡£
-4. :doc:`/console-and-shells/code-generation-with-bake` ×Ô¶¯Éú³É CRUD ´úÂë
-5. :doc:`/tutorials-and-examples/blog-auth-example/auth`: ÓÃ»§Éí·ÝÑéÖ¤ºÍÊÚÈ¨½Ì³Ì
+1. :ref:`view-layouts`: è‡ªå®šä¹‰ä½ çš„ç½‘ç«™å¸ƒå±€
+2. :ref:`view-elements` å¯¼å…¥å’Œé‡ç”¨è§†å›¾ç‰‡æ®µ
+3. :doc:`/controllers/scaffolding`: åœ¨å†™ä»£ç å‰ï¼Œå¿«é€ŸåŽŸåž‹ã€‚
+4. :doc:`/console-and-shells/code-generation-with-bake` è‡ªåŠ¨ç”Ÿæˆ CRUD ä»£ç 
+5. :doc:`/tutorials-and-examples/blog-auth-example/auth`: ç”¨æˆ·èº«ä»½éªŒè¯å’ŒæŽˆæƒæ•™ç¨‹
 
 
 .. meta::
-    :title lang=en: Blog ½Ì³Ì Ìí¼ÓÒ»¸ö²ã
-    :keywords lang=en: doc Ä£ÐÍ,validation check,controller actions,postÄ£ÐÍ ,php class,Ä£ÐÍÀà,Ä£ÐÍ object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete
+    :title lang=en: Blog æ•™ç¨‹ æ·»åŠ ä¸€ä¸ªå±‚
+    :keywords lang=en: doc æ¨¡åž‹,validation check,controller actions,postæ¨¡åž‹ ,php class,æ¨¡åž‹ç±»,æ¨¡åž‹ object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete
