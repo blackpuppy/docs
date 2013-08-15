@@ -1,58 +1,46 @@
-Blog Tutorial - Adding a layer
+Blog 教程 - 添加一个层
 ******************************
 
-Create a Post Model
+创建一个 Post 模型
 ===================
 
-The Model class is the bread and butter of CakePHP applications. By
-creating a CakePHP model that will interact with our database,
-we'll have the foundation in place needed to do our view, add,
-edit, and delete operations later.
+模型类是 CakePHP 应用的基础. 通过创建一个 CakePHP 模型将会联系到数据库,
+为了将来去做视图、添加、编辑和删除操作，让我们先把一些基础工作做足。
 
-CakePHP's model class files go in ``/app/Model``, and the file
-we'll be creating will be saved to ``/app/Model/Post.php``. The
-completed file should look like this::
+CakePHP 的模型类文件在 ``/app/Model``, 我们创建的文件将保存
+为 ``/app/Model/Post.php``.该文件内容应为::
 
     class Post extends AppModel {
     }
 
-Naming convention is very important in CakePHP. By naming our model
-Post, CakePHP can automatically infer that this model will be used
-in the PostsController, and will be tied to a database table called
-``posts``.
+在 CakePHP 中，命名约定很重要. 通过命名我们的模型为
+Post, CakePHP 能自动将让该模型被PostsController使用，并被绑定到数据库中名为"posts"`的表。
 
-.. note::
+.. 注意::
 
-    CakePHP will dynamically create a model object for you if it
-    cannot find a corresponding file in /app/Model. This also means
-    that if you accidentally name your file wrong (i.e. post.php or
-    posts.php), CakePHP will not recognize any of your settings and will
-    use the defaults instead.
-
-For more on models, such as table prefixes, callbacks, and
-validation, check out the :doc:`/models` chapter of the
-Manual.
+    如果CakePHP不能在 /app/Model 找到相关的文件，它将自动为你创建一个模型对象. 
+	这样的话，如果你没有正确命名你的文件(比如命名为 post.php 或
+    posts.php)，CakePHP将会忽略你的配置并使用默认的配置。
 
 
-Create a Posts Controller
+关于模型的更多信息, 比如表前缀, 回调, 验证,请查看手册中的文档 :doc:`/Models` 章节.
+
+
+创建一个Posts的控制器
 =========================
 
-Next, we'll create a controller for our posts. The controller is
-where all the business logic for post interaction will happen. In a
-nutshell, it's the place where you play with the models and get
-post-related work done. We'll place this new controller in a file
-called ``PostsController.php`` inside the ``/app/Controller``
-directory. Here's what the basic controller should look like::
+接下来, 为我们的posts创建一个控制器. 控制器是所有的post相关
+的事物逻辑 .简单说, 它是和模型一起将post相关的工作完成的地方。
+把该文件保存为 ``PostsController.php``，放在 ``/app/Controller``目录下。
+这是控制器的基本内容::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
     }
 
-Now, lets add an action to our controller. Actions often represent
-a single function or interface in an application. For example, when
-users request www.example.com/posts/index (which is also the same
-as www.example.com/posts/), they might expect to see a listing of
-posts. The code for that action would look something like this::
+现在, 添加一个动作. 动作一般代表应用中一个单独的函数或者接口。例如，
+当用户请求 www.example.com/posts/index (同 www.example.com/posts/),
+他们将会期望看到posts的列表，这个动作的代码会是这样::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
@@ -62,48 +50,35 @@ posts. The code for that action would look something like this::
         }
     }
 
-Let me explain the action a bit. By defining function ``index()``
-in our PostsController, users can now access the logic there by
-requesting www.example.com/posts/index. Similarly, if we were to
-define a function called ``foobar()``, users would be able to
-access that at www.example.com/posts/foobar.
+让我来解释下该动作.通过在我们的 PostsController定义函数 ``index()``
+, 用户名现在可以通过请求访问www.example.com/posts/index
+来访问该逻辑.同样的, 如果定义一个函数 ``foobar()``, 用户将可以通过请求 www.example.com/posts/foobar来访问.
 
-.. warning::
+.. 警告::
 
-    You may be tempted to name your controllers and actions a certain
-    way to obtain a certain URL. Resist that temptation. Follow CakePHP
-    conventions (plural controller names, etc.) and create readable,
-    understandable action names. You can map URLs to your code using
-    "routes" covered later on.
+	你将会被诱导去命名控制器和动作的正确的方式去获取一个正确的URL。
+	遵循CakePHP的命名规范，创建易读易理解的动作名字，你可以使用“routes”将URL映射到
+	你的代码中，这个后面会提到。
 
-The single instruction in the action uses ``set()`` to pass data
-from the controller to the view (which we'll create next). The line
-sets the view variable called 'posts' equal to the return value of
-the ``find('all')`` method of the Post model. Our Post model is
-automatically available at ``$this->Post`` because we've followed
-Cake's naming conventions.
+在动作中使用 ``set()``这个单独的操作来从控制器中传递数据到视图中。
+视图中的'posts'变量等价于Post 模型中``find('all')``的返回值。我们的
+``$this->Post``在Post 模型中可用是因为我们遵循的Cake的命名规范。
 
-To learn more about Cake's controllers, check out the
-:doc:`/controllers` chapter.
+在:doc:`/controllers` 章节了解更多的关于Cake的控制器的信息.
 
-Creating Post Views
+创建 Post 视图
 ===================
 
-Now that we have our data flowing to our model, and our application
-logic and flow defined by our controller, let's create a view for
-the index action we created above.
+根据我们的模型已经有了数据,应用逻辑以及控制器中定义的工作流, 
+现在让我们创建一个index动作的视图。
 
-Cake views are just presentation-flavored fragments that fit inside
-an application's layout. For most applications they're HTML mixed
-with PHP, but they may end up as XML, CSV, or even binary data.
+Cake 的视图仅仅是在应用的布局中展示样式的片段。对大多数应用，他们是
+HTML 和 PHP 混合的, 但它们最终可能是 XML, CSV, 甚至是二进制数据.
 
-Layouts are presentation code that is wrapped around a view, and
-can be defined and switched between, but for now, let's just use
-the default.
+布局是描述视图包装的代码，可以被定义和转换的，但现在，让我们先使用默认的布局。
 
-Remember in the last section how we assigned the 'posts' variable
-to the view using the ``set()`` method? That would hand down data
-to the view that would look something like this::
+还记得上一节中我们是使用 ``set()``方法来对 'posts' 变量赋值吗？
+那将把值传递到视图中,代码如下::
 
     // print_r($posts) output:
 
@@ -144,10 +119,9 @@ to the view that would look something like this::
             )
     )
 
-Cake's view files are stored in ``/app/View`` inside a folder
-named after the controller they correspond to (we'll have to create
-a folder named 'Posts' in this case). To format this post data in a
-nice table, our view code might look something like this
+Cake的视图保存在 ``/app/View`` 目录中，对应相应的控制器
+ (在本例中我们需要命名为'Posts' ).将post的数据显示在表格中，
+视图的代码会是这样
 
 .. code-block:: php
 
@@ -161,7 +135,7 @@ nice table, our view code might look something like this
             <th>Created</th>
         </tr>
 
-        <!-- Here is where we loop through our $posts array, printing out post info -->
+        <!-- 遍历 $posts 数组, 输入post的信息 -->
 
         <?php foreach ($posts as $post): ?>
         <tr>
@@ -176,35 +150,24 @@ nice table, our view code might look something like this
         <?php unset($post); ?>
     </table>
 
-Hopefully this should look somewhat simple.
+希望这样会看起来简单些.
 
-You might have noticed the use of an object called ``$this->Html``.
-This is an instance of the CakePHP :php:class:`HtmlHelper` class. CakePHP
-comes with a set of view helpers that make things like linking,
-form output, JavaScript and Ajax a snap. You can learn more about
-how to use them in :doc:`/views/helpers`, but
-what's important to note here is that the ``link()`` method will
-generate an HTML link with the given title (the first parameter)
-and URL (the second parameter).
+你也许已经注意到了``$this->Html``这个对象,这是 CakePHP :php:class:`HtmlHelper` 类
+的一个示例. CakePHP提供了一些helpers来使链接，表格输出，JavaScript 和 Ajax 简便.
+你可以在这里看到如何使用它们 :doc:`/views/helpers`, 但值得注意的是 ``link()`` 方法将
+会产生一个 HTML链接和标题(第一个变量)，以及URL (第二个变量).
 
-When specifying URLs in Cake, it is recommended that you use the
-array format. This is explained in more detail in the section on
-Routes. Using the array format for URLs allows you to take
-advantage of CakePHP's reverse routing capabilities. You can also
-specify URLs relative to the base of the application in the form of
-/controller/action/param1/param2.
+当在Cake中指定URL时, 推荐使用数组格式. 在Routes章节中我们会讲到这些细节.
+使用数据格式来表示URL允许你利用CakePHP的反向路由功能，你也可以定义基于应用的相对路径，
+像/controller/action/param1/param2这样
 
-At this point, you should be able to point your browser to
-http://www.example.com/posts/index. You should see your view,
-correctly formatted with the title and table listing of the posts.
+现在，你可以打开浏览器，输入地址http://www.example.com/posts/index. 
+你应该可以看到你的视图，标题和表格中posts的列表都是正确的格式。
 
-If you happened to have clicked on one of the links we created in
-this view (that link a post's title to a URL /posts/view/some\_id),
-you were probably informed by CakePHP that the action hasn't yet
-been defined. If you were not so informed, either something has
-gone wrong, or you actually did define it already, in which case
-you are very sneaky. Otherwise, we'll create it in the
-PostsController now::
+如果你在点击了我们在这个视图中创建的链接（指向URL/posts/view/some\_id
+的post的标题的链接），CakePHP将会告知你还没有定义这个动作，如果你没有被
+通知，那就是什么地方出错了或者你实际上已经偷偷定义了，好吧，我们来创建这个
+动作吧。在PostsController::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form');
@@ -226,23 +189,19 @@ PostsController now::
         }
     }
 
-The ``set()`` call should look familiar. Notice we're using
-``findById()`` rather than ``find('all')`` because we only really want
-a single post's information.
+ ``set()`` 已经很熟悉了吧？ 注意到我们使用``findById()`` 
+ 而不是 ``find('all')`` ，因为我们值想要一个post的信息。
 
-Notice that our view action takes a parameter: the ID of the post
-we'd like to see. This parameter is handed to the action through
-the requested URL. If a user requests ``/posts/view/3``, then the value
-'3' is passed as ``$id``.
+注意到我们的视图动作需要一个参数，post的ID。这个参数是通过
+请求的URL来传递的，如果一个用户请求 ``/posts/view/3``,那么值
+'3' 就会赋值给 ``$id``.
 
-We also do a bit of error checking to ensure a user is actually
-accessing a record. If a user requests ``/posts/view``, we will throw a
-``NotFoundException`` and let the CakePHP ErrorHandler take over. We
-also perform a similar check to make sure the user has accessed a
-record that exists.
+我们也做了些错误检查来确保用户确实是要访问一个记录，如果一个用户
+请求``/posts/view``, 我们就抛出一个``NotFoundException`` 异常来
+让 CakePHP ErrorHandler 处理. 我们也加入了一个同样的检查来保证用户
+访问的记录是存在的。
 
-Now let's create the view for our new 'view' action and place it in
-``/app/View/Posts/view.ctp``
+现在让我们建立这个视图并将它放在``/app/View/Posts/view.ctp``
 
 .. code-block:: php
 
@@ -254,17 +213,14 @@ Now let's create the view for our new 'view' action and place it in
 
     <p><?php echo h($post['Post']['body']); ?></p>
 
-Verify that this is working by trying the links at ``/posts/index`` or
-manually requesting a post by accessing ``/posts/view/1``.
+验证我们所做的是可以工作的，打开浏览器访问 ``/posts/index`` 或者手动输入查看一个post的请求 ``/posts/view/1``.
 
-Adding Posts
+添加 Posts
 ============
 
-Reading from the database and showing us the posts is a great
-start, but let's allow for the adding of new posts.
+从数据库中读出并显示posts是一个好的开始，现在演示如何添加一个新的posts。
 
-First, start by creating an ``add()`` action in the
-PostsController::
+首先，从在控制器PostsController中创建动作 ``add()`` 开始::
 
     class PostsController extends AppController {
         public $helpers = array('Html', 'Form', 'Session');
@@ -299,55 +255,38 @@ PostsController::
         }
     }
 
-.. note::
+.. 注意::
 
-    You need to include the SessionComponent - and SessionHelper - in
-    any controller where you will use it. If necessary, include it in
-    your AppController.
+    你需要导入 SessionComponent - 以及 SessionHelper - 到你用到的控制器中. 
+	如果需要的话，导入到你的AppController.
 
-Here's what the ``add()`` action does: if the HTTP method of the
-request was POST, try to save the data using the Post model. If for some
-reason it doesn't save, just render the view. This gives us a
-chance to show the user validation errors or other warnings.
+这是``add()`` 动作所做的: 如果这个 HTTP 请求的方法是 POST, 将使用 Post 模型将数据保存.
+如果因为其他原因没有保存，就在视图中渲染，这个让我们有机会给用户显示验证后的错误或其他警告等。
 
-Every CakePHP request includes a ``CakeRequest`` object which is accessible using
-``$this->request``. The request object contains useful information regarding the
-request that was just received, and can be used to control the flow of your application.
-In this case, we use the :php:meth:`CakeRequest::is()` method to check that the request is a HTTP POST request.
+任何 CakePHP 请求包括一个 ``CakeRequest`` 对象，它可以通过``$this->request``来访问. 
+这个请求对象包含了收到的请求的有用并且能够被用来控制你的应用的流向。在本例中,我们使用 :php:meth:`CakeRequest::is()` 方法来检查这个请求是否是一个 HTTP POST 请求.
 
-When a user uses a form to POST data to your application, that
-information is available in ``$this->request->data``. You can use the
-:php:func:`pr()` or :php:func:`debug()` functions to print it out if you want to see
-what it looks like.
+当一个用户在你的应用中使用一个表单 POST 数据, 其信息保存在 ``$this->request->data``. 
+你可以使用:php:func:`pr()` 或 :php:func:`debug()` 函数打印出其信息。
 
-We use the SessionComponent's :php:meth:`SessionComponent::setFlash()`
-method to set a message to a session variable to be displayed on the page after
-redirection. In the layout we have
-:php:func:`SessionHelper::flash` which displays the
-message and clears the corresponding session variable. The
-controller's :php:meth:`Controller::redirect` function
-redirects to another URL. The param ``array('action' => 'index')``
-translates to URL /posts i.e the index action of posts controller.
-You can refer to :php:func:`Router::url()` function on the
-`API <http://api20.cakephp.org>`_ to see the formats in which you can specify a
-URL for various Cake functions.
+我们使用 SessionComponent's :php:meth:`SessionComponent::setFlash()`
+方法来设置一个信息在页面重定向后来显示会话变量，在这个布局中我们用
+:php:func:`SessionHelper::flash` 显示信息并清空相关的会话变量。控制器的 :php:meth:`Controller::redirect` 函数重定向页面到其他的 URL.参数 ``array('action' => 'index')``
+翻译URL 到/posts 即 posts 控制器的index动作.
+你可以细查 :php:func:`Router::url()` 函数在`API <http://api20.cakephp.org>` 中的多种URL格式。
 
-Calling the ``save()`` method will check for validation errors and
-abort the save if any occur. We'll discuss how those errors are
-handled in the following sections.
+调用 ``save()`` 方法将会检查错误验证和有任何问题时取消保存。我们
+将会在接下来的小节里面讨论如何处理这些错误。
 
-Data Validation
+数据验证
 ===============
 
-Cake goes a long way in taking the monotony out of form input
-validation. Everyone hates coding up endless forms and their
-validation routines. CakePHP makes it easier and faster.
+Cake付出很大的努力来摆脱表单输入的验证的单调，每一个人都恨编码无数的表格和他们的
+验证部分，CakePHP让这些工作简单和快速。
 
-To take advantage of the validation features, you'll need to use
-Cake's FormHelper in your views. The :php:class:`FormHelper` is available by
-default to all views at ``$this->Form``.
+利用验证功能，你将需要在视图中使用Cake的 FormHelper 。这个 :php:class:`FormHelper` 默认在所有视图中都可以通过``$this->Form``访问.
 
-Here's our add view:
+这是我们的添加post的视图:
 
 .. code-block:: php
 
@@ -361,44 +300,34 @@ Here's our add view:
     echo $this->Form->end('Save Post');
     ?>
 
-Here, we use the FormHelper to generate the opening tag for an HTML
-form. Here's the HTML that ``$this->Form->create()`` generates:
+这里，我们使用 FormHelper 来动态生成一个 HTML表单. 
+这里用 ``$this->Form->create()`` 来生成:
 
 .. code-block:: html
 
     <form id="PostAddForm" method="post" action="/posts/add">
 
-If ``create()`` is called with no parameters supplied, it assumes
-you are building a form that submits to the current controller's
-``add()`` action (or ``edit()`` action when ``id`` is included in
-the form data), via POST.
+如果 ``create()`` 不带参量, 它假定你要建立一个提交当前控制器的
+``add()`` 动作 (或者 ``edit()`` 动作 ，当 ``id``有值时), 通过 POST 方法.
 
-The ``$this->Form->input()`` method is used to create form elements
-of the same name. The first parameter tells CakePHP which field
-they correspond to, and the second parameter allows you to specify
-a wide array of options - in this case, the number of rows for the
-textarea. There's a bit of introspection and automagic here:
-``input()`` will output different form elements based on the model
-field specified.
+这个 ``$this->Form->input()`` 方法被用来创建同名的表单元素 .
+第一个参数告诉 CakePHP 关联到那个字段,第二个参数让你定义一系列选项。在这里，
+我们定义文本区的行数。你将注意到:``input()`` 将会输出不同的表单元素，其根据的是模型中该字段的定义.
 
-The ``$this->Form->end()`` call generates a submit button and ends
-the form. If a string is supplied as the first parameter to
-``end()``, the FormHelper outputs a submit button named accordingly
-along with the closing form tag. Again, refer to
-:doc:`/views/helpers` for more on helpers.
+``$this->Form->end()`` 生成一个提交按钮并结束表单. 
+``end()``的第一个参数可以用来定义提交按钮上的文字. 
+在这里有更多helper的信息 :doc:`/views/helpers` .
 
-Now let's go back and update our ``/app/View/Posts/index.ctp``
-view to include a new "Add Post" link. Before the ``<table>``, add
-the following line::
+现在让我们回去并更新我们的 ``/app/View/Posts/index.ctp``视图，
+添加 "Add Post" 链接. 在 ``<table>``前添加如下代码 ::
 
     <?php echo $this->Html->link(
         'Add Post',
         array('controller' => 'posts', 'action' => 'add')
     ); ?>
 
-You may be wondering: how do I tell CakePHP about my validation
-requirements? Validation rules are defined in the model. Let's look
-back at our Post model and make a few adjustments::
+你可能有些疑惑：怎么告诉CakePHP我的验证要求呢？验证的规则是在模型中定义的。
+ 让我们检查一下Post 模型并做一些调整::
 
     class Post extends AppModel {
         public $validate = array(
@@ -411,27 +340,22 @@ back at our Post model and make a few adjustments::
         );
     }
 
-The ``$validate`` array tells CakePHP how to validate your data
-when the ``save()`` method is called. Here, I've specified that
-both the body and title fields must not be empty. CakePHP's
-validation engine is strong, with a number of pre-built rules
-(credit card numbers, email addresses, etc.) and flexibility for
-adding your own validation rules. For more information on that
-setup, check the :doc:`/models/data-validation`.
+``$validate`` 数组告诉 CakePHP 当 ``save()`` 方法被调用时如何去验证你的数据，
+这里，我定义了body和标题的字段不能为空，CakePHP的验证引擎很强大
+有许多内建的验证规则（信用卡、电子邮件，等）并且灵活便于你增加自己的验证规则。
+更多信息请移步 :doc:`/Models/data-validation`.
 
-Now that you have your validation rules in place, use the app to
-try to add a post with an empty title or body to see how it works.
-Since we've used the :php:meth:`FormHelper::input()` method of the
-FormHelper to create our form elements, our validation error
-messages will be shown automatically.
 
-Editing Posts
+现在你已经完成了验证规则部分，使用本应用来尝试添加一个post，在标题或者body部分
+留空看看验证部分如何起作用的。因为我们已经使用了FormHelper的
+ :php:meth:`FormHelper::input()` 方法 来创建我们的表单元素，我们
+的验证错误信息将会自动显示。
+
+编辑Posts
 =============
 
-Post editing: here we go. You're a CakePHP pro by now, so you
-should have picked up a pattern. Make the action, then the view.
-Here's what the ``edit()`` action of the PostsController would look
-like::
+Post编辑:开始吧. 你现在已经是个CakePHP专业人士啦, 所以你现在已经选择了一个模式.
+建立动作，然后是视图。控制器PostsController中的动作 ``edit()`` 会是这样::
 
     public function edit($id = null) {
         if (!$id) {
@@ -458,18 +382,16 @@ like::
         }
     }
 
-This action first ensures that the user has tried to access an existing record.
-If they haven't passed in a passed in an ``$id`` parameter, or the post does not
-exist, we throw a ``NotFoundException`` for the CakePHP ErrorHandler to take care of.
+这个动作首先确保用户已经访问到了一个已存的记录。如果他们没有传入``$id`` 的值或者post
+没有找到，就抛出 ``NotFoundException`` 异常让 CakePHP ErrorHandler 来处理.
 
-Next the action checks that the request is a POST request.  If it is, then we
-use the POST data to update our Post record, or kick back and show the user
-validation errors.
+接着，检查这个请求是否是一个POST请求，如果是，然后我们使用POST中的数据来
+更新Post记录，否则就退回并将验证的错误显示给用户。
 
-If there is no data set to ``$this->request->data``, we simply set it to the
-previously retrieved post.
+如果 ``$this->request->data``中没有数据集，我们简单的设置为前一个获得的post。
 
-The edit view might look something like this:
+
+编辑post的视图会是这样:
 
 .. code-block:: php
 
@@ -483,16 +405,12 @@ The edit view might look something like this:
         echo $this->Form->input('id', array('type' => 'hidden'));
         echo $this->Form->end('Save Post');
 
-This view outputs the edit form (with the values populated), along
-with any necessary validation error messages.
+这个视图输出编辑表格（填入了一些值），以及一些验证需要的错误信息。
 
-One thing to note here: CakePHP will assume that you are editing a
-model if the 'id' field is present in the data array. If no 'id' is
-present (look back at our add view), Cake will assume that you are
-inserting a new model when ``save()`` is called.
+我们在这里需要注意的是：如果有'id'，CakePHP 将假设你在编辑一个模型.
+如果没有'id' , 当调用 ``save()`` 时，Cake 将假设你正在插入一个新的模型.
 
-You can now update your index view with links to edit specific
-posts:
+你现在可以更新你的index视图了，添加posts的编辑链接。:
 
 .. code-block:: php
 
@@ -527,11 +445,10 @@ posts:
 
     </table>
 
-Deleting Posts
+删除Posts
 ==============
 
-Next, let's make a way for users to delete posts. Start with a
-``delete()`` action in the PostsController::
+接下来, 增加删除posts功能. 在PostsController中添加``delete()`` 动作::
 
     public function delete($id) {
         if ($this->request->is('get')) {
@@ -544,18 +461,12 @@ Next, let's make a way for users to delete posts. Start with a
         }
     }
 
-This logic deletes the post specified by $id, and uses
-``$this->Session->setFlash()`` to show the user a confirmation
-message after redirecting them on to ``/posts``.  If the user attempts to
-do a delete using a GET request, we throw an Exception.  Uncaught exceptions
-are captured by CakePHP's exception handler, and a nice error page is
-displayed.  There are many built-in :doc:`/development/exceptions` that can
-be used to indicate the various HTTP errors your application might need
-to generate.
+这个逻辑删除指定$id`的posts，并在重定向到``/posts``后使用``$this->Session->setFlash()`` 显示给用户确认信息。如果用户尝试通过GET请求删除post时，我们抛出异常。
+未被获取的异常将被CakePHP的异常处理截取并在页面上显示一个错误信息。
+这有许多内建的异常 :doc:`/development/exceptions` 可以在你的应用中使用来生成多种HTTP的错误。
 
-Because we're just executing some logic and redirecting, this
-action has no view. You might want to update your index view with
-links that allow users to delete posts, however:
+因为我们仅仅是执行一些逻辑和重定向，这些动作没有视图，只需在index视图中
+添加删除链接来允许用户删除posts:
 
 .. code-block:: php
 
@@ -595,87 +506,70 @@ links that allow users to delete posts, however:
 
     </table>
 
-Using :php:meth:`~FormHelper::postLink()` will create a link that uses
-Javascript to do a POST request deleting our post.  Allowing content to be
-deleted using GET requests is dangerous, as web crawlers could accidentally
-delete all your content.
+使用 :php:meth:`~FormHelper::postLink()` 将创建一个链接使用Javascrip来创建一个删除我们post的POST类型请求.
+使用GET请求来删除内容是危险的,因为web爬虫将有机会删除你所有的内容.
 
-.. note::
+.. 注意::
 
-    This view code also uses the FormHelper to prompt the user with a
-    JavaScript confirmation dialog before they attempt to delete a
-    post.
+	这个视图代码也使用了FormHelper，当用户视图删除一个post时，
+	将会给用户一个JavaScript的确认对话框提示。
 
-Routes
+路由
 ======
 
-For some, CakePHP's default routing works well enough. Developers
-who are sensitive to user-friendliness and general search engine
-compatibility will appreciate the way that CakePHP's URLs map to
-specific actions. So we'll just make a quick change to routes in
-this tutorial.
+一般来讲, CakePHP默认的路由已经做的够好. 对用户友好性
+和通用搜索引擎兼容性敏感的开发者将会欣赏CakePHP在URL
+映射上所做的工作. 所以，在这个教程中我们将仅仅做一个快速的对路由的改动。
 
-For more information on advanced routing techniques, see
-:ref:`routes-configuration`.
+在这里 :ref:`routes-configuration` 有更多的高级路由技巧的信息。
 
-By default, CakePHP responds to a request for the root of your site
-(i.e. http://www.example.com) using its PagesController, rendering
-a view called "home". Instead, we'll replace this with our
-PostsController by creating a routing rule.
+默认情况下， CakePHP 使用PagesController响应相对站点根目录的
+请求responds to a request for the root of your site
+(例如 http://www.example.com) , 渲染 "home" 视图。这里我们将通过
+修改routes规则，将其替换为我们的PostsController .
 
-Cake's routing is found in ``/app/Config/routes.php``. You'll want
-to comment out or remove the line that defines the default root
-route. It looks like this::
+Cake's 的路由设置在 ``/app/Config/routes.php`` 文件. 你可以注释掉或者删除掉
+默认的路由root设置. 如代码中::
 
     Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
-This line connects the URL '/' with the default CakePHP home page.
-We want it to connect with our own controller, so replace that line
-with this one::
+这一行定义了 '/' ， CakePHP默认的首页.
+我们想要到定义到我们的Posts, 所以修改代码为::
 
     Router::connect('/', array('controller' => 'posts', 'action' => 'index'));
 
-This should connect users requesting '/' to the index() action of
-our PostsController.
+这样就把 '/' 的 index() 动作指向我们的 PostsController.
 
-.. note::
+.. 注意::
 
-    CakePHP also makes use of 'reverse routing' - if with the above
-    route defined you pass
-    ``array('controller' => 'posts', 'action' => 'index')`` to a
-    function expecting an array, the resultant URL used will be '/'.
-    It's therefore a good idea to always use arrays for URLs as this
-    means your routes define where a URL goes, and also ensures that
-    links point to the same place too.
+    CakePHP同样支持 '反向 路由' - 比如上面的路由如果定义为
+    ``array('controller' => 'posts', 'action' => 'index')``, URL 将会是 '/'.
+	因此好的做法是总使用数组来定义你的路由中的URL确保它的指向唯一。
 
-Conclusion
+结论
 ==========
 
-Creating applications this way will win you peace, honor, love, and
-money beyond even your wildest fantasies. Simple, isn't it? Keep in
-mind that this tutorial was very basic. CakePHP has *many* more
-features to offer, and is flexible in ways we didn't wish to cover
-here for simplicity's sake. Use the rest of this manual as a guide
-for building more feature-rich applications.
+用这种方法来创建应用会为你赢得平静，荣誉，爱，钱甚至超出你最疯狂的幻想。
+简单吧? 这个教程非常基本. CakePHP 提供了非常非常多的功能特色, 
+并且是非常灵活的，在这里就不一一叙写了。使用该手册余下的部分作为创建更具特色的应用的指导吧。
 
-Now that you've created a basic Cake application you're ready for
-the real thing. Start your own project, read the rest of the
-:doc:`Cookbook </index>` and `API <http://api20.cakephp.org>`_.
+现在你已经创建了一个基本的Cake应用并且你已经可以开始真正的做事了。
+开始你自己的工程那个，阅读余下的:doc:`Cookbook </index>` 和 `API <http://api20.cakephp.org>`_.
 
-If you need help, come see us in #cakephp. Welcome to CakePHP!
+如果需要帮助，来这里 #cakephp. 欢迎使用 CakePHP!
 
-Suggested Follow-up Reading
+接下来的阅读建议
 ---------------------------
 
-These are common tasks people learning CakePHP usually want to study next:
+这是学习CakePHP的人们接下来常去看的:
 
-1. :ref:`view-layouts`: Customizing your website layout
-2. :ref:`view-elements` Including and reusing view snippets
-3. :doc:`/controllers/scaffolding`: Prototyping before creating code
-4. :doc:`/console-and-shells/code-generation-with-bake` Generating basic CRUD code
-5. :doc:`/tutorials-and-examples/blog-auth-example/auth`: User authentication and authorization tutorial
+1. :ref:`view-layouts`: 自定义你的网站布局
+2. :ref:`view-elements` 导入和重用视图片段
+3. :doc:`/controllers/scaffolding`: 在写代码前，快速原型。
+4. :doc:`/console-and-shells/code-generation-with-bake` 自动生成 CRUD 代码
+5. :doc:`/tutorials-and-examples/blog-auth-example/auth`: 用户身份验证和授权教程
 
 
 .. meta::
-    :title lang=en: Blog Tutorial Adding a Layer
-    :keywords lang=en: doc models,validation check,controller actions,model post,php class,model class,model object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete
+    :title lang=en: Blog 教程 添加一个层
+    :keywords lang=en: doc 模型,validation check,controller actions,post模型 ,php class,模型类,模型 object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete

@@ -1,51 +1,43 @@
-Blog Tutorial
+blog教程
 *************
 
-Welcome to CakePHP. You're probably checking out this tutorial
-because you want to learn more about how CakePHP works. It's our
-aim to increase productivity and make coding more enjoyable: we
-hope you'll see this as you dive into the code.
+欢迎使用CakePHP。这个教程会让你了解更多有关CakePHP是如何工作的。我们的目的是提高生产力和使编码更有趣：我们希望当你深入代码时会感受到。
 
-This tutorial will walk you through the creation of a simple blog
-application. We'll be getting and installing Cake, creating and
-configuring a database, and creating enough application logic to
-list, add, edit, and delete blog posts.
+这个教程将指导你建立一个简单的blog应用，我们将会获得和安装Cake，建立并配置数据库，创建足够的应用逻辑去列出文章清单，添加、编辑、删除blog文章。
 
-Here's what you'll need:
+这是你所需要的:
 
-#. A running web server. We're going to assume you're using Apache,
-   though the instructions for using other servers should be very
-   similar. We might have to play a little with the server
-   configuration, but most folks can get Cake up and running without
-   any configuration at all. Make sure you have PHP 5.2.8 or greater.
-#. A database server. We're going to be using MySQL server in this
-   tutorial. You'll need to know enough about SQL in order to create a
-   database: Cake will be taking the reins from there.  Since we're using MySQL,
-   also make sure that you have ``pdo_mysql`` enabled in PHP.
-#. Basic PHP knowledge. The more object-oriented programming you've
-   done, the better: but fear not if you're a procedural fan.
-#. Finally, you'll need a basic knowledge of the MVC programming
-   pattern. A quick overview can be found in :doc:`/cakephp-overview/understanding-model-view-controller`.
-   Don't worry, it's only a half a page or so.
+#. 一个运行中的web服务器。我们将假定你使用的是 Apache,
+   使用其他服务器的设置（或步骤）也差不多。. 我们将会稍微改动
+   服务器的配置文件, 但大多数情况下 Cake 将不需要任何配置的改
+   动就可以跑起来，确保你的PHP的版本是 5.2.8 或更高。
+#. 一个数据库服务器。在本教程中我们将使用 MySQL 数据库。
+   你将会需要对SQL有一定的了解以便创建一个数据库：Cake将从
+   这里接管数据库。使用MySQL的同时要确保你在PHP中开启
+   了 ``pdo_mysql`` 模块.
+#. 基础的 PHP 知识. 你使用面向对面编程越多越好，但如果你只是
+    一个程序迷也不要害怕。
+#. 最后, 你将需要对MVC编程模式有基本的了解。 
+    在这里可以找到一个快速的简介:doc:`/cakephp-overview/
+	understanding-model-view-controller`.不用担心, 只是半张纸而已.
 
-Let's get started!
+让我们开始吧！
 
-Getting Cake
+获取 Cake
 ============
 
-First, let's get a copy of fresh Cake code.
+首先，让我们获取一份最新的Cake的代码拷贝。
 
-To get a fresh download, visit the CakePHP project on GitHub:
+要获得最新的代码，要访问在 GitHub 上的 CakePHP 项目:
 `https://github.com/cakephp/cakephp/tags <https://github.com/cakephp/cakephp/tags>`_
-and download the latest release of 2.0
+并下载最新的发行版 2.0
 
-You can also clone the repository using
+你也可以通过git检出最新的代码
 `git <http://git-scm.com/>`_.
 ``git clone git://github.com/cakephp/cakephp.git``
 
-Regardless of how you downloaded it, place the code inside of your
-DocumentRoot. Once finished, your directory setup should look
-something like the following::
+不管你是通过什么方式下载的，将下载后的代码放到你的
+根目录里。这些都完成后，安装的目录看起来是这样::
 
     /path_to_document_root
         /app
@@ -56,21 +48,16 @@ something like the following::
         index.php
         README
 
-Now might be a good time to learn a bit about how Cake's directory
-structure works: check out
-:doc:`/getting-started/cakephp-folder-structure` section.
+现在是个好时机去了解一下Cake是如何组织目录的：请参阅 :doc:`/getting-started/cakephp-folder-structure` 章节 。
 
-Creating the Blog Database
+创建 Blog 的数据库
 ==========================
 
-Next, let's set up the underlying database for our blog. If you
-haven't already done so, create an empty database for use in this
-tutorial, with a name of your choice. Right now, we'll just create
-a single table to store our posts. We'll also throw in a few posts
-right now to use for testing purposes. Execute the following SQL
-statements into your database::
+下一步，设置blog的数据库，如果还没有做这些，就创建一个本教程要用的
+空的数据库，名字随便起。现在我们要创建一个表来存储我们的文章，然后
+再写入几篇文章测试用，在数据库里面执行下列SQL语句::
 
-    /* First, create our posts table: */
+    /* 首先，创建我们的日志表: */
     CREATE TABLE posts (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(50),
@@ -79,7 +66,7 @@ statements into your database::
         modified DATETIME DEFAULT NULL
     );
     
-    /* Then insert some posts for testing: */
+    /* 然后，插入一些日志的记录方便后边测试用: */
     INSERT INTO posts (title,body,created)
         VALUES ('The title', 'This is the post body.', NOW());
     INSERT INTO posts (title,body,created)
@@ -87,34 +74,28 @@ statements into your database::
     INSERT INTO posts (title,body,created)
         VALUES ('Title strikes back', 'This is really exciting! Not.', NOW());
 
-The choices on table and column names are not arbitrary. If you
-follow Cake's database naming conventions, and Cake's class naming
-conventions (both outlined in
-:doc:`/getting-started/cakephp-conventions`), you'll be able to take
-advantage of a lot of free functionality and avoid configuration.
-Cake is flexible enough to accommodate even the worst legacy
-database schema, but adhering to convention will save you time.
 
-Check out :doc:`/getting-started/cakephp-conventions` for more
-information, but suffice it to say that naming our table 'posts'
-automatically hooks it to our Post model, and having fields called
-'modified' and 'created' will be automagically managed by Cake.
+表和列的名字并不是随意取的，如果你遵循Cake的数据库命名约定，
+以及其类的命名约定（查看文档 :doc:`/getting-started/cakephp-conventions`）
+你将可以利用许多现成的功能并避免配置。
+Cake是具有足够的灵活性，以适应即使最坏的
+遗留的数据库架构, 并遵守约定，节省您的时间。
 
-Cake Database Configuration
+查看 :doc:`/getting-started/cakephp-conventions` 或得更多的信息,
+但我只想说，表'posts'将会自动钩到（绑定到）我们的模型Post，对表的
+'修改'和'创建'将被Cake自动地管理。
+
+Cake 数据库 配置
 ===========================
 
-Onward and upward: let's tell Cake where our database is and how to
-connect to it. For many, this is the first and last time you
-configure anything.
+接下来:让我们告诉Cake我们的数据库放在那里以及如何去连接
+对于许多人来说，这将是第一次也是最后一次配置。
 
-A copy of CakePHP's database configuration file is found in
-``/app/Config/database.php.default``. Make a copy of this file in
-the same directory, but name it ``database.php``.
+在``/app/Config/database.php.default``可以找到一份CakePHP的配置文件. 
+复制并放在这个目录中，重命名为 ``database.php``.
 
-The config file should be pretty straightforward: just replace the
-values in the ``$default`` array with those that apply to your
-setup. A sample completed configuration array might look something
-like the following::
+这个配置文件应该非常直接： 仅仅替换掉 ``$default`` 数据中相应的值即可（换成你的数据库安装配置的值）。
+一个完整的配置例子看起来应该是这样::
 
     public $default = array(
         'datasource' => 'Database/Mysql',
@@ -129,72 +110,59 @@ like the following::
         'encoding' => ''
     );
 
-Once you've saved your new ``database.php`` file, you should be
-able to open your browser and see the Cake welcome page. It should
-also tell you that your database connection file was found, and
-that Cake can successfully connect to the database.
+一旦你已经保存了新的 ``database.php`` 文件, 你应该能够打开你的浏览器
+并看到Cake的欢迎页，它会告诉你你的数据库连接文件已经被找到，Cake已经
+成功连接到数据库了。
 
-.. note::
+.. 注意::
 
-    Remember that you'll need to have PDO, and pdo_mysql enabled in 
-    your php.ini.
+    记住如果你需要使用 PDO，你需要在php.ini中激活 pdo_mysql 模块。
 
-Optional Configuration
+可选的配置
 ======================
 
-There are three other items that can be configured. Most developers
-complete these laundry-list items, but they're not required for
-this tutorial. One is defining a custom string (or "salt") for use
-in security hashes. The second is defining a custom number (or
-"seed") for use in encryption. The third item is allowing CakePHP
-write access to its ``tmp`` folder.
+这里有三个其他的选项可以设置，大多数开发者都完成了这些任务清单，
+但它并不是本次教程中所必须要求的。一个是定义自定义字符串（或者‘salt’，
+译者注：salt是密码保护中用于生成密码哈希的一个随机字符串）
+以生成安全哈希，第二个是自定义一个数字（或者‘seed’）用来加密，第三个是
+允许CakePHP对目录 ``tmp`` 拥有写权限。
 
-The security salt is used for generating hashes. Change the default
-salt value by editing ``/app/Config/core.php`` line 187. It doesn't
-much matter what the new value is, as long as it's not easily
-guessed::
+安全数组是用来生成哈希的，可以在 ``/app/Config/core.php`` line 187 改变salt的值。
+它并不会关心新的值是什么，引文它很难被猜出来::
 
     /**
-     * A random string used in security hashing methods.
+     * 一个随机的字符串，将被用来生成安全的哈希
      */
     Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
 
-The cipher seed is used for encrypt/decrypt strings. Change the
-default seed value by editing ``/app/Config/core.php`` line 192. It
-doesn't much matter what the new value is, as long as it's not
-easily guessed::
+密码种子用来加密和解密字符串. 在 ``/app/Config/core.php`` line 192 中
+改变seed的值.同salt，它同样难以被猜到::
 
     /**
-     * A random numeric string (digits only) used to encrypt/decrypt strings.
+     * 一个随机字符串 (只含有数字) ，将被用来加密和解密.
      */
     Configure::write('Security.cipherSeed', '7485712659625147843639846751');
 
-The final task is to make the ``app/tmp`` directory web-writable.
-The best way to do this is to find out what user your webserver
-runs as (``<?php echo `whoami`; ?>``) and change the ownership of
-the ``app/tmp`` directory to that user. The final command you run
-(in \*nix) might look something like this::
+最后的任务是让目录 ``app/tmp``  可以被web写。最好的方法是找出你的
+webserver用户是谁 (``<?php echo `whoami`; ?>``) 并将目录 ``app/tmp`` 改为该用户拥有. 
+在 \*nix 的系统中的命令会是::
 
     $ chown -R www-data app/tmp
 
-If for some reason CakePHP can't write to that directory, you'll be
-informed by a warning while not in production mode.
+如果因为其他原因 CakePHP 不能写入到该目录, 在非生产模式中你将会被警告。
 
-A Note on mod\_rewrite
+注意 mod\_rewrite
 ======================
 
-Occasionally a new user will run into mod\_rewrite issues. For example
-if the CakePHP welcome page looks a little funny (no images or css styles),
-it probably means mod\_rewrite isn't functioning on your system. Please refer
-to one of the sections below about url rewriting for your webserver to get
-you up and running:
+偶尔一个心得用户将会遭遇到mod\_rewrite 问题. 例如如果CakePHP 的欢迎页看起来不雅观 (不现实图片，或者没有css的样式),
+这就可能是 mod\_rewrite在你的系统中没起作用. 请检查你的webserver的url重写:
 
 .. toctree::
 
     /installation/url-rewriting
 
 
-Now continue to :doc:`/tutorials-and-examples/blog/part-two` to start building your first CakePHP application.
+接下来进入 :doc:`/tutorials-and-examples/blog/part-two` 开始建立第一个 CakePHP 应用.
 
 
 .. meta::
