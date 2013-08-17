@@ -1,16 +1,12 @@
-Simple Authentication and Authorization Application
+简单的身份验证和授权应用
 ###################################################
 
-Following our :doc:`/tutorials-and-examples/blog/blog` example, imagine we wanted to
-secure the access to certain urls, based on the logged in
-user. We also have another requirement, to allow our blog to have multiple authors
-so each one of them can create their own posts, edit and delete them at will
-disallowing other authors to make any changes on one's posts.
+接着我们blog教程 :doc:`/tutorials-and-examples/blog/blog`  的例子，如果我们想要建立一个根据登录的用户身份来决定其安全访问到正确的urls。同时我们还有其他的需求，允许我们的blog有多个作者，所以每一个作者都可以自由创作他们自己的posts，编辑和删除它们，而不允许对别人的posts做任何的改动。
 
-Creating all users' related code
+创建所有用户的相关代码
 ================================
 
-First, let's create a new table in our blog database to hold our users' data::
+首先，让我们在数据库blog中新建一个表来保存用户的数据 ::
 
     CREATE TABLE users (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -21,13 +17,9 @@ First, let's create a new table in our blog database to hold our users' data::
         modified DATETIME DEFAULT NULL
     );
 
-We have adhered to the CakePHP conventions in naming tables, but we're also
-taking advantage of another convention: by using the username and password
-columns in a users table, CakePHP will be able to auto configure most things for
-us when implementing the user login.
+我们坚持遵循 CakePHP 的命名约定，同时我们也利用了其他约定：比如在表user中使用username和password,	 CakePHP 将会自动配置好实现用户登录的大部分工作。
 
-Next step is to create our User model, responsible for finding, saving and
-validating any user data::
+下一步是创建User模型，响应寻找，保存和验证任何用户的数据 ::
 
     // app/Model/User.php
     class User extends AppModel {
@@ -54,9 +46,7 @@ validating any user data::
         );
     }
 
-Let's also create our UsersController, the following contents correspond to a
-basic `baked` UsersController class using the code generation utilities bundled
-with CakePHP::
+让我们也建立我们的控制器  UsersController, 下面的内容是使用 CakePHP 捆绑的代码生成工具生成的基本的UsersController类 ::
 
     // app/Controller/UsersController.php
     class UsersController extends AppController {
@@ -126,9 +116,7 @@ with CakePHP::
         }
     }
 
-In the same way we created the views for our blog posts or by using the code
-generation tool, we implement the views. For the purpose of this tutorial, we
-will show just the add.ctp:
+同样的，我们使用代码生成工具，创建blog的posts的视图。为了教学目的，这里仅展示视图add.ctp:
 
 .. code-block:: php
 
@@ -147,16 +135,12 @@ will show just the add.ctp:
     <?php echo $this->Form->end(__('Submit')); ?>
     </div>
 
-Authentication (login and logout)
+身份验证 (登录 和 登出)
 =================================
 
-We're now ready to add our authentication layer. In CakePHP this is handled
-by the :php:class:`AuthComponent`, a class responsible for requiring login for certain
-actions, handling user sign-in and sign-out, and also authorizing logged in
-users to the actions they are allowed to reach.
+我们现在已经准备好添加我们的认证层了，在 CakePHP 中，这个功能是由  :php:class:`AuthComponent` 完成的，这个组件会为特定动作要求用户登录，处理用户登录和登出，并且检查用户是否有权限进行相应动作（即访问特定页面）。
 
-To add this component to your application open your ``app/Controller/AppController.php``
-file and add the following lines::
+添加这个组件到应用中，打开 ``app/Controller/AppController.php`` 文件，添加如下代码 ::
 
     // app/Controller/AppController.php
     class AppController extends Controller {
@@ -176,19 +160,11 @@ file and add the following lines::
         //...
     }
 
-There is not much to configure, as we used the conventions for the users table.
-We just set up the urls that will be loaded after the login and logout actions is
-performed, in our case to ``/posts/`` and ``/`` respectively.
+这里没有什么需要配置的，因为我们前面遵循了user表的命名约定，我们只设置了登录后和登出后页码转到的urls，在我们的例子中，分别是 ``/posts/`` 和 ``/`` 。
 
-What we did in the ``beforeFilter`` function was to tell the AuthComponent to not
-require a login for all ``index`` and ``view`` actions, in every controller. We want
-our visitors to be able to read and list the entries without registering in the
-site.
+我们在 `` beforeFilter`` 中所做的功能是告诉组件 AuthComponent，在控制器中的所有 ``index`` 和 ``view`` 行动都不需要登录。我们希望我们的访问者能够读取和列出posts，而不需要注册网站。
 
-Now, we need to be able to register new users, save their username and password,
-and, more importantly, hash their password so it is not stored as plain text in
-our database. Let's tell the AuthComponent to let un-authenticated users access
-the users add function and implement the login and logout action::
+现在，我们需要实现新用户的注册。保存它们的用户名和密码，而更重要的是，在我们的数据库中保存用户的hash过的密码而不是用普通文本形式保存，让我们告诉 AuthComponent 组件让未验证的用户访问用户添加函数并实现登录和登出动作 ::
 
     // app/Controller/UsersController.php
 
@@ -211,8 +187,7 @@ the users add function and implement the login and logout action::
         $this->redirect($this->Auth->logout());
     }
 
-Password hashing is not done yet, open your ``app/Model/User.php`` model file
-and add the following::
+散列密码还没有做，打开User模型 ``app/Model/User.php`` 添加代码 ::
 
     // app/Model/User.php
     App::uses('AuthComponent', 'Controller/Component');
@@ -229,9 +204,7 @@ and add the following::
 
     // ...
 
-So, now every time a user is saved, the password is hashed using the default hashing
-provided by the AuthComponent class. We're just missing a template view file for
-the login function, here it is:
+现在，每次用户密码保存的时候，都会使用	AuthComponent 组件提供的默认的类进行散列化。为登录创建模板视图 :
 
 .. code-block:: php
 
@@ -247,39 +220,23 @@ the login function, here it is:
     <?php echo $this->Form->end(__('Login')); ?>
     </div>
 
-You can now register a new user by accessing the ``/users/add`` url and log-in with the
-newly created credentials by going to ``/users/login`` url. Also try to access
-any other url that was not explicitly allowed such as ``/posts/add``, you will see
-that the application automatically redirects you to the login page.
+现在你可以访问  ``/users/add`` 地址来注册一个新的用户了。注册完成后访问  ``/users/login`` 地址登录，	试试访问其他地址比如像 ``/posts/add`` 这些没有明确允许的地址，你会看到应用会自动的转向到登录页面。
 
-And that's it! It looks too simple to be truth. Let's go back a bit to explain what
-happened. The ``beforeFilter`` function is telling the AuthComponent to not require a
-login for the ``add`` action in addition to the ``index`` and ``view`` actions that were
-already allowed in the AppController's ``beforeFilter`` function.
+就是这！简单到不可思议。让我们返回去稍微解释下。 ``beforeFilter`` 函数告诉AuthComponent组件在UsersController中对 ``add`` 动作不需要登录，并且在AppController中的 ``beforeFilter`` 也已经设置所有的控制器的``index`` and ``view`` 动作都是可以不登录的。
 
-The ``login`` action calls the ``$this->Auth->login()`` function in the AuthComponent,
-and it works without any further config because we are following conventions as
-mentioned earlier. That is, having a User model with a username and a password
-column, and use a form posted to a controller with the user data. This function
-returns whether the login was successful or not, and in the case it succeeds,
-then we redirect the user to the configured redirection url that we used when
-adding the AuthComponent to our application.
 
-The logout works by just accessing the ``/users/logout`` url and will redirect
-the user to the configured logoutUrl formerly described. This url is the result
-of the ``AuthComponent::logout()`` function on success.
+ ``login`` 动作执行AuthComponent中的 ``$this->Auth->login()`` 函数且不需要其他的设置的原因是我们遵循了之前提到的在数据库中的user表的命名约定，并且使用表单提交用户的数据到控制器。这个函数返回登录成功还是失败，如果成功，就重定向到我们设置的登录成功的跳转页面。
 
-Authorization (who's allowed to access what)
+登出函数只需要访问 ``/users/logout`` 并且重定向到先前配置的 logoutUrl。这个url是 ``AuthComponent::logout()``  函数返回登出成功后的跳转的页面。
+
+权限（谁可以访问什么）
 ============================================
 
-As stated before, we are converting this blog into a multi-user authoring tool,
-and in order to do this, we need to modify the posts table a bit to add the
-reference to the User model::
+前面已经说了，我们要把这个blog应用改为可以多个用户创作的工具，为了做到这个，我们需要修改posts表，添加对User模型的引用 ::
 
     ALTER TABLE posts ADD COLUMN user_id INT(11);
 
-Also, a small change in the PostsController is required to store the currently
-logged in user as a reference for the created post::
+同时，在PostsController中对新增的post做改动，添加当前登录的用户为作者 ::
 
     // app/Controller/PostsController.php
     public function add() {
@@ -292,15 +249,9 @@ logged in user as a reference for the created post::
         }
     }
 
-The ``user()`` function provided by the component returns any column from the
-currently logged in user. We used this method to add the data into the request
-info that is saved.
+ ``user()`` 函数提供由组件提供，返回当前登录用户的所有列的数据.我们使用这个方法获得所需的用户信息。
 
-Let's secure our app to prevent some authors from editing or deleting the
-others' posts. Basic rules for our app are that admin users can access every
-url, while normal users (the author role) can only access the permitted actions.
-Open again the AppController class and add a few more options to the Auth
-config::
+让我们增强应用的安全性，避免用户编辑或删除其他用户的posts，基本的规则是管理用户可以访问任何的url地址，当前的用户（作者角色）只可以访问到允许的地址。打开 AppController 类，在 Auth 的配置中增加更多选项 ::
 
     // app/Controller/AppController.php
 
@@ -323,17 +274,9 @@ config::
         return false;
     }
 
-We just created a very simple authorization mechanism. In this case the users
-with role ``admin`` will be able to access any url in the site when logged in,
-but the rest of them (i.e the role ``author``) can't do anything different from
-not logged in users.
+我们只创建了一个非常简单的权限机制。在这个例子中用户登录后角色是``admin`` 的将可以访问任何地址，而其余的（例如角色  ``author`` ) 同未登录的用户一样不能够做任何事。
 
-This is not exactly what we wanted, so we need to supply more rules to
-our ``isAuthorized()`` method. But instead of doing it in AppController, let's
-delegate each controller to supply those extra rules. The rules we're going to
-add to PostsController should allow authors to create posts but prevent the
-edition of posts if the author does not match. Open the file ``PostsController.php``
-and add the following content::
+这并不是我们所想要的，所以我们需要在我们的  ``isAuthorized()`` 方法中支持更多的规则. 与其在 AppController中设置, 不如委托每个控制器提供这些额外的规则。我们要在PostsController中增加规则，允许作者创建posts并且防止其他作者对其post做改动。打开  ``PostsController.php``  并添加如下内容 ::
 
     // app/Controller/PostsController.php
 
@@ -354,13 +297,7 @@ and add the following content::
         return parent::isAuthorized($user);
     }
 
-We're now overriding the AppController's ``isAuthorized()`` call and internally
-checking if the parent class is already authorizing the user. If he isn't,
-then just allow him to access the add action, and conditionally access
-edit and delete. A final thing is left to be implemented, to tell whether
-the user is authorized to edit the post or not, we're calling a ``isOwnedBy()``
-function in the Post model. It is in general a good practice to move as much
-logic as possible into models. Let's then implement the function::
+我们现在重写了 AppController 的 ``isAuthorized()`` 方法并且在父类中已核准用户后再进行内部检查，如果他不是,只允许他访问add动作, 并有条件访问edit 和 delete动作. 在 Post 模型中调用 ``isOwnedBy()`` 来告诉用户是否有权限来编辑post. 尽量把逻辑挪到模型中是个很好的实践。让我们实现它 ::
 
     // app/Model/Post.php
 
@@ -368,21 +305,15 @@ logic as possible into models. Let's then implement the function::
         return $this->field('id', array('id' => $post, 'user_id' => $user)) === $post;
     }
 
+简单的身份验证和授权教程到这里就结束了。可以参考我们在PostsController中所做的用到UsersController中，你应该也会更具创作性并可根据你自己的规则在 AppController 添加一般规则。
 
-This concludes our simple authentication and authorization tutorial. For securing
-the UsersController you can follow the same technique we did for PostsController.
-You could also be more creative and code something more general in AppController based
-on your own rules.
+更多信息，参阅完整的Auth指导  :doc:`/core-libraries/components/authentication`  ，这里你可以找到更多组件配置，创建自主的权限类等
 
-Should you need more control, we suggest you read the complete Auth guide in the
-:doc:`/core-libraries/components/authentication` section where you will find more
-about configuring the component, creating custom Authorization classes, and much more.
-
-Suggested Follow-up Reading
+接下来阅读的建议
 ---------------------------
 
-1. :doc:`/console-and-shells/code-generation-with-bake` Generating basic CRUD code
-2. :doc:`/core-libraries/components/authentication`: User registration and login
+1. :doc:`/console-and-shells/code-generation-with-bake` 自动生成 CRUD 代码
+2. :doc:`/core-libraries/components/authentication`: 用户注册和登录
 
 
 .. meta::
