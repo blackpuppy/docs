@@ -1,128 +1,110 @@
-Simple Acl controlled Application
+简单Acl（Access List Control）控制应用
 #################################
 
-.. note::
+.. 注意::
 
-    This isn't a beginner level tutorial. If you are just starting out with
-    CakePHP we would advice you to get a better overall experience of the
-    framework's features before trying out this tutorial.
+	这个教程并不适合初学者。如果你刚刚开始学习 CakePHP，我建议
+	你还是先对整个框架的特点全面了解之后再开始本教程。
 
+在这个教程中，你将会常见一个简单的应用，将会用到文档
+ :doc:`/core-libraries/components/authentication`  和
+:doc:`/core-libraries/components/access-control-lists`  。这个教程
+假设你已经阅读过这个教程 :doc:`/tutorials-and-examples/blog/blog`
+，并且你已经熟悉了 :doc:`/console-and-shells/code-generation-with-bake`. 
+你应该对 CakePHP 有了不少经验, 并且了解 MVC 概念。这个教程是一个
+对 :php:class:`AuthComponent` 和 :php:class:`AclComponent`\. 的简单介绍。
 
-In this tutorial you will create a simple application with
-:doc:`/core-libraries/components/authentication` and
-:doc:`/core-libraries/components/access-control-lists`. This
-tutorial assumes you have read the :doc:`/tutorials-and-examples/blog/blog`
-tutorial, and you are familiar with
-:doc:`/console-and-shells/code-generation-with-bake`. You should have
-some experience with CakePHP, and be familiar with MVC concepts.
-This tutorial is a brief introduction to the
-:php:class:`AuthComponent` and :php:class:`AclComponent`\.
-
-What you will need
+你所需要的：
 
 
-#. A running web server. We're going to assume you're using Apache,
-   though the instructions for using other servers should be very
-   similar. We might have to play a little with the server
-   configuration, but most folks can get Cake up and running without
-   any configuration at all.
-#. A database server. We're going to be using MySQL in this
-   tutorial. You'll need to know enough about SQL in order to create a
-   database: Cake will be taking the reins from there.
-#. Basic PHP knowledge. The more object-oriented programming you've
-   done, the better: but fear not if you're a procedural fan.
+#. 一个运行中的web服务器。我们将假定你使用的是Apache,使用
+   其他服务器的设置（或步骤）也差不多。 我们将会稍微改动服务
+   器的配置文件, 但大多数情况下 Cake 将不需要任何配置的改动就
+   可以跑起来。  
+#.  一个数据库服务器。在本教程中我们将使用MySQL数据库。你将会
+   需要对SQL有一定的了解以便创建一个数据库：Cake将从这里接管数据库。
+#. 基础的 PHP知识.你使用面向对面编程越多越好，但如果你只是一个
+   程序迷也不要害怕。
 
-Preparing our Application
+准备我们的应用
 =========================
 
-First, let's get a copy of fresh Cake code.
+首先，让我们获取一份最新的Cake的代码拷贝。
 
-To get a fresh download, visit the CakePHP project at GitHub:
-https://github.com/cakephp/cakephp/tags and download the stable
-release. For this tutorial you need the latest 2.0 release.
+要获得最新的代码，要访问在 GitHub 上的 CakePHP 项目:
+`https://github.com/cakephp/cakephp/tags <https://github.com/cakephp/cakephp/tags>`_
+并下载最新的稳定发行版 2.0。
 
-
-You can also clone the repository using
+你也可以通过git检出最新的代码
 `git <http://git-scm.com/>`_.
 ``git clone git://github.com/cakephp/cakephp.git``
 
-Once you've got a fresh copy of cake setup your database.php config
-file, and change the value of Security.salt in your
-app/Config/core.php. From there we will build a simple database
-schema to build our application on. Execute the following SQL
-statements into your database::
 
-   CREATE TABLE users (
+一旦你获得了最新Cake代码，设置数据库配置文件 database.php , 
+修改  app/Config/core.php 中的Security.salt 的值，我们将为应用建立
+一个简单的数据库结构，在你的数据库中执行如下的 SQL 语句::
+
+    CREATE TABLE users (
        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
        username VARCHAR(255) NOT NULL UNIQUE,
        password CHAR(40) NOT NULL,
        group_id INT(11) NOT NULL,
        created DATETIME,
        modified DATETIME
-   );
+    );
 
 
-   CREATE TABLE groups (
+    CREATE TABLE groups (
        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
        name VARCHAR(100) NOT NULL,
        created DATETIME,
        modified DATETIME
-   );
+    );
 
 
-   CREATE TABLE posts (
+    CREATE TABLE posts (
        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
        user_id INT(11) NOT NULL,
        title VARCHAR(255) NOT NULL,
        body TEXT,
        created DATETIME,
        modified DATETIME
-   );
+    );
 
-   CREATE TABLE widgets (
+    CREATE TABLE widgets (
        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
        name VARCHAR(100) NOT NULL,
        part_no VARCHAR(12),
        quantity INT(11)
-   );
+    );
 
-These are the tables we will be using to build the rest of our
-application. Once we have the table structure in the database we
-can start cooking. Use
-:doc:`/console-and-shells/code-generation-with-bake` to quickly
-create your models, controllers, and views.
+这些是我们应用中接下来要用的表。一旦我们完成了数据库的表
+结构，我们就可以开始了。参考文档 :doc:`/console-and-shells/code-generation-with-bake` 
+来快速建立你的模型，控制器和视图。
 
-To use cake bake, call "cake bake all" and this will list the 4
-tables you inserted into mySQL. Select "1. Group", and follow the
-prompts. Repeat for the other 3 tables, and this will have
-generated the 4 controllers, models and your views for you.
+为了使用Cake bake，调用  "cake bake all"  ，其会显示你插入到
+mySQL中的4个表，选择 "1. Group" 并按照提示操作。对其他
+3个表也进行同样的操作，最后将产生4个控制器，模型和视图。
 
-Avoid using Scaffold here. The generation of the ACOs will be
-seriously affected if you bake the controllers with the Scaffold
-feature.
+这里避免使用 Scaffold 。使用Scaffold来bake将会严重影响
+ ACOs（ Aco： Access Control Object） 的生成。
 
-While baking the Models cake will automagically detect the
-associations between your Models (or relations between your
-tables). Let cake supply the correct hasMany and belongsTo
-associations. If you are prompted to pick hasOne or hasMany,
-generally speaking you'll need a hasMany (only) relationships for
-this tutorial.
+当自动生成模型代码时，Cake将会自动探测出相关的模型之间的关系
+让Cake提供正确的 hasMany 和 belongsTo 关系。如果你被提示
+要选择 hasOne 或者 hasMany 关系，在本教程中我们需要一个
+hasMany 关系。
 
-Leave out admin routing for now, this is a complicated enough
-subject without them. Also be sure **not** to add either the Acl or
-Auth Components to any of your controllers as you are baking them.
-We'll be doing that soon enough. You should now have models,
-controllers, and baked views for your users, groups, posts and
-widgets.
+现在先不管admin的路由，现在已经够复杂了，确保不要添加
+Acl或者Auth组件到任何你baking的控制器中，因为他们是bake
+出来的。我们将在后面做这个，你应该已经有了你的users，groups
+，posts和widgets的模型，控制器以及视图。
 
-Preparing to Add Auth
+准备添加 Auth
 =====================
 
-We now have a functioning CRUD application. Bake should have setup
-all the relations we need, if not add them in now. There are a few
-other pieces that need to be added before we can add the Auth and
-Acl components. First add a login and logout action to your
-``UsersController``::
+我们现在已经是一个可以 CRUD 的应用。Bake应该已经建立了
+我们所需要的关系，在添加Auth和Acl组件之前我们需要先做一些
+准备工作，首先是添加 login 和 logout 到 ``UsersController``::
 
     public function login() {
         if ($this->request->is('post')) {
@@ -138,8 +120,7 @@ Acl components. First add a login and logout action to your
         //Leave empty for now.
     }
 
-Then create the following view file for login at
-``app/View/Users/login.ctp``::
+然后，为login创建视图 ``app/View/Users/login.ctp``::
 
     echo $this->Form->create('User', array('action' => 'login'));
     echo $this->Form->inputs(array(
@@ -149,10 +130,9 @@ Then create the following view file for login at
     ));
     echo $this->Form->end('Login');
 
-Next we'll have to update our User model to hash passwords before they go into
-the database.  Storing plaintext passwords is extremely insecure and
-AuthComponent will expect that your passwords are hashed.  In
-``app/Model/User.php`` add the following::
+接下来，我们需要更新我们的User模型，在保存到数据库之前先将
+密码散列化，存储普通文本格式的密码是极其危险的，并且AuthComponent
+将会期望你的密码是散列过的。在  ``app/Model/User.php``  中添加代码 ::
 
     App::uses('AuthComponent', 'Controller/Component');
     class User extends AppModel {
@@ -164,11 +144,10 @@ AuthComponent will expect that your passwords are hashed.  In
         }
     }
 
-Next we need to make some modifications to ``AppController``. If
-you don't have ``/app/Controller/AppController.php``, create it. Note that
-this goes in /app/Controller/, not /app/app_controllers.php. Since we want our entire
-site controlled with Auth and Acl, we will set them up in
-``AppController``::
+
+稍微动一下  ``AppController`` 。如果还没有就创建它 ``/app/Controller/AppController.php``。
+记住是在 /app/Controller/ 目录下，而不是  /app/app_controllers.php.。
+因为我们希望在整个网站中都使用统一的 Auth 和 Acl ，在 ``AppController`` 加入::
 
     class AppController extends Controller {
         public $components = array(
@@ -190,12 +169,9 @@ site controlled with Auth and Acl, we will set them up in
         }
     }
 
-Before we set up the ACL at all we will need to add some users and
-groups. With :php:class:`AuthComponent` in use we will not be able to access
-any of our actions, as we are not logged in. We will now add some
-exceptions so :php:class:`AuthComponent` will allow us to create some groups
-and users. In **both** your ``GroupsController`` and your
-``UsersController`` Add the following::
+首先先添加一些user和groups，使用  :php:class:`AuthComponent`  ，
+当未登录的时候我们是不能访问任何动作的。我们将在这里添加一些
+例外，允许创建一些groups和users。在  ``GroupsController``  和 ``UsersController`` 中都添加 ::	
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -207,44 +183,35 @@ and users. In **both** your ``GroupsController`` and your
         $this->Auth->allow();
     }
 
-These statements tell AuthComponent to allow public access to all
-actions. This is only temporary and will be removed once we get a
-few users and groups into our database. Don't add any users or
-groups just yet though.
+这些语句告诉 AuthComponent 允许公开访问任何动作。
+这是临时的，一旦我们在数据库中创建一些users和groups之后将会被
+删除掉. 不要添加任何users和groups尽管现在还没有。
 
-Initialize the Db Acl tables
+初始化 Db Acl  表
 ============================
 
-Before we create any users or groups we will want to connect them
-to the Acl. However, we do not at this time have any Acl tables and
-if you try to view any pages right now, you will get a missing
-table error ("Error: Database table acos for model Aco was not
-found."). To remove these errors we need to run a schema file. In a
-shell run the following::
+在我们创建任何的users或者groups之前，我们需要连接到Acl。
+然后，我们现在还没有任何Acl的表，如果你访问任意的页面，你
+会得到一个表错误的提示  ("Error: Database table acos for model Aco was not
+found.")。好吧，来解决它吧。在shell中执行命令 ::
 
     ./Console/cake schema create DbAcl
 
-This schema will prompt you to drop and create the tables. Say yes
-to dropping and creating the tables.
+这个脚本会提示你删除和新建表，一路yes。
 
-If you don't have shell access, or are having trouble using the
-console, you can run the sql file found in
-/path/to/app/Config/Schema/db\_acl.sql.
+如果你没有shell，或者无法使用终端，你可以执行这个sql文件：
+ /path/to/app/Config/Schema/db\_acl.sql.
 
-With the controllers setup for data entry, and the Acl tables
-initialized we are ready to go right? Not entirely, we still have a
-bit of work to do in the user and group models. Namely, making them
-auto-magically attach to the Acl.
+为数据输入设置了控制器，也创建了Acl表，但这还不够，还需要在
+user和group模型中稍微改动，也就是说，让他们自动地附加上Acl。
 
-Acts As a Requester
+充当请求者
 ===================
 
-For Auth and Acl to work properly we need to associate our users
-and groups to rows in the Acl tables. In order to do this we will
-use the ``AclBehavior``. The ``AclBehavior`` allows for the
-automagic connection of models with the Acl tables. Its use
-requires an implementation of ``parentNode()`` on your model. In
-our ``User`` model we will add the following::
+为了让 Auth 和 Acl 正确工作，我们需要将users和groups同Acl的
+表进行关联。需要用到  ``AclBehavior``。 ``AclBehavior``  允许将
+模型自动连接到Acl的表。使用它得要在你的模型中实现 ``parentNode()`` 
+方法，在模型 ``User`` 中添加如下代码 ::
 
     class User extends AppModel {
         public $belongsTo = array('Group');
@@ -267,7 +234,7 @@ our ``User`` model we will add the following::
         }
     }
 
-Then in our ``Group`` Model Add the following::
+在 ``Group`` 模型中添加 ::
 
     class Group extends AppModel {
         public $actsAs = array('Acl' => array('type' => 'requester'));
@@ -277,28 +244,23 @@ Then in our ``Group`` Model Add the following::
         }
     }
 
-What this does, is tie the ``Group`` and ``User`` models to the
-Acl, and tell CakePHP that every-time you make a User or Group you
-want an entry on the ``aros`` table as well. This makes Acl
-management a piece of cake as your AROs become transparently tied
-to your ``users`` and ``groups`` tables. So anytime you create or
-delete a user/group the Aro table is updated.
+我们所做的，就是将 ``Group`` 和 ``User`` 模型系到 Acl上，并告诉 CakePHP 
+每次你创建一个User或Group的同时也要在  ``aros``  表中输入一条记录。
+这使Acl的管理很简单，因为你的 AROs 在绑定你的 ``users`` 和 ``groups`` 表之后变得透明了，所以你每次创建或者删除一个 user/group 的同时
+Aro 表也会更新。
 
-Our controllers and models are now prepped for adding some initial
-data, and our ``Group`` and ``User`` models are bound to the Acl
-table. So add some groups and users using the baked forms by
-browsing to http://example.com/groups/add and
-http://example.com/users/add. I made the following groups:
+我们的控制器和模型已经可以添加一些初始数据了，我们的 ``Group`` 
+和 ``User`` 模型已经绑定到 Acl表了。所以访问 http://example.com/groups/add 
+和 http://example.com/users/add 使用自动生成的表单添加一些
+groups 和 users。 我添加了这些组 :
 
 -  administrators
 -  managers
 -  users
 
-I also created a user in each group so I had a user of each
-different access group to test with later. Write everything down or
-use easy passwords so you don't forget. If you do a
-``SELECT * FROM aros;`` from a mysql prompt you should get
-something like the following::
+我同时也在每个组中创建了一个用户以便后面测试。把过程记录下来
+并选用容易记住的密码。如果你在myssl命令行中敲入 ``SELECT * FROM aros;`` 
+你可以看到查询到的记录 ::
 
     +----+-----------+-------+-------------+-------+------+------+
     | id | parent_id | model | foreign_key | alias | lft  | rght |
@@ -312,26 +274,23 @@ something like the following::
     +----+-----------+-------+-------------+-------+------+------+
     6 rows in set (0.00 sec)
 
-This shows us that we have 3 groups and 3 users. The users are
-nested inside the groups, which means we can set permissions on a
-per-group or per-user basis.
+这个现实了我们已经有了3个 groups 和 3个 users。用户嵌套在
+组中，这样我们就可以分别对每个组和用户进行权限设置。
 
-Group-only ACL
+只限定组的 ACL
 --------------
 
-In case we want simplified per-group only permissions, we need to
-implement ``bindNode()`` in ``User`` model::
+为了简单，只对每个组进行权限设置，我们需要在 ``User`` 模型中实现 ``bindNode()`` in ``User`` model::
 
     public function bindNode($user) {
         return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
     }
 
-This method will tell ACL to skip checking ``User`` Aro's and to
-check only ``Group`` Aro's.
+这个方法将会告诉 ACL 忽略检查 ``User`` Aro's 而只检查 ``Group`` Aro's.
 
-Every user has to have assigned ``group_id`` for this to work.
+任意user都需要设置 ``group_id`` 才可起作用。
 
-In this case our ``aros`` table will look like this::
+在这个例子中， ``aros`` 表会是这样::
 
     +----+-----------+-------+-------------+-------+------+------+
     | id | parent_id | model | foreign_key | alias | lft  | rght |
@@ -342,40 +301,35 @@ In this case our ``aros`` table will look like this::
     +----+-----------+-------+-------------+-------+------+------+
     3 rows in set (0.00 sec)
 
-Creating ACOs (Access Control Objects)
+创建 ACOs (Access Control Objects)
 ======================================
 
-Now that we have our users and groups (aros), we can begin
-inputting our existing controllers into the Acl and setting
-permissions for our groups and users, as well as enabling login /
-logout.
+现在我们已经有了users和groups(aros)，我们可以开始输入一些已经
+存在的控制器到Acl中，并对我们的groups和users设置权限，并
+激活登录/登出。
 
-Our ARO are automatically creating themselves when new users and
-groups are created. What about a way to auto-generate ACOs from our
-controllers and their actions? Well unfortunately there is no magic
-way in CakePHP's core to accomplish this. The core classes offer a
-few ways to manually create ACO's though. You can create ACO
-objects from the Acl shell or You can use the ``AclComponent``.
-Creating Acos from the shell looks like::
+我们的 ARO 会在新建 users 和 groups 的时候自动创建。这有没有
+什么方法通过我们的控制器和动作来自动创建 ACOs ? 坏消息是这
+真没有，CakePHP 的核心并不提供这个，只是提供了一些方法来
+手动创建 ACO。你可以通过Acl的shell创建 ACO 或者使用 ``AclComponent`` 。
+
+
+从shell创建 Acos ::
 
     ./Console/cake acl create aco root controllers
 
-While using the AclComponent would look like::
+使用 AclComponent ::
 
     $this->Acl->Aco->create(array('parent_id' => null, 'alias' => 'controllers'));
     $this->Acl->Aco->save();
 
-Both of these examples would create our 'root' or top level ACO
-which is going to be called 'controllers'. The purpose of this root
-node is to make it easy to allow/deny access on a global
-application scope, and allow the use of the Acl for purposes not
-related to controllers/actions such as checking model record
-permissions. As we will be using a global root ACO we need to make
-a small modification to our ``AuthComponent`` configuration.
-``AuthComponent`` needs to know about the existence of this root
-node, so that when making ACL checks it can use the correct node
-path when looking up controllers/actions. In ``AppController`` ensure
-that your ``$components`` array contains the ``actionPath`` defined earlier::
+这两种办法都会创建 'root'  或者被称为 'controllers' 的顶层的 ACO。
+这个root节点的目的是为了在整个应用的空间内更方便地允许/拒绝访问。
+并且允许对 跨控制器/动作（例如检查模型记录权限）使用Acl。
+为了使用全局的root ACO，我们需要修改 ``AuthComponent`` 配置。
+``AuthComponent`` 需要知道root节点是否存在，所以当进行ACL
+检查的时候它可以在控制器/动作中寻找到正确的节点路径。在中确保
+ ``AppController`` 你的 ``$components`` 数组中包含 ``actionPath`` 的定义 ::
 
     class AppController extends Controller {
         public $components = array(
@@ -388,7 +342,7 @@ that your ``$components`` array contains the ``actionPath`` defined earlier::
             'Session'
         );
 
-Continue to :doc:`part-two` to continue the tutorial.
+转到 :doc:`part-two`  继续本教程.
 
 
 .. meta::
