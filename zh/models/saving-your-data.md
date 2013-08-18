@@ -1,11 +1,7 @@
-保存数据 Saving Your Data
+保存数据
 ################
 
-CakePHP 会为保存模型数据制作快照。准备保存的数据使用如下基本格式传递给模型的 ``save()` 方法
-
-CakePHP makes saving model data a snap. Data ready to be saved
-should be passed to the model’s ``save()`` method using the
-following basic format::
+CakePHP 中用模型保存数据非常方便。只需将保存的数据以数组格式传递给模型的 ``save()`` 方法。::
 
     Array
     (
@@ -17,19 +13,10 @@ following basic format::
     )
 
 多数时候你无需担心这种格式:
-CakePHP 的:php:class:`FormHelper`和模型的 find 方法都会将数据处理成这种格式。
+CakePHP的:php:class:`FormHelper`和模型的find 方法都会将数据处理成这种格式。
 如果使用其它的助手，数据也能方便地以 ``$this->request->data`` 形式使用。
 
-Most of the time you won’t even need to worry about this format:
-CakePHP's :php:class:`FormHelper`, and model find methods all
-package data in this format. If you're using either of the helpers,
-the data is also conveniently available in ``$this->request->data`` for
-quick usage.
-
 下面是使用 CakePHP 模型向数据库表存入数据的控制器动作的示例::
-
-Here's a quick example of a controller action that uses a CakePHP
-model to save data to a database table::
 
     public function edit($id) {
         // 是否有通过POST方法过来的数据？
@@ -47,14 +34,8 @@ model to save data to a database table::
         $this->set('recipe', $this->Recipe->findById($id));
     }
 
-当调用 save 方法，在第一个参数中传递给它的数据会经过CakePHP的校验机制校验(参见章节 :doc:`/models/data-validation` 以获取更多信息)。如果因为某些原因，数据没有被保存，检查一下是不是没有符合某些校验规则。
-可以通过输出 :php:attr:`Model::$validationErrors` 来进行调试。
-
-When save is called, the data passed to it in the first parameter is validated
-using CakePHP validation mechanism (see :doc:`/models/data-validation` chapter for more
-information). If for some reason your data isn't saving, be sure to check to see
-if some validation rules are being broken. You can debug this situation by
-outputting :php:attr:`Model::$validationErrors`::
+当调用 save 方法，在第一个参数中传递给它的数据会经过CakePHP的校验机制校验数据(参见章节 :doc:`/models/data-validation` 以获取更多信息)。如果因为某些原因，数据没有被保存，检查一下是不是没有符合某些校验规则。
+可以通过输出 :php:attr:`Model::$validationErrors` 来进行调试。 ::
 
     if ($this->Recipe->save($this->request->data)) {
         // "保存" 成功后的处理逻辑。
@@ -66,17 +47,13 @@ outputting :php:attr:`Model::$validationErrors`::
 :php:meth:`Model::set($one, $two = null)`
 =========================================
 
-``Model::set()`` 能够用于将数据的一个或多个列放入模型的 data 数组。当使用带有由 Model 提供的 ActiveRecord 特性的模型时很有用::
+``Model::set()`` 能够用于将数据的一个或多个字段放入模型的 data 数组。当使用带有 ActiveRecord特性的模型时很有用。 ::
 
     $this->Post->read(null, 1);
     $this->Post->set('title', 'New title for the article');
     $this->Post->save();
 
-此例展示了如何使用 ActiveRecord 的 ``set()`` 方法更新和保存单个列。还可以使用 set() 给多个列赋新值::
-
-Is an example of how you can use ``set()`` to update and save
-single fields, in an ActiveRecord approach. You can also use
-``set()`` to assign new values to multiple fields::
+此例展示了如何使用 ActiveRecord 的 ``set()`` 方法更新和保存单个列。还可以使用 set() 给多个字段赋新值。 ::
 
     $this->Post->read(null, 1);
     $this->Post->set(array(
@@ -85,46 +62,28 @@ single fields, in an ActiveRecord approach. You can also use
     ));
     $this->Post->save();
 
-上例将更新 thitle 和 published 列并保存到数据库中。
-
-The above would update the title and published fields and save them
-to the database.
+上例将更新thitle和published字段并保存到数据库中。
 
 :php:meth:`Model::save(array $data = null, boolean $validate = true, array $fieldList = array())`
 =================================================================================================
 
-这个方法保存数组格式的数据。第二个参数允许跳过校验，第三个参数允许提供要保存列的列表。为了提高安全性，可以使用 ``$fieldList`` 限制要保存的列。
-
-Featured above, this method saves array-formatted data. The second
-parameter allows you to sidestep validation, and the third allows
-you to supply a list of model fields to be saved. For added
-security, you can limit the saved fields to those listed in
-``$fieldList``.
+这个方法保存数组格式的数据。第二个参数允许跳过校验，第三个参数允许提供要保存字段的列表。为了提高安全性，可以使用 ``$fieldList`` 限制要保存的字段。
 
 .. note::
 
-    如果不提供``$fieldList``，恶意的用户能够向表单数据中添加附加的列（在你没有使用 :php:class:`SecurityComponent`的情况下），并通过这种方法来改变原本不希望被改变的列。
+    如果不提供``$fieldList``，恶意的用户能够向表单数据中添加附加的字段（在你没有使用 :php:class:`SecurityComponent`的情况下），并通过这种方法来改变原本不希望被改变的字段。
 
-    If ``$fieldList`` is not supplied, a malicious user can add additional
-    fields to the form data (if you are not using
-    :php:class:`SecurityComponent`), and by this change fields that were not
-    originally intended to be changed.
-
-save 方法还有一个替代语法::
-The save method also has an alternate syntax::
+save 方法还有一个替代语法。 ::
 
     save(array $data = null, array $params = array())
 
 ``$params`` 数组可以用如下选项作为其键:
 
-
 * ``validate`` 可为 true/false 是否开启校验。
-* ``fieldList`` 由允许保存的列构成的数组。
-* ``callbacks`` 设置为 false 将禁止回调。使用 'before' 或 'after' 将仅允许指定的回调。
+* ``fieldList`` 由允许保存的字段构成的数组。
+* ``callbacks`` false将禁止回调。使用 'before' 或 'after' 将仅允许指定的回调。
 
-关于模型回调的更多信息请参见:doc:`here <callback-methods>`
-More information about model callbacks is available
-
+关于模型回调的更多信息请参见 :doc:`here <callback-methods>`
 
 .. tip::
 
@@ -165,17 +124,7 @@ More information about model callbacks is available
 
 如果传递了 ``$data`` 参数（使用上面描述的数组格式），模型实例将准备保存这些数据(使用 ``$this->data``)。
 
-如果用 ``false`` 或 ``null`` 传递给 ``$data`` 参数，Model::data会被设置为一个空数组
-
-This method resets the model state for saving new information.
-It does not actually create a record in the database but clears
-Model::$id and sets Model::$data based on your database field defaults. If you have
-not defined defaults for your database fields, Model::$data will be set to an empty array.
-
-If the ``$data`` parameter (using the array format outlined above) is passed, it will be merged with the database 
-field defaults and the model instance will be ready to save with that data (accessible at ``$this->data``).
-
-If ``false`` or ``null`` are passed for the ``$data`` parameter, Model::data will be set to an empty array. 
+如果用 ``false`` 或 ``null`` 传递给 ``$data`` 参数，Model::data会被设置为一个空数组。
 
 .. tip::
 
@@ -211,14 +160,8 @@ saveField 方法也有一个替代语法：::
 
 一次调用更新一条或多条记录。通过``$conditions`` 数组标识被更新的记录，$fields 参数指定被更新的列。
 
-Updates one or more records in a single call. Records to be updated are
-identified by the ``$conditions`` array, and fields to be updated,
-along with their values, are identified by the ``$fields`` array.
+例如，批准所有超过一年的bakers成为会员，调用如下的更新语句。 ::
 
-例如，批准所有超过一年的bakers成为会员，调用如下的更新语句::
-
-For example, to approve all bakers who have been members for over a
-year, the update call might look something like::
 
     $this_year = date('Y-m-d h:i:s', strtotime('-1 year'));
 
@@ -252,8 +195,6 @@ year, the update call might look something like::
 
 此方法用于同时保存同一模型的多行。可以带有如下选项:
 
-Method used to save multiple rows of the same model at once. The following
-options may be used:
 
 * ``validate``: 设置为 false 将禁止校验，设置为 true 将在保存前校验每条记录，设置为'first'将在任意一条被保存前检查  *all* 记录(默认值)
 
@@ -263,7 +204,7 @@ options may be used:
 
 *  ``deep``: (自 2.1 版开始) 如果设置为 true，关联数据也被保存，参见 saveAssociated。
 
-为单个模型保存多条记录，$data 需要是数字索引的记录数组::
+为单个模型保存多条记录，$data需要是数字索引的记录数组。 ::
 
     $data = array(
         array('title' => 'title 1'),
@@ -377,7 +318,7 @@ levels deep associations, the data array should be as follow::
 
 .. note::
 
-    如果保存成功，主模型的外键将被存储在相关模型的 id 列中，例如 $this->RelatedModel->id
+    如果保存成功，主模型的外键将被存储在相关模型的id字段中，例如 $this->RelatedModel->id
 
     If successful, the foreign key of the main model will be stored in
     the related models' id field, i.e. ``$this->RelatedModel->id``.

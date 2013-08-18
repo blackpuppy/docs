@@ -1,9 +1,9 @@
 检索数据
 ####################
 
-如前所述，模型层的一个角色是从多种存储中获取数据。 
-CakePHP 模型类带有很多功能，帮助你搜索这些数据，排序，分页并且进行过滤。
-最常用的功能模型中的find()方法。 :php:meth:`Model::find()`
+如前所述，模型层扮演的是从不同的存储中获取数据的角色。 
+CakePHP的模型类拥有很多功能，具有搜索数据，排序，分页并且进行过滤。
+最常用的功能是find()方法。 :php:meth:`Model::find()`
 
 .. _model-find:
 
@@ -12,27 +12,27 @@ find
 
 ``find(string $type = 'first', array $params = array())``
 
-Find 是所有模型数据检索功能的主力。 
-``$type``可以是 ``'all'``, ``'first'``, ``'count'``, ``'list'``,
-``'neighbors'`` 或 ``'threaded'`` 或者任何自定义查询类型。
+find是所有检索数据方法中使用最普遍。 
+``$type``参数值可以是 ``'all'``, ``'first'``, ``'count'``, ``'list'``,
+``'neighbors'`` 或 ``'threaded'``或者任何自定义查询类型。
 切记 ``$type``是大小写敏感的。使用大写字母
 (如 ``All``) 将得不到期望的结果。
 
-``$params`` 用于向不同的 find 传递所有的参数，其默认有如下的键值 - 每一个都是可选的::
+``$params``用于向find方法传递各种查询参数，其默认有如下的键值 - 每一个都是可选的。 ::
 
     array(
-        'conditions' => array('Model.field' => $thisValue), //包含条件的数组
+        'conditions' => array('Model.field' => $thisValue), //包含查询条件的数组
         'recursive' => 1, //int整型
-        'fields' => array('Model.field1', 'DISTINCT Model.field2'), //字段名数组
+        'fields' => array('Model.field1', 'DISTINCT Model.field2'), //包含字段名的数组
         'order' => array('Model.created', 'Model.field3 DESC'), //字符串或数组
-        'group' => array('Model.field'), //fields to GROUP BY
+        'group' => array('Model.field'), //将字段GROUP BY
         'limit' => n, //int整型
         'page' => n, //int整型
         'offset' => n, //int整型
         'callbacks' => true /其他值可以是 false, 'before', 'after'
     )
 
-也可以添加和使用其它的参数，提供给一些查找类型、行为以及你自己的模型方法。
+也可以添加和使用其它的参数，如查找类型、行为或自己定义的模型方法。
 
 
 .. _model-find-first:
@@ -40,7 +40,7 @@ Find 是所有模型数据检索功能的主力。
 find('first')
 =============
 
-``find('first', $params)`` 只返回一条记录。以下是几个简单的（控制器代码）实例
+``find('first', $params)`` 只返回一条记录。以下是几个简单的（控制器代码）实例。
 ::
 
     public function some_function() {
@@ -56,7 +56,7 @@ find('first')
     }
 
 在第一个示例中，没有向 find 传递任何参数 - 所以没有任何条件和排序。
-这种形式的``find('first')`` 调用返回的格式如下::
+这种形式的``find('first')`` 调用返回的格式如下。 ::
 
     Array
     (
@@ -82,7 +82,7 @@ find('first')
 find('count')
 =============
 
-``find('count', $params)`` 返回一个整数值。以下是几个简单的（控制器代码）实例::
+``find('count', $params)`` 返回一个整数值。以下是几个简单的（控制器代码）实例。 ::
 
     public function some_function() {
         // ...
@@ -98,9 +98,9 @@ find('count')
         // ...
     }
 
-.. 注解::
+.. note::
 
-    不要向``find('count')``传递``fields``数组. 你只能为DISTINCT count (其它情况下，计数结果总是相同的 - 仅取决于条件).
+    不要向``find('count')``传递``fields``数组. 只需为DISTINCT count 指定一个字段(其它情况下，计数结果总是相同的 - 仅取决于条件).
 
 .. _model-find-all:
 
@@ -108,7 +108,7 @@ find('all')
 ===========
 
 ``find('all', $params)`` 返回一个(可能是多维)数组。
-实际上它是所有的``find()``方法的变体，包括分页``paginate``，下面是一些简单的示例。
+实际上它是所有的``find()``方法的变体，包括``paginate``分页，下面是一些简单的示例。 ::
 
     public function some_function() {
         // ...
@@ -123,9 +123,9 @@ find('all')
         // ...
     }
 
-.. 注解::
+.. note::
 
-    上面的例子中，``$allAuthors``包含user表的中的每个用户信息。因为没有任何条件所有将查询所有用户。
+    上面的例子中，``$allAuthors``包含user表的中的每个用户信息。因为没有任何条件,所以将查询所有用户。
 
 ``find('all')``返回的结果格式如下::
 
@@ -157,7 +157,7 @@ find('all')
 find('list')
 ============
 
-``find('list', $params)`` 返回一个索引数组, 在生成类似 HTML 输入表单中的 select 元素所需的列表时很有用。下面是一些简单的示例。
+``find('list', $params)`` 返回一个索引数组, 在生成类似HTML输入表单中的 select元素的列表时很有用。下面是一些简单的示例。 ::
 
     public function some_function() {
         // ...
@@ -174,7 +174,7 @@ find('list')
         // ...
     }
 
-.. 注解::
+.. note::
 
     同上``$allAuthors``将包含 users 表的所有用户
 
@@ -191,13 +191,13 @@ find('list')
         [3] => 'displayValue3',
     )
 
-当调用``find('list')``时，传给``fields``的参数用于决定数组的键名和键值以及(可选的)结果的分组。 默认情况下，模型的主键被当作键，显示列用作值（可以用模型的 displayField :ref:`model-displayField`属性配置）
+当调用``find('list')``时，传给``fields``的参数用于决定数组的键名和键值以及(可选的)结果的分组。 默认情况下，模型的主键被当作键，显示列用作值（可以用模型的 displayField :ref:`model-displayField`属性配置）一些清晰的示例::
 
 By default the primary key
 for the model is used for the key, and the display field (which can
 be configured using the model attribute
 :ref:`model-displayField`) is used for the value.
-一些清晰的示例::
+
 
     public function some_function() {
         // ...
@@ -213,7 +213,7 @@ be configured using the model attribute
         // ...
     }
 
-在上面的例子中，结果变量类似下面这样::
+在上面的例子中，结果变量类似下面这样。 ::
 
 
     $justusernames = Array
@@ -269,7 +269,7 @@ find('threaded')
         // ...
     }
 
-.. 小技巧::
+.. tip::
 
     处理嵌套数据的更好的方法是使用`树` :doc:`/core-libraries/behaviors/tree`
     行为
@@ -331,7 +331,7 @@ find('threaded')
 如果将 ``'order' => 'name ASC'`` 作为参数传递给``find('threaded')``，其结果将按 name 排序。
 类似于此的所有 order 都能被使用，此方法没有内置的首次返回的顶层结果的顺序。
 
-.. 警告::
+.. warn::
 
     如果指定了 ``fields``, 就必须包含
     parent_id (或者它的当前别名)::
