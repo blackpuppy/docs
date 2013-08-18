@@ -191,13 +191,7 @@ find('list')
         [3] => 'displayValue3',
     )
 
-当调用``find('list')``时，传给``fields``的参数用于决定数组的键名和键值以及(可选的)结果的分组。 默认情况下，模型的主键被当作键，显示列用作值（可以用模型的 displayField :ref:`model-displayField`属性配置）一些清晰的示例::
-
-By default the primary key
-for the model is used for the key, and the display field (which can
-be configured using the model attribute
-:ref:`model-displayField`) is used for the value.
-
+当调用``find('list')``时，传给``fields``的参数用于决定数组的键名和键值以及(可选的)结果的分组。 默认情况下，模型的主键被当作键，显示列当作值（可以在模型的displayField属性中配置 :ref:`model-displayField`）见下面的示例。 ::
 
     public function some_function() {
         // ...
@@ -258,7 +252,7 @@ be configured using the model attribute
 find('threaded')
 ================
 
-``find('threaded', $params)`` 返回一个嵌套数组，可以使用模型的``parent_id``列建立相应的嵌套结果。下面是几个简单的（控制器代码）示例::
+``find('threaded', $params)`` 返回一个嵌套数组，可以使用模型的``parent_id``字段建立相应的嵌套结果。下面是几个简单的（控制器代码）示例::
 
     public function some_function() {
         // ...
@@ -327,14 +321,13 @@ find('threaded')
         )
     )
 
-结果呈现的顺序是可以改变的，因为它受 order 处理的影响。
-如果将 ``'order' => 'name ASC'`` 作为参数传递给``find('threaded')``，其结果将按 name 排序。
-类似于此的所有 order 都能被使用，此方法没有内置的首次返回的顶层结果的顺序。
+结果中的顺序是可以改变的，因为它受order的影响。
+如果将 ``'order' => 'name ASC'`` 作为参数传递给``find('threaded')``，结果将按name排序。
+类似于此的所有order都能被使用，此方法没有内置的首次返回的顶层结果的顺序。
 
 .. warn::
 
-    如果指定了 ``fields``, 就必须包含
-    parent_id (或者它的当前别名)::
+    如果指定了 ``fields``, 就必须包含parent_id (或者它的当前别名)::
 
         public function some_function() {
             $categories = $this->Category->find('threaded', array(
@@ -349,7 +342,7 @@ find('threaded')
 find('neighbors')
 =================
 
-``find('neighbors', $params)`` 与'first'类似, 但返回你查询记录的前一条和后一条记录。 下面是一个简单的（控制器代码）示例：
+``find('neighbors', $params)`` 与'first'类似, 但返回查询记录的前一条和后一条记录。 下面是一个简单的（控制器代码）示例：
 
 ::
 
@@ -357,8 +350,8 @@ find('neighbors')
        $neighbors = $this->Article->find('neighbors', array('field' => 'id', 'value' => 3));
     }
 
-数组包含两个元素
-``$params`` 数组包含两个元素: field 和 value. 其它元素仍然可用 (Ex:如果模型可包含，可以在 ``$params``指定 'contain'). 调用 ``find('neighbors')`` 的结果格式如下:
+``$params`` 数组包含两个元素: field 和 value。其它元素仍然可用 (Ex: If your model acts as
+containable, then you can specify 'contain' in ``$params``). 调用 ``find('neighbors')`` 返回的结果格式如下:
 
 ::
 
@@ -400,31 +393,28 @@ find('neighbors')
         )
     )
 
-.. 注解::
+.. note::
 
     注意，结果总是只包含两个根元素： prev和next。
     此功能不兑现模型默认的递归变量。递归设置必须以参数形式传递给每个需要的调用。
-
-    Note how the result always contains only two root elements: prev
-    and next. This function does not honor a model's default recursive
-    var. The recursive setting must be passed in the parameters on each
-    call.
+    This function does not honor a model's default recursive
+    var. The recursive setting must be passed in the parameters on each call.
 
 .. _model-custom-find:
 
 创建自定义查询类型
 ==========================
 
-``find`` 方法很灵活，能够接受自定义查找, 这是通过在模型中定义自己的类型变量并在模型中实现特定的函数完成的。
+``find``方法很灵活，能够接受自定义查找, 这是通过在模型中定义自己的类型变量并在模型中实现特定的函数完成的。
 
-模型的 find 类型是 find 选项的快捷方法。例如，如下两种查找是等价的：
+模型的find类型是find选项的快捷方法。例如，如下两种查找是等价的：
 
 ::
 
     $this->User->find('first');
     $this->User->find('all', array('limit' => 1));
 
-以下是预定义的核心类型：:
+以下是预定义的核心find类型：:
 
 * ``first``
 * ``all``
@@ -441,7 +431,7 @@ find('neighbors')
     }
 
 告诉CakePHP 接受值 ``available`` 作为 ``find` 函数的第一个参数。第二步，实现 ``_findAvailable``函数。
-要符合命令规则, 如果想实现一个叫做 ``myFancySearch``的查找函数，就需要命名为 ``_findMyFancySearch``。
+要符合驼峰法命名的规则, 如果想实现一个叫做 ``myFancySearch``的查找函数，就需要命名为 ``_findMyFancySearch``。
 
 ::
 
@@ -723,32 +713,21 @@ findBy() 函数返回的结果类似于``find('first')``
 
 ``read($fields, $id)``
 
-``read()`` is a method used to set the current model data
-(``Model::$data``)--such as during edits--but it can also be used
-in other circumstances to retrieve a single record from the
-database.
+``read()`` 是一个设置当前模型数据的方法(``Model::$data``)
+(``Model::$data``)--例如在编辑过程中--但是也可以在其他情况下从数据库中获取单条记录。
 
-``$fields`` is used to pass a single field name, as a string, or an
-array of field names; if left empty, all fields will be fetched.
+``$fields`` 传递单个字段名，可以是字符串或包含字段的数组；如果为空，则获取所有字段。
 
-``$id`` specifies the ID of the record to be read. By default, the
-currently selected record, as specified by ``Model::$id``, is used.
-Passing a different value to ``$id`` will cause that record to be
-selected.
+``$id`` 指定要读取的记录ID，默认由``Model::$id``指定，传递不同的值给``$id``就会搜索所选的记录。
 
-``read()`` always returns an array (even if only a single field
-name is requested). Use ``field`` to retrieve the value of a single
-field.
+``read()`` 总是返回一个数组(即使仅包含一个字段名)。使用``field``来获取单个字段的值。
 
 .. warning::
 
-    As the ``read`` method overwrites any information stored in the ``data`` and ``id``
-    property of the model, you should be very careful when using this function in general,
-    especially using it in the model callback functions such as ``beforeValidate`` and
-    ``beforeSave``. Generally the ``find`` function provides a more robust and easy to work
-    with API than the ``read`` method.
+    由于``read``方法覆盖任何存储在模型的``data``和``id`` 属性中的任何信息，通常使用此功能是要非常小心，尤其在类似 ``beforeValidate``和``beforeSave``等模型回调函数中。
+    通常``find``方法比``read``方法提供了更强大和易用的API。
 
-Complex Find Conditions
+复杂的查找条件 Complex Find Conditions
 =======================
 
 大多数模型的find调用会牵涉到很多查询条件，使用CakePHP可以把这些条件放在数组里。
