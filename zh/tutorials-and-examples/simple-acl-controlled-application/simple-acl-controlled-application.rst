@@ -7,7 +7,7 @@
 	你还是先对整个框架的特点全面了解之后再开始本教程。
 
 在这个教程中，你将会常见一个简单的应用，将会用到文档
- :doc:`/core-libraries/components/authentication`  和
+:doc:`/core-libraries/components/authentication`  和
 :doc:`/core-libraries/components/access-control-lists`  。这个教程
 假设你已经阅读过这个教程 :doc:`/tutorials-and-examples/blog/blog`
 ，并且你已经熟悉了 :doc:`/console-and-shells/code-generation-with-bake`. 
@@ -21,9 +21,9 @@
    其他服务器的设置（或步骤）也差不多。 我们将会稍微改动服务
    器的配置文件, 但大多数情况下 Cake 将不需要任何配置的改动就
    可以跑起来。  
-#.  一个数据库服务器。在本教程中我们将使用MySQL数据库。你将会
+#. 一个数据库服务器。在本教程中我们将使用MySQL数据库。你将会
    需要对SQL有一定的了解以便创建一个数据库：Cake将从这里接管数据库。
-#. 基础的 PHP知识.你使用面向对面编程越多越好，但如果你只是一个
+#. 基础的 PHP知识。你使用面向对象编程越多越好，但如果你只是一个
    程序迷也不要害怕。
 
 准备我们的应用
@@ -87,7 +87,7 @@ mySQL中的4个表，选择 "1. Group" 并按照提示操作。对其他
 3个表也进行同样的操作，最后将产生4个控制器，模型和视图。
 
 这里避免使用 Scaffold 。使用Scaffold来bake将会严重影响
- ACOs（ Aco： Access Control Object） 的生成。
+ACOs（ Aco： Access Control Object） 的生成。
 
 当自动生成模型代码时，Cake将会自动探测出相关的模型之间的关系
 让Cake提供正确的 hasMany 和 belongsTo 关系。如果你被提示
@@ -145,7 +145,7 @@ Acl或者Auth组件到任何你baking的控制器中，因为他们是bake
     }
 
 
-稍微动一下  ``AppController`` 。如果还没有就创建它 ``/app/Controller/AppController.php``。
+稍微动一下  ``AppController`` 。如果还没有就创建它 ``/app/Controller/AppController.php`` 。
 记住是在 /app/Controller/ 目录下，而不是  /app/app_controllers.php.。
 因为我们希望在整个网站中都使用统一的 Auth 和 Acl ，在 ``AppController`` 加入::
 
@@ -200,7 +200,7 @@ found.")。好吧，来解决它吧。在shell中执行命令 ::
 这个脚本会提示你删除和新建表，一路yes。
 
 如果你没有shell，或者无法使用终端，你可以执行这个sql文件：
- /path/to/app/Config/Schema/db\_acl.sql.
+/path/to/app/Config/Schema/db\_acl.sql.
 
 为数据输入设置了控制器，也创建了Acl表，但这还不够，还需要在
 user和group模型中稍微改动，也就是说，让他们自动地附加上Acl。
@@ -274,7 +274,7 @@ groups 和 users。 我添加了这些组 :
     +----+-----------+-------+-------------+-------+------+------+
     6 rows in set (0.00 sec)
 
-这个现实了我们已经有了3个 groups 和 3个 users。用户嵌套在
+记录显示我们已经有了3个 groups 和 3个 users。用户嵌套在
 组中，这样我们就可以分别对每个组和用户进行权限设置。
 
 只限定组的 ACL
@@ -329,7 +329,7 @@ groups 和 users。 我添加了这些组 :
 为了使用全局的root ACO，我们需要修改 ``AuthComponent`` 配置。
 ``AuthComponent`` 需要知道root节点是否存在，所以当进行ACL
 检查的时候它可以在控制器/动作中寻找到正确的节点路径。在中确保
- ``AppController`` 你的 ``$components`` 数组中包含 ``actionPath`` 的定义 ::
+``AppController`` 你的 ``$components`` 数组中包含 ``actionPath`` 的定义 ::
 
     class AppController extends Controller {
         public $components = array(
