@@ -1,20 +1,17 @@
-Media Views
+媒体视图
 ===========
 
 .. php:class:: MediaView
 
-.. deprecated:: 2.3
-   Use :ref:`cake-response-file` instead.
+.. 弃用:: 2.3
+   替换为 :ref:`cake-response-file` 。
    
-Media views allow you to send binary files to the user. For example, you may
-wish to have a directory of files outside of the webroot to prevent users from
-direct linking them. You can use the Media view to pull the file from a special
-folder within /app/, allowing you to perform authentication before delivering
-the file to the user.
+媒体视图允许你发送二进制文件给用户。例如，你希望有一个webroot
+目录之外的目录存放文件防止用户直接访问它们。你可以使用媒体
+视图将文件拉取到 /app/ 中的一个特殊目录，并在传送文件之前验证用户。
 
-To use the Media view, you need to tell your controller to use the MediaView
-class instead of the default View class. After that, just pass in additional
-parameters to specify where your file is located::
+使用媒体视图，你需要告诉你的控制器使用视图 MediaView 。
+然后只需要将你存放文件的位置填入参数中 ::
 
     class ExampleController extends AppController {
         public function download() {
@@ -31,9 +28,8 @@ parameters to specify where your file is located::
         }
     }
 
-Here's an example of rendering a file whose mime type is not included in the
-MediaView's ``$mimeType`` array. We are also using a relative path which will 
-default to your ``app/webroot`` folder::
+这是一个不属于 MediaView 的 ``$mimeType`` 中的mime类型的例子，
+同时使用一个相对于 ``app/webroot`` 目录的路径::
 
     public function download() {
         $this->viewClass = 'Media';
@@ -50,45 +46,38 @@ default to your ``app/webroot`` folder::
         $this->set($params);
     }
 
-Settable Parameters
+可设变量
 -------------------
 
 ``id``
-    The ID is the file name as it resides on the file server including
-    the file extension.
+    ID 是位于文件服务器上的文件的名字包括扩展名。
 
 ``name``
-    The name allows you to specify an alternate file name to be sent to
-    the user. Specify the name without the file extension.
+    name 可以让你定义显示给用户的文件名字，不包括文件扩展名。
 
 ``download``
-    A boolean value indicating whether headers should be set to force
-    download.
+    一个布尔值，在头文件中标识是否阻止下载。
 
 ``extension``
-    The file extension. This is matched against an internal list of
-    acceptable mime types. If the mime type specified is not in the
-    list (or sent in the mimeType parameter array), the file will not
-    be downloaded.
+    文件扩展名。这个是和可接受的mime类型匹配的。如果这个mime类型
+	没在列表中（或者在mimeType参数数组中提出），这个文件就无法
+	被下载。
 
 ``path``
-    The folder name, including the final directory separator. The path
-    should be absolute but can be relative to the ``app/webroot`` folder.
+    目录名字，包括最终的目录分隔符，是绝对路径，但可以在 ``app/webroot`` 目录的相对路径访问到。
 
 ``mimeType``
-    An array with additional mime types to be merged with MediaView
-    internal list of acceptable mime types.
+    一个数据，用来添加额外的mime类型，整合进 MediaView 的内置mime类型列表中。
 
 ``cache``
-    A boolean or integer value - If set to true it will allow browsers
-    to cache the file (defaults to false if not set); otherwise set it
-    to the number of seconds in the future for when the cache should
-    expire.
+	一个布尔值或整数值 - 如果设置为true，它就会允许浏览器缓存
+	文件（默认是不允许的）；或者设置成数字，表示缓存将在多少秒
+	之后过期。
 
 
-.. todo::
+.. 下一步::
 
-    Include examples of how to send files with Media View.
+    加入例子说明如何使用媒体视图发送文件。
 
 
 .. meta::
