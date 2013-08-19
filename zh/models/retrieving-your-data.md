@@ -14,11 +14,11 @@ find
 
 find是所有检索数据方法中使用最普遍。 
 ``$type``参数值可以是 ``'all'``, ``'first'``, ``'count'``, ``'list'``,
-``'neighbors'`` 或 ``'threaded'``或者任何自定义查询类型。
+``'neighbors'`` 或 ``'threaded'`` 或者任何自定义查询类型。
 切记 ``$type``是大小写敏感的。使用大写字母
 (如 ``All``) 将得不到期望的结果。
 
-``$params``用于向find方法传递各种查询参数，其默认有如下的键值 - 每一个都是可选的。 ::
+``$params`` 用于向find方法传递各种查询参数，其默认有如下的键值 - 每一个都是可选的。 ::
 
     array(
         'conditions' => array('Model.field' => $thisValue), //包含查询条件的数组
@@ -56,7 +56,7 @@ find('first')
     }
 
 在第一个示例中，没有向 find 传递任何参数 - 所以没有任何条件和排序。
-这种形式的``find('first')`` 调用返回的格式如下。 ::
+这种形式的 ``find('first')`` 调用返回的格式如下。 ::
 
     Array
     (
@@ -100,7 +100,7 @@ find('count')
 
 .. note::
 
-    不要向``find('count')``传递``fields``数组. 只需为DISTINCT count 指定一个字段(其它情况下，计数结果总是相同的 - 仅取决于条件).
+    不要向 ``find('count')`` 传递 ``fields`` 数组. 只需为DISTINCT count 指定一个字段(其它情况下，计数结果总是相同的 - 仅取决于条件).
 
 .. _model-find-all:
 
@@ -127,7 +127,7 @@ find('all')
 
     上面的例子中，``$allAuthors``包含user表的中的每个用户信息。因为没有任何条件,所以将查询所有用户。
 
-``find('all')``返回的结果格式如下::
+``find('all')`` 返回的结果格式如下。 ::
 
     Array
     (
@@ -176,7 +176,7 @@ find('list')
 
 .. note::
 
-    同上``$allAuthors``将包含 users 表的所有用户
+    同上 ``$allAuthors`` 将包含users表的所有用户
 
 调用 ``find('list')`` 的结果格式如下::
 
@@ -268,7 +268,7 @@ find('threaded')
     处理嵌套数据的更好的方法是使用`树` :doc:`/core-libraries/behaviors/tree`
     行为
 
-在上面的例子中，``$allCategories`` 将包含一个呈现整个分类结构的嵌套数组。调用 ``find('threaded')`` 的结果格式如下::
+在上面的例子中，``$allCategories`` 将包含一个呈现整个分类结构的嵌套数组。调用 ``find('threaded')`` 的结果格式如下。 ::
 
     Array
     (
@@ -322,7 +322,7 @@ find('threaded')
     )
 
 结果中的顺序是可以改变的，因为它受order的影响。
-如果将 ``'order' => 'name ASC'`` 作为参数传递给``find('threaded')``，结果将按name排序。
+如果将 ``'order' => 'name ASC'`` 作为参数传递给 ``find('threaded')``，结果将按name排序。
 类似于此的所有order都能被使用，此方法没有内置的首次返回的顶层结果的顺序。
 
 .. warn::
@@ -405,9 +405,9 @@ containable, then you can specify 'contain' in ``$params``). 调用 ``find('neig
 创建自定义查询类型
 ==========================
 
-``find``方法很灵活，能够接受自定义查找, 这是通过在模型中定义自己的类型变量并在模型中实现特定的函数完成的。
+``find`` 方法很灵活，能够接收我们自定义的查找类型, 这是通过在模型中定义自己的类型变量并在模型中实现特定的函数来完成的。
 
-模型的find类型是find选项的快捷方法。例如，如下两种查找是等价的：
+模型的find类型是find选项的简写。例如，如下两种写法是等价的：
 
 ::
 
@@ -423,15 +423,16 @@ containable, then you can specify 'contain' in ``$params``). 调用 ``find('neig
 * ``threaded``
 * ``neighbors``
 
-那么其它的类型呢？已在数据库中查找所有的文章为例。首先要做的是在模型中添加类型变量，
-:php:attr:`Model::$findMethods`::
+那么其它的类型呢？已在数据库中查找所有的文章为例。首先要做的是把我们的自定义类型添加到模型的:php:attr:`Model::$findMethods`变量中。
+
+::
 
     class Article extends AppModel {
         public $findMethods = array('available' =>  true);
     }
 
-告诉CakePHP 接受值 ``available`` 作为 ``find` 函数的第一个参数。第二步，实现 ``_findAvailable``函数。
-要符合驼峰法命名的规则, 如果想实现一个叫做 ``myFancySearch``的查找函数，就需要命名为 ``_findMyFancySearch``。
+上面会告诉CakePHP接受值 ``available`` 作为``find` 函数的第一个参数。接下来要去实现 ``_findAvailable`` 函数。
+要符合驼峰法命名的规则, 如果想实现一个叫做 ``myFancySearch`` 的查找函数，就需要命名为 ``_findMyFancySearch``。
 
 ::
 
@@ -462,20 +463,17 @@ containable, then you can specify 'contain' in ``$params``). 调用 ``find('neig
 
     }
 
- ``_find[Type]`` 方法接收三个参数。第一个指查询处于什么状态时执行，可以是``before`` 或 ``after``。这样处理是因为此函数是一种回调函数，可以在完成前编辑查询，或者在获取结果后对结果进行编辑。 
+这个特殊的方法 ``_find[Type]`` 接收三个参数。第一个参数指执行查询的状态，可以是 ``before`` 或 ``after``。这样处理是因为此函数是一种回调函数，可以在查询结束前修改查询，或者在获取结果后对结果进行修改。 
 
-通常第一件事是检查自定义查询函数的查询状态。``before``状态是编辑查询、绑定新的关联、应用更多的行为
+通常执行该自定义查询方法的第一件事是检查查询状态。``before``状态可以修改查询、绑定新的关联、应用更多的行为，
 ，and interpret any special key that is passed in the second argument of ``find``. This
 state requires you to return the $query argument (modified or not).
 
-The ``after`` state is the perfect place to inspect the results, inject new data, process it
-to return it in another format, or do whatever you like to the recently fetched data. This state
-requires you to return the $results array (modified or not).
+``after`` 状态可以检测查询结果，注入新的数据并以另外一种格式返回，或者在查询结果上做任何爱做的事情。此状态需要你返回$results数组(修改或者不修改)。
 
-You can create as many custom finders as you like, and they are a great way of reusing code in
-your application across models.
+可以创建任意多你喜欢的自定义查找，这也是在应用程序中跨越模型复用代码的好办法。
 
-It is also possible to paginate via a custom find type as follows:
+还可以通过如下自定义的类型对结果进行分页：
 
 ::
 
@@ -630,7 +628,7 @@ findBy() 函数返回的结果类似于``find('first')``
 
 如果你真想在应用程序中使用这种方法，请确保你已经阅读过CakePHP的:doc:`/core-utility-libraries/sanitize` 这有助于清理用户提供的数据，以防止注入和跨站点脚本攻击。
 
-.. 注解::
+.. note::
 
     ``query()`` 不理会 $Model->cacheQueries 因为其功能本质上与调用的模型不相关。为避免缓存调用查询，需要将第二个参数设置为 false，例如: ``query($query, $cachequeries = false)``
 
@@ -661,7 +659,7 @@ findBy() 函数返回的结果类似于``find('first')``
         )
     )
 
-要使用模型名作为数组键，以与 find 方法的返回结果一致，可以将查询写成::
+要使用模型名作为数组键，以与 find 方法的返回结果一致，可以将查询写成。 ::
 
     $this->Picture->query("SELECT * FROM pictures AS Picture LIMIT 2;");
 
@@ -688,7 +686,7 @@ findBy() 函数返回的结果类似于``find('first')``
         )
     )
 
-.. 注解::
+.. note::
 
     此语法及关联数组结构仅在 MySQL 中有效。在手动运行查询时，Cake 不提供任何抽象数据，所以其结果在不同的数据库中有所不同。
 
@@ -820,7 +818,7 @@ Cake 还能检查 null 列。在本例中，查询将返回所有 title 不为 n
 
     array('Post.read_count BETWEEN ? AND ?' => array(1,10))
 
-.. 注解::
+.. note::
 
     是否为数字值加上引号将取决于数据库中列的类型
     CakePHP will quote the numeric values depending on the field
