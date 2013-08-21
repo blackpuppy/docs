@@ -11,18 +11,23 @@ beforeFind
 
 ``beforeFind(array $queryData)``
 
-在任何查询操作前被调用。``$queryData`` 接收有关当前查询的的数据信息。
+该回调函数在任意的查询相关的操作前被调用。参数 ``$queryData`` 包含当前查询
+的信息比如 : 条件，列，等。
 
 Called before any find-related operation. The ``$queryData`` passed
 to this callback contains information about the current query:
 conditions, fields, etc.
+
+如果不希望查询操作被执行(可能基于相关 ``$queryData`` 选项而做出的决定)，
+返回*false*。否则返回可能修改过的 ``$queryData`` ，或者任何你想传递给查询的信息
 
 If you do not wish the find operation to begin (possibly based on a
 decision relating to the ``$queryData`` options), return *false*.
 Otherwise, return the possibly modified ``$queryData``, or anything
 you want to get passed to find and its counterparts.
 
-可以使用此回调方法进行基于用户角色权限判断操作，或者基于当前的页面加载使用缓存。
+可以使用该回调方法基于用户的权限限制其查询操作，或者根据当前负载
+决定是否采用缓存。。
 
 You might use this callback to restrict find operations based on a
 user’s role, or make caching decisions based on the current load.
@@ -32,8 +37,8 @@ afterFind
 
 ``afterFind(array $results, boolean $primary = false)``
 
-使用此回调方法可以修改查询结果。或者执行任何其他的post-find逻辑。
-$results参数接收包含模型查询操作的结果，i.e. 比如::
+使用此回调函数可以修改已经查询出来的结果。或者执行任何其他的post-find逻辑。
+$results参数接收包含模型查询操作的结果，等. 比如::
 
     $results = array(
         0 => array(
@@ -44,8 +49,9 @@ $results参数接收包含模型查询操作的结果，i.e. 比如::
         ),
     );
 
-这个回调函数的返回值应该是(可能修改后的)结果的查找操作,引发了这个
+这个回调函数的返回值应该是(可能修改后的)由于查询操作触发的这个
 回调。
+
 The return value for this callback should be the (possibly
 modified) results for the find operation that triggered this
 callback.
@@ -184,7 +190,7 @@ on this record will also be deleted.
 
 ::
 
-    // using app/Model/ProductCategory.php
+    // 使用 app/Model/ProductCategory.php
     // 在下面的例子中，如果一个产品目录下面包含产品，则不删除此目录。
     // 在ProductsController.php中我们设置$this->id，并执行$this->Product->delete($id)
     // 假设ProductCategory对应很多个Product，我们可以在模型中使用$this->Product。
