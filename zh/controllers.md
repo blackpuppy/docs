@@ -1,32 +1,24 @@
-Controllers
-###########
+控制器
+######
 
-Controllers are the 'C' in MVC. After routing has been applied and the correct
-controller has been found, your controller's action is called.  Your controller
-should handle interpreting the request data, making sure the correct models
-are called, and the right response or view is rendered.  Controllers can be
-thought of as middle man between the Model and View.  You want to keep your
-controllers thin, and your models fat.  This will help you more easily reuse
-your code and makes your code easier to test.
+控制器是MVC中的“C”。通过路由，正确的控制器被确定，控制器的动作被调用。
+你的控制器应当解释请求数据，确保使用正确的模型，并呈现正确的回应或视图。
+控制器可以被认为是模型和视图之间的中间人。你应当保持控制器瘦，而模型胖。
+这将帮助你更轻松地复用你的代码，使你的代码更容易测试。
 
-Commonly, controllers are used to manage the logic around a single model. For
-example, if you were building a site for an on-line bakery, you might have a
-RecipesController and an IngredientsController managing your recipes and their
-ingredients.  In CakePHP, controllers are named after the primary model they
-handle. It's totally possible to have controllers work with more than one model as
-well.
+通常，控制器用于管理关于单个模型的逻辑。例如，如果你为一个在线面包店制作网站，
+你可能会有RecipesController和IngredientsController，来管理你的食谱和它们的
+成分。在CakePHP中，控制器命名跟随它们处理的主要模型。当然也完全可能让控制器
+处理多个模型。
 
-Your application's controllers extend ``AppController`` class, which in turn
-extends the core :php:class:`Controller` class. The AppController
-class can be defined in ``/app/Controller/AppController.php`` and it should
-contain methods that are shared between all of your application's controllers.
+你的应用程序的控制器继承于``AppController``类，而``AppController``类
+又继承于核心的:php:class:`Controller`类。AppController类可以定义在
+``/app/Controller/AppController.php``中，它所包含的方法应该是你的应用程序所有的
+控制器之间共享的。
 
-Controllers provide a number of methods which are called *actions*.  Actions are
-methods on a controller that handle requests.  By default all public methods on
-a controller are an action, and accessible from a url.  Actions are responsible
-for interpreting the request and creating the response.  Usually responses are
-in the form of a rendered view, but there are other ways to create responses as
-well.
+控制器提供了一些方法，称为*动作*。动作是控制器处理请求的方法。在默认情况下，
+控制器所有的公有方法都是动作，可以从URL访问。动作负责解释请求，并生成响应。
+通常响应是以渲染视图的方式产生，但也可以用其他的方是来生成响应。
 
 
 .. _app-controller:
@@ -319,7 +311,7 @@ For example::
         }
     }
     
-This would render ``app/Plugin/Users/View/UserDetails/custom_file.ctp`` 
+This would render ``app/Plugin/Users/View/UserDetails/custom_file.ctp``
 
 Flow Control
 ------------
