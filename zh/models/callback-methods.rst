@@ -17,6 +17,9 @@ Called before any find-related operation. The ``$queryData`` passed
 to this callback contains information about the current query:
 conditions, fields, etc.
 
+如果不希望查询操作被执行(可能基于相关 ``$queryData`` 选项做出的决定)，
+返回*false*。否则的话返回可能修改过的 ``$queryData`` ，或者任何
+
 If you do not wish the find operation to begin (possibly based on a
 decision relating to the ``$queryData`` options), return *false*.
 Otherwise, return the possibly modified ``$queryData``, or anything
