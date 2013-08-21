@@ -1,14 +1,14 @@
 一个典型的 CakePHP 请求
 #########################
 
-我们已经了解CakePHP基本要素, 让我们看看各个对象如何共同协作完成一个基本的请求。继续讲我们之前的例子, 想象一下我们的朋友Ricardo刚刚在一个CakePHP应用的首页上点击了“立刻买一个自定义的蛋糕!”这个链接。
+我们已经了解CakePHP基本要素, 让我们看看各个对象如何共同协作完成一个基本的请求。继续讲我们之前的例子, 想象一下我们的朋友Ricardo刚刚在一个CakePHP应用的首页上点击了“立刻买一个定制蛋糕!”这个链接。
 
 <img src="http://book.cakephp.org/2.0/en/_images/typical-cake-request.png"/>
 
 .. figure:: /_static/img/typical-cake-request.png
    :align: center
    :alt: Flow diagram showing a typical CakePHP request
-   
+
    一个典型的 CakePHP 请求流程示意图
 
 Figure: 2. 典型的Cake请求。
