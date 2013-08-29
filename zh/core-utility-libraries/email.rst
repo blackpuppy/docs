@@ -3,15 +3,15 @@ CakeEmail
 
 .. php:class:: CakeEmail(mixed $config = null)
 
-``CakeEmail`` 是用于发送邮件的新的类库，使用此类你可以在应用程序中的任何地方发送邮件。
-也可以在控制器中使用EmailComponent，同时也可以从Shell和模型中发送邮件。
+``CakeEmail`` 是用于发送邮件的新类库，使用此类你可以在应用程序中的任何地方发送邮件。
+也可以在控制器中使用EmailComponent，同时也可以在Shell和模型中发送邮件。
 
 ``CakeEmail`` is a new class to send email. With this
 class you can send email from any place of your application. In addition to
 using the EmailComponent from your controller, you can also send mail from
 Shells, and Models.
 
-此类替代了:php:class:`EmailComponent` ，提供了 更加灵活的手段。
+此类替代了:php:class:`EmailComponent` ，提供了更加灵活的手段。
 举例来说，你可以创建自己传输协议(transports)来发送邮件，而不使用
 smtp和mail协议。
 
@@ -22,7 +22,7 @@ email instead of using the provided smtp and mail.
 基本用法 Basic usage
 ===========
 
-首先确保此类用 :php:meth:`App::uses()` 加载进来。
+首先确保用 :php:meth:`App::uses()` 方法将类加载进来。
 
 First of all, you should ensure the class is loaded using :php:meth:`App::uses()`::
 
@@ -54,7 +54,7 @@ You can re-write the above code as::
 选择发件人 Choosing the sender
 -------------------
 
-当代表其他人发送邮件最好使用Sender header去定义一个原始的发件人。可以使用 ``sender()``::
+当代表其他人发送邮件最好使用Sender header去定义一个原始的发件人。也可以使用 ``sender()``::
 
 When sending email on behalf of other people it's often a good idea to define the
 original sender using the Sender header.  You can do so using ``sender()``::
@@ -70,7 +70,7 @@ original sender using the Sender header.  You can do so using ``sender()``::
     person's behalf.  This prevents them from getting any messages about
     deliverability.
 
-Configuration
+配置 Configuration
 =============
 
 与数据库配置相似，也有一个集中包含邮件配置信息的类。
@@ -78,7 +78,7 @@ Configuration
 Similar of database configuration, emails can have a class to centralize all the
 configuration.
 
-创建文件 ``app/Config/email.php`` 类名是 ``EmailConfig``。
+创建文件 ``app/Config/email.php`` 其中类名是 ``EmailConfig``。
 ``app/Config/email.php.default`` 是一个示例文件。
 
 Create the file ``app/Config/email.php`` with the class ``EmailConfig``.
@@ -127,7 +127,8 @@ you can also just load an array of configs::
     //或者写在构造函数中 ::
     $Email = new CakeEmail(array('from' => 'me@example.org', 'transport' => 'MyCustom'));
 
-可以配置SSL SMTP服务器，像Gmail。在host主机前加上 ``'ssl://'`` 和相应的端口。举例。::
+如果用的Gmail，需要配置SSL SMTP服务器。在host主机前加上 ``'ssl://'`` 和相应的端口。举例。::
+
 You can configure SSL SMTP servers, like Gmail. To do so, put the ``'ssl://'``
 at prefix in the host and configure the port value accordingly.  Example::
 
@@ -164,6 +165,7 @@ As of 2.3.0 you can also enable TLS SMTP using the ``tls`` option::
     }
 
 上面的配置会为邮件信息启用TLS通信
+
 The above configuration would enable TLS communication for email messages.
 
 .. versionadded: 2.3
@@ -175,7 +177,7 @@ The above configuration would enable TLS communication for email messages.
 
 配置 Configurations
 --------------
-
+下面是配置数组的键名。
 The following configuration keys are used:
 
 - ``'from'``: 发件人的邮件地址或包含多个的数组。 参见 ``CakeEmail::from()``.
@@ -184,21 +186,16 @@ The following configuration keys are used:
 - ``'cc'``: 抄送人或包含多个的数组。参见 ``CakeEmail::cc()``.
 - ``'bcc'``: 密件抄送人或包含多个的数组。参见 ``CakeEmail::bcc()``.
 - ``'replyTo'``: 回复地址或包含多个的数组。参见 ``CakeEmail::replyTo()``.
-- ``'readReceipt'``: Email address or an array of addresses to receive the
-  receipt of read. See ``CakeEmail::readReceipt()``.
+- ``'readReceipt'``: 阅读收条或包含多个的数组。参见 ``CakeEmail::readReceipt()``.
 - ``'returnPath'``: 遇到错误的邮件地址或包含多个的数组。参见 ``CakeEmail::returnPath()``.
-- ``'messageId'``: Message ID of e-mail. See ``CakeEmail::messageId()``.
-- ``'subject'``: Subject of the message. See ``CakeEmail::subject()``.
-- ``'message'``: Content of message. Do not set this field if you are using rendered content.
-- ``'headers'``: Headers to be included. See ``CakeEmail::setHeaders()``.
-- ``'viewRender'``: 如果正在使用渲染内容，设置视图的类名。 If you are using rendered content, set the view classname.
-  See ``CakeEmail::viewRender()``.
-- ``'template'``: 如果正在使用渲染内容，设置模版名。If you are using rendered content, set the template name. See
-  ``CakeEmail::template()``.
-- ``'theme'``: Theme used when rendering template. See ``CakeEmail::theme()``.
-- ``'layout'``: If you are using rendered content, set the layout to render. If
-  you want to render a template without layout, set this field to null. See
-  ``CakeEmail::template()``.
+- ``'messageId'``: 邮件的消息ID。参见 ``CakeEmail::messageId()``.
+- ``'subject'``: 邮件的主题。参见 ``CakeEmail::subject()``.
+- ``'message'``: 邮件的内容。如果使用渲染模版内容，不要设置此选项。
+- ``'headers'``: 邮件发送的消息头。参见 ``CakeEmail::setHeaders()``.
+- ``'viewRender'``: 如果使用渲染内容，设置视图的类名。参见 ``CakeEmail::viewRender()``.
+- ``'template'``: 如果使用渲染内容，设置模版名。参见 ``CakeEmail::template()``.
+- ``'theme'``: 当渲染模版时使用的主题。参见 ``CakeEmail::theme()``.
+- ``'layout'``: 如果使用渲染内容，设置布局，如果渲染一个不带布局的模版，设置为null。参见 ``CakeEmail::template()``.
 - ``'viewVars'``: If you are using rendered content, set the array with
   variables to be used in the view. See ``CakeEmail::viewVars()``.
 - ``'attachments'``: List of files to attach. See ``CakeEmail::attachments()``.
@@ -337,7 +334,7 @@ This allows you to override the `new_comment` template in your theme without mod
 the Blog plugin.  The template file needs to be created in the following path:
 ``APP/View/Themed/TestTheme/Blog/Emails/text/new_comment.ctp``.
 
-Sending attachments
+发送附件 Sending attachments
 -------------------
 
 .. php:method:: attachments($attachments = null)
