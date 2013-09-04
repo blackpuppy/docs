@@ -81,7 +81,7 @@
        出现在“keep your controllers thin, and your models fat”中。
        thin译成“瘦”、“薄”，fat译成“胖”?
 
-`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models\data-validation.md>`_
+`cakephp_zh\zh\models\data-validation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/data-validation.md>`_
 ================================================================================================================
 
     #. insensitive
