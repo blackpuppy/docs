@@ -1,29 +1,34 @@
-Folder & File
+目录和文件 Folder & File
 #############
 
+目录及文件工具是帮助你读、写、追加文件、列出目录中的文件及其他目录相关任务的一个方便的类库。
 The Folder and File utilities are convenience classes to help you read, write,
 and append to files; list files within a folder and other common directory
 related tasks.
 
-Basic usage
+基本用法 Basic usage
 ===========
 
+先确保使用 :php:meth:`App::uses()` 将类库加载进来。 ::
 Ensure the classes are loaded using :php:meth:`App::uses()`::
 
     <?php
     App::uses('Folder', 'Utility');
     App::uses('File', 'Utility');
 
+然后创建一新的文件夹。::
 Then we can setup a new folder instance::
 
     <?php
     $dir = new Folder('/path/to/folder');
 
+使用正则搜索匹配该目录下所有*.ctp*文件。 ::
 and search for all *.ctp* files within that folder using regex::
 
     <?php
     $files = $dir->find('.*\.ctp');
 
+使用循环来读、写、追加内容或简答的删除文件。::
 Now we can loop through the files and read, write or append to the contents or
 simply delete the file::
 
@@ -37,7 +42,7 @@ simply delete the file::
         $file->close(); // Be sure to close the file when you're done
     }
 
-Folder API
+目录API Folder API
 ==========
 
 .. php:class:: Folder(string $path = false, boolean $create = false, mixed $mode = false)
@@ -45,20 +50,24 @@ Folder API
 ::
 
     <?php
+    // 创建一个权限为0755的目录
     // Create a new folder with 0755 permissions
     $dir = new Folder('/path/to/folder', true, 0755);
 
 .. php:attr:: path
 
+    当前目录的路径与 :php:meth:`Folder::pwd()` 反正同样的内容。
     Current path to the folder. :php:meth:`Folder::pwd()` will return the same
     information.
 
 .. php:attr:: sort
 
+    是否按文件名排序
     Whether or not the list results should be sorted by name.
 
 .. php:attr:: mode
 
+    创建目录时是否，默认 ``0755``。在windows操作系统机器下无效。
     Mode to be used when creating folders. Defaults to ``0755``. Does nothing on
     windows machines.
 
@@ -66,17 +75,19 @@ Folder API
 
     :rtype: string
 
+    返回带$element的$path，目录之间使用正确的反斜杠。::
     Returns $path with $element added, with correct slash in-between::
 
         <?php
         $path = Folder::addPathElement('/a/path/for', 'testing');
-        // $path equals /a/path/for/testing
+        // $path 等价 /a/path/for/testing
 
 
 .. php:method:: cd( $path )
 
     :rtype: string
 
+    切换目录到$path指定的路径。失败返回false。::
     Change directory to $path. Returns false on failure::
 
         <?php
@@ -91,6 +102,7 @@ Folder API
 
     :rtype: boolean
 
+    递归改变目录的权限，同时作用于目录下的文件。::
     Change the mode on a directory structure recursively. This includes
     changing the mode on files as well::
 
@@ -103,21 +115,24 @@ Folder API
 
     :rtype: boolean
 
+    递归的拷贝一个目录。$options参数可以是目的路径或包含选项数组。::
     Recursively copy a directory. The only parameter $options can either
     be a path into copy to or an array of options::
 
         <?php
         $folder1 = new Folder('/path/to/folder1');
         $folder1->copy('/path/to/folder2');
+        // 将folder1及他下面的所有内容拷贝到folder2
         // Will put folder1 and all its contents into folder2
 
         $folder = new Folder('/path/to/folder');
         $folder->copy(array(
             'to' => '/path/to/new/folder',
-            'from' => '/path/to/copy/from', // will cause a cd() to occur
+            'from' => '/path/to/copy/from', // will cause a cd() to occur // 会发生cd()切换目录
             'mode' => 0755,
             'skip' => array('skip-me.php', '.git'),
             'scheme' => Folder::SKIP  // Skip directories/files that already exist.
+            // 跳过已经存在的directories/files
         ));
 
     There are 3 supported schemes:
@@ -147,6 +162,7 @@ Folder API
 
     :rtype: boolean
 
+    递归创建目录结构，可以创建类似 `/foo/bar/baz/shoe/horn` 多级目录。::
     Create a directory structure recursively. Can be used to create
     deep path structures like `/foo/bar/baz/shoe/horn`::
 
@@ -160,6 +176,7 @@ Folder API
 
     :rtype: boolean
 
+    递归删除系统允许的目录。::
     Recursively remove directories if the system allows::
 
         <?php
@@ -172,6 +189,7 @@ Folder API
 
     :rtype: integer
 
+    以字节为单位返回整个目录内容的大小。
     Returns the size in bytes of this Folder and its contents.
 
 
@@ -179,6 +197,7 @@ Folder API
 
     :rtype: array
 
+    获得最后一个方法的错误信息。
     Get error from latest method.
 
 
@@ -186,9 +205,11 @@ Folder API
 
     :rtype: array
 
+    返回当前目录中所有匹配的文件的数组。::
     Returns an array of all matching files in current directory::
 
         <?php
+        // 在 app/webroot/img/ 文件夹中查询所有的.png文件并排序。
         // Find all .png in your app/webroot/img/ folder and sort the results
         $dir = new Folder(WWW_ROOT . 'img');
         $files = $dir->find('.*\.png', true);
@@ -367,7 +388,7 @@ Folder API
     Returns an array of nested directories and files in each directory.
 
 
-File API
+文件API File API
 ========
 
 .. php:class:: File(string $path, boolean $create = false, integer $mode = 493)
