@@ -1,17 +1,9 @@
-Running Shells as cronjobs
+定期运行Shells
 ##########################
 
-A common thing to do with a shell is making it run as a cronjob to
-clean up the database once in a while or send newsletters. However,
-when you have added the console path to the PATH variable via
-``~/.profile``, it will be unavailable to the cronjob.
+一个常见的事情是使用shell运行cronjob，每隔一段时间清理一次数据库或发送简讯。然而，当你已经在 ``~/.profile`` 中将终端的路径添加到PATH变量时，它将会不能够做为定期作业运行。
 
-The following BASH script will call your shell and append the
-needed paths to $PATH. Copy and save this to your Console folder as
-'cakeshell' and don't forget to make it executable.
-(``chmod +x cakeshell``)
-
-::
+下面的Bash脚本将调用shell命令并将必要的路径添加到 $PATH 。复制和保存到你的终端目录，命名为 'cakeshell' ，别忘记加上可执行权限(``chmod +x cakeshell``) ::
 
     #!/bin/bash
     TERM=dumb
@@ -28,21 +20,18 @@ needed paths to $PATH. Copy and save this to your Console folder as
     done
     $cmd
 
-You can call it like::
+你可以这样调用 ::
 
     $ ./Console/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console
 
-The ``-cli`` parameter takes a path which points to the php cli
-executable and the ``-console`` parameter takes a path which points
-to the CakePHP console.
+``-cli`` 参数需要一个指向php的可执行cli的路径， ``-console`` 参数指向CakePHP的终端路径。
 
-As a cronjob this would look like::
+一个定期作业的书写格式 ::
 
     # m h dom mon dow command
     */5 *   *   *   * /full/path/to/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console -app /full/path/to/app
 
-A simple trick to debug a crontab is to set it up to dump it's
-output to a logfile. You can do this like::
+一个调试crontab的小技巧是将它设置为将它的输出重定向到日志文件，你可以这样做 ::
 
     # m h dom mon dow command
     */5 *   *   *   * /full/path/to/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console -app /full/path/to/app >> /path/to/log/file.log 2>&1

@@ -1,82 +1,71 @@
 ACL Shell
 #########
 
-The AclShell is useful for managing and inspecting your Acl databases records.
-It's often more convenient than adding one time modifications to your
-controllers.
+AclShell在管理和监督你的Acl数据库记录上很有用。它比每次都要在你的控制器中
+修改更方便。
 
-Most acl shell subcommands involve referencing aco/aro nodes.  As there are two
-'forms' of these nodes, there is two notations in the shell::
+大多数 acl shell 命令涉及引用 aco/aro 节点。
+这里有这些节点的引用的两种形式，在shell中是这样表示的 ::
 
-    # A Model + foreign_key reference
+    # 一个模型 + 外键引用
     ./Console/cake acl view aro Model.1
 
-    # An alias path reference
+    # 一个别名路径引用
     ./Console/cake acl view aco root/controllers
 
-Using a ``.`` indicates that you are going to use a bound record style reference
-while using a ``/`` indicates an alias path.
+使用 ``.`` 表示你要使用一个绑定记录的类型的引用。
+使用 ``/`` 表示是别名路径。
 
-Installing the database tables
+安装数据库表
 ==============================
 
-Before using the database ACL you'll need to setup the tables.  You can do that
-using::
+在使用ACL数据库之前，你需要设置表。你可以运行命令 ::
 
     ./Console/cake acl initdb
 
-Create and delete nodes
+创建和删除节点
 =======================
 
-You can use the create and delete subcommands to create and delete nodes::
+创建和删除节点的命令用法 ::
 
     ./Console/cake acl create aco controllers Posts
     ./Console/cake acl create aco Posts index
 
-Would create an aco record using an alias path.  You could do the following as
-well::
+你也可以通过这个指令来为 id = 1  的组创建一个 aro 节点 ::
 
     ./Console/cake acl create aro Group.1
 
-To create an aro node for the Group id = 1.
-
-Grant and deny access
+授权和拒绝访问
 =====================
 
-Use the grant command to grant ACL permissions. Once executed, the ARO
-specified (and its children, if any) will have ALLOW access to the
-specified ACO action (and the ACO's children, if any)::
+使用grant命令授权ACL权限。一旦执行，指定的 ARO  （包括其子
+节点，如果有的话）将被允许访问指定的 ACO 动作（包括其子
+节点，如果有的话） ::
 
     ./Console/cake acl grant Group.1 controllers/Posts 
 
-The above would grant all privileges.  You could grant only the read privilege
-using the following::
+上面的命令将会授予任何权限。你可以执行如下命令只允许读权限 ::
 
     ./Console/cake acl grant Group.1 controllers/Posts read
 
-Denying permission works in the exact same way.  The only difference is you
-switch 'deny' in for 'grant'.
+拒绝权限也是一样的方式，只需将  'grant' 替换为 'deny'  。
 
-Check permissions
+检查权限
 =================
 
-Use this command to grant ACL permissions. Once executed, the ARO
-specified (and its children, if any) will have ALLOW access to the
-specified ACO action (and the ACO's children, if any)::
+授权ACL权限，一旦执行，指定的ARO将被允许访问指定的ACO动作 ::
 
     ./Console/cake acl check Group.1 controllers/Posts read
 
-The output will either be ``success`` or ``not allowed``.
+结果会是  ``success``  或者  ``not allowed`` 。
 
-View the node trees
+查看节点树
 ===================
 
-The view command will return the ARO or ACO tree.  The optional node parameter
-allows you to return only a portion of the requested tree::
+view 命令会返回 ARO 或者 ACO 树。可选的节点参数可以只返回请求
+的树的部分节点 ::
 
     ./Console/cake acl view
-
-
 
 .. meta::
     :title lang=en: ACL Shell

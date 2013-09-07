@@ -1,36 +1,33 @@
 .. _upgrade-shell:
 
-Upgrade shell
+升级 shell
 #############
 
-The upgrade shell will do most of the work to upgrade your CakePHP application
-from 1.3 to 2.0.
+upgrade shell可以完成升级你的CakePHP从1.3到2.0的大部分工作。
 
-To run all upgrade steps::
+升级所有 ::
 
     ./Console/cake upgrade all
 
-If you would like to see what the shell will do without modifying files perform
-a dry run first with --dry-run::
+如果您想看看shell做了什么而无需修改文件而只是首先执行，使用 --dry-run参数 ::
 
     ./Console/cake upgrade all --dry-run
 
-To upgrade your plugin run the command::
+升级插件::
 
     ./Console/cake upgrade all --plugin YourPluginName
 
-You are able to run each upgrade step individually. To see all the steps
-available run the command::
+你可以单个运行任何一个升级步骤。查看所有的可用步骤 ::
 
     ./Console/cake upgrade --help
 
-Or visit the API docs for more info: http://api20.cakephp.org/class/upgrade-shell
+或者查看API问文档获得更多信息 : http://api20.cakephp.org/class/upgrade-shell
 
-Upgrade Your App
+升级你的App
 ----------------
 
-Here is a guide to help you upgrade your CakePHP 1.3 app to 2.x using the
-upgrade shell. Your 1.3 app structure will likely look like this::
+这是一个使用upgrade shell帮助你将你的应用从1.3升级到2.0的教程。你的1.3的应用结构
+大致如此 ::
 
     mywebsite/
         app/             <- Your App
@@ -40,20 +37,17 @@ upgrade shell. Your 1.3 app structure will likely look like this::
         .htaccess
         index.php
 
-The first step is to download or ``git clone`` the new version of CakePHP into
-another folder outside of your ``mywebsite`` folder, we'll call it ``cakephp``.
-We don't want the downloaded ``app`` folder to overwrite your app folder. Now is
-a good time to make a backup of your app folder, eg.: ``cp -R app app-backup``.
+第一个步骤是下载或者 ``git clone`` 最新的CakePHP到另外一个你的 ``mywebsite`` 目录
+之外的其他地方。先命名为 ``cakephp`` 。我们并不想下载的 ``app`` 目录覆盖了你的
+应用中的目录。现在是为你的应用的目录做个备份的是否了。例如 : ``cp -R app app-backup``.
 
-Copy the ``cakephp/lib`` folder to your ``mywebsite/lib`` to setup the new
-CakePHP version in your app, eg.: ``cp -R ../cakephp/lib .``. Symlinking is a
-good alternative to copy as well, eg.: ``ln -s /var/www/cakephp/lib``.
+复制 ``cakephp/lib`` 目录到你的 ``mywebsite/lib`` 目录来为你的应用建立新的CakePHP
+版本。 例如: ``cp -R ../cakephp/lib .``. 或者做个软链接也可以 : ``ln -s /var/www/cakephp/lib``.
 
-Before we can run the upgrade shell we need the new console scripts as well.
-Copy the ``cakephp/app/Console`` folder into your ``mywebsite/app``, eg.:
-``cp -R ../cakephp/app/Console ./app``.
+在我们可以运行升级shell之前我们也需要新的终端脚本。复制 ``cakephp/app/Console`` 
+目录到你的 ``mywebsite/app`` ，如 : ``cp -R ../cakephp/app/Console ./app``.
 
-Your folder structure should look like this now::
+你的目录结构现在应该是这个样子 ::
 
     mywebsite/
         app/              <- Your App
@@ -67,14 +61,13 @@ Your folder structure should look like this now::
         .htaccess
         index.php
 
-Now we can run the upgrade shell by ``cd``'ing into your ``app`` folder and
-running the command::
+现在我们可以运行upgrade shell了，到你的 ``app`` 目录下执行 ::
 
     ./Console/cake upgrade all
 
-This will do **most** of the work to upgrade your app to 2.x. Check things over
-in your upgraded ``app`` folder. If everything looks good then congratulate
-yourself and delete your ``mywebsite/cake`` folder. Welcome to 2.x!
+这将会完成**大部分**工作让你的app升级到 2.x 。
+检查你的升级后的 ``app`` 目录。如果一起正常就恭喜了，就可以将目录 ``mywebsite/cake`` 
+删除了。欢迎进入2.x!
 
 .. meta::
     :title lang=en: .. _upgrade-shell:

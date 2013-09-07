@@ -1,15 +1,13 @@
 Test shell
 ##########
 
-Once you've started writing :doc:`Tests </development/testing>` you can run them
-using the test shell.
+一旦你已经开始写 :doc:`Tests </development/testing>` 你可以
+使用 test shell 来运行他们。
 
-For more information on basic usage of the test shell see
-:ref:`run-tests-from-command-line`.
+这里有更多的关于test shell的基本使用资料 :ref:`run-tests-from-command-line`.
 
-.. versionchanged:: 2.1
-    The ``test`` shell was added in 2.1. The 2.0 ``testsuite`` shell is still
-    available but the new syntax is preferred.
+.. 版本变动:: 2.1
+    在2.1中增加 ``test`` shell ，在2.0中的 ``testsuite`` shell 仍旧可用，但使用的是新函数。
 
 
 .. meta::

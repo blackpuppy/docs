@@ -1,99 +1,87 @@
-I18N shell
+shell支持国际化I18N
 ##########
 
-The i18n features of CakePHP use `po files <http://en.wikipedia.org/wiki/GNU_gettext>`_
-as their translation source.  This makes them easily to integrate with tools
-like `poedit <http://www.poedit.net/>`_ and other common translation tools.
+CakePHP 使用 `po files <http://en.wikipedia.org/wiki/GNU_gettext>`_ 作为
+它们翻译的源文件来支持国际化功能。这让他们可以同 `poedit <http://www.poedit.net/>`_  
+和其他一些常见的翻译工具整合。
 
-The i18n shell provides a quick and easy way to generate po template files.
-These templates files can then be given to translators so they can translate the
-strings in your application.  Once you have translations done, pot files can be
-merged with existing translations to help update your translations.
+i18n shell提供了一个快速和简便的方法来生成po模板文件。这些模板文件可以拿来给翻译者
+这样他们就可以在他们的应用中翻译字符串。一旦你完成了翻译，pot文件可以被整合到已有
+的翻译中来帮助更新你的翻译。
 
-Generating POT files
+生成 POT 文件
 ====================
 
-POT files can be generated for an existing application using the ``extract``
-command.  This command will scan your entire application for ``__()`` style
-function calls, and extract the message string.  Each unique string in your
-application will be combined into a single POT file::
+可以通过使用 ``extract`` 命令来为已有的应用生成POT文件。这个命令将会在你的整个应用
+中搜索 ``__()`` 样式的函数命令，抽取出信息的字符串。每一个你的应用中的唯一的字符串
+将会被组合进一个单独 ::
 
     ./Console/cake i18n extract
 
-The above will run the extraction shell.  In addition to extracting strings in ``__()``
-methods, validation messages in models will be extracted as well.  The result of
-this command will be the file ``app/Locale/default.pot``.  You use the pot file
-as a template for creating po files.  If you are manually creating po files from
-the pot file, be sure to correctly set the ``Plural-Forms`` header line.
+执行这个命令如上所示。
+在抽取 ``__()`` 方法中的字符串的同时，模板中的验证信息也将会被抽取。这个命令的结
+果文件保存在 ``app/Locale/default.pot`` 。你可以使用这个pot文件作为创建po文件的
+模板。如果你从pot文件手动创建po文件，确保你正确的设置了“复数形式”标题行。
 
-Generating POT files for plugins
+为插件生成POT文件
 --------------------------------
 
-You can generate a POT file for a specific plugin using::
+你可以为指定的插件生成pot文件 ::
 
     ./Console/cake i18n extract --plugin <Plugin>
 
-This will generate the required POT files used in the plugins.
+这个命令将生成插件中使用所需的POT文件。
 
-Model validation messages
+模型验证信息
 -------------------------
 
-You can set the domain to be used for extracted validation messages in your models.
-If the model already has a ``$validationDomain`` property, the given validation 
-domain will be ignored::
+你可以在你的模型中设置需要抽取验证信息的域。如果模型已经有了一个 ``$validationDomain`` 
+属性，给出的验证域设置将会被忽略 ::
 
     ./Console/cake i18n extract --validation-domain validation_errors
 
-You can also prevent the shell from extracting validation messages::
+你也可以组织shell抽取模型的验证信息 ::
 
     ./Console/cake i18n extract --ignore-model-validation
 
 
-Excluding folders
+排除目录
 -----------------
 
-You can pass a comma separated list of folders that you wish to be excluded.
-Any path containing a path segment with the provided values will be ignored::
+你可以传递一个列表（用,隔开）来指定你想要排除的目录。任意在这之中的目录都会被忽略 ::
 
     ./Console/cake i18n extract --exclude Test,Vendor
 
-Skipping overwrite warnings for existing POT files
+跳过对已有的POT文件覆盖警告
 --------------------------------------------------
-.. versionadded:: 2.2
+.. 版本新增:: 2.2
 
-By adding --overwrite, the shell script will no longer warn you if a POT file
-already exists and will overwrite by default::
+有了参数 --overwrite ,shell将会默认覆盖已有的POT文件而不发出警告 ::
 
     ./Console/cake i18n extract --overwrite
 
+从CakePHP的核心库中抽取信息
 Extracting messages from the CakePHP core libraries
 ---------------------------------------------------
-.. versionadded:: 2.2
+.. 版本新增:: 2.2
 
-By default, the extract shell script will ask you if you like to extract
-the messages used in the CakePHP core libraries. Set --extract-core to yes or
-no to set the default behavior.
+默认情况下，extract shell脚本将会询问你是否要抽取CakePHP核心库中用到的信息。设置
+--extract-core为yes或no来设置默认的动作。 ::
 
-::
+    ./Console/cake i18n extract --extract-core yes    
 
-    ./Console/cake i18n extract --extract-core yes
-
-    or
+或    
 
     ./Console/cake i18n extract --extract-core no
 
-
-
-
-Create the tables used by TranslateBehavior
+创建TranslateBehavior使用的表
 ===========================================
 
-The i18n shell can also be used to initialize the default tables used by the
-:php:class:`TranslateBehavior`::
+i18n shell也可以用来初始化 :php:class:`TranslateBehavior` 使用的默认的表 ::
 
     ./Console/cake i18n initdb
 
-This will create the ``i18n`` table used by translate behavior.
+这个命令会创建翻译动作使用的 ``i18n`` 表。 
 
 
 .. meta::
