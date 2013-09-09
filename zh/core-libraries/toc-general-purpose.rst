@@ -1,4 +1,4 @@
-General Purpose
+通用 General Purpose
 ###############
 
 .. toctree::

@@ -1,4 +1,4 @@
-Behaviors
+行为 Behaviors
 #########
 
 .. toctree::
