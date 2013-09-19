@@ -1,60 +1,51 @@
-What is CakePHP? Why Use it?
+什么是 CakePHP? 为什么使用它?
 ############################
 
-`CakePHP <http://www.cakephp.org/>`_ is a
-`free <http://en.wikipedia.org/wiki/MIT_License>`_,
-`open-source <http://en.wikipedia.org/wiki/Open_source>`_,
-`rapid development <http://en.wikipedia.org/wiki/Rapid_application_development>`_
-`framework <http://en.wikipedia.org/wiki/Application_framework>`_
-for `PHP <http://www.php.net/>`_. It’s a foundational structure for
-programmers to create web applications. Our primary goal is to
-enable you to work in a structured and rapid manner–without loss of
-flexibility.
+`CakePHP <http://www.cakephp.org/>`_ 是一个
+`免费 <http://en.wikipedia.org/wiki/MIT_License>`_,
+`开源 <http://en.wikipedia.org/wiki/Open_source>`_,
+`快速开发 <http://en.wikipedia.org/wiki/Rapid_application_development>`_
+`框架 <http://en.wikipedia.org/wiki/Application_framework>`_
+用于 `PHP <http://www.php.net/>`_.  是程序员创建Web应用程序的一个基础结构。
+我们的首要目标是使您能够进行结构化的和快速的开发而无损灵活性。
 
-CakePHP takes the monotony out of web development. We provide you
-with all the tools you need to get started coding what you really
-need to get done: the logic specific to your application. Instead
-of reinventing the wheel every time you sit down to a new project,
-check out a copy of CakePHP and get started with the real guts of
-your application.
+CakePHP让Web开发不再单调。我们为您提供所有的工具，你需要开始编码你真正需要去做的：
+特定于应用程序的逻辑。每次你坐下来开发一个新的项目，而不是重新发明轮子，检出
+CakePHP的副本，并开始使用它来开发您的应用程序的真正核心。
 
-CakePHP has an active
-`developer team <https://github.com/cakephp?tab=members>`_
-and community, bringing great value to the project. In addition to
-keeping you from wheel-reinventing, using CakePHP means your
-application’s core is well tested and is being constantly
-improved.
+CakePHP有个开发团队 `developer team <https://github.com/cakephp?tab=members>`_
+和社区。
 
-Here’s a quick list of features you’ll enjoy when using CakePHP:
+CakePHP 提供的功能:
 
 
--  Active, friendly `community <http://cakephp.org/feeds>`_
--  Flexible `licensing <http://en.wikipedia.org/wiki/MIT_License>`_
--  Compatible with versions PHP 5.2.8 and greater.
--  Integrated
+-  充满活力友好的社区 `community <http://cakephp.org/feeds>`_
+-  灵活的许可证 `licensing <http://en.wikipedia.org/wiki/MIT_License>`_
+-  与 PHP 5.2.8 及更高的版本兼容.
+-  整合了
    `CRUD <http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>`_
-   for database interaction.
--  Application
+   方便与数据库互动
+-  应用的快速搭建
    `scaffolding <http://en.wikipedia.org/wiki/Scaffold_(programming)>`_.
--  Code generation.
+-  代码生成。
 -  `MVC <http://en.wikipedia.org/wiki/Model-view-controller>`_
-   architecture.
--  Request dispatcher with clean, custom URLs and routes.
--  Built-in
+   架构.
+-  使用干净的自定义URLs和路由调度请求。
+-  内建的验证
    `validation <http://en.wikipedia.org/wiki/Data_validation>`_.
--  Fast and flexible
+-  快速和灵活的模板
    `templating <http://en.wikipedia.org/wiki/Web_template_system>`_
    (PHP syntax, with helpers).
--  View Helpers for AJAX, JavaScript, HTML Forms and more.
+-  视图助手(AJAX, JavaScript, HTML Forms等)。
 -  Email, Cookie, Security, Session, and Request Handling
    Components.
--  Flexible
+-  可扩展的
    `ACL <http://en.wikipedia.org/wiki/Access_control_list>`_.
--  Data Sanitization.
--  Flexible `Caching <http://en.wikipedia.org/wiki/Web_cache>`_.
--  Localization.
--  Works from any web site directory, with little to no
-   `Apache <http://httpd.apache.org/>`_ configuration involved.
+-  数据清除.
+-  可扩展的 `Caching <http://en.wikipedia.org/wiki/Web_cache>`_.
+-  本地化.
+-  在网站的目录中运行，几乎不需要改动
+   `Apache <http://httpd.apache.org/>`_ 配置。
 
 
 .. meta::

@@ -1,106 +1,77 @@
-Understanding Model-View-Controller
+理解 模型-视图-控制(MVC)
 ###################################
 
-CakePHP follows the
+CakePHP 遵循
 `MVC <http://en.wikipedia.org/wiki/Model-view-controller>`_
-software design pattern. Programming using MVC separates your
-application into three main parts:
+软件设计模式。使用MVC编程将应用分离为三个部分:
 
-The Model layer
+模型层
 ===============
+模型层表示你的应用程序中实现业务逻辑的那部分。负责检索数据，并为您的应用程序将
+数据转换成有意义的概念。这包括处理，验证，关联或其他处理数据相关的任务。
 
-The Model layer represents the part of your application that
-implements the business logic. It is responsible for retrieving data and
-converting it into meaningful concepts for your application. This includes
-processing, validating, associating or other tasks related to handling data.
 
-At a first glance, Model objects can be looked at as the first layer
-of interaction with any database you might be using for your application.
-But in general they stand for the major concepts around which you
-implement your application.
+初看起来，模型对象可看作是与你的应用可能会使用的数据库进行互动的第一层，但总的
+来说，他们是围绕主要概念来实现你的应用程序的。
 
-In the case of a social network, the Model layer would take care of
-tasks such as Saving the user data, saving friends associations, storing
-and retrieving user photos, finding new friends for suggestions, etc.
-While the model objects can be thought as "Friend", "User", "Comment", or
-"Photo".
+在一个社交网络中，模型层将会负责如下任务：如保存用户数据，保存朋友关系，存储和检
+索用户的照片，寻找新的朋友的建议，等等。模型对象可以被认为是“朋友“，”用户“，”评论“，
+或”相片“。
 
-The View layer
+视图层
 ==============
 
-The View renders a presentation of modeled data. Being separated from the
-Model objects, it is responsible for using the information it has available
-to produce any presentational interface your application might need.
+视图层对模型数据进行渲染。和模型对象是分离的，负责将它可用的信息生成你需要的的应用演示界面。
 
-For example, as the Model layer returns a set of data, the view would use it
-to render a HTML page containing it. Or a XML formatted result for others to
-consume.
+例如，模型层返回数据集，视图将使用它来渲染一个包含这些数据的HTML页面，或一个XML
+格式的结果以供他用。
 
-The View layer is not only limited to HTML or text representation of the data,
-it can be used to deliver a wide variety of formats depending on your needs,
-such as videos, music, documents and any other format you can think of.
+视图层并非只能生成HTML或文字格式的数据，它可以按需生成多种多样的格式，比如视频，
+音乐，文档或其他你想到格式。
 
-The Controller layer
+控制层
 ====================
 
-The Controller layer handles requests from users. It's responsible for rendering
-back a response with the aid of both the Model and the View Layer.
+控制层处理来自用户的请求。它负责借助模型和视图层,渲染回一个响应。
 
-Controllers can be seen as managers taking care that all needed resources for
-completing a task are delegated to the correct workers. It waits for petitions
-from clients, checks their validity according to authentication or authorization rules,
-delegates data fetching or processing to the model, and selects the correct
-type of presentational data that the client is accepting, to finally delegate
-this rendering process to the View layer.
+控制器可以被看作是一个经理，负责将所有的完成一个任务所需要的资源交给正确的工人们。
+它等待来自客户端的请求，检查其有效性，根据认证或授权的规则，将数据的获取或处理委
+派给模型，并选择客户端接受的表示数据的正确类型，最终把这个渲染过程委派给视图层。
 
 
-CakePHP request cycle
+CakePHP请求周期
 =====================
 
-|Figure 1|
+|图 1|
 
-Figure: 1: A typical MVC Request in CakePHP
+图: 1:CakePHP中一个典型的MVC请求
 
-The typical CakePHP request cycle starts with a user requesting a page or
-resource in your application. This request is first processed by a dispatcher
-which will select the correct controller object to handle it.
+典型的CakePHP请求周期开始于用户请求应用中一个页面或者资源。这个请求首先被调度器
+处理，由它选择正确的控制器对象来处理请求。
 
-Once the request arrives at the controller, it will communicate with the Model layer
-to process any data fetching or saving operation that might be needed.
-After this communication is over, the controller will proceed at delegating to the
-correct view object the task of generating an output resulting from the data
-provided by the model.
+一旦这个请求到达了控制器，它将会和模型层进行通信来处理需要的索取或者保存的操作。
+通信完成后，控制器将会根据模型所提供的数据，生成一个委托给合适的视图对象来生成
+输出结果。
 
-Finally, when this output is generated, it is immediately rendered to the user
+最后，当输出生成后，立即渲染给用户。几乎每一个对你的应用的请求都遵循这样一个基本
+的模式，稍后我们将会添加一些关于CakePHP的细节，记住这一点，我们继续。
 
-Almost every request to your application will follow this basic
-pattern. We'll add some details later on which are specific to
-CakePHP, so keep this in mind as we proceed.
-
-Benefits
+好处
 ========
 
-Why use MVC? Because it is a tried and true software design pattern
-that turns an application into a maintainable, modular, rapidly
-developed package. Crafting application tasks into separate models,
-views, and controllers makes your application very light on its
-feet. New features are easily added, and new faces on old features
-are a snap. The modular and separate design also allows developers
-and designers to work simultaneously, including the ability to
-rapidly
-`prototype <http://en.wikipedia.org/wiki/Software_prototyping>`_.
-Separation also allows developers to make changes in one part of
-the application without affecting the others.
+为何使用MVC? 因为它是一个久经考验的软件设计模式，可以将一个应用转化为可维护、
+模块化，快速开发包。将应用的任务分割为独立的模型，视图和控制器，使您的应用程序很
+灵活。添加新功能很容易，老功能的新面孔也很简单。模块化和独立的设计也允许开发人员
+和设计人员同时工作，包括快速 
+`prototype <http://en.wikipedia.org/wiki/Software_prototyping>`_ 能力。
+分离还允许开发人员改动一个应用程序的一部分，而不会影响其他的变化。
 
-If you've never built an application this way, it takes some time
-getting used to, but we're confident that once you've built your
-first application using CakePHP, you won't want to do it any other
-way.
+如果你从来没有这样创建过一个应用，它会让你花时间适应一下，但我们相信一旦你开始用
+CakePHP来创建你的第一个应用，你将不会再想用其他方法啦。
 
-To get started on your first CakePHP application,
-:doc:`try the blog tutorial now </tutorials-and-examples/blog/blog>`
+开始创建你的第一个 CakePHP 应用 :doc:`try the blog tutorial now </tutorials-and-examples/blog/blog>`
 
-.. |Figure 1| image:: /_static/img/basic_mvc.png
+.. |图 1| image:: /_static/img/basic_mvc.png
 
 
 .. meta::
