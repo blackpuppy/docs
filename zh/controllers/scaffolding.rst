@@ -16,7 +16,7 @@ All that’s needed to create a scaffold is a model and its
 controller. Once you set the $scaffold variable in the controller,
 you’re up and running.
 
-CakePHP 的脚手架非常酷。它使你可以在几分种内就完成一个基本的 CRUD 应用程序。
+CakePHP 的脚手架非常酷。它可以使你在几分种内就完成一个基本的 CRUD 应用程序。
 它甚至酷到你想在产品应用中使用它。是的，我们也认为它很酷，但是请记住它仅仅是脚手架。
 脚手架是快速开始项目的随时可以被拿来使用的一种松散结构。 
 但并不意味着它完整灵活，只是开始进行一个项目中的临时方案。
@@ -72,7 +72,7 @@ http://example.com/categories to see your new scaffold.
 .. note::
 
 用脚手架构造的控制器中新建方法可能带来非预期的结果。
-例如，如果你在脚手架控制器中建立了 index() 方法，你的 index 方法将在脚手架功能渲染之前，优先被渲染。
+例如，如果你在脚手架控制器中建立了index()方法，你的index方法将在脚手架功能渲染之前优先被渲染。
 
     Creating methods in controllers that are scaffolded can cause
     unwanted results. For example, if you create an index() method in a
@@ -82,7 +82,8 @@ http://example.com/categories to see your new scaffold.
 脚手架支持使用模型关联，所以如果你的 Category 模型(属于) belongsTo 一个 User 模型，
 你将会在 Category 列表中看到关联的 User ID。虽然脚手架 “知道” 模型间的关系，
 你还是无法在脚手架视图中看到任何关联的记录，直到你在模型中手动添加关联代码。
-例如，如果(组包含很多用户) Group hasMany User，并且(用户也属于组) User blongsTo Group，你必须在 User 和 Group 模型中手动添加如下代码。
+例如，如果(组包含很多用户) Group hasMany User，并且(用户也属于组) User blongsTo Group，
+你必须在 User 和 Group 模型中手动添加如下代码。
 在你添加这些代码之前，视图将在 New User 表单中显示空的 Group 下拉列表框。
 在你加入这些代码之后，视图将在 New User 表单中显示来自 Group 表的 ID 或者名字构成的下拉列表：
 
