@@ -36,7 +36,7 @@
 
 
 `cakephp_zh\zh\contributing\code <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/code.md>`_
-=======================================================================================================================
+=================================================================================================================
 
     #. feature
        我认为是“特性”，这有可能比功能要小一些。但`谷歌翻译 <http://translate.google.com/#en/zh-CN/>`_
@@ -56,7 +56,7 @@
 
 
 `cakephp_zh\zh\contributing\cakephp-coding-conventions <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/cakephp-coding-conventions.md>`_
-=======================================================================================================================
+=============================================================================================================================================================
 
     #. Including files
        “引用”?
@@ -82,12 +82,84 @@
        thin译成“瘦”、“薄”，fat译成“胖”?
 
 `cakephp_zh\zh\models\data-validation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/data-validation.md>`_
-================================================================================================================
+===========================================================================================================================
 
     #. insensitive
        大小写无关? 大小写不敏感?
     #. associated array
        关联数组? 映射数组?
+    #. oft-used
+       = often-used? 常用的？
     #. heavy lifting
        `词霸 <http://www.iciba.com/heavy+lifting/>`_的解释“举足轻重”完全不对，
        而“difficult work”比较正确。
+       帮你完成繁重的工作，不用你自己做了。
+       文中译为“(承担)麻烦的部分”。
+
+`cakephp_zh\zh\models <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models.md>`_
+===========================================================================================
+
+    #. (data's) validity
+       (数据的)合法性? 正确性? 采用"合法性"
+    #. domain of work
+       工作领域?
+    #. (model) association
+       (模型的)关联? 联系? 采用"关联"
+
+`cakephp_zh\zh\models\data-validation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/callback-methods.md>`_
+============================================================================================================================
+
+    #. sneak in
+       触及? 切入？
+
+`cakephp_zh\zh\models\behaviors <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/behaviors.md>`_
+===============================================================================================================
+
+    #. munge (the method name)
+       massage? 修饰？
+    #. splice (in additional behavior)
+       增加(额外的行为)？
+
+`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers.md>`_
+=====================================================================================================
+
+    #. boiler-plate (code)
+       重复性(代码)？仍太宽泛，不够准确。
+    #. inflected
+       ？
+    #. render
+       渲染？显示？
+    #. response body
+       响应体？ 响应主体？
+    #. session
+       会话。
+    #. 301 (page) moved permanently
+       301 页面永久性移动
+    #. 303 see other
+       303 参见其他页面
+    #. scaffolded actions
+       脚手架动作？
+    #. referring URL (for the current request)
+       跳转？
+    #. undesirable
+       不好？但太客观，没有表达出不愿意采用的主观倾向性。
+    #. named parameter
+       命名参数？
+    #. passed parameter
+       传入参数？传递参数？
+    #. inflect
+       ?
+    #. request header
+       请求头部？请求头？
+    #. but saves
+       假如不？
+    #. helper
+       帮助？帮助组件？助件？
+       
+`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers/request-response.md>`_
+=====================================================================================================
+
+    #. introspection
+       内省？审视？
+    #. in an error free manner
+       以无错的方式？

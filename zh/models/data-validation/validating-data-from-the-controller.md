@@ -2,7 +2,7 @@
 Validating Data from the Controller
 ###################################
 
-虽然通常你会只用模型的 save 方法, 但有时你会想要验证数据而不保存。例如, 你也许在真地保存数据到数据库之前, 想要给用户显示一些额外的信息。验证数据要求的过程与仅仅保存数据略有差别。
+虽然通常你会只用模型的 save 方法, 但也许有时你会想要验证数据而不保存。例如, 你也许在真地保存数据到数据库之前, 想要给用户显示一些额外的信息。验证数据要求的过程与仅仅保存数据略有差别。
 While normally you would just use the save method of the model,
 there may be times where you wish to validate the data without
 saving it. For example, you may wish to display some additional
@@ -65,7 +65,7 @@ calling save as save will automatically validate the data before
 actually saving.
 
 要验证多个模型，应当使用下面的方法::
-To validate multiple models, the lfollowing approach should be
+To validate multiple models, the following approach should be
 used::
 
     if ($this->ModelName->saveAll($this->request->data, array('validate' => 'only'))) {

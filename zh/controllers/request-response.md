@@ -1,6 +1,8 @@
+请求与响应对象
 Request and Response objects
 ############################
 
+请求与响应对象在 CakePHP 2.0 是新增加的。在之前的版本中，这两个对象是由数组表示的，而相关的方法是分散在 :php:class:`RequestHandlerComponent`，:php:class:`Router`，:php:class:`Dispatcher` 和 :php:class:`Controller`。关于请求对象包含什么信息，之前并没有权威性的对象。在2.0中， :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 用于此目的。
 New in CakePHP 2.0 are request and response objects.  In previous versions these
 objects were represented through arrays, and the related methods were spread
 across :php:class:`RequestHandlerComponent`, :php:class:`Router`,
@@ -15,6 +17,7 @@ purpose.
 CakeRequest
 ###########
 
+:php:class:`CakeRequest` 是 CakePHP 中缺省的请求对象。它集中了一些特性，用来查询请求数据及和请求数据交互。对于每个请求，一个 CakeRequest 被创建，然后通过引用的方式，传递给应用程序中使用请求数据的各层。缺省情况下， ``CakeRequest`` 赋值给 ``$this->request``，并且在控制器，视图和助件中都可以使用。在做组件中，你也可以通过控制器来访问到。 ``CakeRequest`` 履行的一些职责包括:
 :php:class:`CakeRequest` is the default request object used in CakePHP.  It centralizes
 a number of features for interrogating and interacting with request data.
 On each request one CakeRequest is created and then passed by reference to the various
@@ -23,17 +26,22 @@ layers of an application that use request data.  By default ``CakeRequest`` is a
 also access it in Components by using the controller reference. Some of the duties
 ``CakeRequest`` performs include:
 
-* Process the GET, POST, and FILES arrays into the data structures you are
+* 处理 GET，POST 和 FILES 数组，并放入你所熟悉的数据结构。
+  Process the GET, POST, and FILES arrays into the data structures you are
   familiar with.
-* Provide environment introspection pertaining to the request.  Things like the
+* 提供与请求相关的查询，比如，传送的数据头，客户端 IP 地址，应用程序和服务器运行的子域/域的信息。
+  Provide environment introspection pertaining to the request.  Things like the
   headers sent, the client's IP address, and the subdomain/domain information
   about the application the server is running on.
-* Provide access to request parameters both as array indices and object
+* 提供数组索引和对象属性两种方式，来访问请求参数。
+  Provide access to request parameters both as array indices and object
   properties.
 
+获取请求参数
 Accessing request parameters
 ============================
 
+CakeRequest 提供了几种方式获取参数。第一种是对象属性，第二种是数组索引，第三种是通过 ``$this->request->params``::
 CakeRequest exposes several interfaces for accessing request parameters. The first is as object
 properties, the second is array indexes, and the third is through ``$this->request->params``::
 
@@ -41,10 +49,12 @@ properties, the second is array indexes, and the third is through ``$this->reque
     $this->request['controller'];
     $this->request->params['controller'];
 
+上面这些都可以得到相同的值。提供多种获取参数的方式是为了便于现有应用程序的移植。所有的 :ref:`route-elements` 都可以通过这些方式得到。
 All of the above will both access the same value. Multiple ways of accessing the
 parameters was done to ease migration for existing applications. All
 :ref:`route-elements` are accessed through this interface.
 
+除了 :ref:`route-elements`，你也经常需要获取 :ref:`passed-arguments` 和 :ref:`named-parameters`。这些在请求对象也是有的::
 In addition to :ref:`route-elements` you also often need access to
 :ref:`passed-arguments` and :ref:`named-parameters`.  These are both available
 on the request object as well::
@@ -59,31 +69,41 @@ on the request object as well::
     $this->request['named'];
     $this->request->params['named'];
 
+以上这些都可以让你得到传入参数和命名参数。还有一些 CakePHP 内部使用的重要/有用的参数，在请求参数中也可以找到:
 Will all provide you access to the passed arguments and named parameters. There
 are several important/useful parameters that CakePHP uses internally, these
 are also all found in the request parameters:
 
-* ``plugin`` The plugin handling the request, will be null for no plugin.
-* ``controller`` The controller handling the current request.
-* ``action`` The action handling the current request.
-* ``prefix`` The prefix for the current action.  See :ref:`prefix-routing` for
+* ``plugin`` 处理请求的插件，没有插件时为 null。
+  ``plugin`` The plugin handling the request, will be null for no plugin.
+* ``controller`` 处理当前请求的控制器。
+  ``controller`` The controller handling the current request.
+* ``action`` 处理当前请求的动作。
+  ``action`` The action handling the current request.
+* 当前请求的前缀。更多信息请参见 :ref:`prefix-routing`。
+  ``prefix`` The prefix for the current action.  See :ref:`prefix-routing` for
   more information.
-* ``bare`` Present when the request came from requestAction() and included the
+* ``bare`` 当请求来自 requestAction()，并且包括 bare 选项时就会出现。 Bare 请求没有布局(*layout*)被渲染。
+  ``bare`` Present when the request came from requestAction() and included the
   bare option.  Bare requests do not have layouts rendered.
-* ``requested`` Present and set to true when the action came from requestAction.
+* ``requested`` 当请求来自 requestAction() 时会出现，并置为 true。
+  ``requested`` Present and set to true when the action came from requestAction.
 
 
+获取 Querystring 参数
 Accessing Querystring parameters
 ================================
 
+Querystring 参数可以从 :php:attr:`CakeRequest::$query` 读取::
 Querystring parameters can be read from using :php:attr:`CakeRequest::$query`::
 
-    // url is /posts/index?page=1&sort=title
+    // 网址为 /posts/index?page=1&sort=title url is /posts/index?page=1&sort=title
     $this->request->query['page'];
 
-    // You can also access it via array access
-    $this->request['url']['page']; // BC accessor, will be deprecated in future versions
+    // 你也可以通过数组方式获取 You can also access it via array access
+    $this->request['url']['page']; // BC 访问会在将来的版本中废弃。 BC accessor, will be deprecated in future versions
 
+你可以直接访问查询熟属性，或者你可以用 :php:meth:`CakeRequest::query()` 以无错的方式读取网址查询数组。任何不存在的键都会返回 ``null``::
 You can either directly access the query property, or you can use
 :php:meth:`CakeRequest::query()` to read the url query array in an error free manner.
 Any keys that do not exist will return ``null``::
@@ -91,15 +111,18 @@ Any keys that do not exist will return ``null``::
     $foo = $this->request->query('value_that_does_not_exist');
     // $foo === null
 
+获取 POST 数据
 Accessing POST data
 ===================
 
+所有的 POST 数据都可以用 :php:attr:`CakeRequest::$data` 得到。任何含有 ``data`` 前缀的表单(*form*)数据，会把 data 前缀去掉。例如::
 All POST data can be accessed using :php:attr:`CakeRequest::$data`.  Any form data
 that contains a ``data`` prefix, will have that data prefix removed.  For example::
 
-    // An input with a name attribute equal to 'data[MyModel][title]' is accessible at
+    // 一项 name 属性为 'data[MyModel][title]' 的输入，可以由此访问 An input with a name attribute equal to 'data[MyModel][title]' is accessible at
     $this->request->data['MyModel']['title'];
 
+你可以直接访问 data 属性，或者使用 :php:meth:`CakeRequest::data()` 以无错的方式来读取 data 数组。任何不存在的键都会返回 ``null``::
 You can either directly access the data property, or you can use
 :php:meth:`CakeRequest::data()` to read the data array in an error free manner.
 Any keys that do not exist will return ``null``::
@@ -107,20 +130,26 @@ Any keys that do not exist will return ``null``::
     $foo = $this->request->data('Value.that.does.not.exist');
     // $foo == null
 
+访问 PUT 或者 POST 数据
 Accessing PUT or POST data
 ==========================
 
 .. versionadded:: 2.2
 
+当构建 REST 服务时，你经常接受以 ``PUT`` 和
+``DELETE`` 请求方式提交的数据。自从2.2版本开始， 对 ``PUT`` 和
+``DELETE`` 请求，``application/x-www-form-urlencoded`` 请求主体数据会自动被解释，并设置到 ``$this->data``。如果你接受 JSON 或 XML 数据，下文会解释如何访问这些请求主体。
 When building REST services you often accept request data on ``PUT`` and
 ``DELETE`` requests.  As of 2.2 any ``application/x-www-form-urlencoded``
 request body data will automatically be parsed and set to ``$this->data`` for
 ``PUT`` and ``DELETE`` requests.  If you are accepting JSON or XML data, see
 below for how you can access those request bodies.
 
+访问 XML 或 JSON 数据
 Accessing XML or JSON data
 ==========================
 
+采用 :doc:`/development/rest` 的应用程序经常以 post 主体，而非网址编码的方式交换数据。你可以用 :php:meth:`CakeRequest::input()` 读取任何格式的数据。通过提供一个解码函数，你可以得到反序列化之后的内容::
 Applications employing :doc:`/development/rest` often exchange data in non
 URL encoded post bodies.  You can read input data in any format using
 :php:meth:`CakeRequest::input()`.  By providing a decoding function you can
@@ -129,6 +158,7 @@ receive the content in a deserialized format::
     // Get JSON encoded data submitted to a PUT/POST action
     $data = $this->request->input('json_decode');
 
+鉴于某些反序列化方法在调用的时候要求额外的参数，例如 ``json_decode`` 的 'as array' 参数，
 Since some deserializing methods require additional parameters when being called,
 such as the 'as array' parameter on ``json_decode`` or if you want XML converted
 into a DOMDocument object, :php:meth:`CakeRequest::input()` supports passing
