@@ -5,8 +5,6 @@
 你可以在模型中定义自己的方法和属性。 
 
 处理任何保存或获取数据的操作最好都写在模型中。这个概念通常被称为fat model。
-
-
 ::
 
     class Example extends AppModel {
@@ -88,6 +86,7 @@ fetch the data.
 :php:meth:`Model::deconstruct(string $field, mixed $data)`
 ==========================================================
 
+把复杂的数据类型(数组或对象)拆分成单个字段值。
 Deconstructs a complex data type (array or object) into a single field value.
 
 :php:meth:`Model::escapeField(string $field = null, string $alias = null)`
@@ -103,12 +102,16 @@ to the current database driver's rules.
 如果存在特定ID记录，返回true。
 Returns true if a record with the particular ID exists.
 
+若没有提供ID会调用:php:meth:`Model::getID()`方法获得当前的记录ID。然后执行``Model::find('count')``
+以确认在当前的配置数据源中是否在持久存储中存在该记录。
+
 If ID is not provided it calls :php:meth:`Model::getID()` to obtain the current record ID to verify, and
 then performs a ``Model::find('count')`` on the currently configured datasource to
 ascertain the existence of the record in persistent storage.
 
 .. note ::
-
+	
+    $id参数是2.1中新增的。在此之前它不带任何参数。
     Parameter $id was added in 2.1. Prior to that it does not take any parameter.
 
 ::
