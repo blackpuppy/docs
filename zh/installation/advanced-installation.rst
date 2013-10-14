@@ -121,7 +121,8 @@ the autoloader, and work around an issue in composer's autoloader. In your
     spl_autoload_unregister(array('App', 'load'));
     spl_autoload_register(array('App', 'load'), true, true);
 
-通过安装composer拥有了功能完备的CakePHP应用程序，确保composer.json和composer.lock文件和其他源代码在一起。
+用composer安装了 CakePHP 之后，你应该有了一个可以运行的CakePHP应用程序，
+注意确保composer.json和composer.lock文件与其他源代码在一起。
 
 You should now have a functioning CakePHP application with CakePHP installed via
 composer. Be sure to keep the composer.json and composer.lock file with the
