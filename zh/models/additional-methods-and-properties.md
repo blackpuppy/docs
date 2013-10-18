@@ -1,8 +1,8 @@
 额外的方法和属性
 #################################
 
-虽然CakePHP的模型函数应该在你需要的地方才用到，但不要忘了他的本质: 类
-你可以在模型中定义自己的方法和属性。 
+虽然CakePHP的模型函数会在你需要的地方才用到，但不要忘了他的本质: 类
+你可以在模型类中定义自己的方法和属性。 
 
 处理任何保存或获取数据的操作最好都写在模型中。这个概念通常被称为fat model。
 ::
@@ -34,9 +34,8 @@
 
 =============================================================================
 
-通过给定的数据生成查询语句的数组。
-Builds the query array that is used by the data source to generate the query to
-fetch the data.
+构建查询数组,用于数据源生成查询来获取数据。
+Builds the query array that is used by the data source to generate the query to fetch the data.
 
 译者注：
     $this->Post->buildQuery();
@@ -92,7 +91,7 @@ Deconstructs a complex data type (array or object) into a single field value.
 :php:meth:`Model::escapeField(string $field = null, string $alias = null)`
 ==========================================================================
 
-转义列名并前缀上模型名，转义是按照当前数据库驱动的规则
+转义列名并前缀上模型名，是按照当前数据库驱动的规则进行转义
 Escapes the field name and prepends the model name. Escaping is done according
 to the current database driver's rules.
 
@@ -102,7 +101,7 @@ to the current database driver's rules.
 如果存在特定ID记录，返回true。
 Returns true if a record with the particular ID exists.
 
-若没有提供ID会调用:php:meth:`Model::getID()`方法获得当前的记录ID。然后执行``Model::find('count')``
+若没有提供ID，会调用:php:meth:`Model::getID()`方法获得当前的记录ID。然后执行``Model::find('count')``
 以确认在当前的配置数据源中是否在持久存储中存在该记录。
 
 If ID is not provided it calls :php:meth:`Model::getID()` to obtain the current record ID to verify, and
