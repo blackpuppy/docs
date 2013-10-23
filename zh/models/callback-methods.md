@@ -1,87 +1,52 @@
 回调方法
-Callback Methods
 ################
 
-如果你想插入恰好在 CakePHP 模型操作之前或之后的逻辑, 请使用模型的回调方法。这些函数可以定义在模型类(包括你的 AppModel 类)中。一定要注意这些特殊函数各自预期的返回值。
-If you want to sneak in some logic just before or after a CakePHP
-model operation, use model callbacks. These functions can be
-defined in model classes (including your AppModel) class. Be sure
-to note the expected return values for each of these special
-functions.
+如果你想恰好在 CakePHP 模型操作之前或之后插入一些逻辑，请使用模型的回调方法。这些函数可以定义在模型类(包括你的 AppModel 类)中。一定要注意这些特殊函数各自返回值的不同含义。
 
-当使用回调方法时, 应当记住, 行为的回调方法在模型的回调方法**之前**触发。
-When using callback methods you should remember that behavior callbacks are
-fired **before** model callbacks are.
+当使用回调方法时，应当记住，行为的回调方法在模型的回调方法**之前**触发。
 
 beforeFind
 ==========
 
 ``beforeFind(array $queryData)``
 
-在任何与 find 相关的操作之前调用。传入这个回调方法的 ``$queryData`` 含有与当前查询相关的信息: conditions, fields, 等等。
-Called before any find-related operation. The ``$queryData`` passed
-to this callback contains information about the current query:
-conditions, fields, etc.
+在任何与 find 相关的操作之前调用。传入这个回调方法的 ``$queryData`` 含有与当前查询相关的信息: conditions，fields，等等。
 
-如果你不希望 find 操作开始(可以基于与 ``$queryData`` 所含信息相关的判断), 就返回 *false*。不然, 可以返回更改了的 ``$queryData``, 或者任何你想传给 find 及其它查询方法的数据。
-If you do not wish the find operation to begin (possibly based on a
-decision relating to the ``$queryData`` options), return *false*.
-Otherwise, return the possibly modified ``$queryData``, or anything
-you want to get passed to find and its counterparts.
+如果你不希望 find 操作开始(可以基于与 ``$queryData`` 所含信息相关的判断)，就返回 *false*。不然，可以返回更改了的 ``$queryData``，或者任何你想传给 find 及其它查询方法的数据。
 
-你可以用这个回调方法根据用户的角色来限制 find 操作, 或者根据当前的负载来确定缓存的策略。
-You might use this callback to restrict find operations based on a
-user’s role, or make caching decisions based on the current load.
+你可以用这个回调方法根据用户的角色来限制 find 操作，或者根据当前的负载来确定缓存的策略。
 
 afterFind
 =========
 
 ``afterFind(array $results, boolean $primary = false)``
 
-用这个回调方法来改变从 find 操作返回的结果, 或者执行任何其他 find 之后的逻辑。传入这个回调方法的 $results 参数包含从模型的 find 操作返回的结果, 象这样::
-Use this callback to modify results that have been returned from a
-find operation, or to perform any other post-find logic. The
-$results parameter passed to this callback contains the returned
-results from the model's find operation, i.e. something like::
+用这个回调方法来改变从 find 操作返回的结果，或者执行任何其他 find 之后的逻辑。传入这个回调方法的 $results 参数包含从模型的 find 操作返回的结果，象这样::
 
     $results = array(
         0 => array(
-            '模型名称ModelName' => array(
-                '字段field1' => 'value1',
-                '字段field2' => 'value2',
+            '模型名称' => array(
+                '字段_1' => '值1',
+                '字段_2' => '值2',
             ),
         ),
     );
 
 这个回调方法的返回值应当是给触发这个回调的 find 操作的(可能被改动过的)结果。
-The return value for this callback should be the (possibly
-modified) results for the find operation that triggered this
-callback.
 
-``$primary`` 参数说明当模型是查询起始的模型, 还是作为关联模型查询到的。如果模型是作为关联模型查询的, ``$results`` 的格式会有所不同; 与通常从 find 操作获得的结果不同, 你可能会得到::
-The ``$primary`` parameter indicates whether or not the current
-model was the model that the query originated on or whether or not
-this model was queried as an association. If a model is queried as
-an association the format of ``$results`` can differ; instead of the
-result you would normally get from a find operation, you may get
-this::
+``$primary`` 参数说明当模型是查询起始的模型，还是作为关联模型查询到的。如果模型是作为关联模型查询的，``$results`` 的格式会有所不同; 与通常从 find 操作获得的结果不同，你可能会得到::
 
     $results = array(
-        'field_1' => 'value1',
-        'field_2' => 'value2'
+        '字段_1' => '值1',
+        '字段_2' => '值2'
     );
 
 .. warning::
 
-    期待 ``$primary`` 为 true 的代码, 如果使用递归查询(*recursive find*) , 可能会从PHP得到 "Cannot
+    期待 ``$primary`` 为 true 的代码，如果使用递归查询(*recursive find*) ，可能会从PHP得到 "Cannot
     use string offset as an array" 的严重错误。
-    Code expecting ``$primary`` to be true will probably get a "Cannot
-    use string offset as an array" fatal error from PHP if a recursive
-    find is used.
 
 下面的例子说明如何用 afterfind 来格式化日期::
-Below is an example of how afterfind can be used for date
-formatting::
 
     public function afterFind($results, $primary = false) {
         foreach ($results as $key => $val) {
@@ -101,34 +66,18 @@ beforeValidate
 
 ``beforeValidate(array $options = array())``
 
-这个回调可以用来在验证之前改变模型数据, 或者在需要时改变验证规则。,这个函数也必须返回 *true*, 否则当前 save() 的执行就会中断。
-Use this callback to modify model data before it is validated, or
-to modify validation rules if required. This function must also
-return *true*, otherwise the current save() execution will abort.
+这个回调可以用来在验证之前改变模型数据，或者在需要时改变验证规则。,这个函数也必须返回 *true*，否则当前 save() 的执行就会中断。
 
 beforeSave
 ==========
 
 ``beforeSave(array $options = array())``
 
-把任何 save 之前的逻辑放在这个函数里。这个函数在模型数据成功验证后, 但在数据即将保存之前, 立即执行。如果你要 save 操作继续执行, 这个函数也要返回 true。
-Place any pre-save logic in this function. This function executes
-immediately after model data has been successfully validated, but
-just before the data is saved. This function should also return
-true if you want the save operation to continue.
+把任何 save 之前的逻辑放在这个函数里。这个函数紧跟在模型数据成功验证后，但在数据即将保存之前，执行。如果你要 save 操作继续执行，这个函数也要返回 true。
 
-对于在数据保存之前要进行的任何修正数据的逻辑, 这个回调是尤其顺手的。如果你的存储引擎需要某种格式的日期, 可以在 $this->data 得到日期字段并进行修改。
-This callback is especially handy for any data-massaging logic that
-needs to happen before your data is stored. If your storage engine
-needs dates in a specific format, access it at $this->data and
-modify it.
+对于在数据保存之前要进行的任何修正数据的逻辑，这个回调是尤其方便的。如果你的存储引擎需要某种格式的日期，可以在 $this->data 得到日期字段并进行修改。
 
-下面是一个如何使用 beforeSave 来转换日期的例子。例子中的应用程序代码, 把 begindate 在数据库中格式化成 YYYY-MM-DD, 而在应用程序中显示成 DD-MM-YYYY。当然这很容易改变。在相应的模型中使用下面的代码。
-Below is an example of how beforeSave can be used for date
-conversion. The code in the example is used for an application with
-a begindate formatted like YYYY-MM-DD in the database and is
-displayed like DD-MM-YYYY in the application. Of course this can be
-changed very easily. Use the code below in the appropriate model.
+下面是一个如何使用 beforeSave 来转换日期的例子。例子中的应用程序代码，把 begindate 在数据库中格式化成 YYYY-MM-DD，而在应用程序中显示成 DD-MM-YYYY。当然这很容易改变。在相应的模型中使用下面的代码。
 
 ::
 
@@ -146,49 +95,36 @@ changed very easily. Use the code below in the appropriate model.
 
 .. tip::
 
-    确保 beforeSave() 返回 true, 否则保存就会失败。
-    Be sure that beforeSave() returns true, or your save is going to
-    fail.
+    确保 beforeSave() 返回 true，否则保存就会失败。
 
 afterSave
 =========
 
 ``afterSave(boolean $created)``
 
-如果你有每次保操作之后都要执行的逻辑, 就把它放在这个回调方法中。
-If you have logic you need to be executed just after every save
-operation, place it in this callback method.
+如果你有每次保存操作之后都要执行的逻辑，就把它放在这个回调方法中。
 
-如果创建一条新记录(而非更新), ``$created`` 的值就会是 true。
-The value of ``$created`` will be true if a new record was created
-(rather than an update).
+如果创建一条新记录(而非更新)，``$created`` 的值就会是 true。
 
 beforeDelete
 ============
 
 ``beforeDelete(boolean $cascade = true)``
 
-任何删除之前的逻辑, 请放在这个函数中。 如果你要继续删除, 此函数应当返回 true, 如果想放弃删除就返回 false。
-Place any pre-deletion logic in this function. This function should
-return true if you want the deletion to continue, and false if you
-want to abort.
+任何删除之前的逻辑，请放在这个函数中。 如果你要继续删除，此函数应当返回 true，如果想放弃删除就返回 false。
 
 如果依赖于当前这条记录的其他记录也要删除的话,``$cascade``的值将会是``true``。
-The value of ``$cascade`` will be ``true`` if records that depend
-on this record will also be deleted.
 
 .. tip::
 
-    确保 beforeDelete() 返回 true, 否则删除就会失败。
-    Be sure that beforeDelete() returns true, or your delete is going
-    to fail.
+    确保 beforeDelete() 返回 true，否则删除就会失败。
 
 ::
 
     // using app/Model/ProductCategory.php
-    // 在下面的例子中, 如果一个产品类别还有产品, 则不允许删除 。In the following example, do not let a product category be deleted if it still contains products.
-    // 对 ProductsController.php 中的 $this->Product->delete($id) 的调用设置了 $this->id。 A call of $this->Product->delete($id) from ProductsController.php has set $this->id .
-    // 假设 'ProductCategory 有很多(*hasMany*) Product'，我们可以在模型中访问 $this->Product。 Assuming 'ProductCategory hasMany Product', we can access $this->Product in the model.
+    // 在下面的例子中，如果一个产品类别还有产品，则不允许删除 。
+    // 对 ProductsController.php 中的 $this->Product->delete($id) 的调用设置了 $this->id。
+    // 假设 'ProductCategory 有很多(*hasMany*) Product'，我们可以在模型中访问 $this->Product。
     public function beforeDelete($cascade = true) {
         $count = $this->Product->find("count", array(
             "conditions" => array("product_category_id" => $this->id)
@@ -206,8 +142,6 @@ afterDelete
 ``afterDelete()``
 
 在此回调方法中放入每次删除之后都要执行的任何逻辑。
-Place any logic that you want to be executed after every deletion
-in this callback method.
 
 onError
 =======
@@ -215,7 +149,6 @@ onError
 ``onError()``
 
 任何问题发生都会调用。
-Called if any problems occur.
 
 
 .. meta::

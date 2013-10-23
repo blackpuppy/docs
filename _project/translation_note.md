@@ -91,7 +91,7 @@
     #. oft-used
        = often-used? 常用的？
     #. heavy lifting
-       `词霸 <http://www.iciba.com/heavy+lifting/>`_的解释“举足轻重”完全不对，
+       `词霸 <http://www.iciba.com/heavy+lifting/>`_的解释“举足轻重”，这完全不对，
        而“difficult work”比较正确。
        帮你完成繁重的工作，不用你自己做了。
        文中译为“(承担)麻烦的部分”。
@@ -115,6 +115,8 @@
 `cakephp_zh\zh\models\behaviors <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/behaviors.md>`_
 ===============================================================================================================
 
+    #. (method) singnature
+       (方法)签名？原型？“签名”较好。
     #. munge (the method name)
        massage? 修饰？
     #. splice (in additional behavior)
@@ -129,8 +131,8 @@
        ？
     #. render
        渲染？显示？
-    #. response body
-       响应体？ 响应主体？
+    #. request/response body
+       请求/响应体？ 请求/响应主体？请求/响应文件体？
     #. session
        会话。
     #. 301 (page) moved permanently
@@ -140,7 +142,7 @@
     #. scaffolded actions
        脚手架动作？
     #. referring URL (for the current request)
-       跳转？
+       跳转网址？
     #. undesirable
        不好？但太客观，没有表达出不愿意采用的主观倾向性。
     #. named parameter
@@ -148,7 +150,7 @@
     #. passed parameter
        传入参数？传递参数？
     #. inflect
-       ?
+       `词霸 <http://www.iciba.com/inflect>`_ 的解释是“使（词）屈折变化”。
     #. request header
        请求头部？请求头？
     #. but saves
@@ -160,6 +162,18 @@
 =====================================================================================================
 
     #. introspection
-       内省？审视？
+       内省？自我反省？审视？查询？
     #. in an error free manner
-       以无错的方式？
+       以无错的方式？有没有更好的中文表达方式？
+    #. query string
+       查询参数
+    #. BC accessor
+       BC 访问？是指什么？
+    #. sugar daddy
+       傍大款？语法糖？
+    #. mocked/stubbed
+       模拟/嵌入？
+    #. stub out
+       覆盖？嵌入？替换？
+    #. response entity tag
+       响应体标签

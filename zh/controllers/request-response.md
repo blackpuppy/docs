@@ -2,14 +2,7 @@
 Request and Response objects
 ############################
 
-请求与响应对象在 CakePHP 2.0 是新增加的。在之前的版本中，这两个对象是由数组表示的，而相关的方法是分散在 :php:class:`RequestHandlerComponent`，:php:class:`Router`，:php:class:`Dispatcher` 和 :php:class:`Controller`。关于请求对象包含什么信息，之前并没有权威性的对象。在2.0中， :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 用于此目的。
-New in CakePHP 2.0 are request and response objects.  In previous versions these
-objects were represented through arrays, and the related methods were spread
-across :php:class:`RequestHandlerComponent`, :php:class:`Router`,
-:php:class:`Dispatcher` and :php:class:`Controller`.  There was no authoritative
-object on what information the request contained.  For 2.0,
-:php:class:`CakeRequest` and :php:class:`CakeResponse` are used for this
-purpose.
+请求与响应对象在 CakePHP 2.0 是新增加的。在之前的版本中，这两个对象是由数组表示的，而相关的方法是分散在 :php:class:`RequestHandlerComponent`，:php:class:`Router`，:php:class:`Dispatcher` 和 :php:class:`Controller` 之中的。关于请求对象包含什么信息，之前并没有权威性的对象。在2.0中， :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 用于此目的。
 
 .. index:: $this->request
 .. _cake-request:
@@ -17,44 +10,24 @@ purpose.
 CakeRequest
 ###########
 
-:php:class:`CakeRequest` 是 CakePHP 中缺省的请求对象。它集中了一些特性，用来查询请求数据及和请求数据交互。对于每个请求，一个 CakeRequest 被创建，然后通过引用的方式，传递给应用程序中使用请求数据的各层。缺省情况下， ``CakeRequest`` 赋值给 ``$this->request``，并且在控制器，视图和助件中都可以使用。在做组件中，你也可以通过控制器来访问到。 ``CakeRequest`` 履行的一些职责包括:
-:php:class:`CakeRequest` is the default request object used in CakePHP.  It centralizes
-a number of features for interrogating and interacting with request data.
-On each request one CakeRequest is created and then passed by reference to the various
-layers of an application that use request data.  By default ``CakeRequest`` is assigned to
-``$this->request``, and is available in Controller, Views and Helpers.  You can
-also access it in Components by using the controller reference. Some of the duties
-``CakeRequest`` performs include:
+:php:class:`CakeRequest` 是 CakePHP 中缺省的请求对象。它集中了一些特性，用来查询(*interrogating*)请求数据以及与请求数据交互。对于每个请求，一个 CakeRequest 实例被创建，然后通过引用的方式，传递给应用程序中使用请求数据的各层。缺省情况下， ``CakeRequest`` 赋值给 ``$this->request``，并且在控制器，视图和助件中都可以使用。在组件中，你也可以通过控制器来访问到。 ``CakeRequest`` 履行的一些职责包括:
 
 * 处理 GET，POST 和 FILES 数组，并放入你所熟悉的数据结构。
-  Process the GET, POST, and FILES arrays into the data structures you are
-  familiar with.
-* 提供与请求相关的查询，比如，传送的数据头，客户端 IP 地址，应用程序和服务器运行的子域/域的信息。
-  Provide environment introspection pertaining to the request.  Things like the
-  headers sent, the client's IP address, and the subdomain/domain information
-  about the application the server is running on.
+* 提供与请求相关的环境的查询(*introspection*)，比如，传送的文件头，客户端 IP 地址，在服务器上运行的应用程序的子域/域的信息。
 * 提供数组索引和对象属性两种方式，来访问请求参数。
-  Provide access to request parameters both as array indices and object
-  properties.
 
 获取请求参数
-Accessing request parameters
 ============================
 
-CakeRequest 提供了几种方式获取参数。第一种是对象属性，第二种是数组索引，第三种是通过 ``$this->request->params``::
-CakeRequest exposes several interfaces for accessing request parameters. The first is as object
-properties, the second is array indexes, and the third is through ``$this->request->params``::
+CakeRequest 提供了几种方式获取请求参数。第一种是对象属性，第二种是数组索引，第三种是通过 ``$this->request->params``::
 
     $this->request->controller;
     $this->request['controller'];
     $this->request->params['controller'];
 
-上面这些都可以得到相同的值。提供多种获取参数的方式是为了便于现有应用程序的移植。所有的 :ref:`route-elements` 都可以通过这些方式得到。
-All of the above will both access the same value. Multiple ways of accessing the
-parameters was done to ease migration for existing applications. All
-:ref:`route-elements` are accessed through this interface.
+上面这些都可以得到相同的值。提供多种获取参数的方式是为了便于现有应用程序的移植。所有的 :ref:`路由元素 <route-elements>` 都可以通过这些方式得到。
 
-除了 :ref:`route-elements`，你也经常需要获取 :ref:`passed-arguments` 和 :ref:`named-parameters`。这些在请求对象也是有的::
+除了 :ref:`路由元素 <route-elements>`，你也经常需要获取 :ref:`传入参数 <passed-arguments>` 和 :ref:`命名参数 <named-parameters>`。这些也可以通过请求对象获得::
 In addition to :ref:`route-elements` you also often need access to
 :ref:`passed-arguments` and :ref:`named-parameters`.  These are both available
 on the request object as well::
@@ -69,206 +42,137 @@ on the request object as well::
     $this->request['named'];
     $this->request->params['named'];
 
-以上这些都可以让你得到传入参数和命名参数。还有一些 CakePHP 内部使用的重要/有用的参数，在请求参数中也可以找到:
-Will all provide you access to the passed arguments and named parameters. There
-are several important/useful parameters that CakePHP uses internally, these
-are also all found in the request parameters:
+以上这些都可以让你得到传入参数和命名参数。还有一些重要/有用的参数，在 CakePHP 内部使用，在请求参数中也可以找到:
 
 * ``plugin`` 处理请求的插件，没有插件时为 null。
-  ``plugin`` The plugin handling the request, will be null for no plugin.
 * ``controller`` 处理当前请求的控制器。
-  ``controller`` The controller handling the current request.
 * ``action`` 处理当前请求的动作。
-  ``action`` The action handling the current request.
-* 当前请求的前缀。更多信息请参见 :ref:`prefix-routing`。
-  ``prefix`` The prefix for the current action.  See :ref:`prefix-routing` for
-  more information.
+* ``prefix`` 当前动作的前缀。更多信息请参见 :ref:`前缀路由 <prefix-routing>`。
 * ``bare`` 当请求来自 requestAction()，并且包括 bare 选项时就会出现。 Bare 请求没有布局(*layout*)被渲染。
-  ``bare`` Present when the request came from requestAction() and included the
-  bare option.  Bare requests do not have layouts rendered.
 * ``requested`` 当请求来自 requestAction() 时会出现，并置为 true。
-  ``requested`` Present and set to true when the action came from requestAction.
 
 
-获取 Querystring 参数
-Accessing Querystring parameters
+获取查询字符串(*Querystring*)参数
 ================================
 
-Querystring 参数可以从 :php:attr:`CakeRequest::$query` 读取::
-Querystring parameters can be read from using :php:attr:`CakeRequest::$query`::
+查询字符串(*Querystring*)参数可以从 :php:attr:`CakeRequest::$query` 读取::
 
-    // 网址为 /posts/index?page=1&sort=title url is /posts/index?page=1&sort=title
+    // 网址为 /posts/index?page=1&sort=title
     $this->request->query['page'];
 
-    // 你也可以通过数组方式获取 You can also access it via array access
-    $this->request['url']['page']; // BC 访问会在将来的版本中废弃。 BC accessor, will be deprecated in future versions
-
-你可以直接访问查询熟属性，或者你可以用 :php:meth:`CakeRequest::query()` 以无错的方式读取网址查询数组。任何不存在的键都会返回 ``null``::
-You can either directly access the query property, or you can use
-:php:meth:`CakeRequest::query()` to read the url query array in an error free manner.
-Any keys that do not exist will return ``null``::
+    // 你也可以通过数组方式获取
+    $this->request['url']['page']; // BC 访问(*BC accessor*)会在将来的版本中废弃。 
+你可以直接访问 query 属性，或者你可以用 :php:meth:`CakeRequest::query()` 以不会出错的方式读取网址查询数组。任何不存在的键都会返回 ``null``::
 
     $foo = $this->request->query('value_that_does_not_exist');
     // $foo === null
 
 获取 POST 数据
-Accessing POST data
 ===================
 
 所有的 POST 数据都可以用 :php:attr:`CakeRequest::$data` 得到。任何含有 ``data`` 前缀的表单(*form*)数据，会把 data 前缀去掉。例如::
-All POST data can be accessed using :php:attr:`CakeRequest::$data`.  Any form data
-that contains a ``data`` prefix, will have that data prefix removed.  For example::
 
-    // 一项 name 属性为 'data[MyModel][title]' 的输入，可以由此访问 An input with a name attribute equal to 'data[MyModel][title]' is accessible at
-    $this->request->data['MyModel']['title'];
+    // 一项 name 属性为 'data[MyModel][title]' 的输入，可以由此访问     $this->request->data['MyModel']['title'];
 
-你可以直接访问 data 属性，或者使用 :php:meth:`CakeRequest::data()` 以无错的方式来读取 data 数组。任何不存在的键都会返回 ``null``::
-You can either directly access the data property, or you can use
-:php:meth:`CakeRequest::data()` to read the data array in an error free manner.
-Any keys that do not exist will return ``null``::
+你可以直接访问 data 属性，或者使用 :php:meth:`CakeRequest::data()` 以不会出错的方式来读取 data 数组。任何不存在的键都会返回 ``null``::
 
     $foo = $this->request->data('Value.that.does.not.exist');
     // $foo == null
 
-访问 PUT 或者 POST 数据
-Accessing PUT or POST data
+获取 PUT 或者 POST 数据
 ==========================
 
 .. versionadded:: 2.2
 
 当构建 REST 服务时，你经常接受以 ``PUT`` 和
 ``DELETE`` 请求方式提交的数据。自从2.2版本开始， 对 ``PUT`` 和
-``DELETE`` 请求，``application/x-www-form-urlencoded`` 请求主体数据会自动被解释，并设置到 ``$this->data``。如果你接受 JSON 或 XML 数据，下文会解释如何访问这些请求主体。
-When building REST services you often accept request data on ``PUT`` and
-``DELETE`` requests.  As of 2.2 any ``application/x-www-form-urlencoded``
-request body data will automatically be parsed and set to ``$this->data`` for
-``PUT`` and ``DELETE`` requests.  If you are accepting JSON or XML data, see
-below for how you can access those request bodies.
+``DELETE`` 请求，``application/x-www-form-urlencoded`` 请求文件体数据会自动被解释，并设置到 ``$this->data``。如果你接受 JSON 或 XML 数据，下文会解释如何访问这些请求文件体。
 
 访问 XML 或 JSON 数据
-Accessing XML or JSON data
 ==========================
 
-采用 :doc:`/development/rest` 的应用程序经常以 post 主体，而非网址编码的方式交换数据。你可以用 :php:meth:`CakeRequest::input()` 读取任何格式的数据。通过提供一个解码函数，你可以得到反序列化之后的内容::
-Applications employing :doc:`/development/rest` often exchange data in non
-URL encoded post bodies.  You can read input data in any format using
-:php:meth:`CakeRequest::input()`.  By providing a decoding function you can
-receive the content in a deserialized format::
+采用 :doc:`/development/rest` 的应用程序经常以非网址编码的 post 文件体的方式交换数据。你可以用 :php:meth:`CakeRequest::input()` 读取任何格式的输入数据。通过提供一个解码函数，你可以得到反序列化之后的内容::
 
-    // Get JSON encoded data submitted to a PUT/POST action
+    // 获得提交给 PUT/POST 动作以 JSON 编码的数据
     $data = $this->request->input('json_decode');
 
-鉴于某些反序列化方法在调用的时候要求额外的参数，例如 ``json_decode`` 的 'as array' 参数，
-Since some deserializing methods require additional parameters when being called,
-such as the 'as array' parameter on ``json_decode`` or if you want XML converted
-into a DOMDocument object, :php:meth:`CakeRequest::input()` supports passing
-in additional parameters as well::
+鉴于某些反序列化方法在调用的时候要求额外的参数，例如 ``json_decode`` 的 'as array' 参数，或者如果你要把 XML 转换成 DOMDocument 对象， :php:meth:`CakeRequest::input()` 也支持传入额外的参数::
 
-    // Get Xml encoded data submitted to a PUT/POST action
+    // 获得提交给 PUT/POST 动作的 Xml 编码的数据
     $data = $this->request->input('Xml::build', array('return' => 'domdocument'));
 
-Accessing path information
+获取路径信息
 ==========================
 
-CakeRequest also provides useful information about the paths in your
-application.  :php:attr:`CakeRequest::$base` and
-:php:attr:`CakeRequest::$webroot` are useful for generating urls, and
-determining whether or not your application is in a subdirectory.
+CakeRequest 也提供与你应用程序中的路径相关的有用信息。 :php:attr:`CakeRequest::$base` 和 :php:attr:`CakeRequest::$webroot` 可用于生成网址，判断你的应用程序是否在某个子目录中。
 
 .. _check-the-request:
 
-Inspecting the request
+检视请求
 ======================
 
-Detecting various request conditions used to require using
-:php:class:`RequestHandlerComponent`. These methods have been moved to
-``CakeRequest``, and offer a new interface alongside a more backwards compatible
-usage::
+判断各种请求条件，过去需要用到 :php:class:`RequestHandlerComponent`。这些方法被转移到了 ``CakeRequest`` 中，在保持向后兼容用法的同时，提供了新的接口(*interface*)::
 
     $this->request->is('post');
     $this->request->isPost();
 
-Both method calls will return the same value.  For the time being the methods
-are still available on RequestHandler, but are deprecated and still might be
-removed before the final release.  You can also easily extend the request
-detectors that are available, by using :php:meth:`CakeRequest::addDetector()`
-to create new kinds of detectors.  There are four different types of detectors
-that you can create:
+两种方法调用都会返回相同的值。目前这些方法还存在于 RequestHandler 中，但已经被废弃(*deprecated*)，而且在最终发布前仍然可能会被去掉。你也可以通过使用 :php:meth:`CakeRequest::addDetector()` 创建新的检测器， 容易地扩展现有的请求检测。你可以创建四种不同种类的检测器:
 
-* Environment value comparison - An environment value comparison, compares a
-  value fetched from :php:func:`env()` to a known value the environment value is
-  equality checked against the provided value.
-* Pattern value comparison - Pattern value comparison allows you to compare a
-  value fetched from :php:func:`env()` to a regular expression.
-* Option based comparison -  Option based comparisons use a list of options to
-  create a regular expression.  Subsequent calls to add an already defined
-  options detector will merge the options.
-* Callback detectors - Callback detectors allow you to provide a 'callback' type
-  to handle the check.  The callback will receive the request object as its only
-  parameter.
+* 环境值比较 —— 环境变量比较，把从 :php:func:`env()` 取得的值和一个给定值，进行是否相等的比较。
+* 模式值比较 —— 模式值比较让你可以把一个从 :php:func:`env()` 取得的值和一个正则表达式进行比较。
+* 基于选项的比较 —— 基于选项的比较使用一组选项来创建一个正则表达式。之后再添加相同的选项检测器就会合并选项。
+* 回调检测器 —— 回调检测器让你可以提供一个 'callback' 类型来进行检查。这个回调函数只接受请求对象一个参数。
 
-Some examples would be::
+下面是一些例子::
 
-    // Add an environment detector.
+    // 添加一个环境检测器。
     $this->request->addDetector('post', array('env' => 'REQUEST_METHOD', 'value' => 'POST'));
 
-    // Add a pattern value detector.
+    // 添加一个模式值检测器。
     $this->request->addDetector('iphone', array('env' => 'HTTP_USER_AGENT', 'pattern' => '/iPhone/i'));
 
-    // Add an option detector
+    // 添加一个选项检测器。
     $this->request->addDetector('internalIp', array(
         'env' => 'CLIENT_IP',
         'options' => array('192.168.0.101', '192.168.0.100')
     ));
 
-    // Add a callback detector. Can either be an anonymous function or a regular callable.
+    // 添加一个回调检测器。可以是一个匿名函数，或者是一个通常的回调。
     $this->request->addDetector('awesome', array('callback' => function ($request) {
         return isset($request->awesome);
     }));
 
-``CakeRequest`` also includes methods like :php:meth:`CakeRequest::domain()`,
-:php:meth:`CakeRequest::subdomains()` and :php:meth:`CakeRequest::host()` to
-help applications with subdomains, have a slightly easier life.
 
-There are several built-in detectors that you can use:
+``CakeRequest`` 还有一些类似 :php:meth:`CakeRequest::domain()`，:php:meth:`CakeRequest::subdomains()` 和 :php:meth:`CakeRequest::host()` 这样的方法，可以让有子域的应用程序更容易处理。
 
-* ``is('get')`` Check to see if the current request is a GET.
-* ``is('put')`` Check to see if the current request is a PUT.
-* ``is('post')`` Check to see if the current request is a POST.
-* ``is('delete')`` Check to see if the current request is a DELETE.
-* ``is('head')`` Check to see if the current request is HEAD.
-* ``is('options')`` Check to see if the current request is OPTIONS.
-* ``is('ajax')`` Check to see of the current request came with
-  X-Requested-with = XmlHttpRequest.
-* ``is('ssl')`` Check to see if the request is via SSL
-* ``is('flash')`` Check to see if the request has a User-Agent of Flash
-* ``is('mobile')`` Check to see if the request came from a common list
-  of mobile agents.
+有几个内置的检测器供你使用:
+
+* ``is('get')`` 检查当前请求是否是 GET。
+* ``is('put')`` 检查当前请求是否是 PUT。
+* ``is('post')`` 检查当前请求是否是 POST。
+* ``is('delete')`` 检查当前请求是否是 DELETE。
+* ``is('head')`` 检查当前请求是否是 HEAD。
+* ``is('options')`` 检查当前请求是否是 OPTIONS。
+* ``is('ajax')`` 检查当前请求是否带有 X-Requested-with = XmlHttpRequest。
+* ``is('ssl')`` 检查当前请求是否通过 SSL。
+* ``is('flash')`` 检查当前请求是否带有 Flash 的用户代理(*User-Agent*)。
+* ``is('mobile')`` 检查当前请求是否来自一个常见移动代理列表。
 
 
-CakeRequest and RequestHandlerComponent
+CakeRequest 和 RequestHandlerComponent
 =======================================
 
-Since many of the features ``CakeRequest`` offers used to be the realm of
-:php:class:`RequestHandlerComponent` some rethinking was required to figure out how it
-still fits into the picture.  For 2.0, :php:class:`RequestHandlerComponent`
-acts as a sugar daddy.  Providing a layer of sugar on top of the utility
-`CakeRequest` affords. Sugar like switching layout and views based on content
-types or ajax is the domain of :php:class:`RequestHandlerComponent`.
-This separation of utility and sugar between the two classes lets you
-more easily pick and choose what you want and what you need.
+既然 ``CakeRequest`` 提供的许多特性以前是 :php:class:`RequestHandlerComponent` 的领域，需要重新思考才能明白它如何能继续融洽的存在于整个架构中。对2.0来说，:php:class:`RequestHandlerComponent` 是作为语法糖(*sugar daddy*)而存在。它在 `CakeRequest` 提供的工具之上提供了一层语法糖。根据内容的类型或 ajax 来切换布局和视图这类语法糖，是 :php:class:`RequestHandlerComponent` 的领域。在这俩个类中这种工具和语法糖的划分，让你更容易地挑选你的所求和所需。
 
-Interacting with other aspects of the request
+与请求的其它方面交互
 =============================================
 
-You can use `CakeRequest` to introspect a variety of things about the request.
-Beyond the detectors, you can also find out other information from various
-properties and methods.
+你可以用 `CakeRequest` 查看(*introspect*)关于请求的各种信息。除了检测器，你还能从各种属性和方法中找出其它信息。
 
-* ``$this->request->webroot`` contains the webroot directory.
-* ``$this->request->base`` contains the base path.
-* ``$this->request->here`` contains the full address to the current request
-* ``$this->request->query`` contains the query string parameters.
+* ``$this->request->webroot`` 包含 webroot 目录。
+* ``$this->request->base`` 包含 base 路径。
+* ``$this->request->here`` 包含当前请求的完整地址。
+* ``$this->request->query`` 含有查询字符串(*query string*)参数。
 
 
 CakeRequest API
@@ -276,361 +180,281 @@ CakeRequest API
 
 .. php:class:: CakeRequest
 
-    CakeRequest encapsulates request parameter handling, and introspection.
+    CakeRequest 封装了请求参数处理，和查询(*introspection*)。
 
 .. php:method:: domain($tldLength = 1)
 
-    Returns the domain name your application is running on.
+    返回你的应用程序运行的域名。
 
 .. php:method:: subdomains($tldLength = 1)
 
-    Returns the subdomains your application is running on as an array.
+    以数组的形式返回你的应用程序运行的子域名。
 
 .. php:method:: host()
 
-    Returns the host your application is on.
+    返回你的应用程序所在的主机名。
 
 .. php:method:: method()
 
-    Returns the HTTP method the request was made with.
+    返回请求所用的 HTTP 方法。
 
 .. php:method:: onlyAllow($methods)
 
-    Set allowed HTTP methods, if not matched will throw MethodNotAllowedException
-    The 405 response will include the required 'Allow' header with the passed methods
+    设置允许的 HTTP 方法，如果不符合就会导致 MethodNotAllowedException。
+    405响应会包括必要的 'Allow' 文件头及传入的 HTTP 方法。
 
     .. versionadded:: 2.3
 
 .. php:method:: referer($local = false)
 
-    Returns the referring address for the request.
+    返回请求的转移源地址(*referring address*)。
 
 .. php:method:: clientIp($safe = true)
 
-    Returns the current visitor's IP address.
+    返回当前访问者的 IP 地址。
 
 .. php:method:: header($name)
 
-    Allows you to access any of the ``HTTP_*`` headers that were used
-    for the request::
+    让你获得请求使用的任何 ``HTTP_*`` 文件头::
 
         $this->request->header('User-Agent');
 
-    Would return the user agent used for the request.
+    会返回当前请求使用的用户代理。
 
 .. php:method:: input($callback, [$options])
 
-    Retrieve the input data for a request, and optionally pass it through a
-    decoding function.  Additional parameters for the decoding function
-    can be passed as arguments to input().
+    获取请求的输入数据，并可选择使其通过一个解码函数。给解码函数的参数可以作为 input() 的参数传入。
 
 .. php:method:: data($name)
 
-    Provides dot notation access to request data.  Allows for reading and
-    modification of request data, calls can be chained together as well::
+    提供对象属性(*dot notation*)的表示方法来访问请求数据。允许读取和修改请求数据，方法调用也可以链接起来::
 
-        // Modify some request data, so you can prepopulate some form fields.
+        // 修改一些请求数据，从而可以放到一些表单字段里面。
         $this->request->data('Post.title', 'New post')
             ->data('Comment.1.author', 'Mark');
 
-        // You can also read out data.
+        // 也可以读出数据。
         $value = $this->request->data('Post.title');
 
 .. php:method:: query($name)
 
-    Provides dot notation access to url query data::
+    提供对象属性(*dot notation*)的表示方法来读取网址查询数据::
 
-        // url is /posts/index?page=1&sort=title
+        // 网址是 /posts/index?page=1&sort=title
         $value = $this->request->query('page');
 
     .. versionadded:: 2.3
 
 .. php:method:: is($type)
 
-    Check whether or not a Request matches a certain criteria.  Uses
-    the built-in detection rules as well as any additional rules defined
-    with :php:meth:`CakeRequest::addDetector()`.
+    检查请求是否符合某种条件。使用内置检测规则，以及任何用 :php:meth:`CakeRequest::addDetector()` 定义的其它规则。
 
 .. php:method:: addDetector($name, $options)
 
-    Add a detector to be used with is().  See :ref:`check-the-request`
-    for more information.
+    添加检测器，供 is() 使用。详情请见 :ref:`check-the-request`。
 
 .. php:method:: accepts($type = null)
 
-    Find out which content types the client accepts or check if they accept a
-    particular type of content.
+    找出客户端接受哪些种类的内容类型(*content type*)，或者检查客户端是否接受某种类型的内容。
 
-    Get all types::
+    获得所有类型::
 
         $this->request->accepts();
 
-    Check for a single type::
+    检查一种类型::
 
         $this->request->accepts('application/json');
 
 .. php:staticmethod:: acceptLanguage($language = null)
 
-    Get either all the languages accepted by the client,
-    or check if a specific language is accepted.
+    或者获取客户端接受的所有语言，或者检查某种语言是否被接受。
 
-    Get the list of accepted languages::
+    获得接受的语言列表::
 
         CakeRequest::acceptLanguage();
 
-    Check if a specific language is accepted::
+    检查是否接受某种语言::
 
         CakeRequest::acceptLanguage('es-es');
 
 .. php:attr:: data
 
-    An array of POST data. You can use :php:meth:`CakeRequest::data()`
-    to read this property in a way that suppresses notice errors.
+    POST 数据的数组。你可以用 :php:meth:`CakeRequest::data()` 来读取该属性，而又抑制错误通知。
 
 .. php:attr:: query
 
-    An array of query string parameters.
+    查询字符串(*query string*)参数数组。
 
 .. php:attr:: params
 
-    An array of route elements and request parameters.
+    包含路由元素和请求参数的数组。
 
 .. php:attr:: here
 
-    Returns the current request uri.
+    返回当前请求的网址。
 
 .. php:attr:: base
 
-    The base path to the application, usually ``/`` unless your
-    application is in a subdirectory.
+    应用程序的 base 路径，通常是 ``/``，除非 应用程序是在一个子目录内。
 
 .. php:attr:: webroot
 
-    The current webroot.
+    当前的 webroot。
 
 .. index:: $this->response
 
 CakeResponse
 ############
 
-:php:class:`CakeResponse` is the default response class in CakePHP.  It
-encapsulates a number of features and functionality for generating HTTP
-responses in your application. It also assists in testing, as it can be
-mocked/stubbed allowing you to inspect headers that will be sent.
-Like :php:class:`CakeRequest`, :php:class:`CakeResponse` consolidates a number
-of methods previously found on :php:class:`Controller`,
-:php:class:`RequestHandlerComponent` and :php:class:`Dispatcher`.  The old
-methods are deprecated in favour of using :php:class:`CakeResponse`.
+:php:class:`CakeResponse` 是 CakePHP 的缺省响应类。它封装了一系列特性和功能，来为应用程序生成 HTTP 响应。它也可以帮助测试，鉴于它能被模拟/嵌入(*mocked/stubbed*)，从而让你可以检查要发送的文件头。如同 :php:class:`CakeRequest`， :php:class:`CakeResponse` 合并了一些之前在 :php:class:`Controller`，:php:class:`RequestHandlerComponent` 和 :php:class:`Dispatcher` 中的方法。这些旧方法已经废弃，请使用新方法。
 
-``CakeResponse`` provides an interface to wrap the common response related
-tasks such as:
+``CakeResponse`` 提供了一个接口，包装了与响应有关的常见任务，比如:
 
-* Sending headers for redirects.
-* Sending content type headers.
-* Sending any header.
-* Sending the response body.
+* 为跳转发送文件头。
+* 发送内容类型文件头。
+* 发送任何文件头。
+* 发送响应体。
 
-Changing the response class
+改变响应类
 ===========================
 
-CakePHP uses ``CakeResponse`` by default. ``CakeResponse`` is a flexible and
-transparent to use class.  But if you need to replace it with an application
-specific class, you can override and replace ``CakeResponse`` with
-your own class.  By replacing the CakeResponse used in index.php.
+CakePHP 缺省使用 ``CakeResponse``。 ``CakeResponse`` 是使用起来灵活且透明的类。但如果你需要用应用程序相关的类来代替它，你可以用你自己的类来进行替换，只需替换在 index.php 中使用的 CakeResponse 就可以了。
 
-This will make all the controllers in your application use ``CustomResponse``
-instead of :php:class:`CakeResponse`.  You can also replace the response
-instance used by setting ``$this->response`` in your controllers. Overriding the
-response object is handy during testing, as it allows you to stub
-out the methods that interact with ``header()``.  See the section on
-:ref:`cakeresponse-testing` for more information.
+这会使你应用程序中的所有控制器都使用 ``CustomResponse``，而不是 :php:class:`CakeResponse`。你也可以在控制器中设置 ``$this->response`` 来替换使用的响应实例。在测试中替换响应对象是很方便的，因为这样允许你嵌入(*stub out*)与 ``header()`` 交互的方法。详情请参看 :ref:`cakeresponse-testing` 一节。
 
-Dealing with content types
-==========================
+处理内容类型(*content types*)
+===========================
 
-You can control the Content-Type of your application's responses with using
-:php:meth:`CakeResponse::type()`.  If your application needs to deal with
-content types that are not built into CakeResponse, you can map those types
-with ``type()`` as well::
+你可以用 :php:meth:`CakeResponse::type()` 来控制你应用程序响应的内容类型(*Content-Type*)。如果你的应用程序需要处理不是 CakeResponse 内置的内容类型，你也可以用 ``type()`` 建立这些类型的对应::
 
-    // Add a vCard type
+    // 增加 vCard 类型
     $this->response->type(array('vcf' => 'text/v-card'));
 
-    // Set the response Content-Type to vcard.
+    // 设置响应的内容类型(*Content-Type*)为 vcard。
     $this->response->type('vcf');
 
-Usually you'll want to map additional content types in your controller's
-``beforeFilter`` callback, so you can leverage the automatic view switching
-features of :php:class:`RequestHandlerComponent` if you are using it.
+通常你会在控制器的 ``beforeFilter`` 回调中映射其它的内容类型，这样，如果你使用 :php:class:`RequestHandlerComponent` 的话，就可以利用它的自动切换视图的特性。
 
 .. _cake-response-file:
 
-Sending files
+发送文件
 ===================
 
-There are times when you want to send files as responses for your requests.
-Prior to version 2.3 you could use :doc:`/views/media-view` to accomplish that.
-As of 2.3 MediaView is deprecated and you can use :php:meth:`CakeResponse::file()`
-to send a file as response::
+有时候你需要发送文件作为对请求的响应。在2.3版本之前，你可以用 :doc:`/views/media-view` 来实现。在2.3版本中， MediaView 已被废弃，(不过)你可以用 :php:meth:`CakeResponse::file()` 来发送文件作为响应::
 
     public function sendFile($id) {
         $file = $this->Attachment->getFile($id);
         $this->response->file($file['path']);
-        //Return reponse object to prevent controller from trying to render a view
+        // 返回响应对象，阻止控制器渲染视图
         return $this->response;
     }
 
-As shown in above example as expected you have to pass the file path to the method.
-Cake will send proper content type header if it's a known file type listed in
-`CakeReponse::$_mimeTypes`. You can add new types prior to calling :php:meth:`CakeResponse::file()`
-by using the :php:meth:`CakeResponse::type()` method.
+如上面的例子所示，你肯定需要为该方法提供文件路径。如果是 `CakeReponse::$_mimeTypes` 列出的已知文件类型， Cake 就会发送正确的内容类型文件头。你可以在调用 :php:meth:`CakeResponse::file()` 之前用 :php:meth:`CakeResponse::type()` 方法添加新类型。
 
-If you want you can also force a file to be downloaded instead of being displayed in
-the browser by specifying the options::
+如果需要，你也可以通过给定下面的选项，来强制文件下载，而不是显示在浏览器中::
 
     $this->response->file($file['path'], array('download' => true, 'name' => 'foo'));
 
 
-Setting headers
+设置文件头
 ===============
 
-Setting headers is done with the :php:meth:`CakeResponse::header()` method.  It
-can be called with a few different parameter configurations::
+设置文件头可以使用 :php:meth:`CakeResponse::header()` 方法。它可以用几种不同的参数配置来调用::
 
-    // Set a single header
+    // 设置单一文件头
     $this->response->header('Location', 'http://example.com');
 
-    // Set multiple headers
+    // 设置多个文件头
     $this->response->header(array('Location' => 'http://example.com', 'X-Extra' => 'My header'));
     $this->response->header(array('WWW-Authenticate: Negotiate', 'Content-type: application/pdf'));
 
-Setting the same header multiple times will result in overwriting the previous
-values, just like regular header calls.  Headers are not sent when
-:php:meth:`CakeResponse::header()` is called either.  They are just buffered
-until the response is actually sent.
+多次设置相同的文件头，会导致覆盖之前的值，就像通常的文件头调用一样。当 :php:meth:`CakeResponse::header()` 被调用时，文件头也不会被发送。它们只是被缓存起来，直到响应真正地被发送。
 
-Interacting with browser caching
+与浏览器缓存交互
 ================================
 
-You sometimes need to force browsers to not cache the results of a controller
-action.  :php:meth:`CakeResponse::disableCache()` is intended for just that::
+有时候你需要使浏览器不要缓存控制器动作的执行结果。 :php:meth:`CakeResponse::disableCache()` 就是为此用途::
 
     public function index() {
-        // do something.
+        // 做一些事情
         $this->response->disableCache();
     }
 
 .. warning::
 
-    Using disableCache() with downloads from SSL domains while trying to send
-    files to Internet Explorer can result in errors.
+    从 SSL 域下载时使用 disableCache()，并试图向 Internet Explorer 发送文件，会导致错误。
 
-You can also tell clients that you want them to cache responses. By using
-:php:meth:`CakeResponse::cache()`::
+你也可以使用 :php:meth:`CakeResponse::cache()`，告诉客户端你要缓存响应::
 
     public function index() {
-        //do something
+        //做一些事情
         $this->response->cache('-1 minute', '+5 days');
     }
 
-The above would tell clients to cache the resulting response for 5 days,
-hopefully speeding up your visitors' experience. ``cache()`` sets the
-Last-Modified value to the first argument. Expires, and Max-age are set based on
-the second parameter. Cache-Control is set to public as well.
+上述代码会告诉客户端把响应结果缓存5天，希望能够加快你的访问者的体验。 ``cache()`` 把 Last-Modified 的值设为传入的第一个参数。 Expires，和 Max-age 会基于第二个参数进行设置。 Cache-Control 也会被设为公开(*public*)。
 
 
 .. _cake-response-caching:
 
-Fine tuning HTTP cache
+微调 HTTP 缓存
 ======================
 
-One of the best and easiest ways of speeding up your application is using HTTP
-cache. Under this caching model you are only required to help clients decide if
-they should use a cached copy of the response by setting a few headers such as
-modified time, response entity tag and others.
+最好也是最容易的一种加速你的应用程序的方法是使用 HTTP 缓存。在这种缓存模式下，你只需要设置若干文件头，比如，修改时间、响应体标签(*response entity tag*)，等等，来帮助客户端决定它们是否需要使用响应的一份缓存拷贝。
 
-Opposed to having to code the logic for caching and for invalidating (refreshing)
-it once the data has changed, HTTP uses two models, expiration and validation
-which usually are a lot simpler than having to manage the cache yourself.
+你不必编写缓存的逻辑，以及一旦数据更改就使之无效(从而刷新它)。HTTP 使用两种模式，过期和有效性验证，这通常比你自己管理缓存要简单许多。
 
-Apart from using :php:meth:`CakeResponse::cache()` you can also use many other
-methods to fine tune HTTP cache headers to take advantage of browser or reverse
-proxy caching.
+除了使用 :php:meth:`CakeResponse::cache()`，你也可以使用许多其它方法，来微调 HTTP 缓存文件头，从而利用浏览器或反向代理的缓存。
 
-The Cache Control header
+缓存控制文件头
 ------------------------
 
 .. versionadded:: 2.1
 
-Used under the expiration model, this header contains multiple indicators
-which can change the way browsers or proxies use the cached content. A
-Cache-Control header can look like this::
+应用于过期模式下，这个文件头包括多个指示，可以改变浏览器或代理使用缓存内容的方式。一个缓存控制文件头可以象这样::
 
     Cache-Control: private, max-age=3600, must-revalidate
 
-``CakeResponse`` class helps you set this header with some utility methods that
-will produce a final valid Cache-Control header. First of them is :php:meth:`CakeResponse::sharable()`
-method, which indicates whether a response in to be considered sharable across
-different users or clients or users. This method actually controls the `public`
-or `private` part of this header. Setting a response as private indicates that
-all or part of it is intended for a single user. To take advantage of shared
-caches it is needed to set the control directive as public
+``CakeResponse`` 类有一些工具方法来帮助你设置这个文件头，并最终生成一个合法的缓存控制文件头。它们中的第一个是 :php:meth:`CakeResponse::sharable()` 方法，指示一个响应是否被不同的用户或客户端共享。这个方法实际控制这个文件头公有(*`public`*)或者私有(*`private`*)的部分。设置一个响应为私有，表示它的全部或者部分只适用于一个用户。要利用共享缓存，就需要设置控制指令为公有。
 
-Second parameter of this method is used to specify a `max-age` for the cache,
-which is the number of seconds after which the response is no longer considered
-fresh.::
+此方法的第二个参数用于指定缓存的最大年龄(*`max-age`*)，以秒为单位，这段时间过后缓存就不认为是最新的了。::
 
     public function view() {
         ...
-        // set the Cache-Control as public for 3600 seconds
+        // 设置缓存为公有、3600秒
         $this->response->sharable(true, 3600);
     }
 
     public function my_data() {
         ...
-        // set the Cache-Control as private for 3600 seconds
+        // 设置缓存为私有、3600秒
         $this->response->sharable(false, 3600);
     }
 
-``CakeResponse`` exposes separate methods for setting each of the components in
-the Cache-Control header.
+``CakeResponse`` 提供了单独的方法来设置缓存控制文件头中的每一部分。
 
-The Expiration header
+过期文件头
 ---------------------
 
 .. versionadded:: 2.1
 
-Also under the cache expiration model, you can set the `Expires` header, which
-according to the HTTP specification is the date/time after which the response is
-no longer considered fresh. This header can be set using the
-:php:meth:`CakeResponse::expires()` method::
+同样处于缓存过期模式之下，你可以设置 `Expires` 文件头，根据 HTTP 规范，这是一个日期/时间，之后响应就被认为不是最新的了。这个文件头可以用 :php:meth:`CakeResponse::expires()` 方法来设置。
 
     public function view() {
         $this->response->expires('+5 days');
     }
 
-This method also accepts a DateTime or any string that can be parsed by the
-DateTime class.
+这个方法也接受 DateTime 或者任何可以被 DateTime 解释的字符串。
 
-The Etag header
+Etag 文件头
 ---------------
 
 .. versionadded:: 2.1
 
-Cache validation in HTTP is often used when content is constantly changing, and
-asks the application to only generate the response contents if the cache is no
-longer fresh. Under this model, the client continues to store pages in the
-cache, but instead of using it directly, it asks the application every time
-whether the resources changed or not. This is commonly used with static
-resources such as images and other assets.
+在 HTTP 中，当内容总是变化时，缓存验证是经常使用的，并要求应用程序只有当缓存不是最新的时候才生成响应内容。在这个模式下，客户端继续在缓存中保存网页，但并不直接使用，而是每次询问应用程序资源是否改变。这通常用于静态资源，比如图像和其它文件。
 
-The Etag header (called entity tag) is string that uniquely identifies the
-requested resource. It is very much like the checksum of a file, caching
-will compare checksums to tell whether they match or not.
+Etag 文件头(叫做数据项标签(*entity tag*))是一个字符串，用来唯一标识被请求的资源。这非常象一个文件的校验码，缓存会比较校验码，从而知道它们是否相同。
 
-To actually get advantage of using this header you have to either call manually
-:php:meth:`CakeResponse::checkNotModified()` method or have the :php:class:`RequestHandlerComponent`
-included in your controller::
+要真正利用这个文件头，你必须或者手动调用 :php:meth:`CakeResponse::checkNotModified()` 方法，或者把 :php:class:`RequestHandlerComponent` 包括在你的控制器中::
 
     public function index() {
         $articles = $this->Article->find('all');
@@ -641,19 +465,14 @@ included in your controller::
         ...
     }
 
-The Last Modified header
+Last Modified 文件头
 ------------------------
 
 .. versionadded:: 2.1
 
-Also under the HTTP cache validation model, you can set the `Last-Modified`
-header to indicate the date and time at which the resource was modified for the
-last time. Setting this header helps CakePHP respond to caching clients whether
-the response was modified or not based on the client cache.
+同样在 HTTP 缓存有效性验证模式下，你可以设置 `Last-Modified` 文件头，说明资源上次改变的日期和时间。设置这个文件头可以帮助 CakePHP 回答缓存客户端，基于客户端的缓存，响应是否有变化。
 
-To actually get advantage of using this header you have to either call manually
-:php:meth:`CakeResponse::checkNotModified()` method or have the :php:class:`RequestHandlerComponent`
-included in your controller::
+要真正利用这个文件头，你必须或者手动调用 :php:meth:`CakeResponse::checkNotModified()` 方法，或者把 :php:class:`RequestHandlerComponent` 包括在你的控制器中::
 
     public function view() {
         $article = $this->Article->find('first');
@@ -664,13 +483,10 @@ included in your controller::
         ...
     }
 
-The Vary header
+Vary 文件头
 ---------------
 
-In some cases you might want to serve different contents using the same url.
-This is often the case when you have a multilingual page or respond with
-different HTML according to the browser that is requesting the resource. For
-such circumstances, you use the Vary header::
+有些情况下，你也许会用同一网址提供不同的内容。这种情况通常是你有一个多语言网页，或者是根据请求资源的浏览器提供不同的 HTML。在这些情况下，你可以使用 Vary 文件头::
 
     $this->response->vary('User-Agent');
     $this->response->vary('Accept-Encoding', 'User-Agent');
@@ -678,14 +494,10 @@ such circumstances, you use the Vary header::
 
 .. _cakeresponse-testing:
 
-CakeResponse and testing
+CakeResponse 和测试
 ========================
 
-Probably one of the biggest wins from ``CakeResponse`` comes from how it makes
-testing controllers and components easier.  Instead of methods spread across
-several objects, you only have a single object to mock as controllers and
-components delegate to ``CakeResponse``.  This helps you get closer to a 'unit'
-test and makes testing controllers easier::
+也许 ``CakeResponse`` 最大的好处在于，它使得测试控制器和组件更容易了。与其把方法散布于多个对象之中，现在控制器和组件只调用(*delegate*) ``CakeResponse``， 你也只需要模拟一个对象就可以了。这帮助你更加接近于“单元”测试，也使得测试控制器更容易了::
 
     public function testSomething() {
         $this->controller->response = $this->getMock('CakeResponse');
@@ -693,9 +505,7 @@ test and makes testing controllers easier::
         // ...
     }
 
-Additionally you can more easily run tests from the command line, as you can use
-mocks to avoid the 'headers sent' errors that can come up from trying to set
-headers in CLI.
+另外，你也可以更容易地从命令行运行测试了，因为你可以用模拟(*mock*)来避免在命令行界面设置文件头引起的“文件头已发送(*headers sent*)”的错误。
 
 
 CakeResponse API
@@ -703,89 +513,81 @@ CakeResponse API
 
 .. php:class:: CakeResponse
 
-    CakeResponse provides a number of useful methods for interacting with
-    the response you are sending to a client.
+    CakeResponse 提供了一些有用的方法，来和你发送给客户端的响应交互。
 
 .. php:method:: header($header = null, $value = null)
 
-    Allows you to directly set one or many headers to be sent with the response.
+    允许你直接设置一个或多个文件头，与响应一起发送。
 
 .. php:method:: charset($charset = null)
 
-    Sets the charset that will be used in the response.
+    设置响应使用的文字集。
 
 .. php:method:: type($contentType = null)
 
-    Sets the content type for the response.  You can either use a known content
-    type alias or the full content type name.
+    设置响应的内容类型(*content type*)。你可以使用一个已知内容类型别名，或完整的内容类型名称。
 
 .. php:method:: cache($since, $time = '+1 day')
 
-    Allows you to set caching headers in the response.
+    允许你在响应中设置缓存文件头。
 
 .. php:method:: disableCache()
 
-    Sets the headers to disable client caching for the response.
+    设置响应文件头，禁用客户端缓存。
 
 .. php:method:: sharable($public = null, $time = null)
 
-    Sets the Cache-Control header to be either `public` or `private` and
-    optionally sets a `max-age` directive of the resource
+    设置 Cache-Control 文件头为 公有(*`public`*)或私有(*`private`*)，并可选择设置资源的 `max-age` 指令。
 
     .. versionadded:: 2.1
 
 .. php:method:: expires($time = null)
 
-    Allows to set the `Expires` header to a specific date.
+    可设置过期(*`Expires`*)文件头为一个指定日期。
 
     .. versionadded:: 2.1
 
 .. php:method:: etag($tag = null, $weak = false)
 
-    Sets the `Etag` header to uniquely identify a response resource.
+    设置 `Etag` 文件头，唯一地标识一个响应资源。
 
     .. versionadded:: 2.1
 
 .. php:method:: modified($time = null)
 
-    Sets the `Last-Modified` header to a specific date and time in the correct
-    format.
+    以正确的格式设置 `Last-Modified` 文件头为指定的日期和时间。
 
     .. versionadded:: 2.1
 
 .. php:method:: checkNotModified(CakeRequest $request)
 
-    Compares the cache headers for the request object with the cache header from
-    the response and determines if it can still be considered fresh. In that
-    case deletes any response contents and sends the `304 Not Modified` header.
+    比较请求对象的缓存文件头和响应的缓存文件头，决定响应是否还是最新的。如果是，删除所有响应内容，发送 `304 Not Modified` 文件头。
 
     .. versionadded:: 2.1
 
 .. php:method:: compress()
 
-    Turns on gzip compression for the request.
+    为请求打开 gzip 压缩。
 
 .. php:method:: download($filename)
 
-    Allows you to send the response as an attachment and set the filename.
+    允许你把响应作为附件发送，并设置文件名。
 
 .. php:method:: statusCode($code = null)
 
-    Allows you to set the status code for the response.
+    允许你设置响应的状态编码。
 
 .. php:method:: body($content = null)
 
-    Set the content body for the response.
+    设置响应的内容体。
 
 .. php:method:: send()
 
-    Once you are done creating a response, calling send() will send all
-    the set headers as well as the body. This is done automatically at the
-    end of each request by :php:class:`Dispatcher`
+    一旦你完成了响应的创建，调用 send() 会发送所有设置的文件头和文件体。这是在每次请求的最后由 :php:class:`Dispatcher` 自动执行的。
 
 .. php:method:: file($path, $options = array())
 
-    Allows you to set a file for display or download
+    允许你设置一个文件，用于显示或下载。
 
     .. versionadded:: 2.3
 
