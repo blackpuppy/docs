@@ -1,7 +1,7 @@
 组件 Components
 ##########
 
-组件是在多个控制器之间共享的逻辑包。如果你发现自己要在控制器间复制粘贴代码，
+组件是在多个控制器之间共享的逻辑的封装。如果你发现自己要在控制器间复制粘贴代码，
 就可以考虑将这些功能封装为一个组件。
 Components are packages of logic that are shared between
 controllers. If you find yourself wanting to copy and paste things
@@ -12,7 +12,7 @@ CakePHP还配备了一套不错的核心组件。
 CakePHP also comes with a fantastic set of core components you can
 use to aid in:
 
-- 安全  
+- 安全
 - Sessions会话
 - 访问控制列表
 - 电子邮件
@@ -21,7 +21,7 @@ use to aid in:
 - 请求处理
 - 分页
 
-- Security  
+- Security
 - Sessions
 - Access control lists
 - Emails
@@ -43,7 +43,7 @@ between projects.
 配置组件 Configuring Components
 ======================
 
-大多数的核心组件需要进行配置。配置示例有:doc:`/core-libraries/components/authentication`
+大多数的核心组件需要进行配置。配置示例在:doc:`/core-libraries/components/authentication`
 :doc:`/core-libraries/components/cookie` 和 :doc:`/core-libraries/components/email`。
 通常，在控制器的 ``beforeFilter()`` 方法中的 ``$components`` 数组里进行配置。
 
@@ -65,7 +65,8 @@ method::
         );
 
 这是使用 ``$components`` 数组配置组件的例子。所有的核心组件都允许使用这种方式进行配置。
-此外，你也可以在控制器的 ``beforeFilter()`` 方法中配置组件。 这种方式通常用在你需要将一个函数的结果赋与一个组件属性的情况下。上面的例子还可以表示成::
+此外，你也可以在控制器的 ``beforeFilter()`` 方法中配置组件。
+这种方式通常用在你需要将一个函数的结果赋与一个组件属性的情况下。上面的例子还可以表示成::
 
 Would be an example of configuring a component with the
 ``$components`` array. All core components allow their
@@ -82,7 +83,7 @@ as::
         $this->Cookie->name = 'CookieMonster';
     }
 
-然而，也有这种可能：一个组件的特定配置选项要在控制器的 ``beforeFilter()`` 运行前设置。 
+然而，也有这种可能：一个组件的特定配置选项要在控制器的 ``beforeFilter()`` 运行前设置。
 最后，一些组件允许在``$components`` 数组中设置配置选项：
 
 It's possible, however, that a component requires certain
@@ -149,7 +150,7 @@ them like so::
 
     class PostsController extends AppController {
         public $components = array('Session', 'Cookie');
-        
+
         public function delete() {
             if ($this->Post->delete($this->request->data('Post.id')) {
                 $this->Session->setFlash('Post deleted.');
@@ -224,7 +225,7 @@ structure for the component would look something like this::
     所有的MathComponent必须继承 Component。如果不这样做，会导致异常。
 
     All components must extend :php:class:`Component`.  Failing to do this
-    will trigger an exception. 
+    will trigger an exception.
 
 控制器中使用组件 Including your component in your controllers
 --------------------------------------------
@@ -288,7 +289,7 @@ way you include them in controllers - using the ``$components`` var::
     App::uses('Component', 'Controller');
     class CustomComponent extends Component {
         // the other component your component uses
-        public $components = array('Existing'); 
+        public $components = array('Existing');
 
         public function initialize(Controller $controller) {
             $this->Existing->foo();
@@ -328,7 +329,7 @@ Note that in contrast to a component included in a controller no callbacks will 
 .. php:method:: __construct(ComponentCollection $collection, $settings = array())
 
     Component基类的构造器。
-    所有的与 ``$settings`` 的关键字同名的公共属性的值会变成 ``$settings`` 中改关键字对应的值。 
+    所有的与 ``$settings`` 的关键字同名的公共属性的值会变成 ``$settings`` 中改关键字对应的值。
 
     Constructor for the base component class.  All ``$settings`` that
     are also public properties will have their values changed to the
