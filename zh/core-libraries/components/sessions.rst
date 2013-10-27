@@ -3,21 +3,32 @@ Sessions
 
 .. php:class:: SessionComponent(ComponentCollection $collection, array $settings = array())
 
+CakePHP的SessionComponent会话组件提供了一种页面间持久化客户端数据的方法。他是对``$_SESSION``封装，
+同时提供了用于方便操作``$_SESSION``的几种方法。
+
 The CakePHP SessionComponent provides a way to persist client data
 between page requests. It acts as a wrapper for the ``$_SESSION`` as
 well as providing convenience methods for several ``$_SESSION``
 related functions.
+
+在CakePHP中，Sessions有多种配置方法。更多信息参见:doc:`Session configuration </development/sessions>`
 
 Sessions can be configured in a number of ways in CakePHP.  For more
 information, you should see the :doc:`Session configuration </development/sessions>`
 documentation.
 
 Interacting with Session data
+与Session数据交互
 =============================
+
+Session组件是用来与session交互信息。它包括基本的CRUD功能以及来创建反馈信息给用户。
 
 The Session component is used to interact with session information.
 It includes basic CRUD functions as well as features for creating
 feedback messages to users.
+
+请注意可以使用:term:`dot notation`点记法创建数组结构的Session。所以``User.username``
+等同于下面的格式::
 
 It should be noted that Array structures can be created in the
 Session by using :term:`dot notation`. So ``User.username`` would
@@ -26,6 +37,7 @@ reference the following::
     array('User' => array(
         'username' => 'clark-kent@dailyplanet.com'
     ));
+
 
 Dots are used to indicate nested arrays. This notation is used for
 all Session component methods wherever a name/key is used.
@@ -80,6 +92,7 @@ all Session component methods wherever a name/key is used.
 .. _creating-notification-messages:
 
 Creating notification messages
+创建提示信息
 ==============================
 
 .. php:method:: setFlash(string $message, string $element = 'default', array $params = array(), string $key = 'flash')
