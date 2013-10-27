@@ -149,7 +149,7 @@ Creating notification messages
         // set a good message.
         $this->Session->setFlash('Something good.', 'default', array(), 'good');
 
-    在视图层，这些消息可以不同的样式输出::
+    在视图层，这些消息可以以不同的样式输出::
     In the view, these messages can be output and styled differently::
 
         // in a view.
@@ -176,6 +176,7 @@ Creating notification messages
     ``$params``参数可使我们传递额外的视图变量在布局中渲染。参数能够影响被渲染的div，
     举个例子$params数组中添加"class"，使用``$this->Session->flash()``会在生成的``div``中
     新增该class。
+
     ``$params`` allows you to pass additional view variables to the
     rendered layout. Parameters can be passed affecting the rendered div, for
     example adding "class" in the $params array will apply a class to the

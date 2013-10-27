@@ -69,8 +69,8 @@ Displaying notifications or flash messages
 
     :rtype: string
 
-    在:ref:`creating-notification-messages`已经解释过，通过:php:meth:`SessionComponent::setFlash()`可以创建一次性的提示信息。
-    消息内容一旦显示，就会被移除不会再次出现。
+    在:ref:`creating-notification-messages`已经解释过，通过:php:meth:`SessionComponent::setFlash()`
+    可以创建一次性的提示信息。消息内容一旦显示，就会被移除不会再次出现。
     As explained in :ref:`creating-notification-messages` you can
     create one-time notifications for feedback. After creating messages
     with :php:meth:`SessionComponent::setFlash()` you will want to
