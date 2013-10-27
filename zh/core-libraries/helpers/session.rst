@@ -25,6 +25,7 @@ As with the Session Component, data is read by using
 
 若要读取上面给定中数组的内容，可以使用``User.username``，使用点来表示嵌套数组。
 这种记法适用于所有的Session助手的`$key``键名中。
+
 Given the previous array structure, the node would be accessed by
 ``User.username``, with the dot indicating the nested array. This
 notation is used for all Session helper methods wherever a ``$key`` is
