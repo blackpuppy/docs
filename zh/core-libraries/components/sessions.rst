@@ -102,7 +102,7 @@ all Session component methods wherever a name/key is used.
 .. _creating-notification-messages:
 
 Creating notification messages
-创建提示性的信息
+创建提示信息
 ==============================
 
 .. php:method:: setFlash(string $message, string $element = 'default', array $params = array(), string $key = 'flash')
