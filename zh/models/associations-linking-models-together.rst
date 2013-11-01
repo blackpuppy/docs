@@ -60,7 +60,7 @@ many to many  hasAndBelongsToMany   Recipes have, and belong to many ingredients
 ============= ===================== =======================================
 关系 		  关联类型				例子
 ============= ===================== =======================================
-一对一    	  hasOne                一个用户只有一张脸
+一对一    	  hasOne                一个用户只有一份个人资料
 ------------- --------------------- ---------------------------------------
 一对多        hasMany               一个用户有多份食谱
 ------------- --------------------- ---------------------------------------
@@ -89,8 +89,8 @@ multidimensional array used to define association specifics.
         );
     }
 
-在上面的例子中，第一个实例的单词'Recipe'是别名。它是关系的唯一标识，可以是你选择的任何东西。通常选择与要引用的类相同的名字。
-然而，**每个模型的别名在应用程序中必须唯一**。下面有一些正确的例子：
+在上面的例子中，第一个实例的单词'Recipe'是别名。它是关系的唯一标识，可以是你选择的任何东西。
+通常选择与要引用的类相同的名字。然而，**每个模型的别名在应用程序中必须唯一**。下面有一些正确的例子：
 
 In the above example, the first instance of the word 'Recipe' is
 what is termed an 'Alias'. This is an identifier for the
@@ -203,7 +203,7 @@ hasOne relationship to work, one table has to contain a foreign key
 that points to a record in the other. In this case the profiles
 table will contain a field called user\_id. The basic pattern is:
 
-**hasOne:** *另一个* 模型包含他的外键。
+**hasOne:** *另一个* 模型包含外键。
 
 **hasOne:** the *other* model contains the foreign key.
 
@@ -271,7 +271,7 @@ Possible keys for hasOne association arrays include:
 -  **foreignKey**: 另一张表中的外键名。如果需要定义多个 hasOne 关系，这个键非常有用。其默认值为当前模型的单数模型名缀以 ‘_id’。
 在上面的例子中，就默认为 ‘user_id’。
 -  **conditions**: 一个 find() 兼容条件的数组或者类似 array(‘Profile.approved’ => true) 的SQL字符串.
--  **fields**: 需要在匹配的关联模型数据中获取的列的列表。默认返回所有的列。
+-  **fields**: 需要在匹配的关联模型数据中获取的字段的列表。默认返回所有的字段。
 -  **order**: 一个 find() 兼容排序子句或者类似 array(‘Profile.last_name’ => ‘ASC’) 的SQL字符串。
 -  **dependent**: 当 dependent 键被设置为 true，并且模型的 delete() 方法调用时的参数cascade被设置为true，关联模型的记录同时被删除。
 在本例中，我们将其设置为 true 将导致删除一个 User 时同时删除与其相关的 Profile。
@@ -381,7 +381,7 @@ syntax::
         );
     }
 
-hasOne 关联数组包含的键有:
+belongsTo 关联数组包含的键有:
 
 Possible keys for belongsTo association arrays include:
 
