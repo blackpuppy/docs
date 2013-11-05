@@ -3,11 +3,17 @@ App Class
 
 .. php:class:: App
 
-The app class is responsible for path management, class location and class loading. 
+app类负责路径管理，类位置和类加载。请确保遵循:ref:`file-and-classname-conventions`.
+The app class is responsible for path management, class location and class loading.
 Make sure you follow the :ref:`file-and-classname-conventions`.
 
-Packages
+Packages 包
 ========
+
+CakePHP是围绕包进行组织，每个类属于一个包或目录。可以使用``App::build('APackage/SubPackage', $paths)``
+配置应用程序中每个包的位置，通知该框架,应该加载每一个类。CakePHP框架中的几乎每一个类
+都可以换做你自己的兼容性的实现。如果你想用你自己的类而不是框架提供的,仅需添加类到你的
+类库目录并效仿CakePHP中预计查找的位置。
 
 CakePHP is organized around the idea of packages, each class belongs to a
 package or folder where other classes reside. You can configure each package
@@ -18,25 +24,33 @@ you wish to use you own class instead of the classes the framework provides,
 just add the class to your libs folder emulating the directory location of where
 CakePHP expects to find it.
 
+举例，如果你想使用自己的HttpSocket类，把他放到::
 For instance if you'd like to use your own HttpSocket class, put it under::
 
     app/Lib/Network/Http/HttpSocket.php
 
+一旦这么做程序运行时会加载覆盖的文件而不是CakePHP内的文件。
 Once you've done this App will load your override file instead of the file
 inside CakePHP.
 
-Loading classes
+Loading Classes 加载类
 ===============
 
 .. php:staticmethod:: uses(string $class, string $package)
 
     :rtype: void
 
+    CakePHP使用类的延迟加载，然而在autoloader执行前，需要告诉应用程序,
+    在那里可以找到你的类文件。通过告诉应用程序,一个类在哪个包中可以找到,使得能够
+    正确地定位文件和加载第一次使用一个类。
+
+
     Classes are lazily loaded in CakePHP, however before the autoloader
     can find your classes you need to tell App, where it can find the files.
     By telling App which package a class can be found in, it can properly locate
     the file and load it the first time a class is used.
 
+    几个公共类型类的例子:
     Some examples for common types of classes are:
 
     Controller
@@ -62,8 +76,8 @@ Loading classes
 
 .. note::
 
-    Loading vendors usually means you are loading packages that do not follow 
-    conventions. For most vendor packages using ``App::import()`` is 
+    Loading vendors usually means you are loading packages that do not follow
+    conventions. For most vendor packages using ``App::import()`` is
     recommended.
 
 Loading files from plugins
@@ -102,8 +116,8 @@ Finding paths to packages using App::path()
 
     :rtype: array
 
-    Get all the currently loaded paths from App. Useful for inspecting or 
-    storing all paths App knows about. For a paths to a specific package 
+    Get all the currently loaded paths from App. Useful for inspecting or
+    storing all paths App knows about. For a paths to a specific package
     use :php:meth:`App::path()`
 
 .. php:staticmethod:: core(string $package)
@@ -140,13 +154,13 @@ Adding paths for App to find packages in
     Usage::
 
         //will setup a new search path for the Model package
-        App::build(array('Model' => array('/a/full/path/to/models/'))); 
+        App::build(array('Model' => array('/a/full/path/to/models/')));
 
         //will setup the path as the only valid path for searching models
-        App::build(array('Model' => array('/path/to/models/')), App::RESET); 
+        App::build(array('Model' => array('/path/to/models/')), App::RESET);
 
         //will setup multiple search paths for helpers
-        App::build(array('View/Helper' => array('/path/to/helpers/', '/another/path/'))); 
+        App::build(array('View/Helper' => array('/path/to/helpers/', '/another/path/')));
 
 
     If reset is set to true, all loaded plugins will be forgotten and they will
@@ -155,11 +169,11 @@ Adding paths for App to find packages in
     Examples::
 
         App::build(array('controllers' => array('/full/path/to/controllers')));
-        //becomes 
+        //becomes
         App::build(array('Controller' => array('/full/path/to/Controller')));
 
         App::build(array('helpers' => array('/full/path/to/views/helpers')));
-        //becomes 
+        //becomes
         App::build(array('View/Helper' => array('/full/path/to/View/Helper')));
 
     .. versionchanged:: 2.0
@@ -261,20 +275,20 @@ Including files with App::import()
 
         // The same as require('Controller/UsersController.php');
         App::import('Controller', 'Users');
-        
+
         // We need to load the class
         $Users = new UsersController();
-        
+
         // If we want the model associations, components, etc to be loaded
         $Users->constructClasses();
 
-    **All classes that were loaded in the past using App::import('Core', $class) will need to be 
+    **All classes that were loaded in the past using App::import('Core', $class) will need to be
     loaded using App::uses() referring to the correct package. This change has provided large
     performance gains to the framework.**
 
     .. versionchanged:: 2.0
 
-    * The method no longer looks for classes recursively, it strictly uses the values for the 
+    * The method no longer looks for classes recursively, it strictly uses the values for the
       paths defined in :php:meth:`App::build()`
     * It will not be able to load ``App::import('Component', 'Component')`` use
       ``App::uses('Component', 'Controller');``.
@@ -288,8 +302,11 @@ Including files with App::import()
       will also not convert the file to underscored anymore as it did in the
       past.
 
-Overriding classes in CakePHP
+Overriding classes in CakePHP 重载类
 =============================
+
+可以重载框架内的几乎每一个类，除了:php:class:`App`和:php:class:`Configure`类。
+只需添加你自己的类到你的app/Lib目录，效仿框架内部的目录结构。下面有几个例子。
 
 You can override almost every class in the framework, exceptions are the
 :php:class:`App` and :php:class:`Configure` classes. Whenever you like to
@@ -303,24 +320,32 @@ the internal structure of the framework.  Some examples to follow
 When you load the replaced files, the app/Lib files will be loaded instead of
 the built-in core classes.
 
-Loading Vendor Files
+Loading Vendor Files  加载Vendor文件
 ====================
 
+可以使用``App::uses()``加载vendors目录中的类文件。遵循加载其他文件同样的规则::
 You can use ``App::uses()`` to load classes in vendors directories. It follows
 the same conventions as loading other files::
 
+	// 加载app/Vendor/Geshi.php
     // Load the class Geshi in app/Vendor/Geshi.php
     App::uses('Geshi', 'Vendor');
 
-To load classes in subdirectories, you'll need to add those paths 
+加载子目录中的类，需要使用``App::build()``添加这些路径::
+To load classes in subdirectories, you'll need to add those paths
 with ``App::build()``::
 
+	// 加载app/Vendor/SomePackage/ClassInSomePackage.php
     // Load the class ClassInSomePackage in app/Vendor/SomePackage/ClassInSomePackage.php
     App::build(array('Vendor' => array(APP . 'Vendor' . DS . 'SomePackage')));
     App::uses('ClassInSomePackage', 'Vendor');
 
-Your vendor files may not follow conventions, have a class that differs from 
-the file name or does not contain classes. You can load those files using 
+vendor文件不必遵循命名规则，一个类可以不同于文件名或不包含其他类。
+可以使用``App::import()``加载这些文件。下面的例子演示了如何从路径结构中加载vendor
+文件。这些vendor文件可能位于vendor目录中的任何位置。
+
+Your vendor files may not follow conventions, have a class that differs from
+the file name or does not contain classes. You can load those files using
 ``App::import()``. The following examples illustrate how to load vendor
 files from a number of path structures. These vendor files could be located in
 any of the vendor folders.
@@ -331,6 +356,7 @@ To load **app/Vendor/geshi.php**::
 
 .. note::
 
+	//切记geshi文件名必须是小写否则Cake找不到。
     The geshi file must be a lower-case file name as Cake will not
     find it otherwise.
 
@@ -346,7 +372,8 @@ To load **app/Vendor/services/well.named.php**::
 
     App::import('Vendor', 'WellNamed', array('file' => 'services' . DS . 'well.named.php'));
 
-It wouldn't make a difference if your vendor files are inside your /vendors 
+如果你的vendor文件在/vendors目录内，不会有什么差别。Cake会自动找到它。
+It wouldn't make a difference if your vendor files are inside your /vendors
 directory. Cake will automatically find it.
 
 To load **vendors/vendorName/libFile.php**::
@@ -376,7 +403,7 @@ App Init/Load/Shutdown Methods
 
     :rtype: void
 
-    Object destructor. Writes cache file if changes have been made to the 
+    Object destructor. Writes cache file if changes have been made to the
     ``$_map``.
 
 .. meta::
