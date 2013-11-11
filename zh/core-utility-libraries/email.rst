@@ -3,16 +3,16 @@ CakeEmail
 
 .. php:class:: CakeEmail(mixed $config = null)
 
-``CakeEmail`` 是用于发送邮件的新类库，使用此类你可以在应用程序中的任何地方发送邮件。
-也可以在控制器中使用EmailComponent，同时也可以在Shell和模型中发送邮件。
+``CakeEmail`` 是用于发送邮件的新的类库，使用此类你可以在应用程序中的任何地方发送邮件。
+除了可以在控制器中使用EmailComponent，也可以在Shell和模型中发送邮件。
 
 ``CakeEmail`` is a new class to send email. With this
 class you can send email from any place of your application. In addition to
 using the EmailComponent from your controller, you can also send mail from
 Shells, and Models.
 
-此类替代了:php:class:`EmailComponent` ，提供了更加灵活的手段。
-举例来说，你可以创建自己传输协议(transports)来发送邮件，而不使用
+此类代替了:php:class:`EmailComponent` ，在发送邮件中提供了更加灵活的手段。
+举例来说，你可以创建自己传输协议(transports)来发送邮件，而不必使用
 smtp和mail协议。
 
 This class replaces the :php:class:`EmailComponent` and gives more flexibility
@@ -22,13 +22,13 @@ email instead of using the provided smtp and mail.
 基本用法 Basic usage
 ===========
 
-首先确保用 :php:meth:`App::uses()` 方法将类加载进来。
+首先,确保用 :php:meth:`App::uses()` 方法将类加载进来。
 
 First of all, you should ensure the class is loaded using :php:meth:`App::uses()`::
 
     App::uses('CakeEmail', 'Network/Email');
 
-调用CakeEmail和调用:php:class:`EmailComponent` 类似，不过此时必须要使用方法而不是属性。
+使用CakeEmail类和使用:php:class:`EmailComponent` 类似，不过此时必须要用方法而不是属性。
 举例。 ::
 
 Using CakeEmail is similar to using :php:class:`EmailComponent`. But instead of
@@ -40,7 +40,8 @@ using attributes you must use methods. Example::
     $Email->subject('About');
     $Email->send('My message');
 
-为了简化操作，所有的setter方法返回的是类的实例，所以我们可以重写上面的代码，改为连贯操作。
+为了简化操作，所有的这些设置(setter)方法返回的是类的实例，所以我们可以重写上面的代码，
+改为连贯操作。
 
 To simplify things, all of the setter methods return the instance of class.
 You can re-write the above code as::
@@ -85,7 +86,7 @@ Create the file ``app/Config/email.php`` with the class ``EmailConfig``.
 The ``app/Config/email.php.default`` has an example of this file.
 
 ``CakeEmail`` 会创建一个 ``EmailConfig`` 类的实例来访问配置信息。
-如果你有动态数据要在配置文件中使用，可以使用构造函数。 :: 
+如果你有动态数据要在配置文件中使用，可以使用构造函数。 ::
 
 ``CakeEmail`` will create an instance of the ``EmailConfig`` class to access the
 config. If you have dynamic data to put in the configs, you can use the
@@ -144,7 +145,7 @@ at prefix in the host and configure the port value accordingly.  Example::
 
 .. note::
 
-    使用此特性，需要在安装PHP时有SSL配置。
+    使用此特性，需要在安装的PHP上有SSL配置。
 
     To use this feature, you will need to have the SSL configured in your PHP
     install.
@@ -196,13 +197,12 @@ The following configuration keys are used:
 - ``'template'``: 如果使用渲染内容，设置模版名。参见 ``CakeEmail::template()``.
 - ``'theme'``: 当渲染模版时使用的主题。参见 ``CakeEmail::theme()``.
 - ``'layout'``: 如果使用渲染内容，设置布局，如果渲染一个不带布局的模版，设置为null。参见 ``CakeEmail::template()``.
-- ``'viewVars'``: If you are using rendered content, set the array with
-  variables to be used in the view. See ``CakeEmail::viewVars()``.
-- ``'attachments'``: List of files to attach. See ``CakeEmail::attachments()``.
-- ``'emailFormat'``: Format of email (html, text or both). See ``CakeEmail::emailFormat()``.
-- ``'transport'``: Transport name. See ``CakeEmail::transport()``.
-- ``'log'``: Log level to log the email headers and message. ``true`` will use
-  LOG_DEBUG. See also ``CakeLog::write()``
+- ``'viewVars'``: 如果使用渲染内容，可以传递变量数组运用在模版中。参见 ``CakeEmail::viewVars()``.
+- ``'attachments'``: 附件列表。参见 ``CakeEmail::attachments()``.
+- ``'emailFormat'``: 邮件格式(html, text 或都有). 参见 ``CakeEmail::emailFormat()``.
+- ``'transport'``: 传输协议名称。参见 ``CakeEmail::transport()``.
+- ``'log'``: 记录邮件头和消息的日志等级。``true`` 会使用LOG_DEBUG。参见 ``CakeLog::write()``
+
 
 - ``'from'``: Email or array of sender. See ``CakeEmail::from()``.
 - ``'sender'``: Email or array of real sender. See ``CakeEmail::sender()``.
@@ -234,7 +234,9 @@ The following configuration keys are used:
 - ``'log'``: Log level to log the email headers and message. ``true`` will use
   LOG_DEBUG. See also ``CakeLog::write()``
 
-所有的配置都是可选的，除了 ``'from'`` 发件人。
+所有的配置都是可选的，除了 ``'from'`` 发件人。可以在这个数组中传入更多配置，该配置信息用在
+:php:meth:`CakeEmail::config()方法`并传递给传输类``config()``。
+举例，如果你正在使用smtp传输协议，应该传递主机名，端口和其他配置信息。
 
 All these configurations are optional, except ``'from'``. If you put more
 configuration in this array, the configurations will be used in the
@@ -244,13 +246,20 @@ other configurations.
 
 .. note::
 
+	上述键名中的键值将用在邮件或数组，比如from, to, cc等会被传递给相应方法的首个参数。
+	等价于``CakeEmail::from('my@example.com', 'My Site')``，在配置中这样的写法会被定义成
+	``'from' => array('my@example.com' => 'My Site')``
+
     The values of above keys using Email or array, like from, to, cc, etc will be passed
     as first parameter of corresponding methods. The equivalent for:
     ``CakeEmail::from('my@example.com', 'My Site')``
     would be defined as  ``'from' => array('my@example.com' => 'My Site')`` in your config
 
 Setting headers
+设置邮件头
 ---------------
+
+在``CakeEmail``中可以随心所欲设置邮件头。当使用CakeEmail，不要忘了为头添加``X-``前缀。
 
 In ``CakeEmail`` you are free to set whatever headers you want. When migrating
 to use CakeEmail, do not forget to put the ``X-`` prefix in your headers.
@@ -258,11 +267,18 @@ to use CakeEmail, do not forget to put the ``X-`` prefix in your headers.
 See ``CakeEmail::setHeaders()`` and ``CakeEmail::addHeaders()``
 
 Sending templated emails
+发送模版邮件
 ------------------------
+
+电子邮件通常不仅仅是一个简单的文本消息。CakePHP提供了一种发送邮件时使用CakePHP的视图层。
+:doc:`view layer </views>`。
 
 Emails are often much more than just a simple text message.  In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
 :doc:`view layer </views>`.
+
+邮件模板位于应用程序``View``目录中一个特殊的目录中。邮件视图还可以使用布局、元素就像
+普通视图::
 
 The templates for emails reside in a special folder in your applications
 ``View`` directory.  Email views can also use layouts, and elements just like
@@ -275,6 +291,9 @@ normal views::
         ->from('app@domain.com')
         ->send();
 
+上面的代码将``app/View/Emails/html/welcome.ctp``用于视图，将``app/View/Layouts/Emails/html/fancy.ctp``
+用于布局。并且也能发送多个模版邮件内容。
+
 The above would use ``app/View/Emails/html/welcome.ctp`` for the view,
 and ``app/View/Layouts/Emails/html/fancy.ctp`` for the layout. You can
 send multipart templated email messages as well::
@@ -286,6 +305,7 @@ send multipart templated email messages as well::
         ->from('app@domain.com')
         ->send();
 
+将使用下面的视图文件：
 This would use the following view files:
 
 * ``app/View/Emails/text/welcome.ctp``
@@ -293,17 +313,23 @@ This would use the following view files:
 * ``app/View/Emails/html/welcome.ctp``
 * ``app/View/Layouts/Emails/html/fancy.ctp``
 
+当发送模版邮件，邮件格式可选为``text``, ``html`` 或 ``both``。
 When sending templated emails you have the option of sending either
 ``text``, ``html`` or ``both``.
 
+		还可通过``CakeEmail::viewVars()``设置视图中的变量::
         You can set view variables with ``CakeEmail::viewVars()``::
 
             $Email = new CakeEmail('templated');
             $Email->viewVars(array('value' => 12345));
 
+传入变量后，在邮件模版中使用他们::
 In your email templates you can use these with::
 
     <p>Here is your value: <b><?php echo $value; ?></b></p>
+
+也可以在邮件中使用助手，和普通视图文件一样。模型情况下只加载了 :php:class:`HtmlHelper`。
+可以使用``helpers()``方法加载额外的助手。
 
 You can use helpers in emails as well, much like you can in normal view files.
 By default only the :php:class:`HtmlHelper` is loaded.  You can load additional
@@ -311,16 +337,23 @@ helpers using the ``helpers()`` method::
 
     $Email->helpers(array('Html', 'Custom', 'Text'));
 
+当设置助手一定要包括'Html'或将它从你的邮件模板助手中删除。
 When setting helpers be sure to include 'Html' or it will be removed from the
 helpers loaded in your email template.
 
+如果在插件内使用模版发送邮件，可以使用类似的:term:`plugin syntax`插件语法。
 If you want to send email using templates in a plugin you can use the familiar
 :term:`plugin syntax` to do so::
 
     $Email = new CakeEmail();
     $Email->template('Blog.new_comment', 'Blog.auto_message');
 
+上面的例子会从博客插件使用模板。
+
 The above would use templates from the Blog plugin as an example.
+
+有些情况下，需要重写插件中提供的默认模版。可以通过告知CakeEmail使用``CakeEmail::theme()``
+方法来使用合适的主题。
 
 In some cases, you might need to override the default template provided by plugins.
 You can do this using themes by telling CakeEmail to use appropriate theme using
@@ -330,6 +363,9 @@ You can do this using themes by telling CakeEmail to use appropriate theme using
     $Email->template('Blog.new_comment', 'Blog.auto_message');
     $Email->theme('TestTheme');
 
+无需修改这个博客插件。允许在主题中覆盖`new_comment`的模板,模板文件需要被创建在以下路径:
+``APP/View/Themed/TestTheme/Blog/Emails/text/new_comment.ctp``。
+
 This allows you to override the `new_comment` template in your theme without modifying
 the Blog plugin.  The template file needs to be created in the following path:
 ``APP/View/Themed/TestTheme/Blog/Emails/text/new_comment.ctp``.
@@ -338,6 +374,9 @@ the Blog plugin.  The template file needs to be created in the following path:
 -------------------
 
 .. php:method:: attachments($attachments = null)
+
+可以同时将文件附加到电子邮件消息。有一些不同的格式取决于你有什么样的文件,以及何种
+文件名出现在收件人的邮件客户端:
 
 You can attach files to email messages as well.  There are a few
 different formats depending on what kind of files you have, and how
@@ -382,6 +421,13 @@ mimetype和contentId是可选的。
    Content ID (when set the content ID the attachment is transformed to inline).
    The mimetype and contentId are optional in this form.
 
+   4.1. 当使用``contentId``, 可以在html的内容体内使用文件，如
+   ``<img src="cid:my-content-id">``。
+
+   4.2. 可以使用``contentDisposition``选项为附件禁用
+   ``Content-Disposition``头。This is useful when
+   sending ical invites to clients using outlook.
+
    4.1. When you are using the ``contentId``, you can use the file in the html
    body like ``<img src="cid:my-content-id">``.
 
@@ -393,16 +439,26 @@ mimetype和contentId是可选的。
     The ``contentDisposition`` option was added in 2.3
 
 Using transports
+使用传输协议
 ----------------
 
+Transports是通过某种协议或方法发送电子邮件的类。CakePHP支持Mail(默认)，Debug和Smtp传输协议。
 Transports are classes designed to send the e-mail over some protocol or method.
 CakePHP support the Mail (default), Debug and Smtp transports.
 
+必须使用:php:meth:`CakeEmail::transport()`方法配置传输协议。
 To configure your method, you must use the :php:meth:`CakeEmail::transport()`
 method or have the transport in your configuration
 
 Creating custom Transports
+创建自定义传输协议
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+你能够创建自定义transports来与其他电子邮件
+系统进行交互(如SwiftMailer)。 创建您的transport,首先创建该文件
+``app/Lib/Network/Email/ExampleTransport.php``(Example是你的创建您的transport名称)。
+开始时你的文件应该像::
+
 
 You are able to create your custom transports to integrate with others email
 systems (like SwiftMailer). To create your transport, first create the file
@@ -419,10 +475,19 @@ transport). To start off your file should look like::
 
     }
 
+你还要必须使用自定义逻辑实现方法``send(CakeEmail $Email)``。
+可选地,可以实现``config($config)``方法。``config()``是
+执行send()前调用,并允许您接受用户配置。默认情况下,
+该方法将配置在protected属性``$_config``下。
+
 You must implement the method ``send(CakeEmail $Email)`` with your custom logic.
 Optionally, you can implement the ``config($config)`` method.  ``config()`` is
 called before send() and allows you to accept user configurations. By default,
 this method puts the configuration in protected attribute ``$_config``.
+
+如果你需要在transport中发送之前调用其他方法,可以使用
+:php:meth:`CakeEmail::transportClass()` 获得一个transport的实例。
+例如::
 
 If you need to call additional methods on the transport before send, you can use
 :php:meth:`CakeEmail::transportClass()` to get an instance of the transport.
