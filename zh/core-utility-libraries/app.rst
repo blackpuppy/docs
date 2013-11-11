@@ -430,6 +430,7 @@ App Init/Load/Shutdown Methods
 
     :rtype: void
 
+    初始化缓存，注册关闭函数。
     Initializes the cache for App, registers a shutdown function.
 
 .. php:staticmethod:: load(string $className)
