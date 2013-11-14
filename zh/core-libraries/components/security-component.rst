@@ -4,15 +4,16 @@ Security
 
 .. php:class:: SecurityComponent(ComponentCollection $collection, array $settings = array())
 
-安全组件创建一个简单的方法使得应用程序更加安全，他提供了一系列的方法。
+安全组件创建一个简单的方法使得应用程序更加安全，组件提供了一系列的方法能
+完成以下任务。
 
 The Security Component creates an easy way to integrate tighter
 security in your application. It provides methods for various tasks like:
 
 * 约束应用程序中接收的HTTP方法。
-* CSRF(跨站请求伪造) 保护。
-* 篡改表单保护。
-* 使用 SSL 安全套接层。
+* CSRF(跨站请求伪造)保护。
+* 表单篡改保护。
+* 使用SSL安全连接。
 * 限制跨控制器通信。
 
 * Restricting which HTTP methods your application accepts.
@@ -21,14 +22,16 @@ security in your application. It provides methods for various tasks like:
 * Requiring that SSL be used.
 * Limiting cross controller communication.
 
-与其他所有的组件一样，通过可配置的参数对组件进行配置。
-所有的属性可以直接设置或通过在控制器的beforeFilter同名方法中设置。
+与其他所有的组件一样，通过几种配置参数对组件进行配置。
+所有的属性可以直接或通过在控制器的beforeFilter同名方法中设置。
 
 Like all components it is configured through several configurable parameters.
 All of these properties can be set directly or through setter methods of the
 same name in your controller's beforeFilter.
 
-引入Security组件将自动获得CSRF和表单篡改保护。一个隐藏的文本框将自动插入到表单中。
+引入Security组件将自动获得CSRF`CSRF <http://en.wikipedia.org/wiki/Cross-site_request_forgery>`_
+和表单篡改保护。一个隐藏的令牌文本框会自动插入到表单中。除此之外，在某个特定静止期之后表单
+才会提交，他是由``csrfExpires``时间控制。
 
 By using the Security Component you automatically get
 `CSRF <http://en.wikipedia.org/wiki/Cross-site_request_forgery>`_
@@ -38,6 +41,9 @@ component. Among other things, a form submission will not be
 accepted after a certain period of inactivity, which is controlled by
 the ``csrfExpires`` time.
 
+如果你正在使用安全组件的表单防御功能及其他组件。会在他们的``startup()``回调方法中
+处理表单数据，确保将安全组件放置在``$components``数组中的前面。
+
 If you are using Security component's form protection features and
 other components that process form data in their ``startup()``
 callbacks, be sure to place Security Component before those
@@ -46,6 +52,7 @@ components in your ``$components`` array.
 .. note::
 
 	当使用Security组件，**必须**使用FormHelper创建表单，此外，**不要**
+    
     When using the Security Component you **must** use the FormHelper to create
     your forms. In addition, you must **not** override any of the fields' "name"
     attributes. The Security Component looks for certain indicators that are
