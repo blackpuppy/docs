@@ -1,8 +1,10 @@
-ACL
-###
+权限控制列表(*ACL*)
+#####################
 
 .. php:class:: AclBehavior()
 
+Acl 行为提供了一种方式，将一个模型与你的权限控制列表(*ACL*)系统
+结合在一起。它可以透明地创建 AROs 或者 ACOs。
 The Acl behavior provides a way to seamlessly integrate a model
 with your ACL system. It can create both AROs or ACOs
 transparently.
