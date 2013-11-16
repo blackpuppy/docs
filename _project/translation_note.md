@@ -1,14 +1,15 @@
 翻译注释
+
 ########
 
-`cakephp_zh\zh\contributing <http://git.oschina.net/finley/cakephp_zh/tree/master/zh/contributing>`_
+`14. cakephp_zh\zh\contributing <http://git.oschina.net/finley/cakephp_zh/tree/master/zh/contributing>`_
 目录下的文件，至今翻译了2页，一些需斟酌之处列在下面。我的中文表达能力不是很强，有些词汇就是一时想不起来，或者一下子找不到最恰当的表达方式。
 
 `cakephp_zh\zh\contributing\documentation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/documentation.md>`_
 ===================================================================================================================================
 
     #. free (as in "Feel free to fork the repo.")
-       随意？自由？“随意”似乎更接近一些。
+       随意？自由？“随意”似乎更接近一些。希望找到更好的翻译。
     #. fork
        分支显然不行，因为branch就是分支，而fork和branch显然是不同的，不能混淆。
        查了Git的中文手册5.1 分布式 Git - 分布式工作流程，见图5-2下面的文字第一行，“复制（fork 亦即克隆）”。
@@ -16,12 +17,12 @@
     #. role
        多处出现，比如“Other pages in the documentation can be linked to using the :doc: role“和"The following roles refer to php objects and ..."。
     #. role在词霸中翻译为“作用； 地位； 角色”。“角色”觉得很别扭，“作用”的意思还可以接受，但放在文中却不如“角色”通顺。还有一种办法，就是干脆省略。
-       暂时译为“角色”。
+       很明显是个术语，不能省略。暂时译为“角色”。
     #. property/attribute
        这两个应该是指不同的东西，但是在中文里怎么区别？
        暂时都译为“属性”。
     #. Admonition
-       暂译“告诫”，似乎略微严厉了一些，但尚未找到更合适的词。
+       暂译“告诫”，似乎略微严厉了一些，但尚未找到更合适的词。“警告”则与现有词汇(warning 警告、警示、注意)重复了。
 
 
 `cakephp_zh\zh\contributing\tickets <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/tickets.md>`_
@@ -89,14 +90,14 @@
     #. associated array
        关联数组? 映射数组?
     #. oft-used
-       = often-used? 常用的？
+       = often-used? 常用的？Yes!
     #. heavy lifting
        `词霸 <http://www.iciba.com/heavy+lifting/>`_的解释“举足轻重”，这完全不对，
        而“difficult work”比较正确。
        帮你完成繁重的工作，不用你自己做了。
        文中译为“(承担)麻烦的部分”。
 
-`cakephp_zh\zh\models <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models.md>`_
+`7. cakephp_zh\zh\models <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models.md>`_
 ===========================================================================================
 
     #. (data's) validity
@@ -106,13 +107,13 @@
     #. (model) association
        (模型的)关联? 联系? 采用"关联"
 
-`cakephp_zh\zh\models\data-validation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/callback-methods.md>`_
+`7.6 cakephp_zh\zh\models\callback-methods <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/callback-methods.md>`_
 ============================================================================================================================
 
     #. sneak in
-       触及? 切入？
+       触及? 切入？插入。
 
-`cakephp_zh\zh\models\behaviors <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/behaviors.md>`_
+`7.7 cakephp_zh\zh\models\behaviors <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/behaviors.md>`_
 ===============================================================================================================
 
     #. (method) singnature
@@ -122,17 +123,19 @@
     #. splice (in additional behavior)
        增加(额外的行为)？
 
-`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers.md>`_
+`5. cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers.md>`_
 =====================================================================================================
 
     #. boiler-plate (code)
        重复性(代码)？仍太宽泛，不够准确。
     #. inflected
        ？
+    #. inflect
+       `词霸 <http://www.iciba.com/inflect>`_ 的解释是“使（词）屈折变化”。这些对英文单词或词组的变化包括：(首)字母的大小写变化、词组的词汇之间添加下划线、名词单复数的转化。
     #. render
-       渲染？显示？
+       渲染？显示？采用“渲染”。
     #. request/response body
-       请求/响应体？ 请求/响应主体？请求/响应文件体？
+       请求/响应体？ 请求/响应主体？请求/响应文件体？采用最后一种翻译。
     #. session
        会话。
     #. 301 (page) moved permanently
@@ -142,38 +145,48 @@
     #. scaffolded actions
        脚手架动作？
     #. referring URL (for the current request)
-       跳转网址？
+       跳转网址？引用网址？
     #. undesirable
        不好？但太客观，没有表达出不愿意采用的主观倾向性。
     #. named parameter
        命名参数？
     #. passed parameter
-       传入参数？传递参数？
-    #. inflect
-       `词霸 <http://www.iciba.com/inflect>`_ 的解释是“使（词）屈折变化”。
+       传入参数？传递参数？暂时采用“传入参数”。
     #. request header
-       请求头部？请求头？
+       请求头部？请求头？文中译为“请求文件头”。
     #. but saves
-       假如不？
+       假如不？需查字典确定。
     #. helper
-       帮助？帮助组件？助件？
+       帮助？帮助组件？文中译为“助件”。
        
-`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers/request-response.md>`_
+`5.1 cakephp_zh\zh\controllers\request-response <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers/request-response.md>`_
 =====================================================================================================
 
     #. introspection
-       内省？自我反省？审视？查询？
+       内省？自我反省？审视？查询？文中译为“查询”。
     #. in an error free manner
        以无错的方式？有没有更好的中文表达方式？
     #. query string
        查询参数
     #. BC accessor
-       BC 访问？是指什么？
+       BC 访问？这是指什么？
     #. sugar daddy
-       傍大款？语法糖？
+       谷歌翻译给出“傍大款”，很可笑。文中译为“语法糖”，也不知是否准确？。
     #. mocked/stubbed
-       模拟/嵌入？
+       模拟/嵌入？这两个词汇所指的东西，都可以用在测试中，但却是有明显区别的。
     #. stub out
        覆盖？嵌入？替换？
     #. response entity tag
        响应体标签
+
+`6. cakephp_zh\zh\views <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/views.md>`_
+=====================================================================================================
+
+    #. (view) block
+       代码块？块？代码段？文中译为“代码块”。
+       讨论见 `tower.im 上的[术语] view block 
+       <https://tower.im/projects/a96a1492d1cd4ef6a35c7a01dad4a683/messages/d960c2dcb7484642ab2574e54fe11d31/`_
+    #. callout
+       真不知道翻译成什么？
+       讨论见 `tower.im 上的[术语] callout 
+       <https://tower.im/projects/a96a1492d1cd4ef6a35c7a01dad4a683/messages/4a0bdeb566e64a55aa90fb64107e3f39/`_
