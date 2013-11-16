@@ -1,5 +1,4 @@
 请求与响应对象
-Request and Response objects
 ############################
 
 请求与响应对象在 CakePHP 2.0 是新增加的。在之前的版本中，这两个对象是由数组表示的，而相关的方法是分散在 :php:class:`RequestHandlerComponent`，:php:class:`Router`，:php:class:`Dispatcher` 和 :php:class:`Controller` 之中的。关于请求对象包含什么信息，之前并没有权威性的对象。在2.0中， :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 用于此目的。
@@ -28,9 +27,6 @@ CakeRequest 提供了几种方式获取请求参数。第一种是对象属性�
 上面这些都可以得到相同的值。提供多种获取参数的方式是为了便于现有应用程序的移植。所有的 :ref:`路由元素 <route-elements>` 都可以通过这些方式得到。
 
 除了 :ref:`路由元素 <route-elements>`，你也经常需要获取 :ref:`传入参数 <passed-arguments>` 和 :ref:`命名参数 <named-parameters>`。这些也可以通过请求对象获得::
-In addition to :ref:`route-elements` you also often need access to
-:ref:`passed-arguments` and :ref:`named-parameters`.  These are both available
-on the request object as well::
 
     // Passed arguments
     $this->request->pass;
@@ -52,7 +48,7 @@ on the request object as well::
 * ``requested`` 当请求来自 requestAction() 时会出现，并置为 true。
 
 
-获取查询字符串(*Querystring*)参数
+ 获取查询字符串(*Querystring*)参数
 ================================
 
 查询字符串(*Querystring*)参数可以从 :php:attr:`CakeRequest::$query` 读取::
@@ -86,7 +82,7 @@ on the request object as well::
 
 当构建 REST 服务时，你经常接受以 ``PUT`` 和
 ``DELETE`` 请求方式提交的数据。自从2.2版本开始， 对 ``PUT`` 和
-``DELETE`` 请求，``application/x-www-form-urlencoded`` 请求文件体数据会自动被解释，并设置到 ``$this->data``。如果你接受 JSON 或 XML 数据，下文会解释如何访问这些请求文件体。
+``DELETE`` 请求，``application/x-www-form-urlencoded`` 请求文件体(*request body*)数据会自动被解释，并设置到 ``$this->data``。如果你接受 JSON 或 XML 数据，下文会解释如何访问这些请求文件体。
 
 访问 XML 或 JSON 数据
 ==========================
@@ -116,12 +112,12 @@ CakeRequest 也提供与你应用程序中的路径相关的有用信息。 :php
     $this->request->is('post');
     $this->request->isPost();
 
-两种方法调用都会返回相同的值。目前这些方法还存在于 RequestHandler 中，但已经被废弃(*deprecated*)，而且在最终发布前仍然可能会被去掉。你也可以通过使用 :php:meth:`CakeRequest::addDetector()` 创建新的检测器， 容易地扩展现有的请求检测。你可以创建四种不同种类的检测器:
+两种方法调用都会返回相同的值。目前这些方法还存在于 RequestHandler 中，但已经被废弃(*deprecated*)，而且在最终发布前仍然可能会被去掉(译注：这可能是指某个特定版本的发布，有可能是最初的2.0版本的发布，但原文并没有指明，故不能确定。你仍然应当以所使用版本的 CakePHP API 的文档或源代码为依据。)。你也可以通过使用 :php:meth:`CakeRequest::addDetector()` 创建新的检测器， 容易地扩展现有的请求检测。你可以创建四种不同种类的检测器:
 
 * 环境值比较 —— 环境变量比较，把从 :php:func:`env()` 取得的值和一个给定值，进行是否相等的比较。
 * 模式值比较 —— 模式值比较让你可以把一个从 :php:func:`env()` 取得的值和一个正则表达式进行比较。
 * 基于选项的比较 —— 基于选项的比较使用一组选项来创建一个正则表达式。之后再添加相同的选项检测器就会合并选项。
-* 回调检测器 —— 回调检测器让你可以提供一个 'callback' 类型来进行检查。这个回调函数只接受请求对象一个参数。
+* 回调检测器 —— 回调检测器让你可以提供一个 'callback' 类型来进行检查。这个回调函数只接受请求对象作为唯一的参数。
 
 下面是一些例子::
 
@@ -162,7 +158,7 @@ CakeRequest 也提供与你应用程序中的路径相关的有用信息。 :php
 CakeRequest 和 RequestHandlerComponent
 =======================================
 
-既然 ``CakeRequest`` 提供的许多特性以前是 :php:class:`RequestHandlerComponent` 的领域，需要重新思考才能明白它如何能继续融洽的存在于整个架构中。对2.0来说，:php:class:`RequestHandlerComponent` 是作为语法糖(*sugar daddy*)而存在。它在 `CakeRequest` 提供的工具之上提供了一层语法糖。根据内容的类型或 ajax 来切换布局和视图这类语法糖，是 :php:class:`RequestHandlerComponent` 的领域。在这俩个类中这种工具和语法糖的划分，让你更容易地挑选你的所求和所需。
+既然 ``CakeRequest`` 提供的许多特性以前是 :php:class:`RequestHandlerComponent` 的领域，需要重新思考才能明白它(后者)如何能继续融洽的存在于整个架构中。对2.0来说，:php:class:`RequestHandlerComponent` 是作为语法糖(*sugar daddy*)而存在。它在 `CakeRequest` 提供的工具之上提供了一层语法糖。根据内容的类型或 ajax 来切换布局和视图这类语法糖，是 :php:class:`RequestHandlerComponent` 的领域。在这两个类中这种工具和语法糖的划分，让你更容易地挑选你的所求和所需。
 
 与请求的其它方面交互
 =============================================
@@ -391,7 +387,7 @@ CakePHP 缺省使用 ``CakeResponse``。 ``CakeResponse`` 是使用起来灵活�
         $this->response->cache('-1 minute', '+5 days');
     }
 
-上述代码会告诉客户端把响应结果缓存5天，希望能够加快你的访问者的体验。 ``cache()`` 把 Last-Modified 的值设为传入的第一个参数。 Expires，和 Max-age 会基于第二个参数进行设置。 Cache-Control 也会被设为公开(*public*)。
+上述代码会告诉客户端把响应结果缓存5天，希望能够加快你的访问者的体验。 ``cache()`` 把 Last-Modified 的值设为传入的第一个参数。 Expires，和 Max-age 会基于第二个参数进行设置。 Cache-Control 也会被设为公有(*public*)。
 
 
 .. _cake-response-caching:
@@ -405,8 +401,8 @@ CakePHP 缺省使用 ``CakeResponse``。 ``CakeResponse`` 是使用起来灵活�
 
 除了使用 :php:meth:`CakeResponse::cache()`，你也可以使用许多其它方法，来微调 HTTP 缓存文件头，从而利用浏览器或反向代理的缓存。
 
-缓存控制文件头
-------------------------
+缓存控制(Cache Control)文件头
+-----------------------------
 
 .. versionadded:: 2.1
 
@@ -513,7 +509,7 @@ CakeResponse API
 
 .. php:class:: CakeResponse
 
-    CakeResponse 提供了一些有用的方法，来和你发送给客户端的响应交互。
+    CakeResponse 提供了一些有用的方法，来与你发送给客户端的响应交互。
 
 .. php:method:: header($header = null, $value = null)
 
@@ -521,7 +517,7 @@ CakeResponse API
 
 .. php:method:: charset($charset = null)
 
-    设置响应使用的文字集。
+    设置响应使用的字符集。
 
 .. php:method:: type($contentType = null)
 
