@@ -1,4 +1,4 @@
-Getting Started
+入门指南
 ###############
 
 The CakePHP framework provides a robust base for your application.
@@ -23,7 +23,7 @@ Additional Reading
 ==================
 
 .. toctree::
-    
+
     getting-started/a-typical-cakephp-request
     getting-started/cakephp-conventions
     getting-started/cakephp-folder-structure

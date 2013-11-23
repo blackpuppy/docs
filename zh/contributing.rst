@@ -1,7 +1,7 @@
-贡献
+璐＄尞
 ####
 
-为CakePHP做贡献有多种方式。以下各节涵盖了各种可以为CakePHP做出贡献的方式：
+涓篊akePHP鍋氳础鐚湁澶氱鏂瑰紡銆備互涓嬪悇鑺傛兜鐩栦簡鍚勭鍙互涓篊akePHP鍋氬嚭璐＄尞鐨勬柟寮忥細
 
 .. toctree::
     :maxdepth: 1

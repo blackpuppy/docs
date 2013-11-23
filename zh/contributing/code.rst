@@ -1,59 +1,59 @@
-����
+代码
 ####
 
-��������ȡ������ΪCakePHP���״�����õķ�ʽ���������Ը���`lighthouse
-<http://cakephp.lighthouseapp.com>`_�ϵ����ⱨ���С���ȡ���������github�д�����
-ͨ���ǹ��״�����õķ�ʽ��
+补丁和拉取请求是为CakePHP贡献代码最好的方式。补丁可以附在`lighthouse
+<http://cakephp.lighthouseapp.com>`_上的问题报告中。拉取请求可以在github中创建，
+通常是贡献代码更好的方式。
 
-��ʼ����
+初始设置
 ========
 
-�ڿ�ʼΪCakePHP��������֮ǰ������Ȱ���Ļ������úá�����Ҫ����������
+在开始为CakePHP制作补丁之前，最好先把你的环境设置好。你需要下列软件：
 
 * Git
-* PHP 5.2.8����߰汾
-* PHPUnit 3.5.10����߰汾
+* PHP 5.2.8或更高版本
+* PHPUnit 3.5.10或更高版本
 
-��������û���Ϣ�������������/�˺ź͵����ʼ�::
+设置你的用户信息，包括你的名字/账号和电子邮件::
 
     git config --global user.name 'Bob Barker'
     git config --global user.email 'bob.barker@example.com'
 
 .. note::
 
-    ������Git��ȫİ��������ǿ�ҽ������Ķ���������ѵ�
-    `ProGit<http://progit.org>`_�Ȿ�顣
+    如果你对Git完全陌生，我们强烈建议你阅读优秀且免费的
+    `ProGit<http://progit.org>`_这本书。
 
-��github���һ��CakePHPԴ����Ŀ�¡(*clone*)��
+从github获得一份CakePHP源程序的克隆(*clone*)。
 
-* �����û��`github <http://github.com>`_���˺ţ�����һ����
-* ���**Fork**����������(*fork*)һ��
-  `CakePHP repository <http://github.com/cakephp/cakephp>`_��Դ�롣
+* 如果你没有`github <http://github.com>`_的账号，创建一个。
+* 点击**Fork**按键，复制(*fork*)一份
+  `CakePHP repository <http://github.com/cakephp/cakephp>`_的源码。
 
-��ĸ�����ɺ󣬴���ĸ��Ʋֿ�(*repository*)��¡(*clone*)����ı��ػ���::
+你的复制完成后，从你的复制仓库(*repository*)克隆(*clone*)到你的本地机器::
 
-    git clone git@github.com:����˺�/cakephp.git
+    git clone git@github.com:你的账号/cakephp.git
 
-��ԭʼ��CakePHP�ֿ�����ΪԶ�ֿ̲�(*remote repository*)��
-�Ժ����ʹ������ץȡCakePHP�ֿ�ĸĶ���������CakePHP�ֿ�һ��::
+把原始的CakePHP仓库添加为远程仓库(*remote repository*)。
+以后你会使用它来抓取CakePHP仓库的改动，保持与CakePHP仓库一致::
 
     cd cakephp
     git remote add upstream git://github.com/cakephp/cakephp.git
 
-�������Ѿ������CakePHP�Ļ�������Ӧ���ܹ�����һ��``$test``
-:ref:`���ݿ����� <database-configuration>`������
-:ref:`�������еĲ��� <running-tests>`��
+现在你已经搭建好了CakePHP的环境。你应该能够定义一个``$test``
+:ref:`数据库连接 <database-configuration>`，并且
+:ref:`运行所有的测试 <running-tests>`。
 
-��������
+制作补丁
 ========
 
-ÿ�ε���Ҫ�޸�һ������(*bug*)������һ�����Ի���һ���Ľ�ʱ������һ�������֧
-(*topic branch*)��
+每次当你要修复一个臭虫(*bug*)、增加一个特性或做一个改进时，创建一个主题分支
+(*topic branch*)。
 
-�㴴���ķ�֧��Ӧ��������޸�/�Ľ������õİ汾�����磬����������޸�``2.3``�汾��
-��һ�����棬��ô���Ӧ����``2.3``�ķ�֧Ϊ������������ķ�֧����������ĸĶ��Ƕ�
-��ǰ���ȶ��汾��һ��������޸������Ӧ��ʹ��``master``��֧�������Ժ�ϲ��Ķ�ʱ
-�ͻ�򵥶���::
+你创建的分支，应根据你的修复/改进所适用的版本。例如，如果你正在修复``2.3``版本中
+的一个臭虫，那么你就应当以``2.3``的分支为基础来创建你的分支。如果你做的改动是对
+当前的稳定版本的一个臭虫的修复，你就应当使用``master``分支。这样以后合并改动时
+就会简单多了::
 
     # fixing a bug on 2.3
     git fetch upstream
@@ -61,21 +61,21 @@
 
 .. tip::
 
-    ��Ϊһ�����õ�ϰ�ߣ�Ϊ��ķ�֧��һ�������Ե����ƣ���������������ٱ��������
-    ���ơ�����ticket-1234������������
+    作为一个良好的习惯，为你的分支起一个描述性的名称，可以引用问题跟踪报告或特性
+    名称。例如ticket-1234，超棒的特性
 
-�������������������(CakePHP)2.3��֧��һ�����ط�֧��������ĳ����޸�������
-���������Ҫ�������ε��ύ(*commit*)��������Ҫ�μ����¼���:
+上述命令将创建基于上游(CakePHP)2.3分支的一个本地分支。进行你的臭虫修复工作，
+根据你的需要做任意多次的提交(*commit*)。不过你要牢记以下几点:
 
-* ��ѭ:doc:`/contributing/cakephp-coding-conventions`��
-* ����һ������������˵�������޸����ˣ������������ܹ�������
-* ʹ����ύ�����߼��ԣ��ύ��ϢӦ����������ࡣ
+* 遵循:doc:`/contributing/cakephp-coding-conventions`。
+* 添加一个测试用例来说明错误修复好了，或者新特性能够工作。
+* 使你的提交保持逻辑性，提交信息应当清晰、简洁。
 
 
-�ύ��ȡ����
+提交拉取请求
 ============
 
-һ����ĸĶ�����ˣ����ҿ��Ժϲ���CakePHP��ȥ�ˣ����Ӧ��������ķ�֧::
+一旦你的改动完成了，并且可以合并到CakePHP中去了，你就应当更新你的分支::
 
     git checkout 2.3
     git fetch upstream
@@ -83,46 +83,46 @@
     git checkout <branch_name>
     git rebase 2.3
 
-�⽫ץȡ+�ϲ��Դ��㿪ʼ֮��CakePHP�е��κθĶ���Ȼ�������ܺ�(*rebase*)
-- ����˵���ڵ�ǰ����Ļ���������Ӧ����ĸĶ����ڡ��ܺ�``����������ܻ�������ͻ��
-����ܺϹ����˳��������ʹ��``git status``�������鿴��Щ�ļ�������ͻ/û�кϲ���
-���ÿ����ͻ��Ȼ������ܺ�::
+这将抓取+合并自从你开始之后CakePHP中的任何改动。然后，它将衍合(*rebase*)
+- 或者说，在当前代码的基础上重新应用你的改动。在“衍合``过程中你可能会遇到冲突。
+如果衍合过早退出，你可以使用``git status``命令来查看哪些文件发生冲突/没有合并。
+解决每个冲突，然后继续衍合::
 
-    git add <filename> # ���ÿһ��������ͻ���ļ���
+    git add <filename> # 针对每一个发生冲突的文件。
     git rebase --continue
 
-������еĲ�����Ȼͨ����Ȼ�����ķ�֧����(*push*)����ĸ���
-(*fork*)�ֿ���::
+检查所有的测试仍然通过。然后把你的分支推送(*push*)到你的复制
+(*fork*)仓库上::
 
     git push origin <branch-name>
 
-һ����ķ�֧��github�ϣ���Ϳ�����
-`cakephp-core <http://groups.google.com/group/cakephp-core>`_�ʼ��б��Ͻ�������
-����github���ύ��ȡ����
+一旦你的分支在github上，你就可以在
+`cakephp-core <http://groups.google.com/group/cakephp-core>`_邮件列表上进行讨论
+或在github上提交拉取请求。
 
-ѡ����ĸĶ��ᱻ�ϲ�������
+选择你的改动会被合并到哪里
 --------------------------
 
-���ύ��ȡ����ʱ����Ӧ��ȷ����ѡ������ȷ�ķ�֧��Ϊ��������Ϊ��ȡ����һ��������
-�޷����ġ�
+当提交拉取请求时，你应该确保你选择了正确的分支作为基础，因为拉取请求一经创建就
+无法更改。
 
-* �����ĸĶ���һ��**��������**�����������¹��ܣ�ֻ�Ǿ�����ǰ�汾�����е���Ϊ��
-  ����ѡ��**master**Ϊ�ϲ�Ŀ�ꡣ
-* �����ĸĶ���һ��**������**����Ϊ��������Ĺ��ܣ���ô��Ӧѡ����һ���汾�Ŷ�Ӧ
-  �ķ�֧�����磬���Ŀǰ���ȶ��汾��``2.2.2``������������Եķ�֧����``2.3``��
-* �����ĸĶ�����(*breaks*)�����еĹ��ܻ�API����ô���Ӧ��ѡ������һ��
-  ��Ҫ�汾�����磬�����ǰ�İ汾��``2.2.2``����ô��һ�����еĹ��ܿ��Ա�����(*
-  broken*)������``3.0``�汾�ˣ�������Ӧ�������һ��֧��
+* 如果你的改动是一个**错误修正**，并不引入新功能，只是纠正当前版本中现有的行为，
+  则请选择**master**为合并目标。
+* 如果你的改动是一个**新特性**或者为框架新增的功能，那么你应选择下一个版本号对应
+  的分支。例如，如果目前的稳定版本是``2.2.2``，则接受新特性的分支将是``2.3``。
+* 如果你的改动打破(*breaks*)了现有的功能或API，那么你就应当选择再下一个
+  主要版本。例如，如果当前的版本是``2.2.2``，那么下一次现有的功能可以被打破(*
+  broken*)就是在``3.0``版本了，所以你应该针对这一分支。
 
 
 .. note::
 
-    ���ס�������㹱�׸�CakePHP�Ĵ��뽫������MIT����֮�£�
-    `Cake Software Foundation <http://cakefoundation.org/pages/about>`_�����Ϊ
-    �κι��׵Ĵ���������ߣ��������й��׵Ĵ��뽫��`����������Э��
-    <http://cakefoundation.org/pages/cla>`_��Լ����
+    请记住，所有你贡献给CakePHP的代码将被置于MIT许可之下，
+    `Cake Software Foundation <http://cakefoundation.org/pages/about>`_将会成为
+    任何贡献的代码的所有者，并且所有贡献的代码将受`贡献者许可协议
+    <http://cakefoundation.org/pages/cla>`_的约束。
 
-���кϲ���ά����֧�еĳ����޸���Ҳ���������ŶӶ��ڵغϲ���������������һ���汾��
+所有合并到维护分支中的臭虫修复，也将被核心团队定期地合并到即将发布的下一个版本。
 
 
 .. meta::

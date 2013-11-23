@@ -1,4 +1,4 @@
-Development
+开发
 ###########
 
 In this section we'll cover the various aspects of developing a CakePHP
@@ -18,7 +18,7 @@ debugging, and testing will be covered.
     development/rest
     development/dispatch-filters
     development/vendor-packages
-    
+
 
 
 .. meta::

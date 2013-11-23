@@ -1,4 +1,4 @@
-Appendices
+附录
 ##########
 
 Appendices contain information regarding the new features

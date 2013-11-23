@@ -1,4 +1,4 @@
-安装 Installation
+安装
 ############
 
 安装CakePHP是快速简单的。最低需求是一个web服务器和一份CakePHP的副本。
@@ -41,7 +41,7 @@ database storage engines:
 许可 License
 =======
 
-CakePHP 的许可是基于 MIT license 的。这意味着你能够在保持版权声明完整的前提下自由的修改、分发和重发布其源码。 
+CakePHP 的许可是基于 MIT license 的。这意味着你能够在保持版权声明完整的前提下自由的修改、分发和重发布其源码。
 你也可以在商业或封闭源代码的应用程序中包含 CakePHP。
 
 CakePHP is licensed under the MIT license.  This means that you are free to
@@ -76,10 +76,10 @@ releases are available at
 
 也可以获取最新的非正式发布代码，带有全部 bug 修正和最新的增强功能。这可以通过克隆 `Github`库来访问::
     git clone git://github.com/cakephp/cakephp.git
-  
+
 Alternatively you can get fresh off the press code, with all the
 bug-fixes and up to the minute enhancements.
-These can be accessed from github by cloning the 
+These can be accessed from github by cloning the
 `Github`_ repository::
 
     git clone git://github.com/cakephp/cakephp.git
@@ -166,7 +166,7 @@ Using one CakePHP checkout for multiple applications
 ----------------------------------------------------
 
 如果你正在开发几个应用程序，常常会感觉需要在它们之间共享一份 CakePHP 核心。
-有几个办法能达到这个目的。最简单的是使用 PHP 的``include_path``。 
+有几个办法能达到这个目的。最简单的是使用 PHP 的``include_path``。
 首先，克隆 CakePHP 到一个目录。本示例中，我们使用 ``~/projects``::
     git clone git://github.com/cakephp/cakephp.git ~/projects/cakephp
 
@@ -285,7 +285,7 @@ application </getting-started>`.
 不能正常执行？如果你得到一个有关 timezone 的错误，
 将``app/Config/core.php`` 中和timezone有关的那行代码注释掉。
    /**
-    * 注释本行，并且改正服务器时区及与日期时间相关的错误。 
+    * 注释本行，并且改正服务器时区及与日期时间相关的错误。
     *
     */
        date_default_timezone_set('UTC');
@@ -294,7 +294,7 @@ Not working? If you're getting timezone related error from PHP
 uncomment one line in ``app/Config/core.php``::
 
    /**
-    * Uncomment this line and correct your server timezone to fix 
+    * Uncomment this line and correct your server timezone to fix
     * any date & time related errors.
     */
        date_default_timezone_set('UTC');
