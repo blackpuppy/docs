@@ -1,7 +1,11 @@
-Authentication
+Authentication 授权认证
 ##############
 
 .. php:class:: AuthComponent(ComponentCollection $collection, array $settings = array())
+
+标识、身份验证和授权用户几乎是每一个web应用程序中常见的部分。
+CakePHP的AuthComponent(验证组件)提供了灵活的方式来完成这些任务。CakePHP的AuthComponent允许你结合
+验证对象,和授权对象来创建灵活的方式识别和检查用户授权。
 
 Identifying, authenticating and authorizing users is a common part of
 almost every web application.  In CakePHP AuthComponent provides a
@@ -11,8 +15,19 @@ ways of identifying and checking user authorization.
 
 .. _authentication-objects:
 
-Authentication
+Authentication 授权认证
 ==============
+
+身份验证是一个通过提供凭证来识别用户的过程,确保用户说谁就是谁。
+通常根据已知的用户列表对用户名和密码进行检查。在CakePHP,还有几个内建的
+用户身份验证方式存储在应用程序中。
+
+* ``FormAuthenticate`` 表单认证。允许基于表单POST验证用户身份
+数据。通常是一个用户输入信息的登录表单。
+* ``BasicAuthenticate`` 基本认证。使用基本的HTTP认证方式来验证用户。
+* ``DigestAuthenticate`` 摘要认证。使用摘要HTTP认证方式来验证用户。
+
+默认情况下``AuthComponent``使用``FormAuthenticate``。
 
 Authentication is the process of identifying users by provided
 credentials and ensuring that users are who they say they are.
@@ -30,7 +45,18 @@ ways of authenticating users stored in your application.
 By default ``AuthComponent`` uses ``FormAuthenticate``.
 
 Choosing an Authentication type
+选择一种认证方式
 -------------------------------
+
+通常你会想提供基于表单的身份验证。对于使用浏览器的用户来说最容易使用的。
+如果您正在构建一个API或webservice(网络服务),可能要考虑基本身份验证或摘要身份验证。
+摘要验证和基本身份验证方式的主要差异是对密码的处理。
+基本身份验证中,用户名和密码作为纯文本到发送给服务器。这使得基本身份验证
+不适合非SSL加密的应用程序,但是会暴露敏感密码。
+摘要身份验证使用摘要散列的用户名、密码,和一些其他细节。这使得摘要式身份验证更适合
+没有SSL加密的应用程序。
+
+可以使用其他认证系统，像openid但openid不属于CakePHP核心部分。
 
 Generally you'll want to offer form based authentication. It is the easiest for
 users using a web-browser to use.  If you are building an API or webservice, you
@@ -47,7 +73,14 @@ You can also use authentication systems like openid as well, however openid is
 not part of CakePHP core.
 
 Configuring Authentication handlers
+配置身份验证处理程序
 -----------------------------------
+
+使用``$this->Auth->authenticate``来配置身份验证处理程序。
+可以为认证方式配置一个或多个处理程序。使用多个处理程序可支持用户以不同的方式登录。
+用户在登录时,身份验证处理程序按顺序检查。一旦一个处理程序能够识别用户,
+其他处理程序就不在检查。相反的,如果可以通过抛出异常停止所有的身份验证。
+需要捕捉任何抛出的异常,并根据需要处理它们。
 
 You configure authentication handlers using ``$this->Auth->authenticate``.
 You can configure one or many handlers for authentication.  Using
@@ -57,6 +90,9 @@ order they are declared.  Once one handler is able to identify the user,
 no other handlers will be checked.  Conversely you can halt all
 authentication by throwing an exception.  You will need to catch any
 thrown exceptions, and handle them as needed.
+
+在控制器的``beforeFilter``或``$components``数组中配置验证处理程序。
+通过传入数组给每一个验证对象传递配置信息。
 
 You can configure authentication handlers in your controller's
 ``beforeFilter`` or, in the ``$components`` array.  You can pass
@@ -72,6 +108,9 @@ array::
         'Basic' => array('userModel' => 'Member')
     );
 
+第二个例子中你会注意到我们定义了``userModel``键名两次。为了保持DRY(不要重复自己)，
+可以使用``all``键名，这个特殊的键名使得配置信息传递给每一个附带的对象。
+
 In the second example you'll notice that we had to declare the
 ``userModel`` key twice. To help you keep your code DRY, you can use the
 ``all`` key.  This special key allows you to set settings that are passed
@@ -84,6 +123,10 @@ to every attached object.  The all key is also exposed as
         'Form',
         'Basic'
     );
+
+上面的例子中，``Form``和``Basic``会使用'all'键名对应的配置信息。
+传递给一个特定的认证对象的任何配置信息都会重写'all'键名中匹配的信息。
+核心认证对象支持以下配置数组键名。
 
 In the above example, both ``Form`` and ``Basic`` will get the settings
 defined for the 'all' key.  Any settings passed to a specific
