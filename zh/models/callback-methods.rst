@@ -1,5 +1,4 @@
-回调方法 Callback Methods
-################
+回调方法
 
 如果你需要在完成模型操作之前或之后要做一些处理逻辑，使用模型的回调函数吧。
 这些函数定义在模型类中(包括AppModel)，注意这些特殊函数的预期返回值。
@@ -93,7 +92,7 @@ formatting::
         }
         return $results;
     }
-    
+
     public function dateFormatAfterFind($dateString) {
         return date('d-m-Y', strtotime($dateString));
     }

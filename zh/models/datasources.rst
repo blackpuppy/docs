@@ -1,5 +1,4 @@
 数据源
-
 ###########
 
 数据源是模型和模型所代表的数据来源之间的联系。在很多情况下，数据是从关系型数据库中取得，比如 MySQL，PostgreSQL 或者 MSSQL。 CakePHP 的发布就带有若干针对数据库的数据源(请参看 ``lib/Cake/Model/Datasource/Database`` 中的类)，为了便于查看，列举如下：
@@ -20,7 +19,7 @@
 
 当然，大多数人还是更感兴趣于为来源于外部的数据编写数据源，比如远程 REST API，或者甚至是 LDAP 服务器。所以这是我们下面要介绍的。
 
-数据源的基本 API
+数据源的基本API
 =========================
 
 数据源能够，而且*应该*实现至少下面中的一个方法： ``create``，``read``，``update`` 和/或者 ``delete`` (方法的真正签名和实现细节在这里不重要，之后会述及。)。你不必实现上述方法中不必要的部分——如果你要一个只读的数据源，就没有理由实现 ``create``，``update``和``delete``。
@@ -31,7 +30,7 @@
 -  ``listSources($data = null)``
 -  ``calculate($model, $func, $params)``
 -  至少下列之一： At least one of:
-   
+
    -  ``create(Model $model, $fields = null, $values = null)``
    -  ``read(Model $model, $queryData = array(), $recursive = null)``
    -  ``update(Model $model, $fields = null, $values = null, $conditions = null)``

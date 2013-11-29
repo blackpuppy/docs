@@ -1,4 +1,4 @@
-The Pages Controller
+页面控制器
 ####################
 
 CakePHP有一个默认过渡的控制器``PagesController.php``。这是一个提供静态页面的简单并且可选的
