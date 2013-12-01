@@ -52,7 +52,7 @@ components in your ``$components`` array.
 .. note::
 
 	当使用Security组件，**必须**使用FormHelper创建表单，此外，**不要**
-    
+
     When using the Security Component you **must** use the FormHelper to create
     your forms. In addition, you must **not** override any of the fields' "name"
     attributes. The Security Component looks for certain indicators that are
@@ -389,6 +389,8 @@ Disabling Security Component For Specific Actions
 为特定的动作禁用Security组件
 =================================================
 
+有些情况需要对某个action禁用所有的安全检测(比如, ajax请求)。
+可以通过"解锁"，把这些actions放到``beforeFilter``里的``$this->Security->unlockedActions``列表中。
 There may be cases where you want to disable all security checks for an action (ex. ajax request).
 You may "unlock" these actions by listing them in ``$this->Security->unlockedActions`` in your
 ``beforeFilter``.

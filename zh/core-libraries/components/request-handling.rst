@@ -39,6 +39,7 @@ Obtaining Request Information
 获得请求信息
 =============================
 
+请求处理程序有几个提供给客户端请求信息的方法。
 Request Handler has several methods that provide information about
 the client and its request.
 
@@ -56,34 +57,42 @@ the client and its request.
 
             public function beforeFilter() {
                 if ($this->RequestHandler->accepts('html')) {
+                    // 如果客户端只接收HTML (text/html)请求的执行代码
                     // Execute code only if client accepts an HTML (text/html) response
                 } elseif ($this->RequestHandler->accepts('xml')) {
+                    // 如果客户端只接收XML请求的执行代码
                     // Execute XML-only code
                 }
                 if ($this->RequestHandler->accepts(array('xml', 'rss', 'atom'))) {
+                    // 如果客户端接收XML, RSS 或 Atom请求的执行代码
                     // Executes if the client accepts any of the above: XML, RSS or Atom
                 }
             }
         }
 
+其他的请求'类型'检测方式包含：
 Other request 'type' detection methods include:
 
 .. php:method:: isXml()
 
+	当前true，如果当前的响应是XML类型。
     Returns true if the current request accepts XML as a response.
 
 .. php:method:: isRss()
 
+	当前true如果当前的响应是RSS类型。
     Returns true if the current request accepts RSS as a response.
 
 .. php:method:: isAtom()
 
-	当前
+	当前true如果当前的响应是Atom类型。
     Returns true if the current call accepts an Atom response, false
     otherwise.
 
 .. php:method:: isMobile()
 
+	返回true,如果用户代理字符串匹配一个移动web浏览器,或者
+	如果客户接受WAP内容。支持移动客户端用户代理字符串:
     Returns true if user agent string matches a mobile web browser, or
     if the client accepts WAP content. The supported Mobile User Agent
     strings are:
@@ -135,14 +144,18 @@ following would accomplish that::
 
 
 Obtaining Additional Client Information
+获得额外的客户端信息
 =======================================
 
 .. php:method:: getAjaxVersion()
 
+    如果请求的是Ajax，返回Prototype版本，否则为空字符串。在Prototype库中会设置一个特殊的
+    名为Prototype version的HTTP头。
     Gets Prototype version if call is Ajax, otherwise empty string. The
     Prototype library sets a special "Prototype version" HTTP header.
 
 Automatically decoding request data
+自动解码请求数据
 ===================================
 
 .. php:method:: addInputType($type, $handler)
