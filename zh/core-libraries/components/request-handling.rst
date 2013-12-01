@@ -1,7 +1,13 @@
-Request Handling
+请求处理
 ################
 
 .. php:class:: RequestHandlerComponent(ComponentCollection $collection, array $settings = array())
+
+CakePHP中的请求处理组件可以获得HTTP请求中的额外信息。
+可以使用它来通知控制器
+Ajax以及获得更多的内容类型
+使得客户端接收并自动切换到适当的页面布局
+当文件扩展名被启用。
 
 The Request Handler component is used in CakePHP to obtain
 additional information about the HTTP requests that are made to
@@ -30,6 +36,7 @@ RequestHandler it must be included in your $components array::
     }
 
 Obtaining Request Information
+获得请求信息
 =============================
 
 Request Handler has several methods that provide information about
@@ -71,6 +78,7 @@ Other request 'type' detection methods include:
 
 .. php:method:: isAtom()
 
+	当前
     Returns true if the current call accepts an Atom response, false
     otherwise.
 
@@ -110,6 +118,7 @@ Other request 'type' detection methods include:
 .. php:method:: isWap()
 
     Returns true if the client accepts WAP content.
+    如果客户端接收到的是WAP内容，返回true。
 
 All of the above request detection methods can be used in a similar
 fashion to filter functionality intended for specific content
