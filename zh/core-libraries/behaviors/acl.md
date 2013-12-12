@@ -1,70 +1,58 @@
-权限控制列表(*ACL*)
+访问控制列表(*ACL*)
 #####################
 
 .. php:class:: AclBehavior()
 
-Acl 行为提供了一种方式，将一个模型与你的权限控制列表(*ACL*)系统
-结合在一起。它可以透明地创建 AROs 或者 ACOs。
-The Acl behavior provides a way to seamlessly integrate a model
-with your ACL system. It can create both AROs or ACOs
-transparently.
+Acl 行为提供了一种方式，将一个模型与你的访问控制列表(*ACL*)系统无缝地集成在一起。
+它可以透明地创建 ARO 或者 ACO 对象。
 
-To use the new behavior, you can add it to the $actsAs property of
-your model. When adding it to the actsAs array you choose to make
-the related Acl entry an ARO or an ACO. The default is to create
-ACOs::
+要使用新的行为，你可以把它加到模型的 $actsAs 属性中。在添加到 actsAs 数组时，你可以
+选择把相关的 Acl 项作为 ARO 或 ACO。缺省的是 ACO::
 
     class User extends AppModel {
         public $actsAs = array('Acl' => array('type' => 'requester'));
     }
 
-This would attach the Acl behavior in ARO mode. To join the ACL
-behavior in ACO mode use::
+这会把 Acl 行为以 ARO 模式附加(到模型上)。要把 ACL 行为以 ACO 模式加入，使用::
 
     class Post extends AppModel {
         public $actsAs = array('Acl' => array('type' => 'controlled'));
     }
 
-For User and Group models it is common to have both ACO and ARO nodes,
-to achieve this use::
+对 User 和 Group 模型，通常需要 ACO 和 ARO 两种节点，为此请使用::
 
     class User extends AppModel {
         public $actsAs = array('Acl' => array('type' => 'both'));
     }
 
-You can also attach the behavior on the fly like so::
+你也可以象这样随时附加行为::
 
     $this->Post->Behaviors->load('Acl', array('type' => 'controlled'));
 
 .. versionchanged:: 2.1
-    You can now safely attach AclBehavior to AppModel. Aco, Aro and AclNode
-    now extend Model instead of AppModel, which would cause an infinite loop.
-    If your application depends on having those models to extend AppModel for some reason,
-    then copy AclNode to your application and have it extend AppModel again.
+
+    你现在可以放心地把 AclBehavior 行为附加到 AppModel 上了。 Aco、Aro 和 AclNode 
+现在继承于 Model，而不是(之前的) AppModel，而那会导致死循环。
+    如果你的应用程序出于某些原因需要这些模型继承 AppModel，那就把 AclNode 拷贝到你的应用
+    程序，再重新让它继承 AppModel。
 
 
-Using the AclBehavior
+使用 AclBehavior 行为
 =====================
 
-Most of the AclBehavior works transparently on your Model's
-afterSave(). However, using it requires that your Model has a
-parentNode() method defined. This is used by the AclBehavior to
-determine parent->child relationships. A model's parentNode()
-method must return null or return a parent Model reference::
+AclBehavior 行为的大部分透明地起作用于模型的 afterSave()回调。不过，这要求你的模型定义一个 parentNode() 方法，才可以使用它。这被 AclBehavior 行为用来判断父子(parent->child)关系。模型的 parentNode() 方法必须返回 null 或者返回一个父模型引用::
 
     public function parentNode() {
         return null;
     }
 
-If you want to set an ACO or ARO node as the parent for your Model,
-parentNode() must return the alias of the ACO or ARO node::
+如果你要设置一个 ACO 或 ARO 节点为模型的父节点，parentNode()方法必须返回 ACO 或 ARO 节点的别名::
 
     public function parentNode() {
         return 'root_node';
     }
 
-A more complete example. Using an example User Model, where User
-belongsTo Group::
+下面是一个更完整使用 User 模型的例子，这里 User 模型 belongsTo Group 模型::
 
     public function parentNode() {
         if (!$this->id && empty($this->data)) {
@@ -81,20 +69,16 @@ belongsTo Group::
         }
     }
 
-In the above example the return is an array that looks similar to
-the results of a model find. It is important to have the id value
-set or the parentNode relation will fail. The AclBehavior uses this
-data to construct its tree structure.
+在上面的例子中，返回值是一个类似模型查找结果的数组。重要的是设置 id 的值，否则 parentNode 
+关系就会失败。 AclBehavior 行为使用该数据来构建其树形结构。
 
 node()
 ======
 
-The AclBehavior also allows you to retrieve the Acl node associated
-with a model record. After setting $model->id. You can use
-$model->node() to retrieve the associated Acl node.
+AclBehavior 行为也让你获取与一条模型记录相关联的 Acl 节点。在设置了 $model->id 
+之后，你可以 $model->node() 来获取相关联的 Acl 节点。
 
-You can also retrieve the Acl Node for any row, by passing in a
-data array::
+你也可以获取任何数据记录的 Acl 节点，只要传入一个数据数组::
 
     $this->User->id = 1;
     $node = $this->User->node();
@@ -104,10 +88,9 @@ data array::
     ));
     $node = $this->User->node($user);
 
-Will both return the same Acl Node information.
+都会返回相同的 Acl 节点信息。
 
-If you had setup AclBehavior to create both ACO and ARO nodes, you need to
-specify which node type you want::
+如果你设置 AclBehavior 行为来创建 ACO 和 ARO 节点，你需要指明你需要的节点类型::
 
     $this->User->id = 1;
     $node = $this->User->node(null, 'Aro');
