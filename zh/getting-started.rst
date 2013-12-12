@@ -1,29 +1,22 @@
-Getting Started
+入门指南
 ###############
 
-The CakePHP framework provides a robust base for your application.
-It can handle every aspect, from the user’s initial request all the
-way to the final rendering of a web page. And since the framework
-follows the principles of MVC, it allows you to easily customize
-and extend most aspects of your application.
+CakePHP框架为应用程序提供了坚实的基础。它控制着所有方面，从用户的初始请求直到web页面的最终渲染。
+由于CakePHP框架遵循 MVC 原则，使得自定义和扩展应用程序变得更容易。
 
-The framework also provides a basic organizational structure, from
-filenames to database table names, keeping your entire application
-consistent and logical. This concept is simple but powerful. Follow
-the conventions and you’ll always know exactly where things are and
-how they’re organized.
+本框架还提供了一个基本的组织结构，从文件名到数据库表名，保持了应用程序的一致性和逻辑性。
+这个理念简单而强劲。遵循规则约束，就会知道代码在哪儿并且怎样组织的。
 
-The best way to experience and learn CakePHP is to sit down and build something.
-To start off we'll build a simple blog application.
+体验和学习 CakePHP 的最好办法是坐下来构建点什么。我们将开始构建一个简单的博客系统。
 
 .. include:: /tutorials-and-examples/blog/blog.rst
 .. include:: /tutorials-and-examples/blog/part-two.rst
 
-Additional Reading
+延伸阅读
 ==================
 
 .. toctree::
-    
+
     getting-started/a-typical-cakephp-request
     getting-started/cakephp-conventions
     getting-started/cakephp-folder-structure

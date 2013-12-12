@@ -1,11 +1,10 @@
-高级安装 Advanced Installation
+高级安装
 #####################
 
 通过PEAR安装器安装CakePHP
-Installing CakePHP with PEAR installer
 ======================================
 
-CakePHP有PEAR的发行包因此可以通过pear安装器安装。可以在多个应用程序间
+CakePHP有PEAR的发行包,因此可以通过pear安装器安装。可以在多个应用程序间
 共享CakePHP类库。若要通过pear安装CakePHP，需要执行下面的命令。
 
     pear channel-discover pear.cakephp.org
@@ -33,7 +32,6 @@ will be located on PHP's ``include_path`` you won't need to make any other
 changes.
 
 通过composer安装CakePHP
-Installing CakePHP with composer
 ================================
 
 Composer是一个支持PHP 5.3以上的依赖管理工具。解决了通过PEAR安装器安装Cake的很多问题
@@ -128,8 +126,7 @@ You should now have a functioning CakePHP application with CakePHP installed via
 composer. Be sure to keep the composer.json and composer.lock file with the
 rest of your source code.
 
-在多应用程序间共享CakePHP类库
-Sharing CakePHP libraries with multiple applications
+在多个应用程序间共享CakePHP类库
 ====================================================
 
 有些情况需要把CakePHP的目录放到不同的地方，有可能是共享主机约束。

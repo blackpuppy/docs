@@ -1,4 +1,4 @@
-模型属性 Model Attributes
+模型属性
 ################
 
 模型属性用来重写默认的模型行为。
@@ -121,7 +121,7 @@ the default recursive level is 1.
 recursive推荐值为-1。可以防止获取不需要的数据。最有可能发生在find()中。
 只需要可控的情况下设置更大的值。
 
-你可以把他添加到 AppModel:: 
+你可以把他添加到 AppModel::
 
     The recommended recursive level for your application should be -1.
     This avoids retrieving related data where that is unnecessary or even
