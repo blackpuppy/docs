@@ -1,37 +1,25 @@
-Translate
+翻译行为
 #########
 
 .. php:class:: TranslateBehavior()
 
-TranslateBehavior is actually quite easy to setup and works out of
-the box with very little configuration. In this section, you will
-learn how to add and setup the behavior to use in any model.
+TranslateBehavior 行为其实很容易设置，并且只需很少配置即可工作。在本节中，你将看到如何在任意模型中添加和设置该行为。
 
-If you are using TranslateBehavior in alongside containable issue,
-be sure to set the 'fields' key for your queries. Otherwise you
-could end up with invalid SQL generated.
+如果你在使用 TranslateBehavior 行为的过程中同时有 containable 的问题(译注: 不太确定这句话的意思)，确保为你的查询设置了 'fields' 键。否则你可能会碰到生成非法 SQL 的错误。
 
-Initializing the i18n Database Tables
+初始化 i18n 数据库表
 =====================================
 
-You can either use the CakePHP console or you can manually create
-it. It is advised to use the console for this, because it might
-happen that the layout changes in future versions of CakePHP.
-Sticking to the console will make sure that you have the correct
-layout.::
+你可以使用 CakePHP 命令行，或者你也可以手动创建。建议使用命令行，因为布局在将来的版本中可能会发生变化。始终使用命令行可以保证你有正确的布局。::
 
     ./cake i18n
 
-Select ``[I]`` which will run the i18n database initialization
-script. You will be asked if you want to drop any existing and if
-you want to create it. Answer with yes if you are sure there is no
-i18n table already, and answer with yes again to create the table.
+选择 ``[I]``，就会执行 i18n 数据库初始化脚本。你会被询问是否要删除现存的数据库表，以及你是否要再创建它。如果你确定没有 i18n 表，回答 yes，然后再回答 yes 来创建该表。
 
-Attaching the Translate Behavior to your Models
+把 Translate 行为附加到你的模型上
 ===============================================
 
-Add it to your model by using the ``$actsAs`` property like in the
-following example.::
+使用 ``$actsAs`` 属性把它(Translate 行为)附加到你的模型上，象下面的例子这样。::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -39,16 +27,12 @@ following example.::
         );
     }
 
-This will do nothing yet, because it expects a couple of options
-before it begins to work. You need to define which fields of the
-current model should be tracked in the translation table we've
-created in the first step.
+这样还是什么也不会发生，因为它还需要几个选项才可以开始生效。你要定义当前模型的哪些字段要在我们第一步创建的翻译表中进行跟踪。
 
-Defining the Fields
+定义字段
 ===================
 
-You can set the fields by simply extending the ``'Translate'``
-value with another array, like so::
+你只需用另一个数组来扩展``'Translate'``的值，就可以设置字段，象这样::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -58,9 +42,7 @@ value with another array, like so::
         );
     }
 
-After you have done that (for example putting "title" as one of the
-fields) you already finished the basic setup. Great! According to
-our current example the model should now look something like this::
+做完这之后(例如把 "title" 放入作为其中一个字段)，你就完成了基本的设置。很好！根据我们现在的例子，模型应当象这样::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -70,46 +52,35 @@ our current example the model should now look something like this::
         );
     }
 
-When defining fields for TranslateBehavior to translate, be sure to
-omit those fields from the translated model's schema. If you leave
-the fields in, there can be issues when retrieving data with
-fallback locales.
+当为 TranslateBehavior 行为定义要翻译的字段时，一定要省略那些翻译了的模型中的字段。如果你把这样的字段也包括了，当使用后备地区(*fallback locale*)读取数据时就有可能发生问题。
 
-Conclusion
+结论
 ==========
 
-From now on each record update/creation will cause
-TranslateBehavior to copy the value of "title" to the translation
-table (default: i18n) along with the current locale. A locale is
-the identifier of the language, so to speak.
+自此，每次记录被更新/创建，TranslateBehavior 就会把 "title" 的值以及当前的地区拷贝到翻译表(缺省: i18n)中。地区(*locale*)，这么说吧，就是语言的标识。
 
 
-Reading translated content
+读取翻译的内容
 ==========================
 
-By default the TranslateBehavior will automatically fetch and add in data based
-on the current locale.  The current locale is read from ``Configure::read('Config.language')``
-which is assigned by the :php:class:`L10n` class.  You can override this
-default on the fly using ``$Model->locale``.
+缺省情况下 TranslateBehavior 行为会自动根据当前地区读取和添加数据。当前地区是从``Configure::read('Config.language')``读取的，而这又是由:php:class:`L10n`这个类赋值的。你可以用``$Model->locale``即时(on the fly)覆盖这个缺省值。
 
-Retrieve translated fields in a specific locale
+读取翻译的字段在指定地区(的内容)
 -----------------------------------------------
 
-By setting ``$Model->locale`` you can read translations for a specific locale::
+设置了 ``$Model->locale``，就可以读取指定地区的翻译::
 
-    // Read the spanish locale data.
+    // 读取西班牙地区的数据。
     $this->Post->locale = 'es';
     $results = $this->Post->find('first', array(
         'conditions' => array('Post.id' => $id)
     ));
-    // $results will contain the spanish translation.
+    // $results 就会含有西班牙文的翻译。
 
-Retrieve all translation records for a field
+获取某一字段的所有翻译记录
 --------------------------------------------
 
-If you want to have all translation records attached to the current
-model record you simply extend the **field array** in your behavior
-setup as shown below. The naming is completely up to you.::
+如果你要所有的翻译记录附加到当前模型记录，你只需象下面这样扩展行为设置中的**字段数组**。命名完全由你决定。::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -119,8 +90,7 @@ setup as shown below. The naming is completely up to you.::
         );
     }
 
-With this setup the result of ``$this->Post->find()`` should look
-something like this::
+有了这样的设置，``$this->Post->find()``的结果应当象这样::
 
     Array
     (
@@ -159,31 +129,23 @@ something like this::
 
 .. note::
 
-    The model record contains a *virtual* field called
-    "locale". It indicates which locale is used in this result.
+    模型记录包括一个叫做"locale"的*虚拟*字段。这说明在此结果中使用的是哪个地区。
 
-Note that only fields of the model you are directly doing \`find\`
-on will be translated. Models attached via associations won't be
-translated because triggering callbacks on associated models is
-currently not supported.
+注意，只有你直接进行\`find\`操作的模型字段才会被翻译。通过关联而附加的模型不会被翻译，因为现在还不支持触发关联模型的回调。
 
-Using the bindTranslation method
+使用 bindTranslation 方法
 --------------------------------
 
-You can also retrieve all translations, only when you need them,
-using the bindTranslation method
+你也可以用 bindTranslation 方法，只在你需要的时候，读取所有的翻译。
 
 .. php:method:: bindTranslation($fields, $reset)
 
-``$fields`` is a named-key array of field and association name,
-where the key is the translatable field and the value is the fake
-association name.::
+``$fields``是一个字段和关联名称的命名键数组(译注: 原文 named-key array，估计是指关联数组 associative array)，其中键是翻译的字段，而值是虚关联名称。::
 
     $this->Post->bindTranslation(array('title' => 'titleTranslation'));
-    $this->Post->find('all', array('recursive' => 1)); // need at least recursive 1 for this to work.
+    $this->Post->find('all', array('recursive' => 1)); // 需要 recursive 至少为1才行。
 
-With this setup the result of your find() should look something
-like this::
+有了这样的设置，find()的结果就应该象这样::
 
     Array
     (
@@ -220,24 +182,20 @@ like this::
              )
     )
 
-Saving in another language
+用另一种语言保存
 ==========================
 
-You can force the model which is using the TranslateBehavior to
-save in a language other than the on detected.
+你可以强迫让使用 TranslateBehavior 行为的模型用不同于检测到的语言的另外一种语言来保存。
 
-To tell a model in what language the content is going to be you
-simply change the value of the ``$locale`` property on the model
-before you save the data to the database. You can do that either in
-your controller or you can define it directly in the model.
+要告诉模型内容将使用何种语言，只需在保存数据到数据库前改变模型的 ``$locale`` 属性。你可以在控制器中这么做，也可以直接在模型中定义。
 
-**Example A:** In your controller::
+**例子 A:** 在控制器中::
 
     class PostsController extends AppController {
 
         public function add() {
             if (!empty($this->request->data)) {
-                $this->Post->locale = 'de_de'; // we are going to save the german version
+                $this->Post->locale = 'de_de'; // 我们要保存德文版
                 $this->Post->create();
                 if ($this->Post->save($this->request->data)) {
                     $this->redirect(array('action' => 'index'));
@@ -246,7 +204,7 @@ your controller or you can define it directly in the model.
         }
     }
 
-**Example B:** In your model::
+**例子 B:** 在模型中::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -255,28 +213,23 @@ your controller or you can define it directly in the model.
             )
         );
 
-        // Option 1) just define the property directly
+        // 选项 1) 直接定义属性
         public $locale = 'en_us';
 
-        // Option 2) create a simple method
+        // 选项 2) 创建简单方法
         public function setLanguage($locale) {
             $this->locale = $locale;
         }
     }
 
-Multiple Translation Tables
+多个翻译表
 ===========================
 
-If you expect a lot entries you probably wonder how to deal with a
-rapidly growing database table. There are two properties introduced
-by TranslateBehavior that allow to specify which "Model" to bind as
-the model containing the translations.
+如果你预计有很多输入项，也许你会问如何应对快速增长的数据库表。TranslateBehavior 行为引入了两个属性，可以指定绑定哪个“模型”，来作为包含翻译的模型。
 
-These are **$translateModel** and **$translateTable**.
+(这样的属性)是 **$translateModel** 和 **$translateTable**。
 
-Lets say we want to save our translations for all posts in the
-table "post\_i18ns" instead of the default "i18n" table. To do so
-you need to setup your model like this::
+比如说我们要把所有帖子的翻译存入表 "post\_i18ns"，而不是缺省的 "i18n" 表。为此，你需要这样设置你的模型::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -285,43 +238,32 @@ you need to setup your model like this::
             )
         );
 
-        // Use a different model (and table)
+        // 使用不同的模型(和表)
         public $translateModel = 'PostI18n';
     }
 
 .. note::
 
-    It is important that you to pluralize the table. It is now a
-    usual model and can be treated as such and thus comes with the
-    conventions involved. The table schema itself must be identical
-    with the one generated by the CakePHP console script. To make sure
-    it fits one could just initialize a empty i18n table using the
-    console and rename the table afterwards.
+    重用的是你要对表名使用单词的复数形式。现在这就是普通的模型，并且可以这样对待，所以就有相关的约定。表的定义必须与 CakePHP 命令行生成的一样。为确保其正确，可以先用命令行初始化一个空的 i18n 表，然后再把表改名。
 
-Create the TranslateModel
+创建 TranslateModel
 -------------------------
 
-For this to work you need to create the actual model file in your
-models folder. Reason is that there is no property to set the
-displayField directly in the model using this behavior yet.
+为使其工作，你需要在 models 目录中创建实际的模型文件。原因在于，在使用该行为的模型中，还没有属性可以直接设置 displayField。
 
-Make sure that you change the ``$displayField`` to ``'field'``.::
+确保你把 ``$displayField`` 改为 ``'field'``。::
 
     class PostI18n extends AppModel {
-        public $displayField = 'field'; // important
+        public $displayField = 'field'; // 重要
     }
-    // filename: PostI18n.php
+    // 文件名: PostI18n.php
 
-That's all it takes. You can also add all other model stuff here
-like $useTable. But for better consistency we could do that in the
-model which actually uses this translation model. This is where the
-optional ``$translateTable`` comes into play.
+这就行了。你也可以在这里添加模型的其它东西，比如 $useTable。但为了更好的一致性我们可以在实际使用翻译模型的模型中这样做。这就是可选项``$translateTable``发挥作用的地方。
 
-Changing the Table
+改变使用的数据库表
 ------------------
 
-If you want to change the name of the table you simply define
-$translateTable in your model, like so::
+如果你要改变数据库表的名字，只需在模型中这样定义 $translateTable::
 
     class Post extends AppModel {
         public $actsAs = array(
@@ -330,18 +272,14 @@ $translateTable in your model, like so::
             )
         );
 
-        // Use a different model
+        // 使用不同的模型
         public $translateModel = 'PostI18n';
 
-        // Use a different table for translateModel
+        // 对 translateModel 使用不同的数据库表
         public $translateTable = 'post_translations';
     }
 
-Please note that **you can't use $translateTable alone**. If you
-don't intend to use a custom ``$translateModel`` then leave this
-property untouched. Reason is that it would break your setup and
-show you a "Missing Table" message for the default I18n model which
-is created in runtime.
+请注意**你不能单独使用 $translateTable**。如果你不想使用定制的 ``$translateModel``，就别碰这个属性。这是因为，(改了的话)那样会破坏你的设置，并针对运行时创建的缺省 I18n 模型显示一条"Missing Table"(表未找到)的信息。
 
 
 .. meta::

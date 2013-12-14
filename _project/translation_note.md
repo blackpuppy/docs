@@ -190,3 +190,9 @@
        真不知道翻译成什么？
        讨论见 `tower.im 上的[术语] callout 
        <https://tower.im/projects/a96a1492d1cd4ef6a35c7a01dad4a683/messages/4a0bdeb566e64a55aa90fb64107e3f39/`_
+
+`8.2.1 cakephp_zh\zh\core-libraries\behaviors\acl <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/core-libraries/behaviors/acl.md>`_
+=====================================================================================================
+
+    #. on the fly
+       随时？在需要时？

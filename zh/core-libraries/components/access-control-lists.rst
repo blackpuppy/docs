@@ -1,313 +1,274 @@
-Access Control Lists
+访问控制列表
 ####################
 
 .. php:class:: AclComponent(ComponentCollection $collection, array $settings = array())
 
-CakePHP's access control list functionality is one of the most
-oft-discussed, most likely because it is the most sought after, but
-also because it can be the most confusing. If you're looking for a
-good way to get started with ACLs in general, read on.
+CakePHP 的访问控制列表是最常被讨论的功能之一，最有可能是因为这是最迫切
+需要的，但也可能是因为它是最令人费解的。如果你在寻找通常开始使用访问控制列表
+(ACL)的好方式，请继续读下去。
 
-Be brave and stick with it, even if the going gets rough. Once you
-get the hang of it, it's an extremely powerful tool to have on hand
-when developing your application.
+勇敢面对，坚持始终，即使过程并非一帆风顺。一旦你掌握了其中的诀窍，这就会成为你
+手中极为强大的开发工具。
 
-Understanding How ACL Works
+理解 ACL 如何工作
 ===========================
 
-Powerful things require access control. Access control lists are a
-way to manage application permissions in a fine-grained, yet easily
-maintainable and manageable way.
+强大的事物需要权限控制。访问控制列表是一种管理应用程序权限的方式，具有细小颗粒
+度，并且易于维护和管理。
 
-Access control lists, or ACL, handle two main things: things that
-want stuff, and things that are wanted. In ACL lingo, things (most
-often users) that want to use stuff are called access request
-objects, or AROs. Things in the system that are wanted (most often
-actions or data) are called access control objects, or ACOs. The
-entities are called 'objects' because sometimes the requesting
-object isn't a person - sometimes you might want to limit the
-access certain Cake controllers have to initiate logic in other
-parts of your application. ACOs could be anything you want to
-control, from a controller action, to a web service, to a line on
-your grandma's online diary.
+访问控制列表，或者 ACL，主要管理两种东西: 要求东西的，和被要求的东西。用 ACL 
+的术语来说，要使用东西的(多数情况下是用户)被称为访问请求对象(*access request 
+object*)，或者 ARO。系统中被要求的东西(多数情况下是动作或数据)被称为访问控制对象
+(*access control object*)，或者 ACO。实体被称为“对象”是因为有时请求对象不是人——有时你也许要
+限制某个 Cake 控制器启动应用程序其它部分逻辑的权限。ACO 可以是任何你想控制的
+东西，从控制器行为，到网络服务(web service)，到你奶奶网络日记的某一行。
 
-To review:
+回顾一下:
 
--  ACO - Access Control Object - Something that is wanted
--  ARO - Access Request Object - Something that wants something
+-  ACO —— 访问控制对象(*Access Control Object*) —— 被要求的东西
+-  ARO —— 访问请求对象(*Access Request Object*) —— 要求东西的东西
 
-Essentially, ACL is what is used to decide when an ARO can have
-access to an ACO.
+基本上，ACL 就是用来决定何时一个 ARO 能够访问一个 ACO。
 
-In order to help you understand how everything works together,
-let's use a semi-practical example. Imagine, for a moment, a
-computer system used by a familiar group of fantasy novel
-adventurers from the *Lord of the Rings*. The leader of the group,
-Gandalf, wants to manage the party's assets while maintaining a
-healthy amount of privacy and security for the other members of the
-party. The first thing he needs to do is create a list of the AROs
-involved:
+为了帮助你理解所有的东西在一起如何工作，让我们使用一个半真半假的例子。花一点儿
+时间，想象一下，魔幻小说*指环王*中的那群熟悉的探险人物们使用的计算机系统。队
+伍的领导者，甘道夫，想要管理团队的资产，同时保持团队其他成员足够的隐私和安全。
+他要做的第一件事就是建立一份涉及的 ARO 的名单:
 
 
--  Gandalf
--  Aragorn
--  Bilbo
--  Frodo
--  Gollum
--  Legolas
--  Gimli
--  Pippin
--  Merry
+-  甘道夫(Gandalf)
+-  阿拉贡(Aragorn)
+-  毕尔博(Bilbo)
+-  弗拉多(Frodo)
+-  咕噜姆(Gollum)
+-  拉格拉斯(Legolas)
+-  吉穆利(Gimli)
+-  皮平(Pippin)
+-  梅里(Merry)
 
 .. note::
 
-    Realize that ACL is *not* the same as authentication. ACL is what
-    happens *after* a user has been authenticated. Although the two are
-    usually used in concert, it's important to realize the difference
-    between knowing who someone is (authentication) and knowing what
-    they can do (ACL).
+    必须认识到，访问控制列表(ACL)与验证(*authentication*)*不*同。
+    访问控制列表(ACL)是在一个用户被验证之后的事情。尽管两者通常联合使用，认识
+    到它们的区别很重要，一个是知道某人是谁(验证)，一个是知道他能做什么(ACL)。
 
-The next thing Gandalf needs to do is make an initial list of
-things, or ACOs, the system will handle. His list might look
-something like:
+甘道夫要做的下一件事就是建立一份系统要管理的物品或访问控制对象(ACO)的初始清单。
+他的清单大概会是这样:
 
 
--  Weapons
--  The One Ring
--  Salted Pork
--  Diplomacy
--  Ale
+-  武器(Weapons)
+-  魔戒(The One Ring)
+-  腌肉(Salted Pork)
+-  通关文牒(Diplomacy)
+-  麦芽酒(Ale)
 
-Traditionally, systems were managed using a sort of matrix, that
-showed a basic set of users and permissions relating to objects. If
-this information were stored in a table, it might look like the
-following table:
+通常的做法是，系统的管理会使用一种矩阵，显示一组用户和与物品关联的权限。如果这
+些信息保存在一个表格中，也许会是象下面的表格这样:
 
-======== ======== ========= ============ ========== =======
-x        Weapons  The Ring  Salted Pork  Diplomacy  Ale
-======== ======== ========= ============ ========== =======
-Gandalf                     Allow        Allow      Allow
--------- -------- --------- ------------ ---------- -------
-Aragorn  Allow              Allow        Allow      Allow
--------- -------- --------- ------------ ---------- -------
-Bilbo                                               Allow
--------- -------- --------- ------------ ---------- -------
-Frodo             Allow                             Allow
--------- -------- --------- ------------ ---------- -------
-Gollum                      Allow
--------- -------- --------- ------------ ---------- -------
-Legolas  Allow              Allow        Allow      Allow
--------- -------- --------- ------------ ---------- -------
-Gimli    Allow              Allow
--------- -------- --------- ------------ ---------- -------
-Pippin                                   Allow      Allow
--------- -------- --------- ------------ ---------- -------
-Merry                                    Allow      Allow
-======== ======== ========= ============ ========== =======
+================= ============= ============== ================= =================== ===========
+x                 武器(Weapons) 魔戒(The Ring) 腌肉(Salted Pork) 通关文牒(Diplomacy) 麦芽酒(Ale)
+================= ============= ============== ================= =================== ===========
+甘道夫(Gandalf)                                允许              允许                允许       
+----------------- ------------- -------------- ----------------- ------------------- -----------
+阿拉贡(Aragorn)   允许                         允许              允许                允许     
+----------------- ------------- -------------- ----------------- ------------------- -----------
+毕尔博(Bilbo)                                                                        允许     
+----------------- ------------- -------------- ----------------- ------------------- -----------
+弗拉多(Frodo)                   允许                                                 允许     
+----------------- ------------- -------------- ----------------- ------------------- -----------
+咕噜姆(Gollum)                                 允许                                             
+----------------- ------------- -------------- ----------------- ------------------- -----------
+拉格拉斯(Legolas) 允许                         允许              允许                允许     
+----------------- ------------- -------------- ----------------- ------------------- -----------
+吉穆利(Gimli)     允许                         允许                                             
+----------------- ------------- -------------- ----------------- ------------------- -----------
+皮平(Pippin)                                                     允许                允许     
+----------------- ------------- -------------- ----------------- ------------------- -----------
+梅里(Merry)                                                      允许                允许     
+================= ============= ============== ================= =================== ===========
 
-At first glance, it seems that this sort of system could work
-rather well. Assignments can be made to protect security (only
-Frodo can access the ring) and protect against accidents (keeping
-the hobbits out of the salted pork and weapons). It seems fine
-grained enough, and easy enough to read, right?
+乍一看，这样似乎不错。通过赋值可以保护安全(只有弗拉多可以触摸魔戒)，又可以防
+止事故(不让霍比特人碰到腌肉和武器)。看起来有足够细小的颗粒度，又容易阅读，不
+是吗？
 
-For a small system like this, maybe a matrix setup would work. But
-for a growing system, or a system with a large amount of resources
-(ACOs) and users (AROs), a table can become unwieldy rather
-quickly. Imagine trying to control access to the hundreds of war
-encampments and trying to manage them by unit. Another drawback to
-matrices is that you can't really logically group sections of users
-or make cascading permissions changes to groups of users based on
-those logical groupings. For example, it would sure be nice to
-automatically allow the hobbits access to the ale and pork once the
-battle is over: Doing it on an individual user basis would be
-tedious and error prone. Making a cascading permissions change to
-all 'hobbits' would be easy.
+对于象这样小的系统，也许矩阵的设置就可以了。但对一个逐渐扩展的系统，或一个有大
+量资源(ACO)和用户(ARO)的系统，一个表格很快就会变得难以管理。想象一下试图去控制
+上百个作战营地的访问权限，并以单个营地来管理。矩阵的另一个缺陷是，你无法逻辑地
+把用户分组，或者基于这样的逻辑分组来对成组的用户做层叠式的权限改动。例如，如果
+在战斗结束后能自动允许霍比特人使用麦芽酒和腌肉，那当然好: 但逐个人地设置权限很
+繁琐，且容易出错。层叠式地修改所有“霍比特人”的权限就容易多了。
 
-ACL is most usually implemented in a tree structure. There is
-usually a tree of AROs and a tree of ACOs. By organizing your
-objects in trees, permissions can still be dealt out in a granular
-fashion, while still maintaining a good grip on the big picture.
-Being the wise leader he is, Gandalf elects to use ACL in his new
-system, and organizes his objects along the following lines:
+访问控制列表(ACL)最通常以树形结构来实现。通常有一棵访问请求对象(ARO)树和一棵访
+问控制对象(ACO)树。把你的对象组织成树形，权限仍然可以以细微的颗粒处理，同时又
+保持大范围的控制。作为一个英明的领导者，甘道夫在新系统中选择使用访问控制列表
+(ACL)，并按照下面的方式来组织他的对象:
 
 
--  Fellowship of the Ring™
+-  魔戒团队(Fellowship of the Ring™)
 
-   -  Warriors
+   -  战士(Warriors)
 
-      -  Aragorn
-      -  Legolas
-      -  Gimli
+      -  阿拉贡(Aragorn)
+      -  拉格拉斯(Legolas)
+      -  吉穆利(Gimli)
 
-   -  Wizards
+   -  术士(Wizards)
 
-      -  Gandalf
+      -  甘道夫(Gandalf)
 
-   -  Hobbits
+   -  霍比特人(Hobbits)
 
-      -  Frodo
-      -  Bilbo
-      -  Merry
-      -  Pippin
+      -  弗拉多(Frodo)
+      -  毕尔博(Bilbo)
+      -  梅里(Merry)
+      -  皮平(Pippin)
 
-   -  Visitors
+   -  来访者(Visitors)
 
-      -  Gollum
+      -  咕噜姆(Gollum)
 
 
 
-Using a tree structure for AROs allows Gandalf to define
-permissions that apply to entire groups of users at once. So, using
-our ARO tree, Gandalf can tack on a few group-based permissions:
+对访问请求对象(ARO)使用树形结构允许甘道夫一次性为整群用户定义权限。所以，用我
+们的访问请求对象(ARO)树，甘道夫可以确定一些群组的权限:
 
 
--  Fellowship of the Ring
-   (**Deny**: all)
+-  魔戒团队(Fellowship of the Ring™)
+   (**禁止**: 一切)
 
-   -  Warriors
-      (**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
+   -  战士(Warriors)
+      (**允许**: 武器, 麦芽酒, 精灵食品(Elven Rations), 腌肉)
 
-      -  Aragorn
-      -  Legolas
-      -  Gimli
+      -  阿拉贡(Aragorn)
+      -  拉格拉斯(Legolas)
+      -  吉穆利(Gimli)
 
-   -  Wizards
-      (**Allow**: Salted Pork, Diplomacy, Ale)
+   -  术士(Wizards)
+      (**允许**: 腌肉, 通关文牒, 麦芽酒)
 
-      -  Gandalf
+      -  甘道夫(Gandalf)
 
-   -  Hobbits
-      (**Allow**: Ale)
+   -  霍比特人(Hobbits)
+      (**允许**: 麦芽酒)
 
-      -  Frodo
-      -  Bilbo
-      -  Merry
-      -  Pippin
+      -  弗拉多(Frodo)
+      -  毕尔博(Bilbo)
+      -  梅里(Merry)
+      -  皮平(Pippin)
 
-   -  Visitors
-      (**Allow**: Salted Pork)
+   -  来访者(Visitors)
+      (**允许**: 腌肉)
 
-      -  Gollum
+      -  咕噜姆(Gollum)
 
 
 
-If we wanted to use ACL to see if the Pippin was allowed to access
-the ale, we'd first get his path in the tree, which is
-Fellowship->Hobbits->Pippin. Then we see the different permissions
-that reside at each of those points, and use the most specific
-permission relating to Pippin and the Ale.
+如果我们要使用访问控制列表(ACL)来查看皮平(Pippin)是否被允许喝麦芽酒，我们需要先
+获得他在树中的路径，即 Fellowship->Hobbits->Pippin。然后我们检查在每个节点上的
+不同权限，再使用与皮平(Pippin)和麦芽酒最相关的权限。
 
-======================= ================ =======================
-ARO Node                Permission Info  Result
-======================= ================ =======================
-Fellowship of the Ring  Deny all         Denying access to ale.
------------------------ ---------------- -----------------------
-Hobbits                 Allow 'ale'      Allowing access to ale!
------------------------ ---------------- -----------------------
-Pippin                  --               Still allowing ale!
-======================= ================ =======================
+================================ ================ =======================
+ARO 节点                         权限信息         结果
+================================ ================ =======================
+魔戒团队(Fellowship of the Ring) 禁止一切         禁止喝麦芽酒。
+-------------------------------- ---------------- -----------------------
+霍比特人(Hobbits)                允许麦芽酒       允许喝麦芽酒！
+-------------------------------- ---------------- -----------------------
+皮平(Pippin)                     --               还是允许喝麦芽酒！
+================================ ================ =======================
 
 .. note::
 
-    Since the 'Pippin' node in the ACL tree doesn't specifically deny
-    access to the ale ACO, the final result is that we allow access to
-    that ACO.
+    由于访问控制列表(ACL)树中的 'Pippin' 节点没有明确禁止对麦芽酒访问控制对象
+    (ACO)的访问，最后的结果是我们允许对该访问控制对象(ACO)的访问。
 
-The tree also allows us to make finer adjustments for more granular
-control - while still keeping the ability to make sweeping changes
-to groups of AROs:
+树形结构也允许我们为更小颗粒的控制做跟细微的调整——而同时又能保持对成群的访问
+请求对象(ARO)做大范围修改的能力:
 
 
--  Fellowship of the Ring
-   (**Deny**: all)
+-  魔戒团队(Fellowship of the Ring™)
+   (**禁止**: 一切)
 
-   -  Warriors
-      (**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
+   -  战士(Warriors)
+      (**允许**: Weapons, 麦芽酒, 精灵食品(Elven Rations), 腌肉)
 
-      -  Aragorn
+      -  阿拉贡(Aragorn)
          (Allow: Diplomacy)
-      -  Legolas
-      -  Gimli
+      -  拉格拉斯(Legolas)
+      -  吉穆利(Gimli)
 
-   -  Wizards
-      (**Allow**: Salted Pork, Diplomacy, Ale)
+   -  术士(Wizards)
+      (**允许**: 腌肉, 通关文牒, 麦芽酒)
 
-      -  Gandalf
+      -  甘道夫(Gandalf)
 
-   -  Hobbits
-      (**Allow**: Ale)
+   -  霍比特人(Hobbits)
+      (**允许**: 麦芽酒)
 
-      -  Frodo
+      -  弗拉多(Frodo)
          (Allow: Ring)
-      -  Bilbo
-      -  Merry
-         (Deny: Ale)
-      -  Pippin
-         (Allow: Diplomacy)
+      -  毕尔博(Bilbo)
+      -  梅里(Merry)
+         (Deny: 麦芽酒)
+      -  皮平(Pippin)
+         (Allow: 通关文牒)
 
-   -  Visitors
-      (**Allow**: Salted Pork)
+   -  来访者(Visitors)
+      (**允许**: 腌肉)
 
-      -  Gollum
+      -  咕噜姆(Gollum)
 
 
 
-This approach allows us both the ability to make wide-reaching
-permissions changes, but also fine-grained adjustments. This allows
-us to say that all hobbits can have access to ale, with one
-exception—Merry. To see if Merry can access the Ale, we'd find his
-path in the tree: Fellowship->Hobbits->Merry and work our way down,
-keeping track of ale-related permissions:
+这种方法允许我们既可以做大范围的权限修改，又可以进行细微的调整。这让我们可以说，
+所有霍比特人都可以喝麦芽酒，只有一个例外——梅里(Merry)。要查看梅里(Merry)是否可以
+喝麦芽酒，我们要找出他在树中的路径: Fellowship->Hobbits->Merry，再延路径而下，注
+意与麦芽酒相关的权限:
 
-======================= ================ =======================
-ARO Node                Permission Info  Result
-======================= ================ =======================
-Fellowship of the Ring  Deny all         Denying access to ale.
------------------------ ---------------- -----------------------
-Hobbits                 Allow 'ale'      Allowing access to ale!
------------------------ ---------------- -----------------------
-Merry                   Deny Ale         Denying ale.
-======================= ================ =======================
+================================ ================ =======================
+ARO 节点                         权限信息         结果
+================================ ================ =======================
+魔戒团队(Fellowship of the Ring) 禁止一切         禁止喝麦芽酒。
+-------------------------------- ---------------- -----------------------
+霍比特人(Hobbits)                允许麦芽酒       允许喝麦芽酒！
+-------------------------------- ---------------- -----------------------
+梅里(Merry)                      禁止麦芽酒       禁止喝麦芽酒！
+================================ ================ =======================
 
-Defining Permissions: Cake's INI-based ACL
+定义权限: Cake 基于 INI 的访问控制列表(ACL)
 ==========================================
 
-Cake's first ACL implementation was based on INI files stored in
-the Cake installation. While it's useful and stable, we recommend
-that you use the database backed ACL solution, mostly because of
-its ability to create new ACOs and AROs on the fly. We meant it for
-usage in simple applications - and especially for those folks who
-might not be using a database for some reason.
+Cake 的第一个访问控制列表(ACL)实现是基于保存在 Cake 安装目录下的 INI 文件。尽管
+这可用且稳定，我们仍建议你使用基于数据库的 ACL 解决方案，主要因为它能够及时(on 
+the fly)创建新的访问控制列表(ACO)和访问请求对象(ARO)。我们是指简单应用程序中的
+使用——而且尤其是那些出于某些原因而可能不使用数据库的情况。
 
-By default, CakePHP's ACL is database-driven. To enable INI-based
-ACL, you'll need to tell CakePHP what system you're using by
-updating the following lines in app/Config/core.php
+缺省情况下，CakePHP 的访问控制列表(ACL)是数据库驱动的。要启用基于 INI 的访问控
+制列表(ACL)，你需要告诉CakePHP 你使用什么系统，改变 app/Config/core.php 中的下
+面这几行。
 
 ::
 
-    // Change these lines:
+    // 改变这几行:
     Configure::write('Acl.classname', 'DbAcl');
     Configure::write('Acl.database', 'default');
 
-    // To look like this:
+    // 改成这样:
     Configure::write('Acl.classname', 'IniAcl');
     //Configure::write('Acl.database', 'default');
 
-ARO/ACO permissions are specified in **/app/Config/acl.ini.php**.
-The basic idea is that AROs are specified in an INI section that
-has three properties: groups, allow, and deny.
+访问请求对象(ARO)/访问控制对象(ACO)权限在**/app/Config/acl.ini.php**中指定。基
+本上访问请求对象(ARO)在一个 INI 段落中，有三个属性: groups，allow，和 deny。
 
 
--  groups: names of ARO groups this ARO is a member of.
--  allow: names of ACOs this ARO has access to
--  deny: names of ACOs this ARO should be denied access to
+-  groups: 当前访问请求对象(ARO)所属的访问请求对象(ARO)组的名称。
+-  allow: 当前访问请求对象(ARO)能够访问的访问控制对象(ACO)的名称
+-  deny: 当前访问请求对象(ARO)应当被拒绝访问的访问控制对象(ACO)的名称
 
-ACOs are specified in INI sections that only include the allow and
-deny properties.
+访问控制对象(ACO)在 INI 段落中只有 allow 和 deny 属性。
 
-As an example, let's see how the Fellowship ARO structure we've
-been crafting would look like in INI syntax:
+作为一个例子，让我们来看看我们一直在精心打造的魔戒团队访问请求对象(ARO)的结构，
+在 INI 语法中会是什么样子:
 
 ::
 
@@ -359,41 +320,34 @@ been crafting would look like in INI syntax:
     [visitors]
     allow = salted_pork
 
-Now that you've got your permissions defined, you can skip along to
-:ref:`the section on checking permissions <checking-permissions>`
-using the ACL component.
+现在定义了权限，你可以直接跳到使用访问控制列表(ACL)组件来 
+:ref:`检查权限一节 <checking-permissions>`。
 
-
-Defining Permissions: Cake's Database ACL
+定义权限: Cake 基于数据库的访问控制列表(ACL)
 =========================================
 
-Now that we've covered INI-based ACL permissions, let's move on to
-the (more commonly used) database ACL.
+至此我们介绍了基于 INI 的访问控制列表(ACL)权限，让我们继续介绍(更常用的)基于数
+据库的访问控制列表(ACL)。
 
-Getting Started
+起步
 ---------------
 
-The default ACL permissions implementation is database powered.
-Cake's database ACL consists of a set of core models, and a console
-application that comes with your Cake installation. The models are
-used by Cake to interact with your database in order to store and
-retrieve nodes in tree format. The console application is used to
-initialize your database and interact with your ACO and ARO trees.
+缺省的访问控制列表(ACL)权限实现是数据库驱动的。Cake 的数据库访问控制列表(ACL)
+包括一组核心模型，以及 Cake 安装自带的一个命令行应用程序。模型是 Cake 用来与
+数据库交互从而保存和读取树形格式的节点。命令行应用程序用来初始化你的数据库以及
+与访问控制对象(ACO)和访问请求对象(ARO)进行交互。
 
-To get started, first you'll need to make sure your
-``/app/Config/database.php`` is present and correctly configured.
-See section 4.1 for more information on database configuration.
+首先，你要确保``/app/Config/database.php``存在并且正确配置。关于数据库配置的详
+细信息见4.1小节。
 
-Once you've done that, use the CakePHP console to create your ACL
-database tables:
+一旦完成，就可以用 CakePHP 的命令行程序来创建访问控制列表(ACL)数据库表:
 
 ::
 
     $ cake schema create DbAcl
 
-Running this command will drop and re-create the tables necessary
-to store ACO and ARO information in tree format. The output of the
-console application should look something like the following:
+运行该命令会删除(*drop*)并重建以树形格式保存访问控制对象(ACO)和访问请求对象
+(ARO)信息必需的表。命令行应用程序的输出应该象这样:
 
 ::
 
@@ -428,100 +382,84 @@ console application should look something like the following:
 
 .. note::
 
-    This replaces an older deprecated command, "initdb".
+    这代替了之前的已废弃的命令"initdb"。
 
-You can also use the SQL file found in
-``app/Config/Schema/db_acl.sql``, but that's nowhere near as fun.
+你也可以使用 SQL 文件``app/Config/Schema/db_acl.sql``，不过那样一点儿也不好玩儿。
 
-When finished, you should have three new database tables in your
-system: acos, aros, and aros\_acos (the join table to create
-permissions information between the two trees).
+当这完成之后，你的系统中就应该有三个新的数据库表: acos，aros 和 aros\_acos (关
+联表，用来创建两个树之间的权限信息)。
 
 .. note::
 
-    If you're curious about how Cake stores tree information in these
-    tables, read up on modified database tree traversal. The ACL
-    component uses CakePHP's :doc:`/core-libraries/behaviors/tree`
-    to manage the trees' inheritances. The model class files for ACL
-    can be found in ``lib/Cake/Model/``.
+    如果你好奇于 Cake 如何在这些表中保存树的数据，请继续往下阅读数据库中树的遍
+    历。访问控制列表(ACL)组件用 CakePHP 的:doc:`/core-libraries/behaviors/tree`
+    来管理树的继承。访问控制列表(ACL)的模型类文件可在``lib/Cake/Model/``目录中
+    找到。
 
-Now that we're all set up, let's work on creating some ARO and ACO
-trees.
+现在我们全部设置好了，让我们来着手创建一些访问请求对象(ARO)和访问控制对象(ACO)
+树吧。
 
-Creating Access Request Objects (AROs) and Access Control Objects (ACOs)
+创建访问请求对象(ARO)和访问控制对象(ACO)
 ------------------------------------------------------------------------
 
-In creating new ACL objects (ACOs and AROs), realize that there are
-two main ways to name and access nodes. The *first* method is to
-link an ACL object directly to a record in your database by
-specifying a model name and foreign key value. The *second* method
-can be used when an object has no direct relation to a record in
-your database - you can provide a textual alias for the object.
+在创建新的访问控制列表(ACL)对象(访问控制对象(ACO)和访问请求对象(ARO))时，请注
+意有两种主要的方法命名和访问节点。*第一种*方法是给出模型名称和外键值来直接把
+一个访问控制列表(ACL)对象和一条数据库记录联系起来。*第二种*方法可用于当对象与
+数据库中的记录没有直接联系的情况——你可以为对象提供一个文字性的别名。
 
 .. note::
 
-    In general, when you're creating a group or higher level object,
-    use an alias. If you're managing access to a specific item or
-    record in the database, use the model/foreign key method.
+    通常，当你创建一个组或者高级别的对象时，请使用别名。如果你管理数据库中某
+    一项或某一条记录的权限，请使用模型/外键的方法。
 
-You create new ACL objects using the core CakePHP ACL models. In
-doing so, there are a number of fields you'll want to use when
-saving data: ``model``, ``foreign_key``, ``alias``, and
-``parent_id``.
+你应当用核心的 CakePHP 访问控制列表(ACL)模型来创建新的访问控制列表(ACL)对象。
+这时，有一些字段你应当用于保存数据: ``model``，``foreign_key``，``alias``和
+``parent_id``。
 
-The ``model`` and ``foreign_key`` fields for an ACL object allows
-you to link up the object to its corresponding model record (if
-there is one). For example, many AROs will have corresponding User
-records in the database. Setting an ARO's ``foreign_key`` to the
-User's ID will allow you to link up ARO and User information with a
-single User model find() call if you've set up the correct model
-associations. Conversely, if you want to manage edit operation on a
-specific blog post or recipe listing, you may choose to link an ACO
-to that specific model record.
+访问控制列表(ACL)对象的``model``和``foreign_key``字段让你可以把(ACL)对象和相
+应的模型记录(如果有的话)联系起来。例如，许多访问请求对象(ARO)会在数据库中有
+相应的用户(User)记录。把访问请求对象(ARO)的``foreign_key``设置为用户(User)的 
+ID，让你可以用一个用户(User)模型的 find() 调用就把访问请求对象(ARO)和用户
+(User)信息联系在一起，如果你设置了正确的模型关联的话。反过来，如果你要管理某
+个博客帖子或菜谱列表的编辑操作，你可以把访问控制列表(ACO)对象和该模型记录联
+系起来。
 
-The ``alias`` for an ACL object is just a human-readable label you
-can use to identify an ACL object that has no direct model record
-correlation. Aliases are usually useful in naming user groups or
-ACO collections.
+访问控制列表(ACL)对象的``alias``字段只是一个人类可读的标签，让你可以用来标识
+一个与模型记录没有直接关联的访问控制列表(ACL)对象。别名(*Alias*)通常用于命名
+用户组或者访问控制对象(ACO)集合。
 
-The ``parent_id`` for an ACL object allows you to fill out the tree
-structure. Supply the ID of the parent node in the tree to create a
-new child.
+访问控制列表(ACL)对象的``parent_id``字段让你可以填充树形结构。提供在树中父节
+点的 ID，来创建一个新的子节点。
 
-Before we can create new ACL objects, we'll need to load up their
-respective classes. The easiest way to do this is to include Cake's
-ACL Component in your controller's $components array:
+在我们能够创建新的访问控制列表(ACL)对象之前，我们需要加载它们相应的类。最容
+易的办法是在你控制器的 $components 数组中包括 Cake 的 访问控制列表(ACL)组件:
 
 ::
 
     public $components = array('Acl');
 
-Once we've got that done, let's see what some examples of creating
-these objects might look like. The following code could be placed
-in a controller action somewhere:
+做完这件事之后，让我们来看看一些创建这些对象的例子。下面的代码可以放在控制器动
+作里面的某个地方:
 
 .. note::
 
-    While the examples here focus on ARO creation, the same techniques
-    can be used to create an ACO tree.
+    尽管这里的例子专注于访问请求对象(ARO)的创建，同样的技术也可用于创建访问控
+    制对象(ACO)树。
 
-Keeping with our Fellowship setup, let's first create our ARO
-groups. Because our groups won't really have specific records tied
-to them, we'll use aliases to create these ACL objects. What we're
-doing here is from the perspective of a controller action, but
-could be done elsewhere. What we'll cover here is a bit of an
-artificial approach, but you should feel comfortable using these
-techniques to build AROs and ACOs on the fly.
+继续我们魔戒团队的建设，让我们先建立访问请求对象(ARO)组。因为这些组不会真有相
+应的(数据库)记录，我们会用别名来创建这些访问控制列表(ACL)对象。我们这里做的是
+出于控制器动作的角度，但也可以在其它地方进行。我们这里介绍的有点儿不够真实，
+不过运用这些技术来及时创建访问请求对象(ARO)和访问控制对象(ACO)对象，应该对你
+完全不是问题。
 
-This shouldn't be anything drastically new - we're just using
-models to save data like we always do:
+这应该不是完全陌生的——我们只不过象我们一直在做的，用模型来保存数据而已:
 
 ::
 
     public function any_action() {
         $aro = $this->Acl->Aro;
 
-        // Here's all of our group info in an array we can iterate through
+        // 下面是所有组的信息，放在数组里就可以遍历
         $groups = array(
             0 => array(
                 'alias' => 'warriors'
@@ -537,20 +475,19 @@ models to save data like we always do:
             ),
         );
 
-        // Iterate and create ARO groups
+        // 遍历并创建访问请求对象(ARO)组
         foreach ($groups as $data) {
-            // Remember to call create() when saving in loops...
+            // 记得在循环中保存时要调用 create()...
             $aro->create();
 
-            // Save data
+            // 保存数据
             $aro->save($data);
         }
 
-        // Other action logic goes here...
+        // 其它动作逻辑在下面...
     }
 
-Once we've got them in there, we can use the ACL console
-application to verify the tree structure.
+一旦把它们保存好了，就可以用访问控制列表(ACL)命令行程序来验证树的结构。
 
 ::
 
@@ -568,26 +505,23 @@ application to verify the tree structure.
 
     ---------------------------------------------------------------
 
-I suppose it's not much of a tree at this point, but at least we've
-got some verification that we've got four top-level nodes. Let's
-add some children to those ARO nodes by adding our specific user
-AROs under these groups. Every good citizen of Middle Earth has an
-account in our new system, so we'll tie these ARO records to
-specific model records in our database.
+我想现在这还不象是一棵树，但起码我们证实我们有了四个顶层的节点。让我们为这些访问
+请求对象(ARO)节点加一些子节点，在这些组下面加入用户 访问请求对象(ARO)吧。每个中
+土的良民在我们的新系统中都有一个账号，所以我们会把这些访问请求对象(ARO)记录与我
+们数据库中的模型记录挂钩。
 
 .. note::
 
-    When adding child nodes to a tree, make sure to use the ACL node
-    ID, rather than a foreign\_key value.
+    在向树中增加子节点时，确保使用访问控制列表(ACL)节点的 ID，而不是 foreign\_key 
+    的值。
 
 ::
 
     public function any_action() {
         $aro = new Aro();
 
-        // Here are our user records, ready to be linked up to new ARO records
-        // This data could come from a model and modified, but we're using static
-        // arrays here for demonstration purposes.
+        // 这里是用户记录，可与新的 ARO 记录挂钩。
+        // 该数据可来自模型并被修改，不过我们在这里出于演示的目的使用静态数组。
 
         $users = array(
             0 => array(
@@ -646,26 +580,24 @@ specific model records in our database.
             ),
         );
 
-        // Iterate and create AROs (as children)
+        // 遍历并创建 ARO 对象(作为子节点)
         foreach ($users as $data) {
-            // Remember to call create() when saving in loops...
+            // 在循环中保存，记得调用 create()...
             $aro->create();
 
-            //Save data
+            // 保存数据 Save data
             $aro->save($data);
         }
 
-        // Other action logic goes here...
+        // 其它动作逻辑...
     }
 
 .. note::
 
-    Typically you won't supply both an alias and a model/foreign\_key,
-    but we're using both here to make the structure of the tree easier
-    to read for demonstration purposes.
+    通常你不会既提供别名(alias)又提供模型/外键(foreign\_key)，不过我们在这里出
+    于演示的目的两者都使用，从而使树的结构更易读。
 
-The output of that console application command should now be a
-little more interesting. Let's give it a try:
+现在那个命令行应用程序命令的输出更加有趣了。让我们来试一下:
 
 ::
 
@@ -701,97 +633,80 @@ little more interesting. Let's give it a try:
 
     ---------------------------------------------------------------
 
-Now that we've got our ARO tree setup properly, let's discuss a
-possible approach for structuring an ACO tree. While we can
-structure more of an abstract representation of our ACO's, it's
-often more practical to model an ACO tree after Cake's
-Controller/Action setup. We've got five main objects we're handling
-in this Fellowship scenario, and the natural setup for that in a
-Cake application is a group of models, and ultimately the
-controllers that manipulate them. Past the controllers themselves,
-we'll want to control access to specific actions in those
-controllers.
+至此我们正确建立了访问请求对象(ARO)树，让我们来讨论一下构建访问控制对象(ACO)树
+的一种可能的方法。尽管我们能够建立访问控制对象(ACO)的更加抽象的表示方法，(但是)
+经常更加实际的做法是根据 Cake 的控制器/动作的设置来建立访问控制对象(ACO)树的模
+型。在这个魔戒团队的场景中我们要处理五个主要的对象，这在 Cake 应用程序中自然的
+设置是一组模型，而最终是操控它们的控制器。控制器后面，我们想要控制这些控制器的
+特定动作的访问。
 
-Based on that idea, let's set up an ACO tree that will mimic a Cake
-app setup. Since we have five ACOs, we'll create an ACO tree that
-should end up looking something like the following:
+基于这样的想法，让我们仿照 Cake 应用程序的设置，来建立访问控制对象(ACO)树。由
+于我们有五种访问控制对象(ACO)对象，我们要创建的访问控制对象(ACO)树最终看起来
+会象下面这样:
 
 
--  Weapons
--  Rings
--  PorkChops
--  DiplomaticEfforts
--  Ales
+-  武器(Weapons)
+-  魔戒(Rings)
+-  肉食(PorkChops)
+-  外交文件(DiplomaticEfforts)
+-  麦芽酒(Ales)
 
-One nice thing about a Cake ACL setup is that each ACO
-automatically contains four properties related to CRUD (create,
-read, update, and delete) actions. You can create children nodes
-under each of these five main ACOs, but using Cake's built in
-action management covers basic CRUD operations on a given object.
-Keeping this in mind will make your ACO trees smaller and easier to
-maintain. We'll see how these are used later on when we discuss how
-to assign permissions.
 
-Since you're now a pro at adding AROs, use those same techniques to
-create this ACO tree. Create these upper level groups using the
-core Aco model.
+Cake 访问控制列表(ACL)设置的一个好处是，每个访问控制对象(ACO)对象自动带有与 
+CRUD 动作(创建，读取，更新和删除)相关的四个属性。你可以在五个主要访问控制对象
+(ACO)之下创建子节点，但使用 Cake 内置的动作管理涵盖了对一个给定对象的基本 CRUD 
+操作。记住这一点会使你的访问控制对象(ACO)树更小、更易于维护。以后到我们讨论如
+何分配权限时，就可以看到这些如何使用了。
 
-Assigning Permissions
+既然你现在已经精通于添加访问请求对象(ARO)对象，那就用同样的技术来创建这个访问
+控制对象(ACO)树吧。使用核心的 Aco 模型来创建这些上层的组。
+
+分配权限
 ---------------------
 
-After creating our ACOs and AROs, we can finally assign permissions
-between the two groups. This is done using Cake's core Acl
-component. Let's continue on with our example.
+创建了访问控制对象(ACO)和访问请求对象(ARO)对象之后，我们终于可以在这两个组之间
+分配权限了。这要使用 Cake 的核心 Acl 组件。让我们继续我们之前的例子。
 
-Here we'll work in the context of a controller action. We do that
-because permissions are managed by the Acl Component.
+下面我们会在一个控制器动作之内进行，这是因为权限是用 Acl 组件管理的。
 
 ::
 
     class SomethingsController extends AppController {
-        // You might want to place this in the AppController
-        // instead, but here works great too.
+        // 你也许会想把它放在 AppController 中，但放在这里也很好。
 
         public $components = array('Acl');
 
     }
 
-Let's set up some basic permissions using the AclComponent in an
-action inside this controller.
+让我们在这个控制器的一个动作中用 AclComponent 来建立一些基本的权限。
 
 ::
 
     public function index() {
-        // Allow warriors complete access to weapons
-        // Both these examples use the alias syntax
+        // 给战士(warriors)对武器(weapons)完全的权限
+        // 这两个例子都使用别名的语法
         $this->Acl->allow('warriors', 'Weapons');
 
-        // Though the King may not want to let everyone
-        // have unfettered access
+        // 然而国王也许不想给每个人不受控制的权限
         $this->Acl->deny('warriors/Legolas', 'Weapons', 'delete');
         $this->Acl->deny('warriors/Gimli',   'Weapons', 'delete');
 
         die(print_r('done', 1));
     }
 
-The first call we make to the AclComponent allows any user under
-the 'warriors' ARO group full access to anything under the
-'Weapons' ACO group. Here we're just addressing ACOs and AROs by
-their aliases.
+我们对 AclComponent 组件的第一次调用，允许 'warriors' 访问请求对象(ARO)组里面
+的任何用户，对 'Weapons' 访问控制对象(ACO)组里面的任何东西，有完全的权限。这
+里我们只是用别名来界定访问控制对象(ACO)和访问请求对象(ARO)对象。
 
-Notice the usage of the third parameter? That's where we use those
-handy actions that are in-built for all Cake ACOs. The default
-options for that parameter are ``create``, ``read``, ``update``,
-and ``delete`` but you can add a column in the ``aros_acos``
-database table (prefixed with \_ - for example ``_admin``) and use
-it alongside the defaults.
+注意到第三个参数的用法了吗？我们就是这样使用所有 Cake 访问控制对象(ACO)对象内
+置的顺手的动作的。这个参数缺省的选项是``create``，``read``，``update``和
+``delete``，但是你可以在数据库表``aros_acos``中增加一列(前缀用\_——例如
+``_admin``)，然后把它和缺省值一起使用。
 
-The second set of calls is an attempt to make a more fine-grained
-permission decision. We want Aragorn to keep his full-access
-privileges, but deny other warriors in the group the ability to
-delete Weapons records. We're using the alias syntax to address the
-AROs above, but you might want to use the model/foreign key syntax
-yourself. What we have above is equivalent to this:
+第二组调用试图设置更细微颗粒的权限。我们要保持阿拉贡(Aragorn)完全的权限，但防
+止该组里的其他战士(warriors)删除武器(Weapon)记录。以上我们使用别名的语法来界
+定访问请求对象(ARO)对象，但你也许想要使用模型/外键的语法。我们上面所写的等同
+于这样:
 
 ::
 
@@ -803,57 +718,52 @@ yourself. What we have above is equivalent to this:
 
 .. note::
 
-    Addressing a node using the alias syntax uses a slash-delimited
-    string ('/users/employees/developers'). Addressing a node using
-    model/foreign key syntax uses an array with two parameters:
-    ``array('model' => 'User', 'foreign_key' => 8282)``.
+    用别名的语法来界定一个节点使用斜线分隔的字符串(
+    '/users/employees/developers')。使用模型/外键的语法来界定节点使用带有两个
+    参数的数组: ``array('model' => 'User', 'foreign_key' => 8282)``。
 
-The next section will help us validate our setup by using the
-AclComponent to check the permissions we've just set up.
+下一节会帮助我们验证我们所做的设置，使用 AclComponent 组件来验证我们刚刚建立
+的权限。
 
 .. _checking-permissions:
 
-Checking Permissions: The ACL Component
+检查权限: ACL 组件
 ---------------------------------------
 
-Let's use the AclComponent to make sure dwarves and elves can't
-remove things from the armory. At this point, we should be able to
-use the AclComponent to make a check between the ACOs and AROs
-we've created. The basic syntax for making a permissions check is:
+让我们用 AclComponent 组件来确保矮人(dwarves)和精灵(elves)无法从武器库中去掉任
+何东西。现在我们可以用 AclComponent 组件来检查一下我们创建的访问控制对象(ACO)
+和访问请求对象(ARO)对象了。检查权限的基本语法是:
 
 ::
 
     $this->Acl->check($aro, $aco, $action = '*');
 
-Let's give it a try inside a controller action:
+让我们在控制器动作里面试一下:
 
 ::
 
     public function index() {
-        // These all return true:
+        // 这些都返回 true:
         $this->Acl->check('warriors/Aragorn', 'Weapons');
         $this->Acl->check('warriors/Aragorn', 'Weapons', 'create');
         $this->Acl->check('warriors/Aragorn', 'Weapons', 'read');
         $this->Acl->check('warriors/Aragorn', 'Weapons', 'update');
         $this->Acl->check('warriors/Aragorn', 'Weapons', 'delete');
 
-        // Remember, we can use the model/id syntax
-        // for our user AROs
+        // 记得我们可以对我们的用户 ARO 对象使用模型/id 语法
         $this->Acl->check(array('User' => array('id' => 2356)), 'Weapons');
 
-        // These also return true:
+        // 这些也返回 true:
         $result = $this->Acl->check('warriors/Legolas', 'Weapons', 'create');
         $result = $this->Acl->check('warriors/Gimli', 'Weapons', 'read');
 
-        // But these return false:
+        // 但这些返回 false:
         $result = $this->Acl->check('warriors/Legolas', 'Weapons', 'delete');
         $result = $this->Acl->check('warriors/Gimli', 'Weapons', 'delete');
     }
 
-The usage here is demonstrational, but hopefully you can see how
-checking like this can be used to decide whether or not to allow
-something to happen, show an error message, or redirect the user to
-a login.
+这里的用法只是演示性的，不过希望你能明白这样的检查可以用来决定是否允许某事发生、
+显示错误信息、或者使用户跳转到登录页面。
 
 
 .. meta::
