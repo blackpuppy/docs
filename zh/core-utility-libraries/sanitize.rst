@@ -3,20 +3,20 @@
 
 .. php:class:: Sanitize
 
+CakePHP的Sanitize类可以避免用户提交有害的和其他不需要的数据，Sanitize属于核心库，
+所以可以在代码的任何地方使用，但最好在控制器和模型中用到它。
 
-CakePHP的Sanitize类可以避免用户提交有害的和其他不需要的数据，Sanitize是核心库
-，所以可以在代码的任何地方使用，但最好在控制器和模型中用到它。
-
-
-**如果**你用到了CakePHP中的ORM方法(如：find() and save())和合理的数组写法(比如：array('field' => $value))而不是原生SQL语句,CakePHP已经帮你做了防sql注入处理，因为sanitization可以用来抵御XSS，通常最好在未经修改和清理输出展示的时候保存原生的html到数据库(For
-sanitization against XSS it's generally better to save raw HTML in
+**如果**你用到了CakePHP中的ORM方法(如：find() and save())和合理的数组写法
+(比如：array('field' => $value))而不是原生SQL语句,CakePHP已经帮你做了防sql注入处理，
+因为sanitization可以用来抵御XSS，通常最好在未经修改和清理输出展示的时候保存原生的html到数据库
+(For sanitization against XSS it's generally better to save raw HTML in
 database without modification and sanitize at the time of
 output/display.)
 
 你需要做的只是引入Sanitize核心库(你可以在定义控制器的语句之前引入)
 
     App::uses('Sanitize', 'Utility');
-    
+
     class MyController extends AppController {
         ...
         ...
@@ -29,8 +29,8 @@ output/display.)
     :param mixed $data: 需要清理的数据
     :param mixed $options: 清理时的可用选项, 见下面的说明。
 
-    这是一个强有力的，多功能的清理数据的方法，可以处理整个数组(比如：$this->data)。该方法接收一个数组或字符串，返回经过处理的数据
-    会对数组中的每一个元素(递归地)进行下面的数据清理工作。
+    这是一个强有力的，多功能的清理数据的方法，可以处理整个数组(比如：$this->data)。该方法接收一个数组或字符串，
+    返回经过处理的数据。会对数组中的每一个元素(递归地)进行下面的数据清理工作。
     This function is an industrial-strength, multi-purpose cleaner,
     meant to be used on entire arrays (like $this->data, for example).
     The function takes an array (or string) and returns the clean
@@ -52,7 +52,6 @@ output/display.)
 
     $options参数可以是个字符串或数组，若为字符串需要提供数据库的连接名，若为数组，可以用下面的选项：
 
-
     -  connection
     -  odd\_spaces
     -  encode
@@ -72,7 +71,7 @@ output/display.)
 .. php:staticmethod:: Sanitize::escape($string, $connection)
 
     :param string $string: 需要清理的字符串。
-    :param string $connection: The name of the database to quote the string for, 
+    :param string $connection: The name of the database to quote the string for,
         as named in your app/Config/database.php file.
 
     Used to escape SQL statements by adding slashes, depending on the
@@ -99,7 +98,7 @@ output/display.)
         // output: HEY...
 
     Escaping is often a better strategy than stripping, as it has less room
-    for error, and isn't vulnerable to new types of attacks, the stripping 
+    for error, and isn't vulnerable to new types of attacks, the stripping
     function does not know about.
 
 .. php:staticmethod:: Sanitize::paranoid($string, $allowedChars)

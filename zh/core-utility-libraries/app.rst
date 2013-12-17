@@ -3,7 +3,7 @@ App Class
 
 .. php:class:: App
 
-app类负责路径管理，类位置和类加载。请确保遵循:ref:`file-and-classname-conventions`.
+app类负责路径管理，类位置和类加载。请确保遵循:ref:`file-and-classname-conventions`
 The app class is responsible for path management, class location and class loading.
 Make sure you follow the :ref:`file-and-classname-conventions`.
 
