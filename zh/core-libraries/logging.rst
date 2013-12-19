@@ -1,5 +1,9 @@
-Logging
+日志记录
 #######
+
+虽然CakePHP的核心配置类的设置可以帮助我们看到一些运行状况。但有些时候
+为了查明到底发生了什么我们要记录数据到磁盘中。在我们更加依赖SOAP和AJAX等技术
+的世界上，调试可能相当困难。
 
 While CakePHP core Configure Class settings can really help you see
 what's happening under the hood, there are certain times that
@@ -8,10 +12,17 @@ going on. In a world that is becoming more dependent on
 technologies like SOAP and AJAX, debugging can be rather
 difficult.
 
+而日志可以方便的查明在过去到底发生了什么。使用了什么搜索条件？显示给用户的是
+什么错误？一个特殊的查询是多久被执行的。
+
 Logging can also be a way to find out what's been going on in your
 application over time. What search terms are being used? What sorts
 of errors are my users being shown? How often is a particular query
 being executed?
+
+CakePHP中的日志记录相当简单 - log()函数是Object类的一部分，继承自CakePHP的
+绝大多数类。如果是在CakePHP(模型,控制器, 组件... 几乎任何地方)的代码内容中，
+都可以记录日志。也可以直接使用``CakeLog::write()``。参见:ref:`writing-to-logs`
 
 Logging data in CakePHP is easy - the log() function is a part of
 the Object class, which is the common ancestor for almost all
@@ -19,8 +30,15 @@ CakePHP classes. If the context is a CakePHP class (Model,
 Controller, Component... almost anything), you can log your data.
 You can also use ``CakeLog::write()`` directly. See :ref:`writing-to-logs`
 
+创建和配置日志流
 Creating and configuring log streams
 ====================================
+
+日志流处理程序可以成为应用程序的一部分，或插件的一部分。举个例子，有一个名为``DatabaseLogger``
+的记录数据库日志的日志处理程序。作为程序的一部分它会位于``app/Lib/Log/Engine/DatabaseLogger.php``。
+若作为插件的一部分会位于``app/Plugin/LoggingPack/Lib/Log/Engine/DatabaseLogger.php``。
+如果在``CakeLog::config()``配置好日志处理程序，``CakeLog``就会试图加载，配置DataBaseLogger类似::
+
 
 Log stream handlers can be part of your application, or part of
 plugins. If for example you had a database logger called
@@ -31,14 +49,14 @@ would be placed in
 configured ``CakeLog`` will attempt to load Configuring log streams
 is done by calling ``CakeLog::config()``. Configuring our
 DataBaseLogger would look like::
-    
+
     // for app/Lib
     CakeLog::config('otherFile', array(
         'engine' => 'DatabaseLogger',
         'model' => 'LogEntry',
         // ...
     ));
-    
+
     // for plugin called LoggingPack
     CakeLog::config('otherFile', array(
         'engine' => 'LoggingPack.DatabaseLogger',
@@ -79,10 +97,10 @@ your own types by using them when you call ``CakeLog::write``.
 Error and Exception logging
 ===========================
 
-Errors and Exceptions can also be logged.  By configuring the 
-co-responding values in your core.php file.  Errors will be 
-displayed when debug > 0 and logged when debug == 0. Set ``Exception.log`` 
-to true to log uncaught exceptions. See :doc:`/development/configuration` 
+Errors and Exceptions can also be logged.  By configuring the
+co-responding values in your core.php file.  Errors will be
+displayed when debug > 0 and logged when debug == 0. Set ``Exception.log``
+to true to log uncaught exceptions. See :doc:`/development/configuration`
 for more information.
 
 Interacting with log streams
@@ -94,7 +112,7 @@ array of all the currently configured streams. You can remove
 streams using :php:meth:`CakeLog::drop()`. Once a log stream has been
 dropped it will no longer receive messages.
 
-
+使用默认的FileLog类
 Using the default FileLog class
 ===============================
 
@@ -113,7 +131,7 @@ which writes to the error log. The default log location is
 
     // Executing this inside a CakePHP class
     $this->log("Something didn't work!");
-    
+
     // Results in this being appended to app/tmp/logs/error.log
     // 2007-11-02 10:22:02 Error: Something didn't work!
 
@@ -123,7 +141,7 @@ you wish to write logs to::
 
     // called statically
     CakeLog::write('activity', 'A special message for activity logging');
-    
+
     // Results in this being appended to app/tmp/logs/activity.log (rather than error.log)
     // 2007-11-02 10:22:02 Activity: A special message for activity logging
 
@@ -141,13 +159,19 @@ custom paths to be used::
 
 .. _writing-to-logs:
 
+写入日志
 Writing to logs
 ===============
+
+写入日志文件内容有两种方式。第一个是使用静态:php:meth:`CakeLog::write()`方法::
 
 Writing to the log files can be done in 2 different ways. The first
 is to use the static :php:meth:`CakeLog::write()` method::
 
     CakeLog::write('debug', 'Something did not work');
+
+第二个是使用简写名为log()的函数，适用于任何扩展自``Object``类的内部。调用log()会调用内部的
+CakeLog::write()::
 
 The second is to use the log() shortcut function available on any
 class that extends ``Object``. Calling log() will internally call
@@ -155,6 +179,10 @@ CakeLog::write()::
 
     // Executing this inside a CakePHP class:
     $this->log("Something did not work!", 'debug');
+
+所有配置过的日志流会按顺序调用:php:meth:`CakeLog::write()`。为了使用日志不必先配置日志流，
+如果之前没有进行过配置，会使用``FileLog``核心类的``default``流，日志文件会创建在``app/tmp/logs/``，
+就按照之前版本中CakeLog做的。
 
 All configured log streams are written to sequentially each time
 :php:meth:`CakeLog::write()` is called. You do not need to configure a
@@ -217,7 +245,7 @@ CakeLog API
 
     :param string $name: Name for the logger being connected, used
         to drop a logger later on.
-    :param array $config: Array of configuration information and 
+    :param array $config: Array of configuration information and
         constructor arguments for the logger.
 
     Connect a new logger to CakeLog.  Each connected logger

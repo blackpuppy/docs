@@ -3,7 +3,7 @@
 
 视图是 MVC 中的 **V**。视图负责生成请求需要的特定输出。经常这是以 HTML，XML 或者 JSON 的形式，但提供文件流和创建 PDF 供用户下载也是视图层的责任。
 
-CakePHP 带有一些内置的视图类，可以处理大多数常见的渲染情况:
+CakePHP 带有一些内置的视图类，可以处理大多数常见的渲染情况：
 - 要创建 XML 或者 JSON 网络服务(*webservices*)，你可以使用 :doc:`views/json-and-xml-views`。
 - 要提供受保护的文件，或者动态生成文件，你可以使用 :doc:`views/media-view`。
 - 要创建多主题的视图，你可以使用 :doc:`views/themes`。
@@ -15,16 +15,19 @@ CakePHP 的视图层是你和用户交流的方式。多数情况下，视图会
 给浏览器，但你也可能会需要提供 AMF 数据给 Flash 对象，通过 SOAP 答复远程
 应用程序，或者输出 CSV 文件给用户。
 
-缺省情况下 CakePHP 的视图文件是通常的 PHP 文件，并带有 .ctp (CakePHP Template)扩展名。这些文件包括所有的表现层逻辑，把它从控制器获得的数据，表现为你所服务的受众需要的格式。如果你喜欢使用象 Twig 或 Smarty 这样的模板语言，视图的子类可以衔接起你的模板语言和 CakePHP。
+缺省情况下 CakePHP 的视图文件是通常的 PHP 文件，并带有 .ctp (CakePHP Template)扩展名。
+这些文件包括所有的表现层逻辑，把它从控制器获得的数据，表现为你所服务的受众需要的格式。
+如果你喜欢使用象 Twig 或 Smarty 这样的模板语言，视图的子类可以衔接起你的模板语言和 CakePHP。
 
-视图文件保存在``/app/View/``目录下，在一个以使用这些视图文件的控制器命名的目录中，并以对应的动作为文件名。例如， Products 控制器的"view()"动作的视图文件，通常应该会位于``/app/View/Products/view.ctp``。
+视图文件保存在 ``/app/View/`` 目录下，在一个以使用这些视图文件的控制器命名的目录中，
+并以对应的动作为文件名。例如，Products 控制器的 "view()" 动作的视图文件，通常应该会位于 ``/app/View/Products/view.ctp`` 。
 
 CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的用途，在本章都会介绍到:
 
-- **视图**(*view*): 视图是网页中对于运行的动作唯一的部分。这构成了你的应用程序响应的主要内容。
-- **元素**(*elements*): 更小的、可重用的视图单元。元素通常在视图内渲染。
-- **布局**(*layouts*): 在你的应用程序中包含表现层代码、包裹很多界面的视图文件。大部分视图在一个布局中渲染。
-- **助件**(*helper*): 这些类封装了在视图层许多地方需要的视图逻辑。CakePHP 的助件可以帮助你创建表单，构建 AJAX 功能，对模型数据进行分页，或者提供 RSS 数据，以及其它功能。
+- **视图(view)** ：视图是网页中对于运行的动作唯一的部分。这构成了你的应用程序响应的主要内容。
+- **元素(elements)** ：更小的、可重用的视图单元。元素通常在视图内渲染。
+- **布局(layouts)** ：在你的应用程序中包含表现层代码、包裹很多界面的视图文件。大部分视图在一个布局中渲染。
+- **助件(helper)** : 这些类封装了在视图层许多地方需要的视图逻辑。CakePHP 的助件可以帮助你创建表单，构建 AJAX 功能，对模型数据进行分页，或者提供 RSS 数据，以及其它功能。
 
 
 .. _extending-views:
@@ -34,7 +37,8 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 .. versionadded:: 2.1
 
-视图的扩展允许你在一个视图内包含另一个视图。把它与 :ref:`view blocks <view-blocks>` 结合，提供了一个强大的方式来保持你的视图 :term:`DRY`。例如，你的应用程序有一个侧边栏(*sidebar*)，根据渲染的特定视图而变化。通过扩展一个共用的视图文件，你可以避免重复侧边栏的共用标记，而只定义不同的部分:
+视图的扩展允许你在一个视图内包含另一个视图。把它与 :ref:`view blocks <view-blocks>` 结合，提供了一个强大的方式来保持你的视图 :term:`DRY`。
+例如，你的应用程序有一个 *侧边栏(sidebar)* ，根据渲染的特定视图而变化。通过扩展一个共用的视图文件，你可以避免重复侧边栏的共用标记，而只定义不同的部分：
 
 .. code-block:: php
 
@@ -73,14 +77,16 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
     // 其余的内容会作为父视图中的 'content' 代码块。
     <?php echo h($post['Post']['body']);
 
-上面帖子(*post*)的 view 视图说明如何扩展视图，以及填充一组代码块。任何不在一个定义的代码块内的内容，会被捕获并放入一个特殊的叫做``content``的代码块。当一个视图含有对``extend()``的调用时，程序会继续执行到当前的视图文件结束。一旦执行完成，扩展的视图就会被渲染。在一个视图文件中多次调用``extend()``会改变接下去要处理的父视图::
+上面 *帖子(post)* 的 view 视图说明如何扩展视图，以及填充一组代码块。任何不在一个定义的代码块内的内容，会被捕获并放入一个特殊的叫做 ``content`` 的代码块。
+当一个视图含有对 ``extend()`` 的调用时，程序会继续执行到当前的视图文件结束。一旦执行完成，扩展的视图就会被渲染。
+在一个视图文件中多次调用 ``extend()`` 会改变接下去要处理的父视图::
 
     $this->extend('/Common/view');
     $this->extend('/Common/index');
 
-以上代码会导致``/Common/index.ctp``作为当前视图的父视图来渲染。
+以上代码会导致 ``/Common/index.ctp`` 作为当前视图的父视图来渲染。
 
-如果必要的话，你可以嵌套扩展视图任意多层。如果有必要，每个视图都可以扩展另一个视图。每个父视图都会获得前一个视图的内容作为``content``代码块。
+如果必要的话，你可以嵌套扩展视图任意多层。如果有必要，每个视图都可以扩展另一个视图。每个父视图都会获得前一个视图的内容作为 ``content`` 代码块。
 
 .. note::
 
@@ -95,7 +101,9 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 .. versionadded:: 2.1
 
-视图代码块代替了 ``$scripts_for_layout``，并提供了一种灵活的 API，允许你在视图/布局中引用在其它地方定义的代码段或代码块。例如，代码块很适合于实现侧边栏这样的东西，或者位于布局底部/顶部加载内容的区域。代码块可以用两种方式定义，或者作为捕获代码块，或者直接赋值。``start()``，``append()``和``end()``方法可以用于捕获代码块::
+视图代码块代替了 ``$scripts_for_layout``，并提供了一种灵活的 API，允许你在视图/布局中引用在其它地方定义的代码段或代码块。
+例如，代码块很适合于实现侧边栏这样的东西，或者位于布局底部/顶部加载内容的区域。代码块可以用两种方式定义，
+或者作为捕获代码块，或者直接赋值。 ``start()`` ， ``append()`` 和 ``end()`` 方法可以用于捕获代码块::
 
     // 创建侧边栏代码块。
     $this->start('sidebar');
@@ -109,18 +117,19 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
     echo $this->element('sidebar/popular_topics');
     $this->end();
 
-你也可以用``start()``(译注:觉得这里应该是指 append() 方法。)来多次添加内容到代码块之内。``assign()``方法可以用来在任何时候清除或者覆盖代码块::
+你也可以用 ``start()`` (译注:觉得这里应该是指 append() 方法。)来多次添加内容到代码块之内。``assign()`` 方法可以用来在任何时候清除或者覆盖代码块::
 
     // 清除侧边栏代码块之前的内容。
     $this->assign('sidebar', '');
 
 
-在2.3版本中，添加了一些新的用于代码块的方法。``prepend()``方法用于在一个现有代码块的开头插入内容::
+在2.3版本中，添加了一些新的用于代码块的方法。``prepend()`` 方法用于在一个现有代码块的开头插入内容::
 
     // 在侧边栏的开头插入内容
     $this->prepend('sidebar', 'this content goes on top of sidebar');
 
-``startIfEmpty()`` 方法可用于**只有**当一个代码块是空的或为未定义时才开始一个代码块。如果该代码块已经存在，则当前捕获内容就会被抛弃。当你要定义一个代码块当它不存在时的缺省内容时，就有用了::
+``startIfEmpty()`` 方法可用于 **只有** 当一个代码块是空的或为未定义时才开始一个代码块。如果该代码块已经存在，则当前捕获内容就会被抛弃。
+当你要定义一个代码块当它不存在时的缺省内容时，就有用了::
 
     // 在一个视图文件中。
     // 创建一个导航栏代码块
@@ -136,7 +145,7 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
     echo $this->fetch('navbar');
 
-在上面的例子中，``navbar``代码块只会包含第一部分中添加的内容。由于代码块在子视图中定义，缺省的内容(Default content)就会被舍弃。
+在上面的例子中， ``navbar`` 代码块只会包含第一部分中添加的内容。由于代码块在子视图中定义，缺省的内容(Default content)就会被舍弃。
 
 .. versionadded: 2.3
     ``startIfEmpty()`` 和 ``prepend()`` 是在2.3版本中增加。
@@ -155,7 +164,7 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
     echo $this->fetch('sidebar');
 
-你也可以用``fetch()``在只有当代码块存在时显示包含它的内容。在布局或扩展视图中，当你要根据条件来显示标题或者其它内容，这就会有用了:
+你也可以用 ``fetch()`` 在只有当代码块存在时显示包含它的内容。在布局或扩展视图中，当你要根据条件来显示标题或者其它内容，这就会有用了:
 
 .. code-block:: php
 
@@ -184,7 +193,9 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 .. versionadded:: 2.1
 
-代码块取代了作废的``$scripts_for_layout``布局变量。你应当使用代码块。:php:class:`HtmlHelper`与视图代码块紧密结合，它的:php:meth:`~HtmlHelper::script()`、:php:meth:`~HtmlHelper::css()`和:php:meth:`~HtmlHelper::meta()`方法，当使用``inline = false``选项时，会更新各自对应名称的代码块:
+代码块取代了作废的``$scripts_for_layout``布局变量。你应当使用代码块。:php:class:`HtmlHelper`与视图代码块紧密结合，
+它的 :php:meth:`~HtmlHelper::script()` 、 :php:meth:`~HtmlHelper::css()` 和 :php:meth:`~HtmlHelper::meta()` 方法，
+当使用 ``inline = false`` 选项时，会更新各自对应名称的代码块：
 
 .. code-block:: php
 
@@ -204,7 +215,7 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
         </head>
         // 后面是布局的其余部分
 
-:php:meth:`HtmlHelper`也让你控制脚本和 CSS 会出现在哪个代码块中::
+:php:meth:`HtmlHelper` 也让你控制脚本和 CSS 会出现在哪个代码块中::
 
     // 在你的视图中
     $this->Html->script('carousel', array('block' => 'scriptBottom'));
@@ -219,9 +230,10 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 布局含有包裹视图的表现层代码。任何你想要在所有视图中出现的东西，应该放在布局中。
 
-布局文件应该位于``/app/View/Layouts``目录内。 CakePHP 的缺省布局可以通过创建一个位于``/app/View/Layouts/default.ctp``的新的缺省布局来覆盖。一旦创建了新的缺省布局，当页面渲染时，控制器渲染的视图代码就会放在缺省的布局内。
+布局文件应该位于 ``/app/View/Layouts`` 目录内。 CakePHP 的缺省布局可以通过创建一个位于 ``/app/View/Layouts/default.ctp`` 的新的缺省布局来覆盖。
+一旦创建了新的缺省布局，当页面渲染时，控制器渲染的视图代码就会放在缺省的布局内。
 
-当你创建一个布局时，你需要告诉 CakePHP 你的视图代码要放在哪里。为此，确保你的布局有一处包括 ``$this->fetch('content')``。下面是一个缺省布局的例子:
+当你创建一个布局时，你需要告诉 CakePHP 你的视图代码要放在哪里。为此，确保你的布局有一处包括 ``$this->fetch('content')`` 。下面是一个缺省布局的例子:
 
 .. code-block:: php
 
@@ -255,9 +267,10 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 .. note::
 
-    在2.1版本之前，没有 fetch() 方法。 ``fetch('content')``代替了``$content_for_layout``， ``fetch('meta')``、``fetch('css')``和``fetch('script')``包含在2.0版本的``$scripts_for_layout``变量中。
+    在2.1版本之前，没有 fetch() 方法。 ``fetch('content')`` 代替了 ``$content_for_layout``， ``fetch('meta')`` 、``fetch('css')`` 和 ``fetch('script')``
+    包含在2.0版本的 ``$scripts_for_layout`` 变量中。
 
-``script``、``css``和``meta``代码块包含任何在视图中用内置的 HTML 助件定义的内容。可用于从视图中引入 javascript 和 CSS 文件。
+``script`` 、 ``css`` 和 ``meta`` 代码块包含任何在视图中用内置的 HTML 助件定义的内容。可用于从视图中引入 javascript 和 CSS 文件。
 
 .. note::
 
@@ -267,7 +280,7 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
 ``$title_for_layout`` 含有页面的标题。这个变量是自动生成的，不过你可以通过在控制器/视图中设置来覆盖它。
 
-设置布局的标题，最容易的是在控制器中设置``$title_for_layout``变量::
+设置布局的标题，最容易的是在控制器中设置 ``$title_for_layout`` 变量::
 
    class UsersController extends AppController {
        public function view_active() {
@@ -279,7 +292,7 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
 
     $this->set('title_for_layout', $titleContent);
 
-你可以想要多少布局，就创建多少: 只需把它们放在``app/View/Layouts``目录中，并在控制器动作中用控制器或者视图的:php:attr:`~View::$layout`属性来切换(布局)::
+你可以想要多少布局，就创建多少: 只需把它们放在 ``app/View/Layouts`` 目录中，并在控制器动作中用控制器或者视图的 :php:attr:`~View::$layout` 属性来切换(布局)::
 
     // 从一个控制器
     public function admin_view() {
@@ -304,7 +317,9 @@ CakePHP 的视图层可以由一些不同的部分组成。每部分有不同的
        }
    }
 
-CakePHP 有两个核心的布局(除了 CakePHP 的缺省布局)，供你在你自己的应用程序中使用:'ajax'和'flash'。 Ajax 对生成 Ajax 响应很方便——这是一个空的布局(绝大部分 ajax 调用只需要一点儿标记作为返回值，而不是一个完整渲染的界面。) flash 布局用于:php:meth:`Controller::flash()`方法显示的消息。
+CakePHP 有两个核心的布局(除了 CakePHP 的缺省布局)，供你在你自己的应用程序中使用:'ajax'和'flash'。
+Ajax 对生成 Ajax 响应很方便——这是一个空的布局(绝大部分 ajax 调用只需要一点儿标记作为返回值，而不是一个完整渲染的界面。)
+flash 布局用于 :php:meth:`Controller::flash()` 方法显示的消息。
 
 其它三个核心中的布局，xml、js 和 rss，以快速简便的方式提供非 text/html 的内容。
 
@@ -313,7 +328,7 @@ CakePHP 有两个核心的布局(除了 CakePHP 的缺省布局)，供你在你�
 
 .. versionadded:: 2.1
 
-如果你要用插件中的布局，你可以使用:term:`plugin syntax`。比如要用 Contacts 插件中的 contact 布局::
+如果你要用插件中的布局，你可以使用 :term:`plugin syntax` 。比如要用 Contacts 插件中的 contact 布局::
 
     class UsersController extends AppController {
         public function view_active() {
@@ -327,9 +342,12 @@ CakePHP 有两个核心的布局(除了 CakePHP 的缺省布局)，供你在你�
 元素
 ========
 
-许多应用程序有小段的表现层代码，要在页面间重复，有时在布局的不同地方。 CakePHP 能够帮助你重复你的网站中要重用的部分。这些可重用的部分叫元素(*Element*)。广告、帮助框、导航控件、其它的菜单、登录表单和 callouts 在 CakePHP 中经常用元素实现。元素基本上是一个小的视图，可以被引入到其它视图、布局甚至其它元素中。元素的运用可使视图更加可读，把重复元素的渲染放入它们自己的文件。它们也可以帮助你重用你应用程序中的内容片段。
+许多应用程序有小段的表现层代码，要在页面间重复，有时在布局的不同地方。 CakePHP 能够帮助你重复你的网站中要重用的部分。
+这些可重用的部分叫 *元素(Element)* 。广告、帮助框、导航控件、其它的菜单、登录表单和 callouts 在 CakePHP 中经常用元素实现。
+元素基本上是一个小的视图，可以被引入到其它视图、布局甚至其它元素中。元素的运用可使视图更加可读，把重复元素的渲染放入它们自己的文件。
+它们也可以帮助你重用你应用程序中的内容片段。
 
-元素存在于``/app/View/Elements/``目录中，并以 .ctp 为文件扩展名。它们用视图的 element 方法来输出::
+元素存在于 ``/app/View/Elements/`` 目录中，并以 .ctp 为文件扩展名。它们用视图的 element 方法来输出::
 
     echo $this->element('helpbox');
 
@@ -342,12 +360,12 @@ CakePHP 有两个核心的布局(除了 CakePHP 的缺省布局)，供你在你�
         "helptext" => "Oh, this text is very helpful."
     ));
 
-在元素文件中，所有传入的参数可用参数数组成员来获得(和控制器中使用:php:meth:`Controller::set()`方法为视图文件设置参数的方式相同)。在上述例子中，``/app/View/Elements/helpbox.ctp``文件可使用``$helptext``变量::
+在元素文件中，所有传入的参数可用参数数组成员来获得(和控制器中使用 :php:meth:`Controller::set()` 方法为视图文件设置参数的方式相同)。在上述例子中，``/app/View/Elements/helpbox.ctp``文件可使用``$helptext``变量::
 
     // 在 app/View/Elements/helpbox.ctp 中
     echo $helptext; // 输出为 "Oh, this text is very helpful."
 
-:php:meth:`View::element()`方法也支持元素的配置选项。支持的选项为'cache'和'callbacks'。例如::
+:php:meth:`View::element()`方法也支持元素的配置选项。支持的选项为 'cache' 和 'callbacks' 。例如::
 
     echo $this->element('helpbox', array(
             "helptext" => "This is passed to the element as $helptext",
