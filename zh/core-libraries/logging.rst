@@ -2,8 +2,8 @@
 #######
 
 虽然CakePHP的核心配置类的设置可以帮助我们看到一些运行状况。但有些时候
-为了查明到底发生了什么我们要记录数据到磁盘中。在我们更加依赖SOAP和AJAX等技术
-的世界上，调试可能相当困难。
+为了查明到底发生了什么事情，我们要记录数据到磁盘中。因为在我们更加依赖SOAP和AJAX等技术
+的世界上，调试变得更加困难。
 
 While CakePHP core Configure Class settings can really help you see
 what's happening under the hood, there are certain times that
@@ -12,7 +12,7 @@ going on. In a world that is becoming more dependent on
 technologies like SOAP and AJAX, debugging can be rather
 difficult.
 
-而日志可以方便的查明在过去到底发生了什么。使用了什么搜索条件？显示给用户的是
+日志可以方便的查明在过去到底发生了什么。使用了什么搜索条件？显示给用户的是
 什么错误？一个特殊的查询是多久被执行的。
 
 Logging can also be a way to find out what's been going on in your
@@ -22,7 +22,7 @@ being executed?
 
 CakePHP中的日志记录相当简单 - log()函数是Object类的一部分，继承自CakePHP的
 绝大多数类。如果是在CakePHP(模型,控制器, 组件... 几乎任何地方)的代码内容中，
-都可以记录日志。也可以直接使用``CakeLog::write()``。参见:ref:`writing-to-logs`
+都可以记录日志。也可以直接使用 ``CakeLog::write()`` 。参见 :ref:`writing-to-logs`
 
 Logging data in CakePHP is easy - the log() function is a part of
 the Object class, which is the common ancestor for almost all
@@ -34,11 +34,10 @@ You can also use ``CakeLog::write()`` directly. See :ref:`writing-to-logs`
 Creating and configuring log streams
 ====================================
 
-日志流处理程序可以成为应用程序的一部分，或插件的一部分。举个例子，有一个名为``DatabaseLogger``
-的记录数据库日志的日志处理程序。作为程序的一部分它会位于``app/Lib/Log/Engine/DatabaseLogger.php``。
-若作为插件的一部分会位于``app/Plugin/LoggingPack/Lib/Log/Engine/DatabaseLogger.php``。
-如果在``CakeLog::config()``配置好日志处理程序，``CakeLog``就会试图加载，配置DataBaseLogger类似::
-
+日志流处理程序可以成为应用程序的一部分，或插件的一部分。举个例子，有一个名为 ``DatabaseLogger``
+的记录数据库日志的日志处理程序。作为程序的一部分它会位于 ``app/Lib/Log/Engine/DatabaseLogger.php`` 。
+若作为插件的一部分会位于 ``app/Plugin/LoggingPack/Lib/Log/Engine/DatabaseLogger.php`` 。
+如果在 ``CakeLog::config()`` 配置好日志处理程序，``CakeLog`` 就会试图加载，配置DataBaseLogger类似::
 
 Log stream handlers can be part of your application, or part of
 plugins. If for example you had a database logger called
@@ -63,6 +62,9 @@ DataBaseLogger would look like::
         'model' => 'LogEntry',
         // ...
     ));
+
+配置日志流 ``引擎`` 参数是用来定位和加载日志处理程序。所有的其他配置
+属性传递到日志流的构造函数是一个数组。::
 
 When configuring a log stream the ``engine`` parameter is used to
 locate and load the log handler. All of the other configuration
@@ -239,6 +241,7 @@ CakeLog API
 
 .. php:class:: CakeLog
 
+	写入日志的简单类
     A simple class for writing to logs.
 
 .. php:staticmethod:: config($name, $config)

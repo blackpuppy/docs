@@ -1,9 +1,8 @@
 开发
 ###########
 
-In this section we'll cover the various aspects of developing a CakePHP
-application.  Topics like Configuration, handling errors & exceptions,
-debugging, and testing will be covered.
+在本节中,我们将介绍开发CakePHP应用程序的各个方面。涵盖配置,处理错误及异常,
+调试和测试。
 
 .. toctree::
     :maxdepth: 1
