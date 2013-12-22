@@ -1,75 +1,49 @@
-CacheHelper
+缓存助件
 ###########
 
 .. php:class:: CacheHelper(View $view, array $settings = array())
 
-The Cache helper assists in caching entire layouts and views, saving time
-repetitively retrieving data. View Caching in Cake temporarily stores parsed
-layouts and views as simple PHP + HTML files. It should be noted that the Cache
-helper works quite differently than other helpers. It does not have methods that
-are directly called. Instead, a view is marked with cache tags indicating which
-blocks of content should not be cached. The CacheHelper then uses helper
-callbacks to process the file and output to generate the cache file.
+缓存助件帮助缓存整个布局和视图，节省重复读取数据的时间。 Cake 的视图缓存暂时把解释后的布局和视图存为简单的 PHP + HTML 文件。应当注意缓存助件和其它助件的工作方式颇不相同。它没有被直接调用的方法。而是，视图被标以缓存标签，说明内容中的哪个代码块不需要被缓存。然后 CacheHelper 助件使用助件的回调方法来处理文件，并输出生成缓存文件。
 
-When a URL is requested, CakePHP checks to see if that request string has already
-been cached. If it has, the rest of the url dispatching process is skipped. Any
-nocache blocks are processed normally and the view is served. This creates a big
-savings in processing time for each request to a cached URL as minimal code is
-executed. If Cake doesn't find a cached view, or the cache has expired for the
-requested URL it continues to process the request normally.
+当一个 URL 被请求时， CakePHP 检查该请求字符串是否已经被缓存了。如果是，则其余的网址调度过程就会被省略。任何不缓存的代码块会正常处理，然后视图会被发送。这为每一个对缓存了的 URL 的请求节省了大量的处理时间，因为只有最少的代码被执行。如果 Cake 没有找到缓存的视图，或者缓存对于请求的 URL 已经过期，它就会照常继续处理请求。
 
-Using the Helper
+使用助件
 ================
 
-There are two steps you have to take before you can use the CacheHelper.  First
-in your ``APP/Config/core.php`` uncomment the Configure write call for
-``Cache.check``. This will tell CakePHP to check for, and generate view cache
-files when handling requests.
+在你能够使用 CacheHelper 助件之前，你必须采取两个步骤。首先，在``APP/Config/core.php``中，去掉对``Cache.check``的 Configure write 调用的注释。这会告诉 CakePHP 在处理请求时，检查并生成视图缓存。
 
-Once you've uncommented the ``Cache.check`` line you will need to add the helper
-to your controller's ``$helpers`` array::
+去掉对``Cache.check``行的注释之后，你要把助件添加到你的控制器的``$helpers``数组中::
 
     class PostsController extends AppController {
         public $helpers = array('Cache');
     }
 
-You will also need to add the CacheDispatcher to your dispatcher filters in your bootstrap::
+你还要在你的 bootstrap 中把 CacheDispatcher 添加到你的调度过滤器中::
 
     Configure::write('Dispatcher.filters', array(
         'CacheDispatcher'
     ));
 
 .. versionadded:: 2.3
-  If you have a setup with multiple domains or languages you can use
-  `Configure::write('Cache.viewPrefix', 'YOURPREFIX');` to store the view cache files prefixed.
+  如果你的设置有多个域或语言，你可以用`Configure::write('Cache.viewPrefix', 'YOURPREFIX');`来为保存的视图缓存文件增加前缀。
 
-Additional configuration options
+其它配置选项
 --------------------------------
 
-CacheHelper has a few additional configuration options you can use to tune and
-tweak its behavior. This is done through the ``$cacheAction``
-variable in your controllers. ``$cacheAction`` should be set to an
-array which contains the actions you want cached, and the duration
-in seconds you want those views cached. The time value can be
-expressed in a ``strtotime()`` format (e.g. "1 hour", or "3 minutes").
+CacheHelper 助件还有其它一些配置选项，可以用来调整它的行为。这通过控制器中的``$cacheAction``变量来完成。``$cacheAction``应当被赋值为数组，包含你要缓存的动作，以及你要这些视图缓存的以秒计算的时间长度。时间可以用``strtotime()``格式(例如"1 hour"，或者"3 minutes")来表示。
 
-Using the example of an ArticlesController, that receives a lot of
-traffic that needs to be cached::
+用一个 ArticlesController 控制器的例子，它会收到很多(请求的)通讯，需要被缓存::
 
     public $cacheAction = array(
         'view' => 36000,
         'index'  => 48000
     );
 
-This will cache the view action 10 hours, and the index action 13 hours.  By
-making ``$cacheAction`` a ``strtotime()`` friendly value you can cache every action in the
-controller::
+这样就会缓存 view 动作10个小时， index 动作12个小时(译注:原文是13个小时，当为笔误)。把``$cacheAction``设置为一个与``strtotime()``兼容的值，你可以缓存控制器中的每一个动作::
 
     public $cacheAction = "1 hour";
 
-You can also enable controller/component callbacks for cached views
-created with ``CacheHelper``. To do so you must use the array
-format for ``$cacheAction`` and create an array like the following::
+你也可以针对用``CacheHelper``助件创建的缓存视图启用控制器/组件的回调。为此，你必须使用 ``$cacheAction``的数组形式，创造一个下面这样的数组::
 
     public $cacheAction = array(
         'view' => array('callbacks' => true, 'duration' => 21600),
@@ -77,26 +51,18 @@ format for ``$cacheAction`` and create an array like the following::
         'index' => array('callbacks' => true, 'duration' => 48000)
     );
 
-By setting ``callbacks => true`` you tell CacheHelper that you want
-the generated files to create the components and models for the
-controller. Additionally, fire the component initialize, controller
-beforeFilter, and component startup callbacks.
+通过设置``callbacks => true``，你告诉 CacheHelper 助件，你要在生成的文件中为控制器创建组件和模型。并且，触发组件的 initialize 、控制器的 beforeFilter 和组件的 startup 这些回调。
 
 .. note::
 
-    Setting ``callbacks => true`` partly defeats the
-    purpose of caching. This is also the reason it is disabled by
-    default.
+    设置``callbacks => true``部分地否定了缓存的目的。这也是为什么缺省情况下这没有启用的原因。
 
-Marking Non-Cached Content in Views
+标记视图中不要缓存的内容
 ===================================
 
-There will be times when you don't want an *entire* view cached.
-For example, certain parts of the page may look different whether a
-user is currently logged in or browsing your site as a guest.
+有些时候，你不想让*整个*视图都被缓存。例如，在一个用户登录的时候，或者作为游客浏览你的网站，页面某些部分会呈现出不同的(内容)。
 
-To indicate blocks of content that are *not* to be cached, wrap
-them in ``<!--nocache--> <!--/nocache-->`` like so:
+要让代码块的内容*不*要被缓存，把这些(部分)象这样包括在``<!--nocache--> <!--/nocache-->``之中:
 
 .. code-block:: php
 
@@ -110,38 +76,24 @@ them in ``<!--nocache--> <!--/nocache-->`` like so:
 
 .. note::
 
-    You cannot use ``nocache`` tags in elements.  Since there are no callbacks
-    around elements, they cannot be cached.
+    你不能在元素中使用``nocache``标签。因为元素没有回调，所以它们不能被缓存。
 
-It should be noted that once an action is cached, the controller method for the
-action will not be called.  When a cache file is created, the request object,
-and view variables are serialized with PHP's ``serialize()``.
+应当注意，一旦一个动作被缓存了，该动作的控制器方法就不会被调用。当一个缓存文件被创建时，请求对象和视图变量会用 PHP 的``serialize()``方法序列化。
 
 .. warning::
 
-    If you have view variables that contain un-serializable content such as
-    SimpleXML objects, resource handles, or closures you might not be able to
-    use view caching.
+    如果你的视图变量含有不可序列化的内容，比如 SimpleXML 对象、资源句柄(resource handle)、或闭包(closure)，你就可能无法使用视图缓存了。
 
-Clearing the Cache
+清除缓存
 ==================
 
-It is important to remember that CakePHP will clear a cached view
-if a model used in the cached view is modified. For example, if a
-cached view uses data from the Post model, and there has been an
-INSERT, UPDATE, or DELETE query made to a Post, the cache for that
-view is cleared, and new content is generated on the next request.
+重要的是要记住，如果缓存的视图所使用的模型发生了变化，CakePHP就会清除缓存了的视图。例如，如果一个缓存的视图使用 Post 模型的数据，且发生了一次对 Post 的 INSERT，UPDATE 或 DELETE 查询，则该视图的缓存会被清除，下一次请求时就会生成新的内容。
 
 .. note::
 
-    This automatic cache clearing requires the controller/model name to be part
-    of the URL. If you've used routing to change your urls this feature will not
-    work.
+    这种自动的缓存清除要求控制器/模型名称必须是 URL 的一部分。如果你用路由改变了网址，这项特性就不会起作用。
 
-If you need to manually clear the cache, you can do so by calling
-Cache::clear(). This will clear **all** cached data, excluding
-cached view files. If you need to clear the cached view files, use
-``clearCache()``.
+如果你需要手动清除缓存，你可以调用 Cache::clear()。这会清除**所有**缓存的数据，除了缓存的视图文件。如果你要清除缓存的视图文件，请使用``clearCache()``。
 
 
 .. meta::
