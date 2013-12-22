@@ -194,32 +194,34 @@ window.lang = "{{ language }}";
 <div class="footer">
 	<div class="row">
 		<div class="columns six offset-by-three contribute">
-			<strong>Found an issue?</strong>
-			Submit a correction on <a href="https://github.com/cakephp/docs">github</a><br />
-			<a href="http://book.cakephp.org/2.0/en/contributing/documentation.html">[ documentation on how to contribute ]</a>
+			<strong></strong>
+			发现翻译错误?请在下方留言
+			<a href="http://git.oschina.net/finley/CakePHP_zh" target="_blank">[ 我要加入翻译 ]</a>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="columns nine offset-by-three copyright">
-			{%- if show_copyright %}
-				{%- if hasdoc('copyright') %}
-					{% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
-				{%- else %}
-					{% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}
-				{%- endif %}
-			{%- endif %}
-			{%- if last_updated %}
-				{% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
-			{%- endif %}
-			{%- if show_sphinx %}
-				{% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}
-			{%- endif %}
+		Sponsored by <a href="http://www.shinetechzhengzhou.com/" target="_blank">盛安德郑州</a>
 		</div>
 	</div>
 </div>
 
 <div id="nav-modal" class="reveal-modal"> </div>
 <div id="inline-search-results"></div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cakephpchina"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
 {%- endblock %}
 

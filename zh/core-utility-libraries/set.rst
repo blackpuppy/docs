@@ -3,23 +3,35 @@ Set
 
 .. php:class:: Set
 
+Set类用于处理数组，如果使用得当，可以成为构建更加优雅有效代码的强有力的工具。
+在本类库中，CakePHP提供了一系列静态方法供你调用。
+
 Array management, if done right, can be a very powerful and useful
 tool for building smarter, more optimized code. CakePHP offers a
 very useful set of static utilities in the Set class that allow you
 to do just that.
 
+CakePHP的Set类可以在任何模型或控制器中调用。与调用Inflector的方法一样，
+例如：:php:meth:`Set::combine()`。
+
 CakePHP's Set class can be called from any model or controller in
 the same way Inflector is called. Example: :php:meth:`Set::combine()`.
 
 .. deprecated:: 2.2
+	Set类已经在2.2废除，被:php:class:`Hash`取代。后者提供了更一致的接口和API。
+
     The Set class has been deprecated in 2.2 in favour of the :php:class:`Hash`
     class.  It offers a more consistent interface and API.
 
 Set-compatible Path syntax
 ==========================
 
+Path语法可以用作排序，通常被用作定义路径。
+
 The Path syntax is used by (for example) sort, and is used to
 define a path.
+
+用法实例 (使用 :php:func:`Set::sort()`)::
 
 Usage example (using :php:func:`Set::sort()`)::
 
@@ -29,7 +41,7 @@ Usage example (using :php:func:`Set::sort()`)::
         2 => array('Person' => array('name' => 'Adam'),'Friend' => array(array('name' => 'Bob')))
     );
     $result = Set::sort($a, '{n}.Person.name', 'asc');
-    /* result now looks like
+    /* 结果现在变为这样
      array(
         0 => array('Person' => array('name' => 'Adam'),'Friend' => array(array('name' => 'Bob'))),
         1 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'Nate'))),
@@ -37,28 +49,30 @@ Usage example (using :php:func:`Set::sort()`)::
     );
     */
 
+在上面的例子中，{}内包含有参数，下面表格是可用选项。
+
 As you can see in the example above, some things are wrapped in
 {}'s, others not. In the table below, you can see which options are
 available.
 
 +--------------------------------+--------------------------------------------+
-| Expression                     | Definition                                 |
+| 表达式                         | 定义                                       |
 +================================+============================================+
-| {n}                            | Represents a numeric key                   |
+| {n}                            | 代表一个数字键名Represents a numeric key   |
 +--------------------------------+--------------------------------------------+
-| {s}                            | Represents a string                        |
+| {s}                            | 代表一个字符串Represents a string          |
 +--------------------------------+--------------------------------------------+
-| Foo                            | Any string (without enclosing brackets)    |
-|                                | is treated like a string literal.          |
+| Foo                            | 任意字符串(除了方括号中的)                 |
+|                                | 当作字符串字面量对待。                     |
 +--------------------------------+--------------------------------------------+
-| {[a-z]+}                       | Any string enclosed in brackets (besides   |
-|                                | {n} and {s}) is interpreted as a regular   |
-|                                | expression.                                |
+| {[a-z]+}                       | 方括号中的任意字符 (除了                   |
+|                                | {n} 和 {s}) 会被解析为                     |
+|                                | 正则表达式。                               |
 +--------------------------------+--------------------------------------------+
 
 .. todo:
 
-    This section needs to be expanded.
+    本部分内容需要扩充。
 
 .. php:staticmethod:: apply($path, $array, $callback, $options = array())
 
@@ -85,6 +99,7 @@ available.
 
     :rtype: boolean/array
 
+    检测一个特殊的路径值是否在array中存在。如果$path为空，将返回$data而不是布尔值::
     Checks if a particular path is set in an array. If $path is empty,
     $data will be returned instead of a boolean value::
 
@@ -117,11 +132,13 @@ available.
 
     :rtype: array
 
+	从给定的数组或对象中获取值
+	使用数组路径语法
     Gets a value from an array or object that is contained in a given
     path using an array path syntax, i.e.:
 
-    -  "{n}.Person.{[a-z]+}" - Where "{n}" represents a numeric key,
-       "Person" represents a string literal
+    -  "{n}.Person.{[a-z]+}" - 此处 "{n}" 代表一个数字键名，
+       "Person" 代表字面量
     -  "{[a-z]+}" (i.e. any string literal enclosed in brackets besides
        {n} and {s}) is interpreted as a regular expression.
 
@@ -134,7 +151,7 @@ available.
             array('Article' => array('id' => 3, 'title' => 'Article 3'))
         );
         $result = Set::classicExtract($a, '{n}.Article.id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => 1
@@ -143,7 +160,7 @@ available.
             )
         */
         $result = Set::classicExtract($a, '{n}.Article.title');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Article 1
@@ -168,7 +185,7 @@ available.
         );
 
         $result = Set::classicExtract($a, '{n}.{s}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -182,7 +199,7 @@ available.
             )
         */
         $result = Set::classicExtract($a, '{s}.{n}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -196,7 +213,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{\w+}.{\w+}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -218,7 +235,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{\d+}.{\w+}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -232,7 +249,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{n}.{\w+}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -246,7 +263,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{s}.{\d+}.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -260,7 +277,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{s}');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
 
@@ -281,7 +298,7 @@ available.
             )
         */
         $result = Set::classicExtract($a,'{[a-z]}');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [test] => Array
@@ -302,7 +319,7 @@ available.
             )
         */
         $result = Set::classicExtract($a, '{dot\.test}.{n}');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [dot.test] => Array
@@ -365,7 +382,7 @@ available.
             )
         );
         $result = Set::combine($a, '{n}.User.id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2] =>
@@ -375,7 +392,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', '{n}.User.non-existent');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2] =>
@@ -385,7 +402,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', '{n}.User.Data');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2] => Array
@@ -407,7 +424,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', '{n}.User.Data.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2] => Mariano Iglesias
@@ -417,7 +434,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', '{n}.User.Data', '{n}.User.group_id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [1] => Array
@@ -445,7 +462,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', '{n}.User.Data.name', '{n}.User.group_id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [1] => Array
@@ -461,7 +478,7 @@ available.
         */
 
         $result = Set::combine($a, '{n}.User.id', array('{0}: {1}', '{n}.User.Data.user', '{n}.User.Data.name'), '{n}.User.group_id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [1] => Array
@@ -477,7 +494,7 @@ available.
         */
 
         $result = Set::combine($a, array('{0}: {1}', '{n}.User.Data.user', '{n}.User.Data.name'), '{n}.User.id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [mariano.iglesias: Mariano Iglesias] => 2
@@ -487,7 +504,7 @@ available.
         */
 
         $result = Set::combine($a, array('{1}: {0}', '{n}.User.Data.user', '{n}.User.Data.name'), '{n}.User.id');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [Mariano Iglesias: mariano.iglesias] => 2
@@ -498,7 +515,7 @@ available.
 
         $result = Set::combine($a, array('%1$s: %2$d', '{n}.User.Data.user', '{n}.User.id'), '{n}.User.Data.name');
 
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [mariano.iglesias: 2] => Mariano Iglesias
@@ -508,7 +525,7 @@ available.
         */
 
         $result = Set::combine($a, array('%2$d: %1$s', '{n}.User.Data.user', '{n}.User.id'), '{n}.User.Data.name');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2: mariano.iglesias] => Mariano Iglesias
@@ -521,6 +538,8 @@ available.
 .. php:staticmethod:: contains($val1, $val2 = null)
 
     :rtype: boolean
+
+	确定一个集合或数组是否准确的包含另一个数组的键和值
 
     Determines if one Set or array contains the exact keys and values
     of another::
@@ -618,7 +637,7 @@ available.
         );
 
         $result = Set::diff($a, $b);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [2] => Array
@@ -628,7 +647,7 @@ available.
             )
         */
         $result = Set::diff($a, array());
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -642,7 +661,7 @@ available.
             )
         */
         $result = Set::diff(array(), $b);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -666,7 +685,7 @@ available.
         );
 
         $result = Set::diff($a, $b);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Array
@@ -767,6 +786,7 @@ available.
 
     :rtype: array
 
+    过滤掉整个数组中的空元素，排除'0'::
     Filters empty elements out of a route array, excluding '0'::
 
         $res = Set::filter(array('0', false, true, 0, array('one thing', 'I can tell you', 'is you got to be', false)));
@@ -790,6 +810,7 @@ available.
 
     :rtype: array
 
+    转换多维数组为一维数组::
     Collapses a multi-dimensional array into a single dimension::
 
         $arr = array(
@@ -891,13 +912,14 @@ available.
 
     :rtype: array
 
+    通过定义的$path，插入$data到数组中::
     Inserts $data into an array as defined by $path.::
 
         $a = array(
             'pages' => array('name' => 'page')
         );
         $result = Set::insert($a, 'files', array('name' => 'files'));
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [pages] => Array
@@ -915,7 +937,7 @@ available.
             'pages' => array('name' => 'page')
         );
         $result = Set::insert($a, 'pages.name', array());
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [pages] => Array
@@ -934,7 +956,7 @@ available.
             )
         );
         $result = Set::insert($a, 'pages.1.vars', array('title' => 'page title'));
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [pages] => Array
@@ -1055,40 +1077,42 @@ available.
             array('Article' => array('id' => 3, 'title' => 'Article 3'))
         );
         $res = Set::matches(array('id>2'), $a[1]['Article']);
-        // returns false
+        // 返回 false
         $res = Set::matches(array('id>=2'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('id>=3'), $a[1]['Article']);
-        // returns false
+        // 返回 false
         $res = Set::matches(array('id<=2'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('id<2'), $a[1]['Article']);
-        // returns false
+        // 返回 false
         $res = Set::matches(array('id>1'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('id>1', 'id<3', 'id!=0'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('3'), null, 3);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('5'), null, 5);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('id'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('id', 'title'), $a[1]['Article']);
-        // returns true
+        // 返回 true
         $res = Set::matches(array('non-existent'), $a[1]['Article']);
-        // returns false
+        // 返回 false
         $res = Set::matches('/Article[id=2]', $a);
-        // returns true
+        // 返回 true
         $res = Set::matches('/Article[id=4]', $a);
-        // returns false
+        // 返回 false
         $res = Set::matches(array(), $a);
-        // returns true
+        // 返回 true
 
 
 .. php:staticmethod:: merge($arr1, $arr2 = null)
 
     :rtype: array
+
+    这个方法可以看作是PHP的array\_merge和array\_merge\_recursive的混合。
 
     This function can be thought of as a hybrid between PHP's
     array\_merge and array\_merge\_recursive. The difference to the two
@@ -1168,7 +1192,7 @@ available.
 
         $result = Set::nest($data, array('root' => 6));
 
-        /* $result now looks like:
+        /* $result 现在变为这样：
             array(
                 (int) 0 => array(
                     'ModelName' => array(
@@ -1213,6 +1237,8 @@ available.
 
     :rtype: array
 
+    标准化字符串或数组。::
+
     Normalizes a string or array list.::
 
         $a = array(
@@ -1231,7 +1257,7 @@ available.
             'Transactional'
         );
         $result = Set::normalize($a);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [Tree] =>
@@ -1251,7 +1277,7 @@ available.
             )
         */
         $result = Set::normalize($b);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [Cacheable] => Array
@@ -1266,7 +1292,7 @@ available.
             )
         */
         $result = Set::merge($a, $b);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [0] => Tree
@@ -1294,8 +1320,8 @@ available.
                 [5] => Transactional
             )
         */
-        $result = Set::normalize(Set::merge($a, $b)); // Now merge the two and normalize
-        /* $result now looks like:
+        $result = Set::normalize(Set::merge($a, $b)); // 合并两个数组并标准化
+        /* $result 现在变为这样：
             Array
             (
                 [Tree] =>
@@ -1329,62 +1355,66 @@ available.
 
     :rtype: boolean
 
+    检测数组中的所有值是否为数字::
+
     Checks to see if all the values in the array are numeric::
 
         $data = array('one');
         $res = Set::numeric(array_keys($data));
 
-        // $res is true
+        // $res 为 true
 
         $data = array(1 => 'one');
         $res = Set::numeric($data);
 
-        // $res is false
+        // $res 为 false
 
         $data = array('one');
         $res = Set::numeric($data);
 
-        // $res is false
+        // $res 为 false
 
         $data = array('one' => 'two');
         $res = Set::numeric($data);
 
-        // $res is false
+        // $res 为 false
 
         $data = array('one' => 1);
         $res = Set::numeric($data);
 
-        // $res is true
+        // $res 为 true
 
         $data = array(0);
         $res = Set::numeric($data);
 
-        // $res is true
+        // $res 为 true
 
         $data = array('one', 'two', 'three', 'four', 'five');
         $res = Set::numeric(array_keys($data));
 
-        // $res is true
+        // $res 为 true
 
         $data = array(1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five');
         $res = Set::numeric(array_keys($data));
 
-        // $res is true
+        // $res 为 true
 
         $data = array('1' => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five');
         $res = Set::numeric(array_keys($data));
 
-        // $res is true
+        // $res 为 true
 
         $data = array('one', 2 => 'two', 3 => 'three', 4 => 'four', 'a' => 'five');
         $res = Set::numeric(array_keys($data));
 
-        // $res is false
+        // $res 为 false
 
 
 .. php:staticmethod:: pushDiff($array1, $array2)
 
     :rtype: array
+
+    合并两数组并且将array2中的不同内容放到合并后数组的尾部。
 
     This function merges two arrays and pushes the differences in
     array2 to the bottom of the resultant array.
@@ -1396,7 +1426,7 @@ available.
         $array2 = array('ModelOne' => array('id' => 1003, 'field_one' => 'a3.m1.f1', 'field_two' => 'a3.m1.f2', 'field_three' => 'a3.m1.f3'));
         $res = Set::pushDiff($array1, $array2);
 
-        /* $res now looks like:
+        /* $res 现在变为这样：
             Array
             (
                 [ModelOne] => Array
@@ -1415,7 +1445,7 @@ available.
         $array1 = array("a" => "b", 1 => 20938, "c" => "string");
         $array2 = array("b" => "b", 3 => 238, "c" => "string", array("extra_field"));
         $res = Set::pushDiff($array1, $array2);
-        /* $res now looks like:
+        /* $res 现在变为这样：
             Array
             (
                 [a] => b
@@ -1435,6 +1465,8 @@ available.
 
     :rtype: array
 
+    移除一个Set或数组中的元素::
+
     Removes an element from a Set or array as defined by $path::
 
         $a = array(
@@ -1443,7 +1475,7 @@ available.
         );
 
         $result = Set::remove($a, 'files');
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [pages] => Array
@@ -1458,6 +1490,9 @@ available.
 .. php:staticmethod:: reverse($object)
 
     :rtype: array
+
+    Set::reverse基本上与:php:func:`Set::map`相反。它会将对象转换为数组，如果$object
+    为不是对象，会返回$object。
 
     Set::reverse is basically the opposite of :php:func:`Set::map`. It converts an
     object into an array. If $object is not an object, reverse will
@@ -1478,8 +1513,8 @@ available.
                 array('id' => 2, 'title' => 'Second Tag')
             ),
         );
-        $map = Set::map($a); // Turn $a into a class object
-        /* $map now looks like:
+        $map = Set::map($a); // 转换 $a 为对象类
+        /* $map 现在变为这样：
             stdClass Object
             (
                 [_name_] => Post
@@ -1515,7 +1550,7 @@ available.
         */
 
         $result = Set::reverse($map);
-        /* $result now looks like:
+        /* $result 现在变为这样：
             Array
             (
                 [Post] => Array
@@ -1552,8 +1587,8 @@ available.
             )
         */
 
-        $result = Set::reverse($a['Post']); // Just return the array
-        /* $result now looks like:
+        $result = Set::reverse($a['Post']); // 仅返回数组
+        /* $result 现在变为这样：
             Array
             (
                 [id] => 1
@@ -1566,6 +1601,7 @@ available.
 
     :rtype: array
 
+    通过一个Set-compatible参数，对数组排序
     Sorts an array by any value, determined by a Set-compatible path::
 
         $a = array(
@@ -1574,7 +1610,7 @@ available.
             2 => array('Person' => array('name' => 'Adam'),'Friend' => array(array('name' => 'Bob')))
         );
         $result = Set::sort($a, '{n}.Person.name', 'asc');
-        /* $result now looks like:
+        /* $result 现在变为这样：
         array(
             0 => array('Person' => array('name' => 'Adam'),'Friend' => array(array('name' => 'Bob'))),
             1 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'Nate'))),
@@ -1583,7 +1619,7 @@ available.
         */
 
         $result = Set::sort($a, '{n}.Person.name', 'desc');
-        /* $result now looks like:
+        /* $result 现在变为这样：
         array(
             2 => array('Person' => array('name' => 'Tracy'),'Friend' => array(array('name' => 'Lindsay')))
             1 => array('Person' => array('name' => 'Jeff'), 'Friend' => array(array('name' => 'Nate'))),

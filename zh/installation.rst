@@ -58,15 +58,15 @@ There are two main ways to get a fresh copy of CakePHP. You can
 either download an archive copy (zip/tar.gz/tar.bz2) from the main
 website, or check out the code from the git repository.
 
-要下载 CakePHP 最新的主版本，访问官网 `http://cakephp.org <http://cakephp.org>`_ 并点击 "Download Now"链接。
+要下载 CakePHP 最新的主版本，访问官网 `http://cakephp.org <http://cakephp.org>`_ 并点击 "Download Now" 链接。
 
 To download the latest major release of CakePHP. Visit the main
 website `http://cakephp.org <http://cakephp.org>`_ and
 follow the "Download Now" link.
 
-CakePHP 的当前发行版本都托管在`Github <http://github.com/cakephp/cakephp>`_。
+CakePHP 的当前发行版本都托管在 `Github <http://github.com/cakephp/cakephp>`_ 。
 Github 同时保管了 CakePHP 自身和 CakePHP 的其它插件。
-CakePHP的所有发行版本可从`Github tags <https://github.com/cakephp/cakephp/tags>`_ 获得。
+CakePHP的所有发行版本可从 `Github tags <https://github.com/cakephp/cakephp/tags>`_ 获得。
 
 All current releases of CakePHP are hosted on
 `Github <http://github.com/cakephp/cakephp>`_. Github houses both CakePHP
@@ -74,7 +74,7 @@ itself as well as many other plugins for CakePHP. The CakePHP
 releases are available at
 `Github tags <https://github.com/cakephp/cakephp/tags>`_.
 
-也可以获取最新的非正式发布代码，带有全部 bug 修正和最新的增强功能。这可以通过克隆 `Github`库来访问::
+也可以获取最新的非正式发布代码，带有全部 bug 修正和最新的增强功能。这可以通过克隆 `Github` 库来访问::
     git clone git://github.com/cakephp/cakephp.git
 
 Alternatively you can get fresh off the press code, with all the
@@ -94,7 +94,7 @@ CakePHP uses the ``app/tmp`` directory for a number of different
 operations. Model descriptions, cached views, and session
 information are just a few examples.
 
-因此，要确保在 CakePHP 安装中``app/tmp``及其全部子目录可以被 web 服务器用户读写。
+因此，要确保在 CakePHP 安装中 ``app/tmp`` 及其全部子目录可以被 web 服务器用户读写。
 
 As such, make sure the directory ``app/tmp`` and all its subdirectories in your cake installation
 are writable by the web server user.
@@ -127,7 +127,7 @@ CakePHP: development, production, and advanced.
 ===========
 
 开发模式是安装 CakePHP 最快的方法。
-本例将帮助你安装一个 CakePHP 应用程序并使它在地址http://www.example.com/cake\_2\_0/ 上生效。
+本例将帮助你安装一个 CakePHP 应用程序并使它在地址 http://www.example.com/cake\_2\_0/ 上生效。
 假设文档根目录设置在 /var/www/html。
 
 A development installation is the fastest method to setup Cake.
@@ -136,7 +136,7 @@ it available at http://www.example.com/cake\_2\_0/. We assume for
 the purposes of this example that your document root is set to
 ``/var/www/html``.
 
-把 Cake 压缩包的内容解压到``/var/www/html``。
+把 Cake 压缩包的内容解压到 ``/var/www/html`` 。
 现在文档根目录内已经有了以版本号为后缀名的子文件夹(例如cake\_2.0.0)。
 将文件夹更名为cake\_2\_0。开发模式设置完成后的文件系统类似于下面的样子::
 
@@ -166,7 +166,7 @@ Using one CakePHP checkout for multiple applications
 ----------------------------------------------------
 
 如果你正在开发几个应用程序，常常会感觉需要在它们之间共享一份 CakePHP 核心。
-有几个办法能达到这个目的。最简单的是使用 PHP 的``include_path``。
+有几个办法能达到这个目的。最简单的是使用PHP的 ``include_path`` 。
 首先，克隆 CakePHP 到一个目录。本示例中，我们使用 ``~/projects``::
     git clone git://github.com/cakephp/cakephp.git ~/projects/cakephp
 
@@ -179,8 +179,8 @@ off, clone CakePHP into a directory.  For this example, we'll use
     git clone git://github.com/cakephp/cakephp.git ~/projects/cakephp
 
 这会克隆 CakePHP 到 ``~/projects`` 目录。如果不想使用 git，你可以下载一个 zip 包，其它的步骤是相同的。
-接下来，修改`php.ini`` 文件。在 *nix 系统中通常位于``/etc/php.ini``，使用``php -i``可以找到 'Loaded
-Configuration File'。一旦找到正确的 ini 文件，编辑 ``include_path``使其包含``~/projects/cakephp/lib``。例如：
+接下来，修改 ``php.ini`` 文件。在 *nix 系统中通常位于 ``/etc/php.ini`` ，使用 ``php -i`` 可以找到 'Loaded
+Configuration File' 。一旦找到正确的 ini 文件，编辑 ``include_path`` 使其包含 ``~/projects/cakephp/lib`` 。例如：
 
 	include_path = .:/home/mark/projects/cakephp/lib:/usr/local/php/lib/php
 
@@ -204,7 +204,7 @@ After restarting your webserver, you should see the changes reflected in
     如果是在 windows 系统，用 ; 代替 : 分隔多个包含路径。
     If you are on windows, separate include paths with ; instead of :
 
-一旦设置完成``include_path`` ，应用程序将自动找到 CakePHP。
+一旦设置完成 ``include_path`` ，应用程序将自动找到 CakePHP。
 
 Having finished setting up your ``include_path`` your applications should be able to
 find CakePHP automatically.
@@ -276,14 +276,14 @@ http://example.com/cake\_install/. At this point, you'll be
 presented with CakePHP's default home, and a message that tells you
 the status of your current database connection.
 
-恭喜！你已经准备好:doc:`create your first CakePHP
+恭喜！你已经准备好 :doc:`create your first CakePHP
 application </getting-started>`。
 
 Congratulations! You are ready to :doc:`create your first CakePHP
 application </getting-started>`.
 
 不能正常执行？如果你得到一个有关 timezone 的错误，
-将``app/Config/core.php`` 中和timezone有关的那行代码注释掉。
+将 ``app/Config/core.php`` 中和timezone有关的那行代码注释掉。
    /**
     * 注释本行，并且改正服务器时区及与日期时间相关的错误。
     *

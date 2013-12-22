@@ -20,7 +20,7 @@ following::
 
 .. note::
 
-    在一些操作系统用pear命令安装类库需要``sudo``超级权限。
+    在一些操作系统用pear命令安装类库需要 ``sudo`` 超级权限。
     On some systems installing libraries with pear will require ``sudo``.
 
 使用pear安装CakePHP后，如果pear配置正确可以使用 ``cake`` 命令来创建新的应用程序。
@@ -36,7 +36,7 @@ changes.
 
 Composer是一个支持PHP 5.3以上的依赖管理工具。解决了通过PEAR安装器安装Cake的很多问题
 并且使管理多版本类库变的更加简单。由于CakePHP有PEAR发行包，可以通过`composer <http://getcomposer.org>`_
-安装，在安装CakePHP之前需要建立一个``composer.json``文件，内容可以如下：
+安装，在安装CakePHP之前需要建立一个 ``composer.json`` 文件，内容可以如下：
 
 Composer is a dependency management tool for PHP 5.3+. It solves many of the
 problems the PEAR installer has, and simplifies managing multiple versions of
@@ -61,7 +61,7 @@ would look like the following::
         }
     }
 
-保存这个JSON文件为 ``composer.json``并放到项目的根目录。接下来下载composer.phar文件到项目中。
+保存这个JSON文件为 ``composer.json`` 并放到项目的根目录。接下来下载composer.phar文件到项目中。
 在 ``composer.json`` 的同级目录下运行如下命令：
 
     $ php composer.phar install
@@ -90,8 +90,8 @@ You are now ready to generate the rest of your application skeleton::
 
     $ Vendor/bin/cake bake project <path to project>
 
-默认``bake``是硬编码 :php:const:`CAKE_CORE_INCLUDE_PATH`。为了使应用程序
-更加的便携。我们要修改``webroot/index.php``，将``CAKE_CORE_INCLUDE_PATH``
+默认 ``bake`` 是硬编码 :php:const:`CAKE_CORE_INCLUDE_PATH`。为了使应用程序
+更加的便携。我们要修改 ``webroot/index.php`` ，将 ``CAKE_CORE_INCLUDE_PATH``
 改为相对路径：
 
 By default ``bake`` will hard-code :php:const:`CAKE_CORE_INCLUDE_PATH`. To
@@ -103,7 +103,7 @@ changing ``CAKE_CORE_INCLUDE_PATH`` to be a relative path::
         ROOT . DS . APP_DIR . '/Vendor/pear-pear.cakephp.org/CakePHP'
     );
 
-如果使用composer安装其他任何类库，要设置autoloader，在``Config/bootstrap.php``文件中添加
+如果使用composer安装其他任何类库，要设置autoloader，在 ``Config/bootstrap.php`` 文件中添加
 如下代码：
 
 If you're installing any other libraries with composer, you'll need to setup
@@ -170,7 +170,7 @@ changes to the following files.
 -  /app/webroot/test.php (if you use the
    :doc:`Testing </development/testing>` feature.)
 
-需要编辑三个常量 ``ROOT``，``APP_DIR``和``CAKE_CORE_INCLUDE_PATH``。
+需要编辑三个常量 ``ROOT``，``APP_DIR`` 和 ``CAKE_CORE_INCLUDE_PATH``。
 
 -  ``ROOT`` 包含你的app文件夹的目录路径
 -  ``APP_DIR`` app目录的(基本 )名称
@@ -191,7 +191,7 @@ Let’s run through an example so you can see what an advanced
 installation might look like in practice. Imagine that I wanted to
 set up CakePHP to work as follows:
 
--  CakePHP的核心类库放在 /usr/lib/cake。
+-  CakePHP的核心类库放在/usr/lib/cake。
 -  我的应用程序的webroot目录在/var/www/mysite/。
 -  我的应用程序的app目录在/home/me/myapp。
 
@@ -221,7 +221,7 @@ example) to look like the following::
         define('CAKE_CORE_INCLUDE_PATH', DS . 'usr' . DS . 'lib');
     }
 
-推荐使用``DS``常量而不是用反斜杠来分隔文件路径，这样可以避免错误，同样
+推荐使用 ``DS`` 常量而不是用反斜杠来分隔文件路径，这样可以避免错误，同样
 使代码更加便携。
 
 It is recommended to use the ``DS`` constant rather than slashes to
