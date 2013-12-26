@@ -78,7 +78,7 @@ normally accessed statically. Example:
 
 .. php:staticmethod:: rules($type, $rules, $reset = false)
 
-	定义一个新的规则供Inflector类使用。参见:ref:`inflection-configuration`。
+	定义一个新的规则供Inflector类使用。参见 :ref:`inflection-configuration`。
 
     Define new inflection and transliteration rules for Inflector to use.
     See :ref:`inflection-configuration` for more information.

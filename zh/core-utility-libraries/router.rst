@@ -10,7 +10,7 @@ the controller, action, and any parameters, and the opposite: to
 convert url arrays (eg. array('controller' => 'posts',
 'action' => 'index')) to string urls.
 
-了解更多请参见:ref:`configure the Router <routes-configuration>`和:php:class:`Router`
+了解更多请参见 :ref:`configure the Router <routes-configuration>` 和 :php:class:`Router`
 
 Read more about ways to :ref:`configure the Router <routes-configuration>` and
 the :php:class:`Router` class.
