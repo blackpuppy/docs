@@ -432,7 +432,7 @@ last
     $this->validator()->remove('username');
 
     // 删除字段 password 的 'required' 规则
-    $this->validator()->remove('password'，'required');
+    $this->validator()->remove('password', 'required');
 
 另外，你可以用数组访问的方式从集合中删除规则::
 
