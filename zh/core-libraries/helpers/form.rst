@@ -653,16 +653,18 @@ html attributes. The following will cover the options specific to
   number of suboptions which control the wrapping element, wrapping element
   class name, and whether HTML in the error message will be escaped.
 
-  要禁止错误信息生成和样式 class，设置 error 键为 false::
+  要禁用错误信息输出和样式 class，设置 error 键为 false::
   To disable error message output & field classes set the error key to false::
 
     $this->Form->input('Model.field', array('error' => false));
 
+  要只禁用错误信息，但保持 class，设置 errorMessage 键为 false::
   To disable only the error message, but retain the field classes, set the
   errorMessage key to false::
 
     $this->Form->input('Model.field', array('errorMessage' => false));
 
+  要改变包裹元素的类型和它的样式类(class)，使用下面的格式::
   To modify the wrapping element type and its class, use the
   following format::
 
@@ -670,6 +672,7 @@ html attributes. The following will cover the options specific to
         'error' => array('attributes' => array('wrap' => 'span', 'class' => 'bzzz'))
     ));
 
+  为防止在错误信息输出中的 HTML 被自动转义，设置 escape 子选项为 false::
   To prevent HTML being automatically escaped in the error message
   output, set the escape suboption to false::
 
@@ -679,6 +682,7 @@ html attributes. The following will cover the options specific to
         )
     ));
 
+  要覆盖模型的错误信息，用含有匹配验证规则名称的键的数组::
   To override the model error messages use an array with
   the keys matching the validation rule names::
 
@@ -686,16 +690,19 @@ html attributes. The following will cover the options specific to
         'error' => array('tooShort' => __('This is not long enough'))
     ));
 
+  如上所示，你可以为模型中的每个验证规则设置错误信息。而且，你可以为表单提供国际化(i18n)的消息。
   As seen above you can set the error message for each validation
   rule you have in your models. In addition you can provide i18n
   messages for your forms.
 
   .. versionadded:: 2.3
+    在2.3版本中增加了对``errorMessage``的支持。
     Support for the ``errorMessage`` option was added in 2.3
 
 * ``$options['before']``, ``$options['between']``, ``$options['separator']``,
   and ``$options['after']``
 
+  如果你要在 input() 方法的输出中插入一些标记代码，就可以使用这些键::
   Use these keys if you need to inject some markup inside the output
   of the input() method::
 
@@ -705,7 +712,7 @@ html attributes. The following will cover the options specific to
           'between' => '--between---'
       ));
 
-  Output:
+  输出: Output:
 
   .. code-block:: html
 
@@ -717,6 +724,7 @@ html attributes. The following will cover the options specific to
       --after--
       </div>
 
+  对 radio 输入项，'separator'属性可用来插入标记，来分隔每对 input/label::
   For radio inputs the 'separator' attribute can be used to
   inject markup to separate each input/label pair::
 
@@ -728,7 +736,7 @@ html attributes. The following will cover the options specific to
           'options' => array('1', '2')
       ));
 
-  Output:
+  输出: Output:
 
   .. code-block:: html
 
@@ -743,18 +751,19 @@ html attributes. The following will cover the options specific to
       --after--
       </div>
 
+  对于``date``和``datetime``类型的元素，'separator'可用来改变 select 元素之间的字符串。缺省为 '-'。
   For ``date`` and ``datetime`` type elements the 'separator'
   attribute can be used to change the string between select elements.
   Defaults to '-'.
 
-* ``$options['format']`` The ordering of the html generated FormHelper is
+* ``$options['format']`` FormHelper 之间生成的 html 也是可以控制的。'format'选项支持字符串数组，指明上述元素遵从的格式。支持的数组的键为``array('before', 'input', 'between', 'label', 'after','error')``。 The ordering of the html generated FormHelper is
   controllable as well. The 'format' options supports an array of strings
   describing the template you would like said element to follow. The supported
   array keys are:
   ``array('before', 'input', 'between', 'label', 'after','error')``.
 
 
-* ``$options['inputDefaults']`` If you find yourself repeating the same options
+* ``$options['inputDefaults']`` 如果你发现在对 input() 的多个调用在重复相同的选项，你可以使用`inputDefaults``来保持你的代码 dry (译注: Don't Repeat Yourself,指不要重复代码。) If you find yourself repeating the same options
   in multiple input() calls, you can use `inputDefaults`` to keep your code dry::
 
     echo $this->Form->create('User', array(
@@ -764,22 +773,26 @@ html attributes. The following will cover the options specific to
         )
     ));
 
+  以下创建的所有输入项就都会继承 inputDefaults 之中声明的选项。你可以在 input() 调用中声明选项来覆盖缺省的选项::
   All inputs created from that point forward would inherit the
   options declared in inputDefaults. You can override the
   defaultOptions by declaring the option in the input() call::
 
-    // No div, no label
+    // 没有 div，没有 label No div, no label
     echo $this->Form->input('password');
 
-    // has a label element
+    // 有一个 label 元素 has a label element
     echo $this->Form->input('username', array('label' => 'Username'));
 
+  如果你以后需要改变缺省(选项)，你可以使用:php:meth:`FormHelper::inputDefaults()`方法。
   If you need to later change the defaults you can use
   :php:meth:`FormHelper::inputDefaults()`.
 
+生成特定类型的输入项(input)
 Generating specific types of inputs
 ===================================
 
+除了通用的``input()``方法，``FormHelper``助件有特定的方法来生成一系列不同类型的输入项(input)。这些方法可以用来只是生成输入项部件本身，也可以和其它象:php:meth:`~FormHelper::label()`和:php:meth:`~FormHelper::error()`的方法来生成完整的定制表单布局。
 In addition to the generic ``input()`` method, ``FormHelper`` has specific
 methods for generating a number of different types of inputs.  These can be used
 to generate just the input widget itself, and combined with other methods like
@@ -788,28 +801,30 @@ generate fully custom form layouts.
 
 .. _general-input-options:
 
+通用选项
 Common options
 --------------
 
+许多不同的输入项(input)元素方法支持一组通用的选项。所有这些选项``input()``方法也支持。为减少重复，所有输入项(input)方法共用的通用选项如下:
 Many of the various input element methods support a common set of options.  All
 of these options are also supported by ``input()``. To reduce repetition the
 common options shared by all input methods are as follows:
 
-* ``$options['class']`` You can set the classname for an input::
+* ``$options['class']`` 你可以为一个输入项设置样式类名(classname):: You can set the classname for an input::
 
     echo $this->Form->input('title', array('class' => 'custom-class'));
 
-* ``$options['id']`` Set this key to force the value of the DOM id for the input.
+* ``$options['id']`` 设置此键来强制指定输入项(inout)的 DOM id 的值。 Set this key to force the value of the DOM id for the input.
 
-* ``$options['default']`` Used to set a default value for the input field. The
+* ``$options['default']`` 用来设置输入项(input)的缺省值。如果传给表单的数据不包含该字段的值(或者根本没有数据传入)，该值就会被使用。Used to set a default value for the input field. The
   value is used if the data passed to the form does not contain a value for the
   field (or if no data is passed at all).
 
-  Example usage::
+  使用的例子:: Example usage::
 
     echo $this->Form->input('ingredient', array('default' => 'Sugar'));
 
-  Example with select field (Size "Medium" will be selected as
+  select 字段的例子(尺寸"Medium"会作为缺省值被选中):: Example with select field (Size "Medium" will be selected as
   default)::
 
     $sizes = array('s' => 'Small', 'm' => 'Medium', 'l' => 'Large');
@@ -817,26 +832,31 @@ common options shared by all input methods are as follows:
 
   .. note::
 
+    你无法使用``default``来勾选 checkbox —— 你应当在控制器中设置``$this->request->data``的值，或者把输入项(input)的选项``checked``设为 true。
     You cannot use ``default`` to check a checkbox - instead you might
     set the value in ``$this->request->data`` in your controller,
     or set the input option ``checked`` to true.
 
+    Date 和 datetime 字段的缺省值可以用'selected'键来设置。
     Date and datetime fields' default values can be set by using the
     'selected' key.
 
+    当心使用 false 来设置缺省值。false 值用来禁用/排除输入项(input)的选项，所以``'default' => false``完全不会设置任何值。而是使用``'default' => 0``。
     Beware of using false to assign a default value. A false value is used to
     disable/exclude options of an input field, so ``'default' => false`` would
     not set any value at all. Instead use ``'default' => 0``.
 
+除了上述的选项之外，你可以 mixin 任何你想使用的 html 属性。任何不特别的选项名称，会被当作 HTML 属性，并应用于生成的 HTML 输入项(input)元素。
 In addition to the above options, you can mixin any html attribute you wish to
 use.  Any non-special option name will be treated as an HTML attribute, and
 applied to the generated HTML input element.
 
 
+select，checkbox 和 radio 输入项(input)的选项
 Options for select, checkbox and  radio inputs
 ----------------------------------------------
 
-* ``$options['selected']`` Used in combination with a select-type input (i.e.
+* ``$options['selected']`` 与选择类型的输入项(input)(即 select，date，time，datetime)结合使用。设置‘selected’为输入项(input)渲染时你要缺省就选中的项目的值:: Used in combination with a select-type input (i.e.
   For types select, date, time, datetime). Set ‘selected’ to the value of the
   item you wish to be selected by default when the input is rendered::
 
@@ -847,11 +867,13 @@ Options for select, checkbox and  radio inputs
 
   .. note::
 
+    date 和 datetime 输入项(input)的 selected 键也可以是 UNIX 时间戳。
     The selected key for date and datetime inputs may also be a UNIX
     timestamp.
 
-* ``$options['empty']`` If set to true, forces the input to remain empty.
+* ``$options['empty']`` 如果设置为 true，就会强制输入项(input)保持为空。If set to true, forces the input to remain empty.
 
+  当传递给一个 select 列表时，这会在你的下拉列表中创建一个带有空值的空选项(option)。如果你要空值有文字显示，而不是只是空的选项，给 empty 键传入一个字符串::
   When passed to a select list, this creates a blank option with an
   empty value in your drop down list. If you want to have a empty
   value with text displayed instead of just a blank option, pass in a
@@ -862,7 +884,7 @@ Options for select, checkbox and  radio inputs
           'empty' => '(choose one)'
       ));
 
-  Output:
+  输出: Output:
 
   .. code-block:: html
 
@@ -880,12 +902,14 @@ Options for select, checkbox and  radio inputs
 
   .. note::
 
+      如果你要设置一个密码(password)字段为空，转而使用'value' => ''。
       If you need to set the default value in a password field to blank,
       use 'value' => '' instead.
 
+  选项也可以以键值对的方式提供。
   Options can also supplied as key-value pairs.
 
-* ``$options['hiddenField']`` For certain input types (checkboxes, radios) a
+* ``$options['hiddenField']`` 对某些输入项类型(checkboxe、radio)一个隐藏输入项(hidden input)会被创建，从而使 $this->request->data 中有一个键，即使没有值: For certain input types (checkboxes, radios) a
   hidden input is created so that the key in $this->request->data will exist
   even without a value specified:
 
@@ -894,21 +918,24 @@ Options for select, checkbox and  radio inputs
     <input type="hidden" name="data[Post][Published]" id="PostPublished_" value="0" />
     <input type="checkbox" name="data[Post][Published]" value="1" id="PostPublished" />
 
+  这可以通过设置``$options['hiddenField'] = false``来禁用::
   This can be disabled by setting the ``$options['hiddenField'] = false``::
 
     echo $this->Form->checkbox('published', array('hiddenField' => false));
 
-  Which outputs:
+  就会输出: Which outputs:
 
   .. code-block:: html
 
     <input type="checkbox" name="data[Post][Published]" value="1" id="PostPublished" />
 
+  如果你要在一个表单上创建组织在一起的多组输入项，你就应该在除了第一个的所有输入项(input)上使用这个参数。如果页面中的隐藏输入项分布在多个地方，只有最后一组输入项(inout)的值会被保存。
   If you want to create multiple blocks of inputs on a form that are
   all grouped together, you should use this parameter on all inputs
   except the first. If the hidden input is on the page in multiple
   places, only the last group of input's values will be saved
 
+  在这个例子中，只有 tertiary colors 会被传递，primary colors 会被覆盖:
   In this example, only the tertiary colors would be passed, and the
   primary colors would be overridden:
 
@@ -932,8 +959,11 @@ Options for select, checkbox and  radio inputs
     <input type="checkbox" name="data[Addon][Addon][]" value="5" id="ColorsOrange" />
     <label for="ColorsOrange">Orange</label>
 
+  对第二组输入项(input)禁用``'hiddenField'``，就可以阻止这种行为。
   Disabling the ``'hiddenField'`` on the second input group would
   prevent this behavior.
+
+  你可以一个不同于0的隐藏字段值，比如'N'::
 
   You can set a different hidden field value other than 0 such as 'N'::
 
