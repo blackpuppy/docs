@@ -1,5 +1,4 @@
 翻译注释
-
 ########
 
 `14. cakephp_zh\zh\contributing <http://git.oschina.net/finley/cakephp_zh/tree/master/zh/contributing>`_
@@ -195,4 +194,4 @@
 =====================================================================================================
 
     #. on the fly
-       随时？在需要时？
+       随时？在需要时？文中以为“及时”。
