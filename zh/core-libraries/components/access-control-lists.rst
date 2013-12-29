@@ -1,4 +1,4 @@
-访问控制列表
+访问控制列表组件
 ####################
 
 .. php:class:: AclComponent(ComponentCollection $collection, array $settings = array())
