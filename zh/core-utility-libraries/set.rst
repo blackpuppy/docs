@@ -4,7 +4,7 @@ Set
 .. php:class:: Set
 
 Set类用于处理数组，如果使用得当，可以成为构建更加优雅有效代码的强有力的工具。
-在本类库中，CakePHP提供了一系列静态方法供你调用。
+在本类库中，CakePHP提供了一系列静态方法供调用。
 
 Array management, if done right, can be a very powerful and useful
 tool for building smarter, more optimized code. CakePHP offers a
@@ -18,7 +18,7 @@ CakePHP's Set class can be called from any model or controller in
 the same way Inflector is called. Example: :php:meth:`Set::combine()`.
 
 .. deprecated:: 2.2
-	Set类已经在2.2废除，被:php:class:`Hash`取代。后者提供了更一致的接口和API。
+	Set类已经在2.2废除，被 :php:class:`Hash` 取代。后者提供了更一致的接口和API。
 
     The Set class has been deprecated in 2.2 in favour of the :php:class:`Hash`
     class.  It offers a more consistent interface and API.
@@ -78,6 +78,7 @@ available.
 
     :rtype: mixed
 
+    对数组中的元素应用一个回调函数
     Apply a callback to the elements of an array extracted
     by a Set::extract compatible path::
 
@@ -88,11 +89,11 @@ available.
         );
 
         $result = Set::apply('/Movie/rating', $data, 'array_sum');
-        // result equals 9
+        // 结果等于 9
 
         $result = Set::apply('/Movie/title', $data, 'strtoupper', array('type' => 'map'));
-        // result equals array('MOVIE 3', 'MOVIE 1', 'MOVIE 2')
-        // $options are: - type : can be 'pass' uses call_user_func_array(), 'map' uses array_map(), or 'reduce' uses array_reduce()
+        // 结果等于 array('MOVIE 3', 'MOVIE 1', 'MOVIE 2')
+        // $options 是: - type : 可以是 'pass' 用来表示 call_user_func_array(), 'map' 表示 array_map(), 或 'reduce' 表示 array_reduce()
 
 
 .. php:staticmethod:: check($data, $path = null)
