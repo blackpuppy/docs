@@ -10,8 +10,7 @@ CakePHP。可惜官方文档并未有中文语言。
 
 需求
 ------------
-所有的文档可以当作纯文本阅读，文档格式是ReST文本格式。使用的是 reStructuredText标记语法。可以用Sphinx文档生成工具生成漂亮的组织结构
-以及便于浏览的HTML文件，甚至是epub、pdf格式的文档。
+所有的文档可以当作纯文本阅读，文档格式是ReST文本格式。使用的是 reStructuredText标记语法。可以用Sphinx文档生成工具生成漂亮的组织结构以及便于浏览的HTML文件，甚至是epub、pdf格式的文档。
 
 如果你想亲自尝试，按照下面的步骤一步步来，就可以生成类似于[CakePHP官网文档](http://book.cakephp.org/2.0/en/index.html)的html文件。
 
