@@ -4,8 +4,8 @@ Authentication 授权认证
 .. php:class:: AuthComponent(ComponentCollection $collection, array $settings = array())
 
 标识、身份验证和授权用户几乎是每一个web应用程序中常见的部分。
-CakePHP的AuthComponent(验证组件)提供了灵活的方式来完成这些任务。CakePHP的AuthComponent允许你结合
-验证对象,和授权对象来创建灵活的方式识别和检查用户授权。
+CakePHP的AuthComponent(验证组件)提供了灵活的方式来完成这些任务。
+CakePHP的AuthComponent允许结合验证对象,和授权对象来创建灵活的方式识别和检查用户授权。
 
 Identifying, authenticating and authorizing users is a common part of
 almost every web application.  In CakePHP AuthComponent provides a
@@ -27,7 +27,7 @@ Authentication 授权认证
 * ``BasicAuthenticate`` 基本认证。使用基本的HTTP认证方式来验证用户。
 * ``DigestAuthenticate`` 摘要认证。使用摘要HTTP认证方式来验证用户。
 
-默认情况下``AuthComponent``使用``FormAuthenticate``。
+默认情况下 ``AuthComponent`` 使用 ``FormAuthenticate`` 。
 
 Authentication is the process of identifying users by provided
 credentials and ensuring that users are who they say they are.
@@ -56,7 +56,7 @@ Choosing an Authentication type
 摘要身份验证使用摘要散列的用户名、密码,和一些其他细节。这使得摘要式身份验证更适合
 没有SSL加密的应用程序。
 
-可以使用其他认证系统，像openid但openid不属于CakePHP核心部分。
+可以使用其他认证系统，像openid。但openid不属于CakePHP核心部分。
 
 Generally you'll want to offer form based authentication. It is the easiest for
 users using a web-browser to use.  If you are building an API or webservice, you
@@ -91,7 +91,7 @@ no other handlers will be checked.  Conversely you can halt all
 authentication by throwing an exception.  You will need to catch any
 thrown exceptions, and handle them as needed.
 
-在控制器的``beforeFilter``或``$components``数组中配置验证处理程序。
+在控制器的 ``beforeFilter`` 或 ``$components`` 数组中配置验证处理程序。
 通过传入数组给每一个验证对象传递配置信息。
 
 You can configure authentication handlers in your controller's
@@ -108,8 +108,8 @@ array::
         'Basic' => array('userModel' => 'Member')
     );
 
-第二个例子中你会注意到我们定义了``userModel``键名两次。为了保持DRY(不要重复自己)，
-可以使用``all``键名，这个特殊的键名使得配置信息传递给每一个附带的对象。
+第二个例子中你会注意到我们定义了 ``userModel`` 键名两次。为了保持DRY(不要重复自己)，
+可以使用 ``all`` 键名，这个特殊的键名使得配置信息传递给每一个附带的对象。
 
 In the second example you'll notice that we had to declare the
 ``userModel`` key twice. To help you keep your code DRY, you can use the
@@ -124,7 +124,7 @@ to every attached object.  The all key is also exposed as
         'Basic'
     );
 
-上面的例子中，``Form``和``Basic``会使用'all'键名对应的配置信息。
+上面的例子中，``Form` `和 ``Basic`` 会使用'all'键名对应的配置信息。
 传递给一个特定的认证对象的任何配置信息都会重写'all'键名中匹配的信息。
 核心认证对象支持以下配置数组键名。
 
@@ -230,6 +230,7 @@ by including them in AuthComponents authenticate array::
 
 
 Identifying users and logging them in
+识别用户登录
 -------------------------------------
 
 In the past ``AuthComponent`` auto-magically logged users in.  This was
