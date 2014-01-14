@@ -1,15 +1,11 @@
-String
+字符串 String
 ######
 
 .. php:class:: String
 
-该类包含了创建和操作字符数的方法，要通过静态方法获取，如String::uuid()
-The String class includes convenience methods for creating and
-manipulating strings and is normally accessed statically. Example:
-``String::uuid()``.
+String类包含了用于方便创建和操作字符串的方法，请通过静态方法使用，如：``String::uuid()`` 。
 
-If you need :php:class:`TextHelper` functionalities outside of a ``View``,
-use the ``String`` class::
+如果在一个 ``View`` 外使用 :php:class:`TextHelper` 中的方法，请使用 ``String`` 类::
 
     class UsersController extends AppController {
 
@@ -25,9 +21,8 @@ use the ``String`` class::
         }
     }
 
-.. 版本变化:: 2.1
-   一些来自:php:class:`TextHelper`的方法已经被转到了
-   ``String`` class.
+.. versionchanged:: 2.1
+   一些来自 :php:class:`TextHelper` 的方法已经被转移到了 ``String`` class。
 
 .. php:staticmethod:: uuid()
 
@@ -44,7 +39,9 @@ use the ``String`` class::
 
 .. php:staticmethod:: tokenize($data, $separator = ',', $leftBound = '(', $rightBound = ')')
 
-    把字符串拆分为数组
+    使用分隔符 ``$separator`` 将字符串拆分为数组，忽略任何出现在 ``$leftBound`` 和 ``$rightBound``
+    的 ``$separator`` 实体。
+
     Tokenizes a string using ``$separator``, ignoring any instance of
     ``$separator`` that appears between ``$leftBound`` and ``$rightBound``.
 
@@ -53,7 +50,7 @@ use the ``String`` class::
 
         $data = "cakephp 'great framework' php";
         $result = String::tokenize($data, ' ', "'", "'");
-        // result contains
+        // 返回结果
         array('cakephp', "'great framework'", 'php');
         如果$result = String::tokenize($data, ' ');
         结果array('cakephp',"'great","framework'",'php');
@@ -210,7 +207,7 @@ use the ``String`` class::
             'ellipsis' => '...',
             'exact' => true
         )
-        
+
     .. versionadded:: 2.3
 
     Example::
@@ -239,7 +236,7 @@ use the ``String`` class::
     Output::
 
         ...a TV, a C# program that can divide by zero, death metal t-shirts
-        
+
 .. php:method:: excerpt(string $haystack, string $needle, integer $radius=100, string $ellipsis="...")
 
     :param string $haystack: The string to search.

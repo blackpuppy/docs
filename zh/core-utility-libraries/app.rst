@@ -3,16 +3,16 @@ App Class
 
 .. php:class:: App
 
-app类负责路径管理，类位置和类加载。请确保遵循:ref:`file-and-classname-conventions`
+app类负责路径管理，类定位和类加载。请确保遵循 :ref:`file-and-classname-conventions`。
 The app class is responsible for path management, class location and class loading.
 Make sure you follow the :ref:`file-and-classname-conventions`.
 
 Packages 包
 ========
 
-CakePHP围绕包进行组织，每个类属于一个包或目录。可以使用``App::build('APackage/SubPackage', $paths)``
-配置应用程序中每个包的位置，通知该框架,应该加载每一个类。CakePHP框架中的几乎每一个类
-都可以换做你自己的兼容性的实现。如果你想用你自己的类而不是框架提供的,仅需添加类到你的
+CakePHP围绕包进行组织，每个类属于一个包或目录。可以使用 ``App::build('APackage/SubPackage', $paths)``
+配置应用程序中每个包的位置，通知该框架应该加载每一个类。CakePHP框架中的几乎每一个类
+都可以换做你自己的兼容性的实现。如果你想用你自己的类而不是框架提供的，仅需添加类到你的
 类库目录并效仿CakePHP中预计查找的位置。
 
 CakePHP is organized around the idea of packages, each class belongs to a
@@ -40,8 +40,8 @@ Loading Classes 加载类
 
     :rtype: void
 
-    CakePHP使用类的延迟加载，然而在autoloader执行前，需要告诉应用程序,
-    在哪里可以找到你的类文件。通过告诉应用程序,一个类在哪个包中可以找到,使得能够
+    在CakePHP中，类会被延迟加载。然而在autoloader执行前，需要告诉应用程序，
+    在哪里可以找到你的类文件。通过告诉应用程序，一个类在哪个包中可以找到，使得能够
     正确地定位文件和加载第一次使用一个类。
 
     Classes are lazily loaded in CakePHP, however before the autoloader
@@ -76,7 +76,7 @@ Loading Classes 加载类
 
 .. note::
 
-	加载vendors第三方的类库通常不遵循命名约定。推荐使用``App::import()``。
+	加载vendors(第三方)的类库通常不遵循命名约定。推荐使用 ``App::import()`` 。
     Loading vendors usually means you are loading packages that do not follow
     conventions. For most vendor packages using ``App::import()`` is
     recommended.
@@ -90,12 +90,10 @@ Loading classes in plugins works much the same as loading app and
 core classes except you must specify the plugin you are loading
 from::
 
-	// 加载app/Plugin/PluginName/Model/Comment.php中的Comment类文件
-    // Load the class Comment in app/Plugin/PluginName/Model/Comment.php
+	// 加载 app/Plugin/PluginName/Model/Comment.php 中的Comment类文件
     App::uses('Comment', 'PluginName.Model');
 
-    // 加载app/Plugin/PluginName/Controller/Component/CommentComponent.php中的CommentComponent类
-    // Load the class CommentComponent in app/Plugin/PluginName/Controller/Component/CommentComponent.php
+    // 加载 app/Plugin/PluginName/Controller/Component/CommentComponent.php 中的CommentComponent类
     App::uses('CommentComponent', 'PluginName.Controller/Component');
 
 
@@ -110,7 +108,6 @@ Finding paths to packages using App::path()
     Used to read information stored path::
 
     	// 返回应用程序中的模型路径
-        // return the model paths in your application
         App::path('Model');
 
     这可以针对所有的包分开你的应用程序。还可以为一个插件获取路径::
@@ -323,10 +320,10 @@ Including files with App::import()
     .. versionchanged:: 2.0
 
     * 该方法不再递归寻找类，要严格使用:php:meth:`App::build()`中指定的路径值。
-    * 使用``App::import('Component', 'Component')``不在生效，要使用
-      ``App::uses('Component', 'Controller');``.
+    * 使用 ``App::import('Component', 'Component')`` 不在生效，要使用
+      ``App::uses('Component', 'Controller');`` 。
     * 不能再使用 ``App::import('Lib', 'CoreClass');`` 去加载核心类了。
-    * 引入一个不存在的文件，传入``$name`或``$file``一个错误的类型或包名，或空值。会返回false。
+    * 引入一个不存在的文件，传入 ``$name` 或 ``$file`` 一个错误的类型或包名，或空值。会返回false。
     * ``App::import('Core', 'CoreClass')`` 不再支持, 而换成
       :php:meth:`App::uses()`。
     * 加载Vendor文件不再递归查询vendors目录，不会像之前那样将文件名转成下划线的格式。
@@ -348,7 +345,7 @@ Including files with App::import()
 Overriding classes in CakePHP 重载类
 =============================
 
-可以重载框架内的几乎每一个类，除了:php:class:`App`和:php:class:`Configure`类。
+可以重载框架内的几乎每一个类，除了 :php:class:`App` 和 :php:class:`Configure` 类。
 只需添加你自己的类到你的app/Lib目录，效仿框架内部的目录结构。下面有几个例子。
 
 You can override almost every class in the framework, exceptions are the
@@ -374,7 +371,7 @@ the same conventions as loading other files::
     // Load the class Geshi in app/Vendor/Geshi.php
     App::uses('Geshi', 'Vendor');
 
-加载子目录中的类，需要使用``App::build()``添加这些路径::
+加载子目录中的类，需要使用 ``App::build()`` 添加这些路径::
 To load classes in subdirectories, you'll need to add those paths
 with ``App::build()``::
 
@@ -384,7 +381,7 @@ with ``App::build()``::
     App::uses('ClassInSomePackage', 'Vendor');
 
 vendor文件不必遵循命名规则，一个类可以不同于文件名或不包含其他类。
-可以使用``App::import()``加载这些文件。下面的例子演示了如何从路径结构中加载vendor
+可以使用 ``App::import()`` 加载这些文件。下面的例子演示了如何从路径结构中加载vendor
 文件。这些vendor文件可能位于vendor目录中的任何位置。
 
 Your vendor files may not follow conventions, have a class that differs from

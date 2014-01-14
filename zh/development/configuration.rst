@@ -1,9 +1,15 @@
-Configuration
+配置
 #############
+
+配置CakePHP应用程序简直是小餐一碟。在安装完CakePHP，创建一个基本的
+web应用只需进行数据库配置。
 
 Configuring a CakePHP application is a piece of cake. After you
 have installed CakePHP, creating a basic web application requires
 only that you setup a database configuration.
+
+当然，可以充分利用CakePHP灵活的结构进行其他可选的配置。可以容易的添加那些继承自
+CakePHP核心的功能，配置额外的或不同的URL映射(路由)以及定义额外或不同的inflections。
 
 There are, however, other optional configuration steps you can take
 in order to take advantage of CakePHP flexible architecture. You
@@ -14,8 +20,12 @@ define additional/different inflections.
 .. index:: database.php, database.php.default
 .. _database-configuration:
 
-Database Configuration
+数据库配置
 ======================
+
+CakePHP的数据库配置信息存储在文件中，位于 ``app/Config/database.php`` 。
+实例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
+看起来像这样::
 
 CakePHP expects database configuration details to be in a file at
 ``app/Config/database.php``. An example database configuration file can
@@ -34,6 +44,11 @@ configuration should look something like this::
         );
     }
 
+默认情况下使用名为$default数组，除非在模型中指定 ``$useDbConfig`` 。
+举例，如果一个应用程序除了默认的数据库配置信息还有一个额外的遗留的(legacy)
+数据库，应该创建一个结构类似于$default数组且名为$legacy的连接配置信息。
+然后在适当的模型中设置 ``public $useDbConfig = 'legacy';`` 。
+
 The $default connection array is used unless another connection is
 specified by the ``$useDbConfig`` property in a model. For example, if
 my application has an additional legacy database in addition to the
@@ -41,49 +56,72 @@ default one, I could use it in my models by creating a new $legacy
 database connection array similar to the $default array, and by
 setting ``public $useDbConfig = 'legacy';`` in the appropriate models.
 
+
+填写配置数组中的键/值对以满足您的需求。
+
 Fill out the key/value pairs in the configuration array to best
 suit your needs.
 
 datasource
+
+	数据源的名字。
+	例如可填：Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite。
+	可以使用 :term:`plugin syntax` 指定插件数据源。
+
     The name of the datasource this configuration array is for.
     Examples: Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite.
     You can use :term:`plugin syntax` to indicate plugin datasource to use.
 persistent
-    Whether or not to use a persistent connection to the database.
+    是否使用持久化连接数据库。
 host
-    The database server’s hostname (or IP address).
+    数据库的主机名(或IP地址)。
 login
-    The username for the account.
+    用户名。
 password
-    The password for the account.
+    密码。
 database
-    The name of the database for this connection to use.
-prefix (*optional*)
-    The string that prefixes every table name in the database. If your
-    tables don’t have prefixes, set this to an empty string.
-port (*optional*)
+    连接的数据库名。
+prefix (*可选*)
+    数据库中每个表的前缀名。如果表没有前缀，设置为空字符串。
+port (*可选*)
+	使用的TCP端口或Unix套接字连接到服务器。
     The TCP port or Unix socket used to connect to the server.
 encoding
+	指定了发送SQL语句到服务器的所用字符集。默认使用数据库的默认编码，
+	除了DB2数据库以外所有的数据库。如果你想使用UTF-8编码
+	进行mysql/mysqli连接。必须使用'utf8'没有连字符。
+
     Indicates the character set to use when sending SQL statements to
     the server. This defaults to the database's default encoding for
     all databases other than DB2. If you wish to use UTF-8 encoding
     with mysql/mysqli connections you must use 'utf8' without the
     hyphen.
 schema
-    Used in PostgreSQL database setups to specify which schema to use.
+    使用PostgreSQL数据库设置指定使用哪个模式(schema)。
 datasource
-    non-DBO datasource to use, e.g. 'ldap', 'twitter'
+    使用的非DBO(non-DBO)数据源。例如'ldap', 'twitter'。
 unix_socket
+	通过unix socket文件作为驱动程序。如果
+	使用postgres,想使用unix socket,需要将host留白。
     Used by drivers that support it to connect via unix socket files. If you are
     using postgres and want to use unix sockets, leave the host key blank.
 
 .. note::
+
+	前缀设置作用于表，**并不是** 模型。举例，如果为Apple和Flavor模型创建了一个连接表，
+	应命名为prefix\_apples\_flavors(**而不是** prefix\_apples\_prefix\_flavors)，
+	前缀设置为'prefix\_'。
 
     The prefix setting is for tables, **not** models. For example, if
     you create a join table for your Apple and Flavor models, you name
     it prefix\_apples\_flavors (**not**
     prefix\_apples\_prefix\_flavors), and set your prefix setting to
     'prefix\_'.
+
+关于这点，可以看下命名约束章节 :doc:`/getting-started/cakephp-conventions` 。
+正确的表或字段命名可以避免过多设置。举例，如果将表命名为big\_boxes，对应的模型名就是
+BigBox，控制器名是BigBoxesController。一切都自动关联起来了。按照约定，使用小写驼峰和
+复数形式的表名。例如：bakers，pastry\_stores，and savory\_cakes。
 
 At this point, you might want to take a look at the
 :doc:`/getting-started/cakephp-conventions`. The correct
@@ -97,17 +135,24 @@ bakers, pastry\_stores, and savory\_cakes.
 
 .. todo::
 
+    为不同数据库的具体选项添加信息。比如SQLServer， Postgres 和 MySQL
+
     Add information about specific options for different database
     vendors, such as SQLServer, Postgres and MySQL.
 
-Additional Class Paths
+额外的类路径 Additional Class Paths
 ======================
+
+有时在同一个系统上的应用程序之间共享MVC类库是很有用的。
+。如果想要在两个应用程序间使用同一控制器,您可以使用CakePHP的引导。php将
+这些额外的类。
 
 It’s occasionally useful to be able to share MVC classes between
 applications on the same system. If you want the same controller in
 both applications, you can use CakePHP’s bootstrap.php to bring
 these additional classes into view.
 
+在bootstrap.php使用 :php:meth:`App::build()` 定义路径。CakePHP会搜寻这些额外的类。
 By using :php:meth:`App::build()` in bootstrap.php we can define additional
 paths where CakePHP will look for classes::
 
@@ -134,6 +179,7 @@ paths where CakePHP will look for classes::
 
 .. note::
 
+	所有额外的路径配置应该在程序的bootstrap.php顶部定义。这样会确保路径会适用于程序中其他地方。
     All additional path configuration should be done at the top of your application's
     bootstrap.php. This will ensure that the paths are available for the rest of your
     application.
@@ -141,8 +187,13 @@ paths where CakePHP will look for classes::
 
 .. index:: core.php, configuration
 
-Core Configuration
+核心配置
 ==================
+
+每个CakePHP应用程序包含一个配置文件，决定CakePHP的内部行为。
+``app/Config/core.php`` 。 这个文件是配置的集合。包含变量和常量定义以此来决定
+应用程序的行为。在我们深入这些特殊的变量之前，应该熟悉 :php:class:`Configure`
+CakePHP的配置注册类。
 
 Each application in CakePHP contains a configuration file to
 determine CakePHP's internal behavior.
@@ -152,8 +203,11 @@ your application behaves. Before we dive into those particular
 variables, you’ll need to be familiar with :php:class:`Configure`, CakePHP’s
 configuration registry class.
 
-CakePHP Core Configuration
+CakePHP 核心配置
 --------------------------
+
+:php:class:`Configure` 类用来管理一系列CakePHP配置变量。这些变量位于 ``app/Config/core.php``。
+下面是每个变量的描述以及是怎样影响到程序的。
 
 The :php:class:`Configure` class is used to manage a set of core CakePHP
 configuration variables. These variables can be found in
@@ -161,13 +215,16 @@ configuration variables. These variables can be found in
 how it affects your CakePHP application.
 
 debug
-    Changes CakePHP debugging output.
-    0 = Production mode. No output.
-    1 = Show errors and warnings.
-    2 = Show errors, warnings, and SQL. [SQL log is only shown when you
-    add $this->element('sql\_dump') to your view or layout.]
+    改变 CakePHP 调试输出。
+    0 = 生产模式。无输出。
+    1 = 显示错误和警告。
+    2 = 显示错误，警告和SQL。 [只有在视图或布局文件中添加 $this->element('sql\_dump')
+    才会显示SQL日志。]
 
 Error
+	配置错误处理。默认使用 :php:meth:`ErrorHandler::handleError()` 。
+	当debug > 0，会使用 :php:class:`Debugger` 显示错误。当debug = 0会将错误记录在日志中。
+
     Configure the Error handler used to handle errors for your application.
     By default :php:meth:`ErrorHandler::handleError()` is used.  It will display
     errors using :php:class:`Debugger`, when debug > 0
@@ -175,12 +232,21 @@ Error
 
     Sub-keys:
 
+    * ``handler`` - callback -处理错误的回调方法。可设置为任何回调类型，包含匿名方法。
+    * ``level`` - int - 要捕获的错误等级。
+    * ``trace`` - boolean - 是否在日志文件记录堆栈跟踪信息。
+
     * ``handler`` - callback - The callback to handle errors. You can set this to any
       callback type, including anonymous functions.
     * ``level`` - int - The level of errors you are interested in capturing.
     * ``trace`` - boolean - Include stack traces for errors in log files.
 
 Exception
+    配置异常处理程序用于未捕获的异常。默认下，会使用ErrorHandler::handleException()。
+    专门为异常显示一个HTML页面。当debug > 0，像Missing Controller也会显示错误。
+    当debug = 0，framework errors will be coerced into generic HTTP errors。
+    想了解跟过异常处理，参见 :doc:`exceptions` 章节。
+
     Configure the Exception handler used for uncaught exceptions.  By default,
     ErrorHandler::handleException() is used. It will display a HTML page for
     the exception, and while debug > 0, framework errors like
@@ -223,6 +289,8 @@ Routing.prefixes
     of prefix names of the routes you’d like to use. More on this
     later.
 Cache.disable
+	当设置为true，整个网站的持久化缓存会被禁用。会导致所有的
+	:php:class:`Cache` 读/写失败。
     When set to true, persistent caching is disabled site-wide.
     This will make all read/writes to :php:class:`Cache` fail.
 Cache.check
@@ -268,10 +336,9 @@ Session
     the cake shell command: ``cake schema create Sessions``
 
 Security.salt
-    A random string used in security hashing.
+    用在security hashing的一个随机字符串。
 Security.cipherSeed
-    A random numeric string (digits only) used to encrypt/decrypt
-    strings.
+    随机数字字符串(只允许数字)，用来加密/解密字符串。
 Asset.timestamp
     Appends a timestamp which is last modified time of the particular
     file at the end of asset files urls (CSS, JavaScript, Image) when
@@ -285,8 +352,7 @@ Acl.classname, Acl.database
     the Access Control Lists chapter for more information.
 
 .. note::
-    Cache configuration is also found in core.php — We’ll be covering
-    that later on, so stay tuned.
+	缓存配置在core.php中也能找到，稍后会讲解。
 
 The :php:class:`Configure` class can be used to read and write core
 configuration settings on the fly. This can be especially handy if
@@ -372,7 +438,10 @@ anywhere within your application, in a static context::
 
 .. php:staticmethod:: read($key = null)
 
-    :param string $key: The key to read, can use be a :term:`dot notation` value
+    :param string $key: 读取的键名, can use be a :term:`dot notation` value
+
+    用来从应用程序中读取配置数据。默认是CakePHP的重要调试值。如果提供key，将
+    返回数据。使用上面的 write() 写值，使用它来读值。
 
     Used to read configuration data from the application. Defaults to
     CakePHP’s important debug value. If a key is supplied, the data is
@@ -387,33 +456,38 @@ anywhere within your application, in a static context::
         //yields:
         array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
 
+    如果 $key 为null，返回所有的值。
     If $key is left null, all values in Configure will be returned.
 
 .. php:staticmethod:: check($key)
 
-    :param string $key: The key to check.
+    :param string $key: 检测key。
 
+    检测key是否存在且不为null。
     Used to check if a key/path exists and has not-null value.
 
     .. versionadded:: 2.3
-        ``Configure::check()`` was added in 2.3
+        ``Configure::check()`` 2.3中新增
 
 .. php:staticmethod:: delete($key)
 
     :param string $key: The key to delete, can use be a :term:`dot notation` value
 
+    用来删除应用程序中的配置信息。
     Used to delete information from the application’s configuration::
 
         Configure::delete('Company.name');
 
 .. php:staticmethod:: version()
 
-    Returns the CakePHP version for the current application.
+    返回当前CakePHP版本。
 
 .. php:staticmethod:: config($name, $reader)
 
     :param string $name: The name of the reader being attached.
     :param ConfigReaderInterface $reader: The reader instance being attached.
+
+    附加读取一个配置reader。附加的reader可以是一个配置文件。参见 :ref:`loading-configuration-files`
 
     Attach a configuration reader to Configure.  Attached readers can
     then be used to load configuration files. See :ref:`loading-configuration-files`
@@ -435,6 +509,13 @@ anywhere within your application, in a static context::
 Reading and writing configuration files
 =======================================
 
+CakePHP附带两种配置文件readers。
+:php:class:`PhpReader` 读PHP配置文件，in the same
+format that Configure has historically read. :php:class:`IniReader` 可以
+读取ini配置文件。参见 `PHP documentation <http://php.net/parse_ini_file>`_
+获得更多ini文件的细节。
+为了使用核心配置reader，需要使用 :php:meth:`Configure::config()`::
+
 CakePHP comes with two built-in configuration file readers.
 :php:class:`PhpReader` is able to read PHP config files, in the same
 format that Configure has historically read.  :php:class:`IniReader` is
@@ -444,10 +525,10 @@ To use a core config reader, you'll need to attach it to Configure
 using :php:meth:`Configure::config()`::
 
     App::uses('PhpReader', 'Configure');
-    // Read config files from app/Config
+    // 从app/Config读取配置文件
     Configure::config('default', new PhpReader());
 
-    // Read config files from another path.
+    // 从其他路径读配置文件。
     Configure::config('default', new PhpReader('/path/to/your/config/files/'));
 
 You can have multiple readers attached to Configure, each reading
@@ -461,6 +542,8 @@ aliases are attached you can use :php:meth:`Configure::configured()`::
 
     // Check if a specific reader is attached
     Configure::configured('default');
+
+使用 ``Configure::drop('default')`` 移除附加的readers。
 
 You can also remove attached readers.  ``Configure::drop('default')``
 would remove the default reader alias. Any future attempts to load configuration
@@ -721,14 +804,26 @@ Will merge the supplied rules into the inflection sets defined in
 lib/Cake/Utility/Inflector.php, with the added rules taking precedence
 over the core rules.
 
-Bootstrapping CakePHP
+引导启动CakePHP Bootstrapping CakePHP
 =====================
+
+如果有任何额外的配置需求，可以使用CakePHP的bootstrap文件，位于app/Config/bootstrap.php。
+这个文件会在CakePHP的核心启动后执行。
 
 If you have any additional configuration needs, use CakePHP’s
 bootstrap file, found in app/Config/bootstrap.php. This file is
 executed just after CakePHP’s core bootstrapping.
 
+此文件非常适合作为公共的启动任务：
+
 This file is ideal for a number of common bootstrapping tasks:
+
+- 定义方便的函数。
+- 注册全局常量。
+- 定义额外的模型，视图和控制器路径。
+- 创建缓存配置。
+- 配置映射。
+- 加载配置文件。
 
 - Defining convenience functions.
 - Registering global constants.
@@ -737,12 +832,20 @@ This file is ideal for a number of common bootstrapping tasks:
 - Configuring inflections.
 - Loading configuration files.
 
+当向bootstrap文件添加内容时请注意保持MVC软件的设计模式。
+可能是一个格式化内容的函数,为了在你的控制器中使用它们。
+
 Be careful to maintain the MVC software design pattern when you add
 things to the bootstrap file: it might be tempting to place
 formatting functions there in order to use them in your
 controllers.
 
+请抵住这种冲动。下面的解释会使你满意。
+
 Resist the urge. You’ll be glad you did later on down the line.
+
+你可能考虑到也可以将此函数放到 :php:class:`AppController` 类。这个类是所有控制器的
+父类。:php:class:`AppController` 是一个使用控制器回调和定义方法的好地方。
 
 You might also consider placing things in the :php:class:`AppController` class.
 This class is a parent class to all of the controllers in your

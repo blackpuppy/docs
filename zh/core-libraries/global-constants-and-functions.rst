@@ -1,7 +1,7 @@
-全局常量和函数 Global Constants and Functions
+全局常量和函数
 ##############################
 在使用CakePHP的日常工作中，都用到了其核心类库和方法。
-CakePHP具有一系列方便的全局函数。许多这些函数被CakePHP使用(加载模型或组件类)，
+CakePHP具有一系列方便的全局函数。许多这些函数被CakePHP使用(加载模型或组件的类)，
 但使用有些函数在处理数组或字符串时会变得更加容易。
 
 While most of your day-to-day work in CakePHP will be utilizing
@@ -22,7 +22,7 @@ directories in your CakePHP application.
 全局函数 Global Functions
 ================
 
-下面是CakePHP的全局函数。大部分函数是封装了CakePHP的常用功能，使其使用起来
+下面是CakePHP的全局函数。大部分函数封装了CakePHP的常用功能，使其使用起来
 更加便利，比如调试和内容翻译。
 
 Here are CakePHP's globally available functions. Most of them
@@ -35,7 +35,7 @@ such as debugging and translating content.
 
     This function handles localization in CakePHP applications. The
     ``$string_id`` identifies the ID for a translation.  Strings
-    used for translations are treated as format strings for 
+    used for translations are treated as format strings for
     ``sprintf()``.  You can supply additional arguments to replace
     placeholders in your string::
 
@@ -54,7 +54,7 @@ such as debugging and translating content.
 
     注意第二个参数category必须指定一个数值，而不是常量名。这些值代表：
 
-    Note that the category must be specified with a numeric value, instead of 
+    Note that the category must be specified with a numeric value, instead of
     the constant name. The values are:
 
     - 0 - LC_ALL
@@ -70,15 +70,15 @@ such as debugging and translating content.
     Allows you to override the current domain for a single message lookup.
 
     当国际化一个插件很有用：
-    Useful when internationalizing a plugin: 
+    Useful when internationalizing a plugin:
     ``echo __d('PluginName', 'This is my plugin');``
 
 .. php:function:: __dc(string $domain, string $msg, integer $category, mixed $args = null)
 
-    Allows you to override the current domain for a single message lookup. It 
+    Allows you to override the current domain for a single message lookup. It
     also allows you to specify a category.
 
-    Note that the category must be specified with a numeric value, instead of 
+    Note that the category must be specified with a numeric value, instead of
     the constant name. The values are:
 
     - 0 - LC_ALL
@@ -91,12 +91,12 @@ such as debugging and translating content.
 
 .. php:function:: __dcn(string $domain, string $singular, string $plural, integer $count, integer $category, mixed $args = null)
 
-    Allows you to override the current domain for a single plural message 
-    lookup. It also allows you to specify a category. Returns correct plural 
-    form of message identified by $singular and $plural for count $count from 
+    Allows you to override the current domain for a single plural message
+    lookup. It also allows you to specify a category. Returns correct plural
+    form of message identified by $singular and $plural for count $count from
     domain $domain.
 
-    Note that the category must be specified with a numeric value, instead of 
+    Note that the category must be specified with a numeric value, instead of
     the constant name. The values are:
 
     - 0 - LC_ALL
@@ -109,14 +109,14 @@ such as debugging and translating content.
 
 .. php:function:: __dn(string $domain, string $singular, string $plural, integer $count, mixed $args = null)
 
-    Allows you to override the current domain for a single plural message 
-    lookup. Returns correct plural form of message identified by $singular and 
+    Allows you to override the current domain for a single plural message
+    lookup. Returns correct plural form of message identified by $singular and
     $plural for count $count from domain $domain.
 
 .. php:function:: __n(string $singular, string $plural, integer $count, mixed $args = null)
 
-    Returns correct plural form of message identified by $singular and $plural 
-    for count $count. Some languages have more than one form for plural 
+    Returns correct plural form of message identified by $singular and $plural
+    for count $count. Some languages have more than one form for plural
     messages dependent on the count.
 
 .. php:function:: am(array $one, $two, $three...)
@@ -148,7 +148,7 @@ such as debugging and translating content.
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
 
     如果程序的DEBUG等级是0，打印$var。如果 ``$showHTML`` 为真或null，会输出友好的内容。
-    如果$showFrom为true，会从开始调用debug的行输出内容。 
+    如果$showFrom为true，会从开始调用debug的行输出内容。
     参见：:doc:`/development/debugging`
 
     If the application's DEBUG level is non-zero, $var is printed out.
@@ -184,7 +184,7 @@ such as debugging and translating content.
 
 .. php:function:: h(string $text, boolean $double = true, string $charset = null)
 
-    ``htmlspecialchars()``的缩写。
+    ``htmlspecialchars()`` 的缩写。
     Convenience wrapper for ``htmlspecialchars()``.
 
 .. php:function:: LogError(string $message)
@@ -196,9 +196,9 @@ such as debugging and translating content.
 
     分隔一个以点命名的插件名为插件和类名。如果$name不包含点。索引0将为null
 
-    通常这么使用``list($plugin, $name) = pluginSplit('Users.User');``
+    通常这么使用 ``list($plugin, $name) = pluginSplit('Users.User');``
 
-    Splits a dot syntax plugin name into its plugin and classname. If $name 
+    Splits a dot syntax plugin name into its plugin and classname. If $name
     does not have a dot, then index 0 will be null.
 
     Commonly used like ``list($plugin, $name) = pluginSplit('Users.User');``
@@ -244,7 +244,7 @@ Most of the following constants refer to paths in your application.
 .. php:const:: CACHE
 
     放置cache缓存目录的路径。可以在不同主机共享。
-    Path to the cache files directory. It can be shared between hosts in a 
+    Path to the cache files directory. It can be shared between hosts in a
     multi-server setup.
 
 .. php:const:: CAKE

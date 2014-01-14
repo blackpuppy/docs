@@ -1,13 +1,11 @@
-Tutorials & Examples
+教程 & 实例
 ####################
 
-In this section, you can walk through typical CakePHP applications
-to see how all of the pieces come together.
+在本章节，通过一个典型的CakePHP应用程序来了解各个部分是怎么组合在一起的。
 
-Alternatively, you can refer to the non-official CakePHP plugin repository
-`CakePackages <http://plugins.cakephp.org/>`_ and the
-`Bakery <http://bakery.cakephp.org/>`_ for existing applications
-and components.
+或者,您可以引用非官方CakePHP插件库
+`CakePackages <http://plugins.cakephp.org/>`_ 和
+`Bakery <http://bakery.cakephp.org/>`_ 为现有的应用程序和组件。
 
 .. toctree::
     :glob:

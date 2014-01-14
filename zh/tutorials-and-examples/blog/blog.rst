@@ -1,4 +1,4 @@
-blog教程
+Blog教程
 *************
 
 欢迎使用CakePHP。这个教程会让你了解更多有关CakePHP是如何工作的。我们的目的是提高生产力和使编码更有趣：我们希望当你深入代码时会感受到。
@@ -17,7 +17,7 @@ blog教程
    了 ``pdo_mysql`` 模块.
 #. 基础的 PHP 知识. 你使用面向对象编程越多越好，但如果你只是
    一个程序迷也不要害怕。
-#. 最后, 你将需要对MVC编程模式有基本的了解。 
+#. 最后, 你将需要对MVC编程模式有基本的了解。
    在这里可以找到一个快速的简介:doc:`/cakephp-overview/understanding-model-view-controller`.
    不用担心, 只是半张纸而已.
 
@@ -66,7 +66,7 @@ blog教程
         created DATETIME DEFAULT NULL,
         modified DATETIME DEFAULT NULL
     );
-    
+
     /* 然后，插入一些日志的记录方便后边测试用: */
     INSERT INTO posts (title,body,created)
         VALUES ('The title', 'This is the post body.', NOW());
@@ -92,7 +92,7 @@ Cake 数据库 配置
 接下来:让我们告诉Cake我们的数据库放在那里以及如何去连接
 对于许多人来说，这将是第一次也是最后一次配置。
 
-在``/app/Config/database.php.default``可以找到一份CakePHP的配置文件. 
+在``/app/Config/database.php.default``可以找到一份CakePHP的配置文件.
 复制并放在这个目录中，重命名为 ``database.php``.
 
 这个配置文件应该非常直接： 仅仅替换掉 ``$default`` 数据中相应的值即可（换成你的数据库安装配置的值）。
@@ -145,7 +145,7 @@ Cake 数据库 配置
     Configure::write('Security.cipherSeed', '7485712659625147843639846751');
 
 最后的任务是让目录 ``app/tmp``  可以被web写。最好的方法是找出你的
-webserver用户是谁 (``<?php echo `whoami`; ?>``) 并将目录 ``app/tmp`` 改为该用户拥有. 
+webserver用户是谁 (``<?php echo `whoami`; ?>``) 并将目录 ``app/tmp`` 改为该用户拥有.
 在 \*nix 的系统中的命令会是::
 
     $ chown -R www-data app/tmp

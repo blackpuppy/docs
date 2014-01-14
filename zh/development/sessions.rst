@@ -1,8 +1,8 @@
 Sessions
 ########
 
-CakePHP将PHP中的``session``进行了封装处理。Session可以认证用户权限还可以为特定用户持续存储一些数据。
-跟Cookies不同，session在客户端不可用。通常在CakePHP中请避免使用``$_SESSION``，最好使用Session类中提供的方法。
+CakePHP将PHP中的 ``session`` 进行了封装处理。Session可以认证用户权限还可以为特定用户持续存储一些数据。
+跟Cookies不同，session在客户端不可用。通常在CakePHP中请避免使用 ``$_SESSION`` ，最好使用Session类中提供的方法。
 
 
 Session配置
