@@ -27,17 +27,17 @@ to implement your own caching systems. The built-in caching engines are:
   This extension uses shared memory on the webserver to store objects.
   这使它非常快，而且能够提供原子化的读/写特性。
   This makes it very fast, and able to provide atomic read/write features.
-  缺省情况下 CakePHP 2.0-2.2 会使用该缓存引擎，如果可能的话。
+  缺省情况下 CakePHP 2.0-2.2 会使用该缓存引擎，如果可用的话。
   By default CakePHP in 2.0-2.2 will use this cache engine if it's available.
 * ``Wincache`` Wincache 使用`Wincache <http://php.net/wincache>`_扩展。Wincache 在特性和性能上类似于 APC，但针对 Windows 和 IIS 做了优化。 Wincache uses the `Wincache <http://php.net/wincache>`_
   extension.  Wincache is similar to APC in features and performance, but
   optimized for Windows and IIS.
 * ``XcacheEngine`` `Xcache <http://xcache.lighttpd.net/>`_是一个 PHP 扩展，提供类似 APC 的特性。 `Xcache <http://xcache.lighttpd.net/>`_
   is a PHP extension that provides similar features to APC.
-* ``MemcacheEngine`` 使用`Memcache <http://php.net/memcache>`_扩展。Memcache 提供了非常快的缓存系统，可以分布于多个服务器，而且提供原子化操作。 Uses the `Memcache <http://php.net/memcache>`_
+* ``MemcacheEngine`` 使用`Memcache <http://php.net/memcache>`_扩展。Memcache 提供了非常快速的缓存系统，可以分布于多台服务器，而且提供原子化操作。 Uses the `Memcache <http://php.net/memcache>`_
   extension.  Memcache provides a very fast cache system that can be
   distributed across many servers, and provides atomic operations.
-* ``RedisEngine`` 使用`phpredis <https://github.com/nicolasff/phpredis>`_扩展。Redis 提供了快速和可持久化的缓存系统，类似于 memcached，也提供原子化操作。 Uses the `phpredis <https://github.com/nicolasff/phpredis>`_
+* ``RedisEngine`` 使用`phpredis <https://github.com/nicolasff/phpredis>`_扩展。Redis 类似于 memcached，提供了快速和可持久化的缓存系统，也提供原子化操作。 Uses the `phpredis <https://github.com/nicolasff/phpredis>`_
   extension. Redis provides a fast and persistent cache system similar to
   memcached, also provides atomic operations.
 
@@ -60,7 +60,7 @@ can greatly improve performance as well.
 Configuring Cache class
 =======================
 
-配置 Cache 类可以在任何地方进行，但通常你会在``app/Config/bootstrap.php``中配置 Cache 类。你可以配置任意数量的缓存设置，使用任意缓存引擎的组合。在内部，CakePHP 使用两个缓存配置，这两个设置在``app/Config/core.php``中。如果你使用 APC 或者 Memcache，你一定要为核心缓存设置唯一的键。这会防止多个应用程序互相覆盖缓存的数据。
+配置 Cache 类可以在任何地方进行，但通常你会在``app/Config/bootstrap.php``中配置 Cache 类。你可以设置任意数量的缓存配置，使用任意缓存引擎的组合。在内部，CakePHP 使用两个缓存配置，这两个配置在``app/Config/core.php``中设置。如果你使用 APC 或者 Memcache，你一定要为核心缓存设置唯一的键。这会防止多个应用程序互相覆盖缓存的数据。
 Configuring the Cache class can be done anywhere, but generally
 you will want to configure Cache in ``app/Config/bootstrap.php``.  You
 can configure as many cache configurations as you need, and use any
@@ -98,7 +98,7 @@ also lets you incrementally change the storage as needed.
         'path' => CACHE . 'long' . DS,
     ));
 
-把上面的代码放在``app/Config/bootstrap.php``中，你就多了两个缓存配置。这两个配置的名称'short'或'long'会作为:php:func:`Cache::write()`和:php:func:`Cache::read()`方法的参数``$config``。
+把上面的代码放在``app/Config/bootstrap.php``中，你就多了两个缓存配置。这两个配置的名称'short'或'long'会作为:php:func:`Cache::write()`和:php:func:`Cache::read()`方法的``$config``参数。
 By placing the above code in your ``app/Config/bootstrap.php`` you will
 have two additional Cache configurations. The name of these
 configurations 'short' or 'long' is used as the ``$config``
@@ -106,7 +106,7 @@ parameter for :php:func:`Cache::write()` and :php:func:`Cache::read()`.
 
 .. note::
 
-    当使用文件引擎时，你也许要使用``mask``选项，来确创建的保缓存文件有正确的权限。
+    当使用文件引擎时，你也许要使用``mask``选项，来保证创建的缓存文件有正确的权限。
     When using the FileEngine you might need to use the ``mask`` option to
     ensure cache files are made with the correct permissions.
 
@@ -114,7 +114,7 @@ parameter for :php:func:`Cache::write()` and :php:func:`Cache::read()`.
 Creating a storage engine for Cache
 ===================================
 
-你可以在``app/Lib``以及在插件的``$plugin/Lib``中提供定制的``Cache``适配器。App/插件的缓存引擎也会覆盖核心的引擎。缓存适配器必须在 cahe 目录中。如果你有一个名为``MyCustomCacheEngine``的缓存引擎，它就会被放在``app/Lib/Cache/Engine/MyCustomCacheEngine.php``作为 app/libs，或者在``$plugin/Lib/Cache/Engine/MyCustomCacheEngine.php``作为插件的一部分。插件的缓存配置需要使用插件的点语法。::
+你可以在``app/Lib``以及在插件的``$plugin/Lib``中提供定制的``Cache``适配器。App/插件的缓存引擎也会覆盖核心的引擎。缓存适配器必须在 cahe 目录中。如果你有一个叫作``MyCustomCacheEngine``的缓存引擎，它就会被放在``app/Lib/Cache/Engine/MyCustomCacheEngine.php``作为 app/libs，或者在``$plugin/Lib/Cache/Engine/MyCustomCacheEngine.php``作为插件的一部分。插件的缓存配置需要使用插件的点语法。::
 You can provide custom ``Cache`` adapters in ``app/Lib`` as well
 as in plugins using ``$plugin/Lib``. App/plugin cache engines can
 also override the core engines. Cache adapters must be in a cahe
@@ -238,12 +238,11 @@ a behavior, that read from the cache, or ran the associated model method.
 That is an exercise you can do though.
 
 
-使用缓存保存计数
+使用缓存保存计数器
 Using Cache to store counters
 =============================
 
-不同东西的计数很容易在缓存中保存。例如，一项竞赛中剩余空位的简单倒计数，就可以保存在缓存中。Cache 类提供了简单的原子化的方式增/减计数值。
-原子化操作对这些值很重要，因为这减少了竞争的风险，两个用户同时把值减一，导致不正确的值。
+各种东西的计数器很容易在缓存中保存。例如，一项竞赛中剩余空位的简单倒计数，就可以保存在缓存中。Cache 类提供了简单的原子化的方式增/减计数器的值。原子化操作对这些值很重要，因为这减少了竞争的风险，即两个用户同时把值减一，导致不正确的值。
 Counters for various things are easily stored in a cache.  For example, a simple
 countdown for remaining 'slots' in a contest could be stored in Cache. The
 Cache class exposes atomic ways to increment/decrement counter values in an easy
@@ -276,7 +275,7 @@ Using groups
 
 .. versionadded:: 2.2
 
-有时你想要把多个缓存项标记为属于某个组或者命名空间。这是一个常见的需求，每当同一组内的所有键共享的某些信息发生变化时，使大量的键无效。这可以通过在缓存配置中声明分组::
+有时你想要把多个缓存项标记为属于某个组或者命名空间。这是一个常见的需求，每当同一组内的所有键共享的某些信息发生变化时，就使这些键无效。这可以通过在缓存配置中声明分组::
 Sometimes you will want to mark multiple cache entries to belong to a certain
 group or namespace. This is a common requirement for mass-invalidating keys
 whenever some information changes that is shared among all entries in the same
@@ -288,7 +287,7 @@ group. This is possible by declaring the groups in cache configuration::
         'groups' => array('comment', 'post')
     ));
 
-比方说，你要把为主页生成的 HTML 保存在缓存中，不过每次当一个评论或帖子添加到数据库中时，又要自动使该缓存无效。增加了分组 ``comment``和``post``之后，我们可以有效地把存入这个缓存配置的任意键标识为这两个组。
+比方说，你要把为主页生成的 HTML 保存在缓存中，不过每次当一个评论或帖子添加到数据库中时，又要自动使该缓存无效。增加了分组 ``comment``和``post``之后，在效果上我们就把存入这个缓存配置的任意键标识为这两个组。
 Let's say you want to store the HTML generated for your homepage in cache, but
 would also want to automatically invalidate this cache every time a comment or
 post is added to your database. By adding the groups ``comment`` and ``post``,
