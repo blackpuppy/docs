@@ -41,15 +41,9 @@
 
 如果数据库支持嵌套事务并且在数据源中开启，嵌套事务会被执行。如果不支持嵌套事务或者没有开启，方法将会总是返回true。
 
-如果你想多次开始事务但不使用嵌套事务，用``$dataSource->useNestedTransactions = false;``来关闭嵌套事务。这将会使用全局事务。
+如果你想多次开始事务但不使用数据库的嵌套事务，用``$dataSource->useNestedTransactions = false;``来关闭嵌套事务。这将会仅使用全局事务。
 
-If you want to use multiple begin's but not use the nested transaction from database,
-disable it using ``$dataSource->useNestedTransactions = false;``. It will use only
-the global transaction.
-
-嵌套事务默认设为false。使用``$dataSource->useNestedTransactions = true;``来开启它。
-The real nested transaction is disabled by default. Enable it using
-``$dataSource->useNestedTransactions = true;``.
+实际的嵌套事务默认设为false。使用``$dataSource->useNestedTransactions = true;``来开启它。
 
 .. meta::
     :title lang=en: Transactions
