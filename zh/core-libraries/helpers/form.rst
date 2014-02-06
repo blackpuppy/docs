@@ -3,16 +3,23 @@ FormHelper 助件
 
 .. php:class:: FormHelper(View $view, array $settings = array())
 
-FormHelper 助件在表单的创建中做了大部分繁重的工作。FormHelper 助件意在快速创建表单，且以能够使验证、重新填充和布局得以简化的方式。FormHelper 助件也是灵活的——它几乎做任何事情都使用约定，或者你也可以用特定的方法只得到你需要的。
+FormHelper 助件在表单的创建中做了大部分繁重的工作。FormHelper 助件意在快速创建表
+单，且以能够使验证、重新填充和布局得以简化的方式。FormHelper 助件也是灵活的——它
+几乎做任何事情都使用约定，或者你也可以用特定的方法只得到你需要的。
 
 创建表单
 ==============
 
-为了利用 FormHelper 助件你要使用的第一个方法是``create()``方法。这个特殊的方法输出一个开始的 form 标签。
+为了利用 FormHelper 助件你要使用的第一个方法是``create()``方法。这个特殊的方法输
+出一个开始的 form 标签。
 
 .. php:method:: create(string $model = null, array $options = array())
 
-    所有的参数都是可选的。如果``create()``方法调用时没有参数，就会认为构建的表单是通过当前的 URL 提交给当前的控制器。缺省的提交表单的方法是 POST。返回的 form 元素带有一个 DOM ID。这个 ID 是用模型的名字、控制器动作的名字，按照驼峰命名方式(CamelCased)生成的。如果在 UsersController 的视图中调用``create()``方法，在渲染得到的视图中会看到下面的输出:
+    所有的参数都是可选的。如果``create()``方法调用时没有参数，就会认为构建的表单
+    是通过当前的 URL 提交给当前的控制器。缺省的提交表单的方法是 POST。返回的
+    form 元素带有一个 DOM ID。这个 ID 是用模型的名字、控制器动作的名字，按照驼峰
+    命名方式(CamelCased)生成的。如果在 UsersController 的视图中调用``create()``方
+    法，在渲染得到的视图中会看到下面的输出:
 
     .. code-block:: html
 
@@ -20,9 +27,15 @@ FormHelper 助件在表单的创建中做了大部分繁重的工作。FormHelpe
 
     .. note::
 
-        你也可以给``$model``参数传入``false``。这样就会把表单数据放进数组: ``$this->request->data``中(而不是次级数组 ``$this->request->data['Model']``中)。这对于不代表任何数据库中的东西的简短表单，是很方便的。
+        你也可以给``$model``参数传入``false``。这样就会把表单数据放进数组:
+        ``$this->request->data``中(而不是次级数组
+        ``$this->request->data['Model']``中)。这对于不代表任何数据库中
+        的东西的简短表单，是很方便的。
 
-    其实，``create()``方法允许我们用参数对表单做很多定制。首先，你可以指定模型名字。为表单指定模型，就是创建了表单的*上下文(context)*。所有的字段都属于该模型(除非另行说明)，所有引用的模型都与之关联。如果你不指定模型，就认为是使用当前控制器的缺省模型::
+    其实，``create()``方法允许我们用参数对表单做很多定制。首先，你可以指定模型名
+    字。为表单指定模型，就是创建了表单的*上下文(context)*。所有的字段都属于该模型
+    (除非另行说明)，所有引用的模型都与之关联。如果你不指定模型，就认为是使用当前
+    控制器的缺省模型::
 
         // 如果你在 /recipes/add 页面
         echo $this->Form->create('Recipe');
@@ -33,7 +46,12 @@ FormHelper 助件在表单的创建中做了大部分繁重的工作。FormHelpe
 
         <form id="RecipeAddForm" method="post" action="/recipes/add">
 
-    这会把表单数据以 POST 方式提交给 RecipesController 控制器的``add()``动作。当然，你也可以用同样的逻辑创建编辑(edit)表单。FormHelper 助件用``$this->request->data``属性来自动探知是否创建新增(add)或编辑(edit)表单。如果``$this->request->data``包含一个以表单的模型命名的数组元素，而且该数组包含模型主键的非空值，FormHelper 助件就会为该记录创建一个编辑表单。例如，如果我们浏览 http://site.com/recipes/edit/5 页面，我们会得到下面这些::
+    这会把表单数据以 POST 方式提交给 RecipesController 控制器的``add()``动作。当
+    然，你也可以用同样的逻辑创建编辑(edit)表单。FormHelper 助件用
+    ``$this->request->data``属性来自动探知是否创建新增(add)或编辑(edit)表单。如果
+    ``$this->request->data``包含一个以表单的模型命名的数组元素，而且该数组包含模
+    型主键的非空值，FormHelper 助件就会为该记录创建一个编辑表单。例如，如果我们浏
+    览 http://site.com/recipes/edit/5 页面，我们会得到下面这些::
 
         // Controller/RecipesController.php:
         public function edit($id = null) {
@@ -59,21 +77,26 @@ FormHelper 助件在表单的创建中做了大部分繁重的工作。FormHelpe
 
         因为这是一个编辑表单，生成了一个隐藏输入字段来覆盖缺省的 HTTP 方法。
 
-    当为插件中的模型创建表单时，你应当总是使用:term:`plugin syntax`来创建表单。这会确保表单生成正确::
+    当为插件中的模型创建表单时，你应当总是使用:term:`plugin syntax`来创建表单。这
+    会确保表单生成正确::
 
         echo $this->Form->create('ContactManager.Contact');
 
-    绝大部分对表单的配置是通过``$options``数组进行的。这个特殊的数组可以包含一系列各种键-值对，影响表单标签的生成。
+    绝大部分对表单的配置是通过``$options``数组进行的。这个特殊的数组可以包含一系
+    列各种键-值对，影响表单标签的生成。
 
     .. versionchanged:: 2.0
-        所有表单的缺省网址，现在是当前的网址，包括传入(passed)、命名(named)和查询字符串(query string)参数。你可以通过给``$this->Form->create()``方法的第二个参数提供``$options['url']``来覆盖这个缺省值。
+        所有表单的缺省网址，现在是当前的网址，包括传入(passed)、命名(named)和查询
+        字符串(query string)参数。你可以通过给``$this->Form->create()``方法的第二
+        个参数提供``$options['url']``来覆盖这个缺省值。
 
 create() 方法的选项
 --------------------
 
 create() 方法有一些选项:
 
-* ``$options['type']`` 这个键用来指明要创建的表单的类型。合法的值包括'post'，'get'，'file'，'put'和'delete'。
+* ``$options['type']`` 这个键用来指明要创建的表单的类型。合法的值包括'post'，
+'get'，'file'，'put'和'delete'。
 
   提供'post'或者'get'会相应地改变表单提交的方法::
 
@@ -85,7 +108,9 @@ create() 方法有一些选项:
 
      <form id="UserAddForm" method="get" action="/users/add">
 
-  指定'file'会把表单提交方法改为'post'，并且在表单标签中包括一个为"multipart/form-data"的 enctype 属性。如果表单中有任何 file 元素，这(个属性)就要使用。如果没有正确的 enctype 属性，文件上传就无法工作::
+  指定'file'会把表单提交方法改为'post'，并且在表单标签中包括一个为
+  "multipart/form-data"的 enctype 属性。如果表单中有任何 file 元素，这(个属性)就
+  要使用。如果没有正确的 enctype 属性，文件上传就无法工作::
 
       echo $this->Form->create('User', array('type' => 'file'));
 
@@ -95,9 +120,13 @@ create() 方法有一些选项:
 
      <form id="UserAddForm" enctype="multipart/form-data" method="post" action="/users/add">
 
-  当使用'put'或者'delete'时，表单功能上等同于'post'表单，但在提交时，HTTP 请求方法会被相应地改变为'PUT'或'DELETE'。这让 CakePHP 可以在网络浏览器中模拟正确的 REST 支持。
+  当使用'put'或者'delete'时，表单功能上等同于'post'表单，但在提交时，HTTP 请求方法
+  会被相应地改变为'PUT'或'DELETE'。这让 CakePHP 可以在网络浏览器中模拟正确的
+  REST 支持。
 
-* ``$options['action']`` action 键让你可以把表单指向当前控制器中的一个特定动作。例如，如果你要把表单指向当前控制器的 login()动作，你可以提供下面这样的 $options 数组::
+* ``$options['action']`` action 键让你可以把表单指向当前控制器中的一个特定动作。
+例如，如果你要把表单指向当前控制器的 login()动作，你可以提供下面这样的 $options 
+数组::
 
     echo $this->Form->create('User', array('action' => 'login'));
 
@@ -107,7 +136,8 @@ create() 方法有一些选项:
 
      <form id="UserLoginForm" method="post" action="/users/login">
 
-* ``$options['url']`` 如果想要的表单动作不在当前控制器中，你可以用 $options 数组的‘url’键来为表单动作指定一个 URL。提供的 URL 可以是相对于你的 CakePHP 应用程序::
+* ``$options['url']`` 如果想要的表单动作不在当前控制器中，你可以用 $options 数组
+的‘url’键来为表单动作指定一个 URL。提供的 URL 可以是相对于你的 CakePHP 应用程序::
 
     echo $this->Form->create(null, array('url' => '/recipes/add'));
     // 或者
