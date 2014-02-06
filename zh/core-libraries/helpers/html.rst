@@ -4,7 +4,7 @@ HtmlHelper
 
 .. php:class:: HtmlHelper(View $view, array $settings = array())
 
-HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、更快，更容易适应变化。使用这个助件会让你的应用程序更轻巧，相对于所处领域的核心更灵活。
+HtmlHelper 助件在 CakePHP 中的作用是使处理 HTML 的工作更容易、更快，更易于应对变化。使用这个助件会让你的应用程序本身更轻巧，在所处领域中相对于核心功能更灵活。
 The role of the HtmlHelper in CakePHP is to make HTML-related
 options easier, faster, and more resilient to change. Using this
 helper will enable your application to be more light on its feet,
@@ -76,7 +76,7 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: css(mixed $path, string $rel = null, array $options = array())
 
-    :param mixed $path: 或者是一个字符串，指向要连接的 css 文件，或者是数组，包含多个文件 Either a string of the css file to link, or an array with multiple files
+    :param mixed $path: 或者是一个字符串，指向要连接的 css 文件，或者是数组，包含多个文件。 Either a string of the css file to link, or an array with multiple files
     :param string $rel: 生成标签的 rel 的属性的值。如果是 null，就会使用'stylesheet'。 The value of the generated tag's rel attribute.  If null, 'stylesheet'
        will be used.
     :param array $options: :term:`html attributes`的数组。 An array of :term:`html attributes`.
@@ -116,14 +116,14 @@ methods of the HtmlHelper and how to use them.
         <link rel="stylesheet" type="text/css" href="/css/tables.css" />
         <link rel="stylesheet" type="text/css" href="/css/menu.css" />
 
-    你可以用:term:`plugin syntax`来引入任何已经加载的插件中的 css 文件。要引入``app/Plugin/DebugKit/webroot/css/toolbar.css``，你可以用下面的语句::
+    你可以用:term:`plugin syntax`来引入任何已经加载的插件中的 css 文件。要引入``app/Plugin/DebugKit/webroot/css/toolbar.css``，你可以用下面的代码::
     You can include css files from any loaded plugin using 
     :term:`plugin syntax`.  To include ``app/Plugin/DebugKit/webroot/css/toolbar.css``
     You could use the following::
 
         echo $this->Html->css('DebugKit.toolbar.css');
 
-    如果你要引入与一个加载的插件同名的 css 文件，你可以像像下面这样。例如，如果你有一个``Blog``插件，又要引入``app/webroot/css/Blog.common.css``，你可以::
+    如果你要引入与一个加载的插件同名的 css 文件，你可以像下面这样做。例如，如果你有一个``Blog``插件，又要引入``app/webroot/css/Blog.common.css``，你可以::
     If you want to include a css file which shares a name with a loaded
     plugin you can do the following.  For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/css/Blog.common.css``, you would::
@@ -138,7 +138,7 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: meta(string $type, string $url = null, array $options = array())
 
-    :param string $type: (输出)你需要的type meta 标签。The type meta tag you want.
+    :param string $type: 你需要的type meta 标签。The type meta tag you want.
     :param mixed $url: meta 标签的地址(url)，或者是字符串，或者是:term:`routing array`。 The url for the meta tag, either a string or a :term:`routing array`.
     :param array $options: :term:`html attributes`的数组。 An array of :term:`html attributes`.
 
@@ -148,7 +148,7 @@ methods of the HtmlHelper and how to use them.
     to appear inline or appended to the ``meta`` block by setting the 'inline'
     key in the $attributes parameter to false, ie - ``array('inline' => false)``.
 
-    如果你使用 $attributes 来设置"type"属性，CakePHP 有一些快捷方式:
+    如果你使用 $attributes 参数来设置"type"属性，CakePHP 有一些快捷方式:
     If you set the "type" attribute using the $attributes parameter,
     CakePHP contains a few shortcuts:
 
@@ -266,8 +266,8 @@ methods of the HtmlHelper and how to use them.
         echo $this->Html->docType('html4-trans');
         // 输出: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-    .. 版本变化:: 2.1
-        2.1中doctype默认值是html5.
+    .. versionchanged:: 2.1
+        在2.1版本中默认的 doctype 是html5。
 
 .. php:method:: style(array $data, boolean $oneline = true)
 
@@ -306,9 +306,10 @@ methods of the HtmlHelper and how to use them.
 
         <img src="/img/cake_logo.png" alt="CakePHP" /> 
 
-    要创建图像链接，用``$htmlAttributes``中的``url``选项指定链接目标。::
+    要创建图像链接，用``$htmlAttributes``(译注: 应当是指$options:参数)中的``url``选项指定链接目标。::
     To create an image link specify the link destination using the
     ``url`` option in ``$htmlAttributes``.::
+
 
         echo $this->Html->image("recipes/6.jpg", array(
             "alt" => "Brownies",
@@ -323,7 +324,7 @@ methods of the HtmlHelper and how to use them.
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
-    如果你要创建邮件中的图像，或者图像的绝对路径，你可以使用``fullBase``选项::
+    如果你要创建电子邮件中的图像，或者图像的绝对路径，你可以使用``fullBase``选项::
     If you are creating images in emails, or want absolute paths to images you
     can use the ``fullBase`` option::
 
@@ -342,7 +343,7 @@ methods of the HtmlHelper and how to use them.
 
         echo $this->Html->image('DebugKit.icon.png');
 
-    如果你要引入与加载的插件重名的图像文件，你可以像下面这样。例如，你有一个``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``，你可以::
+    如果你要引入与加载的插件重名的图像文件，你可以像下面这样。例如，你有一个``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指``app/webroot/img/Blog.icon.png``)，你可以::
     If you want to include a image file which shares a name with a loaded
     plugin you can do the following.  For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/js/Blog.icon.png``, you would::
@@ -358,10 +359,10 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: link(string $title, mixed $url = null, array $options = array(), string $confirmMessage = false)
 
     :param string $title: 作为链接主体显示的文字。The text to display as the body of the link.
-    :param mixed $url: 或者是位置字符串，或者是:term:`routing array`。 Either the string location, or a :term:`routing array`.
+    :param mixed $url: 或者是字符串位置，或者是:term:`routing array`。 Either the string location, or a :term:`routing array`.
     :param array $options: :term:`html attributes`数组。 An array of :term:`html attributes`.
 
-    创建链接的通用方法。用``$options``来指定元素的属性，及是否要转义``$title``。::
+    创建 HTML 链接的通用方法。用``$options``来指定元素的属性，及是否要转义``$title``。::
     General purpose method for creating HTML links. Use ``$options`` to
     specify attributes for the element and whether or not the
     ``$title`` should be escaped.::
@@ -422,7 +423,7 @@ methods of the HtmlHelper and how to use them.
 
         <a href="/images/view/1?height=400&width=500">View image</a>
 
-    ``$title``中的 HTML 特殊字符可以被转换成 HTML entities。要禁用这种转换在``$options``数组中设置 escape 选项。::
+    ``$title``中的 HTML 特殊字符可以被转换成 HTML entities。要禁用这种转换在``$options``数组中设置 escape 选项为 false。::
     HTML special characters in ``$title`` will be converted to HTML
     entities. To disable this conversion, set the escape option to
     false in the ``$options`` array.::
@@ -462,7 +463,7 @@ methods of the HtmlHelper and how to use them.
         - `text` 在 video 标签(译注: 应当指生成的媒体标签)内使用的文字 Text to include inside the video tag
         - `pathPrefix` 相对路径所使用的路径前缀，缺省为'files/' Path prefix to use for relative urls, defaults to 
           'files/'
-        - `fullBase` If provided the src attribute will get a full address
+        - `fullBase` 如果提供，src 属性就会是包括域名的完整网址。 If provided the src attribute will get a full address
           including domain name
 
     .. versionadded:: 2.1
