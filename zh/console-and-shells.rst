@@ -1,6 +1,10 @@
 命令行与Shells
 ##################
 
+CakePHP不单单是个Web框架,而且是一个通过控制台创建应用程序的框架。
+控制台应用程序非常适合处理各种后台任务，如维护等务,并完成请求-响应周期以外的工作。
+CakePHP控制台应用程序允许您从命令行重用应用程序的类。
+
 CakePHP features not only a web framework but also a console framework
 for creating console applications.  Console applications are ideal for handling
 a variety of background tasks such as maintenance, and completing work outside
@@ -129,8 +133,10 @@ If you are on Windows Vista or 7, you should follow the steps below.
 
 #. Click Ok and ``cake`` should work anywhere.
 
-Creating a shell
+创建一个shell Creating a shell
 ================
+
+让我们创建一个shell在命令行中使用。在这个例子中，我们创建一个简单的Hello world的shell。
 
 Let's create a shell for use in the Console. For this example,
 we'll create a simple Hello world shell.  In your applications
