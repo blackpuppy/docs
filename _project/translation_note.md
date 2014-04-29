@@ -1,10 +1,10 @@
 翻译注释
 ########
 
-`14. cakephp_zh\zh\contributing <http://git.oschina.net/finley/cakephp_zh/tree/master/zh/contributing>`_
+`14. CakePHP_zh\zh\contributing <http://git.oschina.net/finley/CakePHP_zh/tree/master/zh/contributing>`_
 目录下的文件，至今翻译了2页，一些需斟酌之处列在下面。我的中文表达能力不是很强，有些词汇就是一时想不起来，或者一下子找不到最恰当的表达方式。
 
-`cakephp_zh\zh\contributing\documentation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/documentation.md>`_
+`CakePHP_zh\zh\contributing\documentation <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/contributing/documentation.rst>`_
 ===================================================================================================================================
 
     #. free (as in "Feel free to fork the repo.")
@@ -24,7 +24,7 @@
        暂译“告诫”，似乎略微严厉了一些，但尚未找到更合适的词。“警告”则与现有词汇(warning 警告、警示、注意)重复了。
 
 
-`cakephp_zh\zh\contributing\tickets <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/tickets.md>`_
+`CakePHP_zh\zh\contributing\tickets <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/contributing/tickets.rst>`_
 =======================================================================================================================
 
     #. ticket
@@ -35,7 +35,7 @@
        bug是软件行业中对代码中发现的问题的通常叫法，可以翻译成臭虫。在软件工程中对此的正式名称是defect，对应的中文是瑕疵。在手册中，臭虫也是可以的，只是显得不够正式，故此采用瑕疵。
 
 
-`cakephp_zh\zh\contributing\code <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/code.md>`_
+`CakePHP_zh\zh\contributing\code <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/contributing/code.rst>`_
 =================================================================================================================
 
     #. feature
@@ -55,7 +55,7 @@
        暂译“打破”。
 
 
-`cakephp_zh\zh\contributing\cakephp-coding-conventions <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/contributing/cakephp-coding-conventions.md>`_
+`CakePHP_zh\zh\contributing\cakephp-coding-conventions <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/contributing/cakephp-coding-conventions.rst>`_
 =============================================================================================================================================================
 
     #. Including files
@@ -74,14 +74,14 @@
        采用“方法链接”。
 
 
-`cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers.md>`_
+`CakePHP_zh\zh\controllers <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/controllers.rst>`_
 =====================================================================================================
 
     #. thin/fat
        出现在“keep your controllers thin, and your models fat”中。
        thin译成“瘦”、“薄”，fat译成“胖”?
 
-`cakephp_zh\zh\models\data-validation <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/data-validation.md>`_
+`CakePHP_zh\zh\models\data-validation <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/models/data-validation.rst>`_
 ===========================================================================================================================
 
     #. insensitive
@@ -96,7 +96,7 @@
        帮你完成繁重的工作，不用你自己做了。
        文中译为“(承担)麻烦的部分”。
 
-`7. cakephp_zh\zh\models <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models.md>`_
+`7. CakePHP_zh\zh\models <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/models.rst>`_
 ===========================================================================================
 
     #. (data's) validity
@@ -106,13 +106,13 @@
     #. (model) association
        (模型的)关联? 联系? 采用"关联"
 
-`7.6 cakephp_zh\zh\models\callback-methods <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/callback-methods.md>`_
+`7.6 CakePHP_zh\zh\models\callback-methods <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/models/callback-methods.rst>`_
 ============================================================================================================================
 
     #. sneak in
        触及? 切入？插入。
 
-`7.7 cakephp_zh\zh\models\behaviors <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/models/behaviors.md>`_
+`7.7 CakePHP_zh\zh\models\behaviors <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/models/behaviors.rst>`_
 ===============================================================================================================
 
     #. (method) singnature
@@ -122,7 +122,7 @@
     #. splice (in additional behavior)
        增加(额外的行为)？
 
-`5. cakephp_zh\zh\controllers <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers.md>`_
+`5. CakePHP_zh\zh\controllers <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/controllers.rst>`_
 =====================================================================================================
 
     #. boiler-plate (code)
@@ -158,7 +158,7 @@
     #. helper
        帮助？帮助组件？文中译为“助件”。
        
-`5.1 cakephp_zh\zh\controllers\request-response <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/controllers/request-response.md>`_
+`5.1 CakePHP_zh\zh\controllers\request-response <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/controllers/request-response.rst>`_
 =====================================================================================================
 
     #. introspection
@@ -178,7 +178,7 @@
     #. response entity tag
        响应体标签
 
-`6. cakephp_zh\zh\views <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/views.md>`_
+`6. CakePHP_zh\zh\views <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/views.rst>`_
 =====================================================================================================
 
     #. (view) block
@@ -190,8 +190,15 @@
        讨论见 `tower.im 上的[术语] callout 
        <https://tower.im/projects/a96a1492d1cd4ef6a35c7a01dad4a683/messages/4a0bdeb566e64a55aa90fb64107e3f39/`_
 
-`8.2.1 cakephp_zh\zh\core-libraries\behaviors\acl <http://git.oschina.net/finley/cakephp_zh/blob/master/zh/core-libraries/behaviors/acl.md>`_
+`8.2.1 CakePHP_zh\zh\core-libraries\behaviors\acl <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/core-libraries/behaviors/acl.rst>`_
 =====================================================================================================
 
     #. on the fly
        随时？在需要时？文中以为“及时”。
+9/`_
+
+`8.4.3 CakePHP_zh\zh\core-libraries\helpers\html <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/core-libraries/helpers/html.rst>`_
+=====================================================================================================
+
+    #. well formed (html markup)
+       完好格式的(HTMML标记)。
