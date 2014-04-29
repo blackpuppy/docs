@@ -54,7 +54,7 @@ methods of the HtmlHelper and how to use them.
     Defaults to UTF-8
 
 
-    使用法示例:: Example use::
+    用法示例:: Example use::
  
         echo $this->Html->charset();
 
@@ -148,7 +148,7 @@ methods of the HtmlHelper and how to use them.
     to appear inline or appended to the ``meta`` block by setting the 'inline'
     key in the $attributes parameter to false, ie - ``array('inline' => false)``.
 
-    如果你使用 $attributes 参数来设置"type"属性，CakePHP 有一些快捷方式:
+    如果你使用 $attributes 参数(译者注：应该是笔误，实指 $options 参数)来设置"type"属性，CakePHP 有一些快捷方式:
     If you set the "type" attribute using the $attributes parameter,
     CakePHP contains a few shortcuts:
 
@@ -272,7 +272,7 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: style(array $data, boolean $oneline = true)
 
     :param array $data: 代表 CSS 属性的键 => 值。 A set of key => values with CSS properties.
-    :param boolean $oneline: 内容在一行上。Should the contents be on one line.
+    :param boolean $oneline: 内容是否要在一行上。Should the contents be on one line.
 
     基于传入该方法的键和值来构建 CSS 样式。如果你的 CSS 文件是动态的，这将特别方便。::
     Builds CSS style definitions based on the keys and values of the
@@ -306,7 +306,7 @@ methods of the HtmlHelper and how to use them.
 
         <img src="/img/cake_logo.png" alt="CakePHP" /> 
 
-    要创建图像链接，用``$htmlAttributes``(译注: 应当是指$options:参数)中的``url``选项指定链接目标。::
+    要创建图像链接，用``$htmlAttributes``(译注: 指$options:参数)中的``url``选项指定链接目标。::
     To create an image link specify the link destination using the
     ``url`` option in ``$htmlAttributes``.::
 
@@ -324,7 +324,7 @@ methods of the HtmlHelper and how to use them.
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
-    如果你要创建电子邮件中的图像，或者图像的绝对路径，你可以使用``fullBase``选项::
+    如果你要创建电子邮件中的图像，或者需要图像的绝对路径，你可以使用``fullBase``选项::
     If you are creating images in emails, or want absolute paths to images you
     can use the ``fullBase`` option::
 
@@ -343,7 +343,7 @@ methods of the HtmlHelper and how to use them.
 
         echo $this->Html->image('DebugKit.icon.png');
 
-    如果你要引入与加载的插件重名的图像文件，你可以像下面这样。例如，你有一个``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指``app/webroot/img/Blog.icon.png``)，你可以::
+    如果你要引入与加载的插件重名的图像文件，你可以采用下面的做法。例如，你有一个``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指``app/webroot/img/Blog.icon.png``)，你可以::
     If you want to include a image file which shares a name with a loaded
     plugin you can do the following.  For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/js/Blog.icon.png``, you would::
@@ -423,7 +423,7 @@ methods of the HtmlHelper and how to use them.
 
         <a href="/images/view/1?height=400&width=500">View image</a>
 
-    ``$title``中的 HTML 特殊字符可以被转换成 HTML entities。要禁用这种转换在``$options``数组中设置 escape 选项为 false。::
+    ``$title``中的 HTML 特殊字符可以被转换成 HTML entities。要禁用这种转换，在``$options``数组中设置 escape 选项为 false。::
     HTML special characters in ``$title`` will be converted to HTML
     entities. To disable this conversion, set the escape option to
     false in the ``$options`` array.::
@@ -457,7 +457,7 @@ methods of the HtmlHelper and how to use them.
 
         选项: Options:
 
-        - `type` 要生成的媒体元素的类型，合法值为"audio"或"video"。如果没有提供类型，媒体类型将基于文件的 mime 类型来猜测。 Type of media element to generate, valid values are "audio"
+        - `type` 要生成的媒体元素的类型，合法值为"audio"或"video"。如果没有提供类型，媒体类型将基于文件的 mime 类型来推测。 Type of media element to generate, valid values are "audio"
           or "video". If type is not provided media type is guessed based on
           file's mime type.
         - `text` 在 video 标签(译注: 应当指生成的媒体标签)内使用的文字 Text to include inside the video tag
@@ -538,7 +538,7 @@ methods of the HtmlHelper and how to use them.
     :param string $text: div 内的内容。The content inside the div.
     :param array $options: :term:`html attributes`数组。 An array of :term:`html attributes`.
 
-    用来创建 div 包裹的标记部分。第一个参数指定 CSS 类，第二个参数用来提供要被 div 标签包裹的文字。如果最后一个参数设置为 true，$text 将被 HTML 转义后再输出。
+    用来创建 div 包裹的标记片段。第一个参数指定 CSS 类，第二个参数用来提供要被 div 标签包裹的文字。如果最后一个参数设置为 true，$text 将被 HTML 转义后再输出。
     Used for creating div-wrapped sections of markup. The first
     parameter specifies a CSS class, and the second is used to supply
     the text to be wrapped by div tags. If the last parameter has been
@@ -581,14 +581,14 @@ methods of the HtmlHelper and how to use them.
        array of strings for multiple files.
     :param array $options: :term:`html attributes`数组。 An array of :term:`html attributes`.
 
-    引入一个或多个脚本文件，存在于本地或作为远程地址(url)。
+    引入一个或多个脚本文件，存在于本地或是远程地址(url)。
     Include a script file(s), contained either locally or as a remote url.
 
     缺省情况下，脚本标签会以 inline 的方式添加到文档中。如果你设置``$options['inline']``为 false，脚本(script)标签就会被添加到``script``代码块，这样你就可以把它输出到文档的任何其它地方。
     By default, script tags are added to the document inline.  If you override
     this by setting ``$options['inline']`` to false, the script tags will instead
     be added to the ``script`` block which you can print elsewhere in the document.
-    如果你想要覆盖所使用的代码块名称，你可以通过设置``$options['block']``来实现。
+    如果你想要改变所使用的代码块名称，你可以通过设置``$options['block']``来实现。
     If you wish to override which block name is used, you can do so by setting
     ``$options['block']``.
 
@@ -597,7 +597,7 @@ methods of the HtmlHelper and how to use them.
     not you want to include this script once per request or more than
     once. This defaults to true.
 
-    你可以用 $options 参数来为生成的脚本标签设置额外的属性。如果用的是脚本标签数组，属性就会应用于所以生成的脚本标签。
+    你可以用 $options 参数来为生成的脚本标签设置额外的属性。如果用的是脚本标签数组，属性就会应用于所以有生成的脚本标签。
     You can use $options to set additional properties to the
     generated script tag. If an array of script tags is used, the
     attributes will be applied to all of the generated script tags.
@@ -632,7 +632,7 @@ methods of the HtmlHelper and how to use them.
 
         <script type="text/javascript" href="http://code.jquery.com/jquery.min.js"></script>
 
-    第一个参数可以是数组，来引入对个文件。::
+    第一个参数可以是数组，来引入多个文件。::
     The first parameter can be an array to include multiple files.::
 
         echo $this->Html->script(array('jquery', 'wysiwyg', 'scripts'));
@@ -663,7 +663,7 @@ methods of the HtmlHelper and how to use them.
 
         echo $this->Html->script('DebugKit.toolbar.js');
 
-    如果你要引入与加载的插件重名的脚本文件，你可以使用下面的代码。例如，如果你有一个``Blog``插件，而又想引入``app/webroot/js/Blog.plugins.js``，你可以::
+    如果你要引入与加载的插件重名的脚本文件，你可以采用下面的做法。例如，如果你有一个``Blog``插件，而又想引入``app/webroot/js/Blog.plugins.js``，你可以::
     If you want to include a script file which shares a name with a loaded
     plugin you can do the following.  For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/js/Blog.plugins.js``, you would::
@@ -763,9 +763,9 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: tableHeaders(array $names, array $trOptions = null, array $thOptions = null)
 
-    :param array $names: 字符串数组，用来创建表格头。An array of strings to create table headings.
+    :param array $names: 字符串数组，用来创建表格标题。An array of strings to create table headings.
     :param array $trOptions: <tr>的:term:`html attributes`数组 An array of :term:`html attributes` for the <tr>
-    :param array $thOptions: <th>的:term:`html attributes`数组 An array of :term:`html attributes` for the <th> elements
+    :param array $thOptions: <th>元素的:term:`html attributes`数组 An array of :term:`html attributes` for the <th> elements
 
     创建一行表格头格子，可放入<table>标签。::
     Creates a row of table header cells to be placed inside of <table>
@@ -830,8 +830,8 @@ methods of the HtmlHelper and how to use them.
     :param array $data: 给各行提供数据的二维数组。A two dimensional array with data for the rows.
     :param array $oddTrOptions: 奇数<tr>的:term:`html attributes`数组。 An array of :term:`html attributes` for the odd <tr>'s.
     :param array $evenTrOptions: 偶数<tr>的:term:`html attributes`数组。 An array of :term:`html attributes` for the even <tr>'s.
-    :param boolean $useCount: 添加(样式)"column-$i"类。Adds class "column-$i".
-    :param boolean $continueOddEven: 如果是 false，就会使用非静态 $count 变量，从而对该调用的奇偶奇数重置为零。 If false, will use a non-static $count variable,
+    :param boolean $useCount: 添加(样式)类"column-$i"。Adds class "column-$i".
+    :param boolean $continueOddEven: 如果是 false，就会使用非静态 $count 变量，从而对该调用的奇偶计数重置为零。 If false, will use a non-static $count variable,
         so that the odd/even count is reset to zero just for that call.
 
     成行地创建表格格子，给奇数行和偶数行<tr>设置不同的属性。对特定的<td>属性，将表格格子包裹在数组中。::
@@ -1060,7 +1060,7 @@ Creating breadcrumb trails with HtmlHelper
     返回 (x)html 列表形式的 breadcrumbs。
     Returns breadcrumbs as a (x)html list.
 
-    该方法使用:php:meth:`HtmlHelper::tag()`来生成列表及其元素。与:php:meth:`~HtmlHelper::getCrumbs()`的工作方式类似，所以它使用添加每个 crumb 相同的选项。你可以用``$startText``参数来提供第一个 breadcrumb 的链接/文字。这可以用于当你要总是包括一个根链接时。这个选项和:php:meth:`~HtmlHelper::getCrumbs()`的``$startText``选项是一样的。
+    该方法使用:php:meth:`HtmlHelper::tag()`来生成列表及其元素。与:php:meth:`~HtmlHelper::getCrumbs()`的工作方式类似，所以它使用与每个添加的 crumb 相同的选项。你可以用``$startText``参数来提供第一个 breadcrumb 的链接/文字。这可以用于当你要总是包括一个根链接时。这个选项和:php:meth:`~HtmlHelper::getCrumbs()`的``$startText``选项是一样的。
     This method uses :php:meth:`HtmlHelper::tag()` to generate list and its
     elements. Works similar to :php:meth:`~HtmlHelper::getCrumbs()`, so it uses
     options which every crumb was added with.  You can use the ``$startText``
