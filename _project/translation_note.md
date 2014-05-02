@@ -194,7 +194,7 @@
 =====================================================================================================
 
     #. on the fly
-       随时？在需要时？文中以为“及时”。
+       随时？在需要时？实时？文中译为“及时”。
 9/`_
 
 `8.4.3 CakePHP_zh\zh\core-libraries\helpers\html <http://git.oschina.net/finley/CakePHP_zh/blob/master/zh/core-libraries/helpers/html.rst>`_
@@ -202,3 +202,13 @@
 
     #. well formed (html markup)
        完好格式的(HTMML标记)。
+    #. HTML Entities
+       HTML 字符实体。参考:
+       * http://www.w3schools.com/html/html_entities.asp
+       * http://www.w3school.com.cn/html/html_entities.asp
+    #. (RSS/Atom) feed
+       (RSS/Atom)推送
+    #. robots noindex
+       参考:
+       * http://en.wikipedia.org/wiki/Noindex
+       * http://baike.baidu.com/link?url=wZMV3V5BOO9BrKxVaSp2jEUO2ICTI-cFhFOkcOkQ5FzxcTa0_1s9yQFib06vigYuC1RHYETpkwLHPnVS4qqd5_
