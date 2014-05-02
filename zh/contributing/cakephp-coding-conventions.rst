@@ -1,12 +1,12 @@
 编码规范
 ########
 
-Cake开发人员将使用下面的编码规范。
+CakePHP 开发人员将使用下面的编码规范。
 
 我们建议其他开发Cake组成部分的人员也应当遵循同样的规范。
 
-你可以使用`CakePHP Code Sniffer <https://github.com/cakephp/cakephp-codesniffer>`_来
-检查你的代码是否遵循了必要的规范。
+你可以使用`CakePHP Code Sniffer <https://github.com/cakephp/cakephp-codesniffer>`_
+来检查你的代码是否遵循了必要的规范。
 
 添加新特性
 ==========
@@ -40,8 +40,8 @@ Cake开发人员将使用下面的编码规范。
 控制结构
 ========
 
-控制结构是"``if``"，"``for``"，"``foreach``"，"``while``"，"``switch``"这些。
-下面是使用"``if``"的一个例子::
+控制结构是"``if``"，"``for``"，"``foreach``"，"``while``"，"``switch``"这些。下面是使
+用"``if``"的一个例子::
 
     if ((expr_1) || (expr_2)) {
         // action_1;
@@ -51,20 +51,20 @@ Cake开发人员将使用下面的编码规范。
         // default_action;
     }
 
-*  在控制结构中，在第一个括号之前应该有一个空格，在最后一个括号和开始的大括
-   号之间也应该有一个空格。
-*  在控制结构中总是使用大括号，即使他们是不必要的。这会提高代码的可读性，也
-   导致较少的逻辑错误。
-*  开始的大括号应与控制结构放在同一行上。结束的大括号应该新起一行，并且与控制
-   结构应该有相同的缩进级别。包括在大括号中的语句应该新起一行，其代码也应该再
-   缩进一层。
+*  在控制结构中，在第一个括号之前应该有一个空格，在最后一个括号和开始的大括号之间
+   也应该有一个空格。
+*  在控制结构中总是使用大括号，即使他们是不必要的。这会提高代码的可读性，也导致较
+   少的逻辑错误。
+*  开始的大括号应与控制结构放在同一行上。结束的大括号应该新起一行，并且与控制结构
+   应该有相同的缩进级别。包括在大括号中的语句应该新起一行，其代码也应该再缩进一层。
+*  在控制结构中不应该使用内嵌赋值(*inline assignment*)。
 
 ::
 
-    // 错 = 没有大括号，语句的位置也不对
+    // 错误 = 没有大括号，语句的位置也不对
     if (expr) statement;
 
-    // 错 = 没有大括号
+    // 错误 = 没有大括号
     if (expr)
         statement;
 
@@ -73,12 +73,23 @@ Cake开发人员将使用下面的编码规范。
         statement;
     }
 
+    // 错误 = 内嵌赋值
+    if ($variable = Class::function()) {
+        statement;
+    }
+
+    // 正确
+    $variable = Class::function();
+    if ($variable) {
+        statement;
+    }
+
 三元运算符
 ----------
 
 当整个三元运算可以放在一行之内时，三元运算符是允许的。更长的三元运算就应该分成
-``if else``语句。三元运算符绝不允许嵌套。括号虽然不必须，但是可以用在三元运算的
-条件检查之外，使其更清晰::
+``if else``语句。三元运算符绝不允许嵌套。括号虽然不必须，但是可以用在三元运算的条
+件检查之外，使其更清晰::
 
     //很好，简单，易读
     $variable = isset($options['variable']) ? $options['variable'] : true;
@@ -90,9 +101,9 @@ Cake开发人员将使用下面的编码规范。
 视图文件
 --------
 
-在视图文件(.ctp files)中，开发人员使用关键词控制结构。关键词控制结构
-在复杂的视图文件中更容易阅读。控制结构可以放在一段大的PHP代码段落中，
-也可以放在单独的PHP标签中::
+在视图文件(.ctp files)中，开发人员使用关键词控制结构。关键词控制结构在复杂的视图
+文件中更容易阅读。控制结构可以放在一段大的PHP代码段落中，也可以放在单独的
+PHP 标签中::
 
     <?php
     if ($isAdmin):
@@ -104,6 +115,30 @@ Cake开发人员将使用下面的编码规范。
         <p>You are the admin user.</p>
     <?php endif; ?>
 
+
+比较
+==========
+
+总是尽可能的严格。如果特意要使用一个不严格的比较，也许应当注释说明是这样，以免混
+淆为错误。
+
+要测试一个变量是否为空，建议使用严格检查::
+
+    if ($value === null) {
+          // ...
+    }
+
+要检查的值应该放在右边::
+
+    // 不建议使用
+    if (null === $this->foo()) {
+        // ...
+    }
+
+    // 推荐使用
+    if ($this->foo() === null) {
+        // ...
+    }
 
 函数调用
 ========
@@ -117,7 +152,7 @@ Cake开发人员将使用下面的编码规范。
 方法的定义
 ==========
 
-函数定义的例子::
+方法定义的例子::
 
     function someFunction($arg1, $arg2 = '') {
         if (expr) {
@@ -127,7 +162,7 @@ Cake开发人员将使用下面的编码规范。
     }
 
 带缺省值的参数应该放在函数定义的最后。尽量让你的函数返回一些东西, 至少是
-true或者false = 这样就可以判断函数调用是否成功::
+``true``或者``false``，这样就可以判断函数调用是否成功::
 
     public function connection($dns, $persistent = false) {
         if (is_array($dns)) {
@@ -144,6 +179,45 @@ true或者false = 这样就可以判断函数调用是否成功::
 
 等号两边都有空格。
 
+类型约束
+-----------
+
+接受对象或者数组的参数可以使用类型约束。不过，我们只对公有方法中使用类型约束，因
+为类型约束不是没有代价的::
+
+    /**
+     * 方法描述。
+     *
+     * @param Model $Model 使用的模型。
+     * @param array $array 数组值。
+     * @param boolean $boolean 布尔值。
+     */
+    public function foo(Model $Model, array $array, $boolean) {
+    }
+
+这里``$Model``必须是``Model``的实例，``$array``必须是数组(``array``)。
+
+注意，如果你要允许``$array``也可以使``ArrayObject``的实例，你就不能用类型约束，因
+为``array``只接受基本类型::
+
+    /**
+     * 方法描述。
+     *
+     * @param array|ArrayObject $array 数组值。
+     */
+    public function foo($array) {
+    }
+
+方法链接
+===============
+
+方法链接时, 多个方法应当在各自的行上, 并且缩进一个制表符::
+
+    $email->from('foo@example.com')
+        ->to('bar@example.com')
+        ->subject('A great message')
+        ->send();
+
 代码的注释
 ==========
 
@@ -151,7 +225,6 @@ true或者false = 这样就可以判断函数调用是否成功::
 
 注释可以包括以下`phpDocumentor <http://phpdoc.org>`_标签:
 
-*  `@access <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.access.pkg.html>`_
 *  `@author <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.author.pkg.html>`_
 *  `@copyright <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.copyright.pkg.html>`_
 *  `@deprecated <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.deprecated.pkg.html>`_
@@ -164,11 +237,12 @@ true或者false = 这样就可以判断函数调用是否成功::
 *  `@tutorial <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.tutorial.pkg.html>`_
 *  `@version <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.version.pkg.html>`_
 
-PhpDoc标签非常类似于Java中的JavaDoc标签。标签只有最先出现在
-DocBlock行中才会起作用, 例如::
+PhpDoc 标签非常类似于 Java 中的 JavaDoc 标签。标签只有出现在 DocBlock 行的开头才
+会起作用, 例如::
 
     /**
      * Tag example.
+     *
      * @author 这个标签会被处理, 但这个@version会被忽略
      * @version 1.0 这个标签也会被处理
      */
@@ -176,15 +250,19 @@ DocBlock行中才会起作用, 例如::
 ::
 
     /**
-     * 内嵌phpDoc的例子。
+     * 内嵌 phpDoc 的例子。
      *
-     * This function works hard with foo() to rule the world.
+     * 这个函数致力于与 foo() 联手统治世界。
+     *
+     * @return void
      */
     function bar() {
     }
 
     /**
-     * Foo function
+     * Foo 函数.
+     *
+     * @return void
      */
     function foo() {
     }
@@ -194,13 +272,22 @@ DocBlock行中才会起作用, 例如::
 包括文件
 ========
 
-当包括类或者库的文件时, 总是只使用`require\_once
-<http://php.net/require_once>`_函数。
+``include``，``require``，``include_once``和``require_once``没有括号::
 
-PHP标签
-=======
+    // 错误 = 括号
+    require_once('ClassFileName.php');
+    require_once ($class);
 
-总是使用长标签(``<?php ?>``), 而不用短标签(<? ?>)。
+    // 真确 = 没有括号
+    require_once 'ClassFileName.php';
+    require_once $class;
+
+当包括类或者库的文件时, 总是只使用`require\_once <http://php.net/require_once>`_函数。
+
+PHP 标签
+========
+
+总是使用长标签(``<?php ?>``), 而不用短标签(``<? ?>``)。
 
 命名规则
 ========
@@ -208,7 +295,7 @@ PHP标签
 函数
 ----
 
-所有函数名都应为camelBack::
+所有函数名都应为 camelBack::
 
     function longFunctionName() {
     }
@@ -216,7 +303,7 @@ PHP标签
 类
 --
 
-类名应为CamelCase, 例如::
+类名应为 CamelCase, 例如::
 
     class ExampleClass {
     }
@@ -224,9 +311,9 @@ PHP标签
 变量
 ----
 
-变量名应当尽可能具有描述性, 但同时越短越好。普通变量应当以小写字母开头,
-如果含有多个词, 则应当为camelBack。对象变量的变量名应当以大写字母开头,
-并且与对象所属的类应当以某种方式相关联。例如::
+变量名应当尽可能具有描述性, 但同时越短越好。普通变量应当以小写字母开头，如果含
+有多个词, 则应当为 camelBack。引用对象的变量的变量名应当以大写字母开头，并且与
+对象所属的类应当以某种方式相关联。例如::
 
     $user = 'John';
     $users = array('John', 'Hans', 'Arne');
@@ -236,8 +323,8 @@ PHP标签
 成员的可见范围
 --------------
 
-方法和变量应当使用PHP5的private和protected关键字。另外,
-protected的方法和变量应当以一个下划线开头("\_")。例如::
+方法和变量应当使用 PHP5 的 private 和 protected 关键字。另外，protected 的方法和
+变量应当以一个下划线开头(``_``)。例如::
 
     class A {
         protected $_iAmAProtectedVariable;
@@ -247,7 +334,7 @@ protected的方法和变量应当以一个下划线开头("\_")。例如::
         }
     }
 
-私有方法和变量应当以双下划线("\_\_")开头。例如::
+私有方法和变量应当以双下划线(``__``)开头。例如::
 
     class A {
         private $__iAmAPrivateVariable;
@@ -257,15 +344,8 @@ protected的方法和变量应当以一个下划线开头("\_")。例如::
         }
     }
 
-方法链接
---------
-
-方法链接时, 多个方法应当在各自的行上, 并且缩进一个制表符::
-
-    $email->from('foo@example.com')
-        ->to('bar@example.com')
-        ->subject('A great message')
-        ->send();
+不过，尽可能避免私有方法或者变量，而使用保护(protected)的(方法或者变量)。后者可以
+被子类访问或者改变，而私有的(方法或者变量)阻止了扩展或重用。私有也使测试更加困难。
 
 示例地址
 --------
@@ -277,54 +357,79 @@ protected的方法和变量应当以一个下划线开头("\_")。例如::
 *  网址: `http://www.example.com <http://www.example.com>`_
 *  FTP: `ftp://ftp.example.com <ftp://ftp.example.com>`_
 
-``example.com``域名已为此目的而保留(参见:rfc:`2606`), 建议在文档中或者作为例子使用。
+"example.com" 域名已为此目的而保留(参见:rfc:`2606`), 建议在文档中或者作为例子使
+用。
 
 文件
 ----
 
-不包含类的文件, 其文件名应当小写, 并且以下划线分隔单词, 例如:
-
-::
+不包含类的文件, 其文件名应当小写, 并且以下划线分隔单词, 例如::
 
     long_file_name.php
 
 变量类型
 --------
 
-DocBlock中使用的变量类型:
+DocBlock 中使用的变量类型:
 
 类型
     描述
 mixed
     有未定义(或多种)类型的变量。
-integer
+int
     整数类型变量(整数)。
 float
     浮点数类型(浮点数)。
-boolean
+bool
     逻辑类型(true或者false)。
 string
     字符串类型(位于" "或' '中的任何值)。
+null
+    空类型。通常与另一种类型一起使用。
 array
     数组类型。
 object
-    对象类型。
+    对象类型。 如果可能应该使用更明确的类名。
 resource
     资源类型(例如由mysql\_connect()返回的)。
     记住, 如果你指定了混合类型, 则需指明是未知, 或者可以是哪些类型。
+callable
+    可调用的函数。
+
+你也可以用竖线(pipe char)组合多个类型::
+
+    int|bool
+
+对两种以上的类型，通常最好使用``mixed``。
+
+强制转换(Casting)
+-----------------
+
+做强制转换，我们使用:
+
+类型
+    描述
+(bool)
+        强制转换成布尔类型。
+(int)
+        强制转换成整数类型。
+(float)
+        强制转换成浮点类型。
+(string)
+        强制转换成字符串类型。
+(array)
+        强制转换成数组类型。
+(object)
+        强制转换成对象类型。
 
 常量
 ----
 
-常量名称应当大写:
-
-::
+常量名称应当大写::
 
     define('CONSTANT', 1);
 
-如果常量名称由多个单词组成的，则应当用下划线分隔，例如：
-
-::
+如果常量名称由多个单词组成的，则应当用下划线分隔，例如::
 
     define('LONG_NAMED_CONSTANT', 2);
 
