@@ -2,7 +2,7 @@ Saving Your Data
 ################
 
 CakePHP makes saving model data a snap. Data ready to be saved
-should be passed to the model’s ``save()`` method using the
+should be passed to the model's ``save()`` method using the
 following basic format::
 
     Array
@@ -14,7 +14,7 @@ following basic format::
         )
     )
 
-Most of the time you won’t even need to worry about this format:
+Most of the time you won't even need to worry about this format:
 CakePHP's :php:class:`FormHelper`, and model find methods all
 package data in this format. If you're using either of the helpers,
 the data is also conveniently available in ``$this->request->data`` for
@@ -30,7 +30,7 @@ model to save data to a database table::
             if ($this->Recipe->save($this->request->data)) {
                 // Set a session flash message and redirect.
                 $this->Session->setFlash('Recipe Saved!');
-                $this->redirect('/recipes');
+                return $this->redirect('/recipes');
             }
         }
 
@@ -40,7 +40,7 @@ model to save data to a database table::
     }
 
 When save is called, the data passed to it in the first parameter is validated
-using CakePHP validation mechanism (see :doc:`/models/data-validation` chapter for more
+using CakePHP's validation mechanism (see :doc:`/models/data-validation` chapter for more
 information). If for some reason your data isn't saving, be sure to check to see
 if some validation rules are being broken. You can debug this situation by
 outputting :php:attr:`Model::$validationErrors`::
@@ -64,7 +64,7 @@ the ActiveRecord features offered by Model::
     $this->Post->set('title', 'New title for the article');
     $this->Post->save();
 
-Is an example of how you can use ``set()`` to update and save
+Is an example of how you can use ``set()`` to update
 single fields, in an ActiveRecord approach. You can also use
 ``set()`` to assign new values to multiple fields::
 
@@ -75,8 +75,17 @@ single fields, in an ActiveRecord approach. You can also use
     ));
     $this->Post->save();
 
-The above would update the title and published fields and save them
-to the database.
+The above would update the title and published fields and save the
+record to the database.
+
+:php:meth:`Model::clear()`
+==========================
+
+This method can be used to reset model state and clear out any unsaved data and
+validation errors.
+
+.. versionadded:: 2.4
+
 
 :php:meth:`Model::save(array $data = null, boolean $validate = true, array $fieldList = array())`
 =================================================================================================
@@ -101,10 +110,11 @@ The save method also has an alternate syntax::
 ``$params`` array can have any of the following available options
 as keys:
 
-* ``validate`` Set to true/false to enable disable validation.
+* ``validate`` Set to true/false to enable/disable validation.
 * ``fieldList`` An array of fields you want to allow for saving.
-* ``callbacks`` Set to false to disable callbacks.  Using 'before' or 'after'
+* ``callbacks`` Set to false to disable callbacks. Using 'before' or 'after'
   will enable only those callbacks.
+* ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
 
 More information about model callbacks is available
 :doc:`here <callback-methods>`
@@ -142,7 +152,7 @@ Otherwise a new record is created::
 
 
 If you want to update a value, rather than create a new one, make sure
-your are passing the primary key field into the data array::
+you are passing the primary key field into the data array::
 
     $data = array('id' => 10, 'title' => 'My new title');
     // This will update Recipe with id 10
@@ -156,10 +166,10 @@ It does not actually create a record in the database but clears
 Model::$id and sets Model::$data based on your database field defaults. If you have
 not defined defaults for your database fields, Model::$data will be set to an empty array.
 
-If the ``$data`` parameter (using the array format outlined above) is passed, it will be merged with the database 
+If the ``$data`` parameter (using the array format outlined above) is passed, it will be merged with the database
 field defaults and the model instance will be ready to save with that data (accessible at ``$this->data``).
 
-If ``false`` or ``null`` are passed for the ``$data`` parameter, Model::data will be set to an empty array. 
+If ``false`` or ``null`` are passed for the ``$data`` parameter, Model::data will be set to an empty array.
 
 .. tip::
 
@@ -193,8 +203,9 @@ The saveField method also has an alternate syntax::
 as keys:
 
 * ``validate`` Set to true/false to enable disable validation.
-* ``callbacks`` Set to false to disable callbacks.  Using 'before' or 'after'
+* ``callbacks`` Set to false to disable callbacks. Using 'before' or 'after'
   will enable only those callbacks.
+* ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
 
 :php:meth:`Model::updateAll(array $fields, array $conditions)`
 ==============================================================
@@ -206,17 +217,24 @@ along with their values, are identified by the ``$fields`` array.
 For example, to approve all bakers who have been members for over a
 year, the update call might look something like::
 
-    $this_year = date('Y-m-d h:i:s', strtotime('-1 year'));
+    $thisYear = date('Y-m-d h:i:s', strtotime('-1 year'));
 
     $this->Baker->updateAll(
         array('Baker.approved' => true),
-        array('Baker.created <=' => $this_year)
+        array('Baker.created <=' => $thisYear)
     );
 
-.. tip::
 
-    The $fields array accepts SQL expressions. Literal values should be
-    quoted manually using :php:meth:`Sanitize::escape()`.
+The ``$fields`` array accepts SQL expressions. Literal values should be
+quoted manually using :php:meth:`DboSource::value()`. For example if one of your
+model methods was calling ``updateAll()`` you would do the following::
+
+    $db = $this->getDataSource();
+    $value = $db->value($value, 'string');
+    $this->updateAll(
+        array('Baker.approved' => true),
+        array('Baker.created <=' => $value)
+    );
 
 .. note::
 
@@ -248,6 +266,9 @@ options may be used:
   Should be set to false if database/table does not support transactions.
 *  ``fieldList``: Equivalent to the $fieldList parameter in Model::save()
 *  ``deep``: (since 2.1) If set to true, also associated data is saved, see also saveAssociated
+* ``callbacks`` Set to false to disable callbacks. Using 'before' or 'after'
+  will enable only those callbacks.
+* ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
 
 For saving multiple records of single model, $data needs to be a
 numerically indexed array of records like this::
@@ -259,7 +280,7 @@ numerically indexed array of records like this::
 
 .. note::
 
-    Note that we are passing numerical indices instead of usual
+    Note that we are passing numerical indexes instead of usual
     ``$data`` containing the Article key. When saving multiple records
     of same model the records arrays should be just numerically indexed
     without the model key.
@@ -278,7 +299,10 @@ To save also associated data with ``$options['deep'] = true`` (since 2.1), the t
         array('title' => 'title 2'),
     );
     $data = array(
-        array('Article' => array('title' => 'title 1'), 'Assoc' => array('field' => 'value')),
+        array(
+            'Article' => array('title' => 'title 1'),
+            'Assoc' => array('field' => 'value')
+        ),
         array('Article' => array('title' => 'title 2')),
     );
     $Model->saveMany($data, array('deep' => true));
@@ -287,8 +311,12 @@ Keep in mind that if you want to update a record instead of creating a new
 one you just need to add the primary key index to the data row::
 
     $data = array(
-        array('Article' => array('title' => 'New article')), // This creates a new row
-        array('Article' => array('id' => 2, 'title' => 'title 2')), // This updates an existing row
+        array(
+            // This creates a new row
+            'Article' => array('title' => 'New article')),
+        array(
+            // This updates an existing row
+            'Article' => array('id' => 2, 'title' => 'title 2')),
     );
 
 
@@ -305,6 +333,7 @@ options may be used:
 * ``fieldList``: Equivalent to the $fieldList parameter in Model::save()
 * ``deep``: (since 2.1) If set to true, not only directly associated data is saved,
   but deeper nested associated data as well. Defaults to false.
+* ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
 
 For saving a record along with its related record having a hasOne
 or belongsTo association, the data array should be like this::
@@ -372,7 +401,10 @@ the data array should be like this::
         'Article' => array('title' => 'My first article'),
         'Comment' => array(
             array('body' => 'Comment 1', 'user_id' => 1),
-            array('body' => 'Save a new user as well', 'User' => array('first' => 'mad', 'last' => 'coder')),
+            array(
+                'body' => 'Save a new user as well',
+                'User' => array('first' => 'mad', 'last' => 'coder')
+            ),
         ),
     );
 
@@ -455,7 +487,7 @@ associations, it's all about keying. The basic idea is to get the
 key from one model and place it in the foreign key field on the
 other. Sometimes this might involve using the ``$id`` attribute of
 the model class after a ``save()``, but other times it might just
-involve gathering the ID from a hidden input on a form that’s just
+involve gathering the ID from a hidden input on a form that's just
 been POSTed to a controller action.
 
 To supplement the basic approach used above, CakePHP also offers a
@@ -528,13 +560,16 @@ a look at the following code.::
        public $uses = array('CourseMembership');
 
        public function index() {
-           $this->set('courseMembershipsList', $this->CourseMembership->find('all'));
+           $this->set(
+                'courseMembershipsList',
+                $this->CourseMembership->find('all')
+            );
        }
 
        public function add() {
            if ($this->request->is('post')) {
                if ($this->CourseMembership->saveAssociated($this->request->data)) {
-                   $this->redirect(array('action' => 'index'));
+                   return $this->redirect(array('action' => 'index'));
                }
            }
        }
@@ -575,7 +610,7 @@ The data array will look like this when submitted.::
 
     )
 
-Cake will happily be able to save the lot together and assign
+CakePHP will happily be able to save the lot together and assign
 the foreign keys of the Student and Course into CourseMembership
 with a `saveAssociated` call with this data structure. If we run the index
 action of our CourseMembershipsController the data structure
@@ -620,8 +655,26 @@ then the two meta-fields for the CourseMembership, e.g.::
         // View/CourseMemberships/add.ctp
 
         <?php echo $this->Form->create('CourseMembership'); ?>
-            <?php echo $this->Form->input('Student.id', array('type' => 'text', 'label' => 'Student ID', 'default' => 1)); ?>
-            <?php echo $this->Form->input('Course.id', array('type' => 'text', 'label' => 'Course ID', 'default' => 1)); ?>
+            <?php
+                echo $this->Form->input(
+                    'Student.id',
+                    array(
+                        'type' => 'text',
+                        'label' => 'Student ID',
+                        'default' => 1
+                    )
+                );
+            ?>
+            <?php
+                echo $this->Form->input(
+                    'Course.id',
+                    array(
+                        'type' => 'text',
+                        'label' => 'Course ID',
+                        'default' => 1
+                    )
+                );
+            ?>
             <?php echo $this->Form->input('CourseMembership.days_attended'); ?>
             <?php echo $this->Form->input('CourseMembership.grade'); ?>
             <button type="submit">Save</button>
@@ -648,7 +701,7 @@ And the resultant POST::
         )
     )
 
-Again Cake is good to us and pulls the Student id and Course id
+Again CakePHP is good to us and pulls the Student id and Course id
 into the CourseMembership with the `saveAssociated`.
 
 .. _saving-habtm:
@@ -696,7 +749,7 @@ following::
             (
                 [Recipe] => Array
                     (
-                        [id] => 42
+                        [id] => 43
                     )
                 [Tag] => Array
                     (
@@ -824,7 +877,7 @@ Becomes this::
 What to do when HABTM becomes complicated?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By default when saving a HasAndBelongsToMany relationship, Cake
+By default when saving a HasAndBelongsToMany relationship, CakePHP
 will delete all rows on the join table before saving new ones. For
 example if you have a Club that has 10 Children associated. You
 then update the Club with 2 children. The Club will only have 2

@@ -9,9 +9,9 @@ controllers and actions into the Acl. However, we all hate doing
 repetitive things like typing in what could be hundreds of actions
 in a large application.
 
-For this purpose exists a very handy plugin available at github, called
+For this purpose exists a very handy plugin available on GitHub, called
 `AclExtras <https://github.com/markstory/acl_extras/>`_ which can
-be downloaded in `The Github Downloads page <https://github.com/markstory/acl_extras/zipball/master>`_.
+be downloaded in `The GitHub Downloads page <https://github.com/markstory/acl_extras/zipball/master>`_.
 We're going to briefly describe how to use it to generate all our ACO's
 
 First grab a copy of the plugin and unzipped or clone it using git into
@@ -67,24 +67,29 @@ function::
 
     public function initDB() {
         $group = $this->User->Group;
-        //Allow admins to everything
+
+        // Allow admins to everything
         $group->id = 1;
         $this->Acl->allow($group, 'controllers');
 
-        //allow managers to posts and widgets
+        // allow managers to posts and widgets
         $group->id = 2;
         $this->Acl->deny($group, 'controllers');
         $this->Acl->allow($group, 'controllers/Posts');
         $this->Acl->allow($group, 'controllers/Widgets');
 
-        //allow users to only add and edit on posts and widgets
+        // allow users to only add and edit on posts and widgets
         $group->id = 3;
         $this->Acl->deny($group, 'controllers');
         $this->Acl->allow($group, 'controllers/Posts/add');
         $this->Acl->allow($group, 'controllers/Posts/edit');
         $this->Acl->allow($group, 'controllers/Widgets/add');
         $this->Acl->allow($group, 'controllers/Widgets/edit');
-        //we add an exit to avoid an ugly "missing views" error message
+        
+        // allow basic users to log out
+        $this->Acl->allow($group, 'controllers/users/logout');
+
+        // we add an exit to avoid an ugly "missing views" error message
         echo "all done";
         exit;
     }
@@ -142,7 +147,12 @@ so already:
 
     <h2>Login</h2>
     <?php
-    echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login')));
+    echo $this->Form->create('User', array(
+        'url' => array(
+            'controller' => 'users', 
+            'action' => 'login'
+        )
+    ));
     echo $this->Form->input('User.username');
     echo $this->Form->input('User.password');
     echo $this->Form->end('Login');
@@ -154,7 +164,7 @@ UsersController::
     public function login() {
         if ($this->Session->read('Auth.User')) {
             $this->Session->setFlash('You are logged in!');
-            $this->redirect('/', null, false);
+            return $this->redirect('/');
         }
     }
 
@@ -174,7 +184,7 @@ following::
 
 This sets a Session flash message and logs out the User using
 Auth's logout method. Auth's logout method basically deletes the
-Auth Session Key and returns a url that can be used in a redirect.
+Auth Session Key and returns a URL that can be used in a redirect.
 If there is other session data that needs to be deleted as well add
 that code here.
 

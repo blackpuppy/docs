@@ -12,8 +12,8 @@ Basic Debugging
 
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
 
-    :param mixed $var: The contents to print out.  Arrays and objects work well.
-    :param boolean $showHTML: Set to true, to enable escaping.  Escaping is enabled
+    :param mixed $var: The contents to print out. Arrays and objects work well.
+    :param boolean $showHTML: Set to true, to enable escaping. Escaping is enabled
         by default in 2.0 when serving web requests.
     :param boolean $showFrom: Show the line and file the debug() occurred on.
 
@@ -28,7 +28,7 @@ default.
 Output from this function is only shown if the core debug variable
 has been set to a value greater than 0.
 
-.. versionchanged:: 2.1 
+.. versionchanged:: 2.1
     The output of ``debug()`` more resembles ``var_dump()``, and uses
     :php:class:`Debugger` internally.
 
@@ -60,7 +60,7 @@ Using the Debugger Class
 To use the debugger, first ensure that Configure::read('debug') is
 set to a value greater than 0.
 
-.. php:staticmethod:: Debugger::dump($var)
+.. php:staticmethod:: Debugger::dump($var, $depth = 3)
 
     Dump prints out the contents of a variable. It will print out all
     properties and methods (if any) of the supplied variable::
@@ -95,13 +95,19 @@ set to a value greater than 0.
         In 2.1 forward the output was updated for readability. See
         :php:func:`Debugger::exportVar()`
 
-.. php:staticmethod:: Debugger::log($var, $level = 7)
+    .. versionchanged:: 2.5.0
+        The ``depth`` parameter was added.
+
+.. php:staticmethod:: Debugger::log($var, $level = 7, $depth = 3)
 
     Creates a detailed stack trace log at the time of invocation. The
     log() method prints out data similar to that done by
     Debugger::dump(), but to the debug.log instead of the output
     buffer. Note your app/tmp directory (and its contents) must be
     writable by the web server for log() to work correctly.
+
+    .. versionchanged:: 2.5.0
+        The ``depth`` parameter was added.
 
 .. php:staticmethod:: Debugger::trace($options)
 
@@ -111,7 +117,7 @@ set to a value greater than 0.
 
         //In PostsController::index()
         pr(Debugger::trace());
-        
+
         //outputs
         PostsController::index() - APP/Controller/DownloadsController.php, line 48
         Dispatcher::_invoke() - CORE/lib/Cake/Routing/Dispatcher.php, line 265
@@ -134,14 +140,14 @@ set to a value greater than 0.
     lines around it.::
 
         pr(Debugger::excerpt(ROOT . DS . LIBS . 'debugger.php', 321, 2));
-        
+
         //will output the following.
         Array
         (
             [0] => <code><span style="color: #000000"> * @access public</span></code>
             [1] => <code><span style="color: #000000"> */</span></code>
             [2] => <code><span style="color: #000000">    function excerpt($file, $line, $context = 2) {</span></code>
-         
+
             [3] => <span class="code-highlight"><code><span style="color: #000000">        $data = $lines = array();</span></code></span>
             [4] => <code><span style="color: #000000">        $data = @explode("\n", file_get_contents($file));</span></code>
         )
@@ -166,7 +172,7 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::getType($var)
 
-    Get the type of a variable.  Objects will return their classname
+    Get the type of a variable. Objects will return their class name
 
     .. versionadded:: 2.1
 
@@ -174,15 +180,15 @@ Using Logging to debug
 ======================
 
 Logging messages is another good way to debug applications, and you can use
-:php:class:`CakeLog` to do logging in your application.  All objects that 
+:php:class:`CakeLog` to do logging in your application. All objects that
 extend :php:class:`Object` have an instance method `log()` which can be used
 to log messages::
 
     $this->log('Got here', 'debug');
 
-The above would write ``Got here`` into the debug log.  You can use log entries
+The above would write ``Got here`` into the debug log. You can use log entries
 to help debug methods that involve redirects or complicated loops. You can also
-use :php:meth:`CakeLog::write()` to write log messages.  This method can be called
+use :php:meth:`CakeLog::write()` to write log messages. This method can be called
 statically anywhere in your application one CakeLog has been loaded::
 
     // in app/Config/bootstrap.php
@@ -194,11 +200,10 @@ statically anywhere in your application one CakeLog has been loaded::
 Debug Kit
 =========
 
-DebugKit is a plugin that provides a number of good debugging tools. It primarily
-provides a toolbar in the rendered HTML, that provides a plethora of information about 
-your application and the current request. You can download 
-`DebugKit <https://github.com/cakephp/debug_kit>`_ from github.
-
+DebugKit is a plugin that provides a number of good debugging tools. It
+primarily provides a toolbar in the rendered HTML, that provides a plethora of
+information about your application and the current request. You can download
+`DebugKit <https://github.com/cakephp/debug_kit>`_ from GitHub.
 
 .. meta::
     :title lang=en: Debugging

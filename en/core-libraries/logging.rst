@@ -24,24 +24,24 @@ Creating and configuring log streams
 
 Log stream handlers can be part of your application, or part of
 plugins. If for example you had a database logger called
-``DatabaseLogger``. As part of your application it would be placed
-in ``app/Lib/Log/Engine/DatabaseLogger.php``. As part of a plugin it
+``DatabaseLog``. As part of your application it would be placed
+in ``app/Lib/Log/Engine/DatabaseLog.php``. As part of a plugin it
 would be placed in
-``app/Plugin/LoggingPack/Lib/Log/Engine/DatabaseLogger.php``. When
+``app/Plugin/LoggingPack/Lib/Log/Engine/DatabaseLog.php``. When
 configured ``CakeLog`` will attempt to load Configuring log streams
 is done by calling ``CakeLog::config()``. Configuring our
-DataBaseLogger would look like::
-    
+DatabaseLog would look like::
+
     // for app/Lib
     CakeLog::config('otherFile', array(
-        'engine' => 'DatabaseLogger',
+        'engine' => 'Database',
         'model' => 'LogEntry',
         // ...
     ));
-    
+
     // for plugin called LoggingPack
     CakeLog::config('otherFile', array(
-        'engine' => 'LoggingPack.DatabaseLogger',
+        'engine' => 'LoggingPack.Database',
         'model' => 'LogEntry',
         // ...
     ));
@@ -50,10 +50,11 @@ When configuring a log stream the ``engine`` parameter is used to
 locate and load the log handler. All of the other configuration
 properties are passed to the log stream's constructor as an array.::
 
-    App::uses('CakeLogInterface', 'Log');
+    App::uses('BaseLog', 'Log');
 
-    class DatabaseLogger implements CakeLogInterface {
+    class DatabaseLog extends BaseLog {
         public function __construct($options = array()) {
+            parent::__construct($options);
             // ...
         }
 
@@ -62,12 +63,42 @@ properties are passed to the log stream's constructor as an array.::
         }
     }
 
-CakePHP has no requirements for Log streams other than that they
-must implement a ``write`` method. This write method must take two
-parameters ``$type, $message`` in that order. ``$type`` is the
-string type of the logged message, core values are ``error``,
-``warning``, ``info`` and ``debug``. In addition you can define
-your own types by using them when you call ``CakeLog::write``.
+While CakePHP has no requirements for Log streams other than that they
+must implement a ``write`` method, extending the ``BaseLog`` class has a few
+benefits:
+
+- It automatically handles the scope and type argument casting.
+- It implements the ``config()`` method which is required to make scoped logging
+  work.
+
+Each logger's write method must take two parameters ``$type, $message`` in that
+order. ``$type`` is the string type of the logged message, core values are
+``error``, ``warning``, ``info`` and ``debug``. In addition you can define your
+own types by using them when you call ``CakeLog::write``.
+
+.. _file-log:
+
+.. versionadded:: 2.4
+
+As of 2.4 ``FileLog`` engine takes a few new options:
+
+* ``size`` Used to implement basic log file rotation. If log file size
+  reaches specified size the existing file is renamed by appending timestamp
+  to filename and new log file is created. Can be integer bytes value or
+  human reabable string values like '10MB', '100KB' etc. Defaults to 10MB.
+* ``rotate`` Log files are rotated specified times before being removed.
+  If value is 0, old versions are removed rather then rotated. Defaults to 10.
+* ``mask`` Set the file permissions for created files. If left empty the default
+  permissions are used.
+
+.. warning::
+
+    Prior to 2.4 you had to include the suffix ``Log`` in your configuration
+    (``LoggingPack.DatabaseLog``). This is now not necessary anymore.
+    If you have been using a Log engine like ```DatabaseLogger`` that does not follow
+    the convention to use a suffix ``Log`` for your class name you have to adjust your
+    class name to ``DatabaseLog``. You should also avoid class names like ``SomeLogLog``
+    which include the suffix twice at the end.
 
 .. note::
 
@@ -75,14 +106,16 @@ your own types by using them when you call ``CakeLog::write``.
     Trying to use Application or plugin loggers in core.php
     will cause issues, as application paths are not yet configured.
 
+    Also new in 2.4: In debug mode missing directories will now be automatically created to avoid unnecessary
+    errors thrown when using the FileEngine.
 
 Error and Exception logging
 ===========================
 
-Errors and Exceptions can also be logged.  By configuring the 
-co-responding values in your core.php file.  Errors will be 
-displayed when debug > 0 and logged when debug == 0. Set ``Exception.log`` 
-to true to log uncaught exceptions. See :doc:`/development/configuration` 
+Errors and Exceptions can also be logged. By configuring the
+co-responding values in your core.php file. Errors will be
+displayed when debug > 0 and logged when debug == 0. Set ``Exception.log``
+to true to log uncaught exceptions. See :doc:`/development/configuration`
 for more information.
 
 Interacting with log streams
@@ -113,7 +146,7 @@ which writes to the error log. The default log location is
 
     // Executing this inside a CakePHP class
     $this->log("Something didn't work!");
-    
+
     // Results in this being appended to app/tmp/logs/error.log
     // 2007-11-02 10:22:02 Error: Something didn't work!
 
@@ -123,7 +156,7 @@ you wish to write logs to::
 
     // called statically
     CakeLog::write('activity', 'A special message for activity logging');
-    
+
     // Results in this being appended to app/tmp/logs/activity.log (rather than error.log)
     // 2007-11-02 10:22:02 Activity: A special message for activity logging
 
@@ -135,9 +168,47 @@ You can configure additional/alternate FileLog locations using
 custom paths to be used::
 
     CakeLog::config('custom_path', array(
-        'engine' => 'FileLog',
+        'engine' => 'File',
         'path' => '/path/to/custom/place/'
     ));
+
+.. _syslog-log:
+
+Logging to Syslog
+=================
+
+.. versionadded:: 2.4
+
+In production environments it is highly recommended that you setup your system to
+use syslog instead of the files logger. This will perform much better as any
+writes will be done in a (almost) non-blocking fashion and your operating  system
+logger can be configured separately to rotate files, pre-process writes or use
+a completely different storage for your logs.
+
+Using syslog is pretty much like using the default FileLog engine, you just need
+to specify `Syslog` as the engine to be used for logging. The following
+configuration snippet will replace the default logger with syslog, this should
+be done in the `bootstrap.php` file::
+
+    CakeLog::config('default', array(
+        'engine' => 'Syslog'
+    ));
+
+The configuration array accepted for the Syslog logging engine understands the
+following keys:
+
+* `format`: An sprintf template strings with two placeholders, the first one
+  for the error type, and the second for the message itself. This key is
+  useful to add additional information about the server or process in the
+  logged message. For example: ``%s - Web Server 1 - %s`` will look like
+  ``error - Web Server 1 - An error occurred in this request`` after
+  replacing the placeholders.
+* `prefix`: An string that will be prefixed to every logged message.
+* `flag`: An integer flag to be used for opening the connection to the
+  logger, by default `LOG_ODELAY` will be used. See `openlog` documentation
+  for more options
+* `facility`: The logging slot to use in syslog. By default `LOG_USER` is
+  used. See `syslog` documentation for more options
 
 .. _writing-to-logs:
 
@@ -157,11 +228,19 @@ CakeLog::write()::
     $this->log("Something did not work!", 'debug');
 
 All configured log streams are written to sequentially each time
-:php:meth:`CakeLog::write()` is called. You do not need to configure a
-stream in order to use logging. If no streams are configured when
-the log is written to, a ``default`` stream using the core
-``FileLog`` class will be configured to output into
-``app/tmp/logs/`` just as CakeLog did in previous versions.
+:php:meth:`CakeLog::write()` is called.
+
+.. versionchanged:: 2.5
+
+CakeLog does not auto-configure itself anymore. As a result log files will not be
+auto-created anymore if no stream is listening.
+Make sure you got at least one ``default`` stream set up if you want to
+listen to all types and levels. Usually, you can just set the core ``FileLog`` class
+to output into ``app/tmp/logs/``::
+
+    CakeLog::config('default', array(
+        'engine' => 'File'
+    ));
 
 .. _logging-scopes:
 
@@ -171,40 +250,42 @@ Logging Scopes
 .. versionadded:: 2.2
 
 Often times you'll want to configure different logging behavior for different
-subsystems or parts of your application.  Take for example an e-commerce shop.
+subsystems or parts of your application. Take for example an e-commerce shop.
 You'll probably want to handle logging for orders and payments differently than
 you do other less critical logs.
 
-CakePHP exposes this concept as logging scopes.  When log messages are written
-you can include a scope name.  If there is a configured logger for that scope,
-the log messages will be directed to those loggers.  If a log message is written
+CakePHP exposes this concept as logging scopes. When log messages are written
+you can include a scope name. If there is a configured logger for that scope,
+the log messages will be directed to those loggers. If a log message is written
 to an unknown scope, loggers that handle that level of message will log the
 message. For example::
 
-    // configure tmp/logs/shops.log to receive all types (log levels), but only
-    // those with `orders` and `payments` scope
-    CakeLog::config('shops', array(
+    // Configure tmp/logs/shop.log to receive the two configured types (log levels), but only
+    // those with `orders` and `payments` as scope
+    CakeLog::config('shop', array(
         'engine' => 'FileLog',
         'types' => array('warning', 'error'),
         'scopes' => array('orders', 'payments'),
-        'file' => 'shops.log',
+        'file' => 'shop.log',
     ));
 
-    // configure tmp/logs/payments.log to receive all types, but only
-    // those with `payments` scope
+    // Configure tmp/logs/payments.log to receive the two configured types, but only
+    // those with `payments` as scope
     CakeLog::config('payments', array(
-        'engine' => 'FileLog',
+        'engine' => 'SyslogLog',
         'types' => array('info', 'error', 'warning'),
-        'scopes' => array('payments'),
-        'file' => 'payments.log',
+        'scopes' => array('payments')
     ));
 
-    CakeLog::warning('this gets written only to shops.log', 'orders');
-    CakeLog::warning('this gets written to both shops.log and payments.log', 'payments');
-    CakeLog::warning('this gets written to both shops.log and payments.log', 'unknown');
+    CakeLog::warning('This gets written only to shops stream', 'orders');
+    CakeLog::warning('This gets written to both shops and payments streams', 'payments');
+    CakeLog::warning('This gets written to both shops and payments streams', 'unknown');
 
-In order for scopes to work correctly, you **must** define the accepted
-``types`` on all loggers you want to use scopes with.
+In order for scopes to work, you **must** do a few things:
+
+#. Define the accepted ``types`` on loggers that use scopes.
+#. Loggers using scopes must implement a ``config()`` method. Extending the
+   ``BaseLog`` class is the easiest way to get a compatible method.
 
 CakeLog API
 ===========
@@ -217,10 +298,10 @@ CakeLog API
 
     :param string $name: Name for the logger being connected, used
         to drop a logger later on.
-    :param array $config: Array of configuration information and 
+    :param array $config: Array of configuration information and
         constructor arguments for the logger.
 
-    Connect a new logger to CakeLog.  Each connected logger
+    Connect a new logger to CakeLog. Each connected logger
     receives all log messages each time a log message is written.
 
 .. php:staticmethod:: configured()

@@ -3,7 +3,7 @@ NumberHelper
 
 .. php:class:: NumberHelper(View $view, array $settings = array())
 
-The NumberHelper contains convenience methods that enable display
+The NumberHelper contains convenient methods that enable display
 numbers in common formats in your views. These methods include ways
 to format currency, percentages, data sizes, format numbers to
 specific precisions and also to give you more flexibility with
@@ -19,6 +19,11 @@ formatting numbers.
 .. include:: ../../core-utility-libraries/number.rst
     :start-after: start-cakenumber
     :end-before: end-cakenumber
+
+.. warning::
+
+    Since 2.4 the symbols are now UTF-8. Please see the migration guide for details if you run a
+    non-UTF-8 app.
 
 .. meta::
     :title lang=en: NumberHelper

@@ -61,7 +61,8 @@ Formatting
 
         // called via TimeHelper
         echo $this->Time->dayAsSql('Aug 22, 2011', 'modified');
-        // (modified >= '2011-08-22 00:00:00') AND (modified <= '2011-08-22 23:59:59')
+        // (modified >= '2011-08-22 00:00:00') AND
+        // (modified <= '2011-08-22 23:59:59')
 
         // called as CakeTime
         App::uses('CakeTime', 'Utility');
@@ -84,7 +85,8 @@ Formatting
 
         // called via TimeHelper
         echo $this->Time->daysAsSql('Aug 22, 2011', 'Aug 25, 2011', 'created');
-        // (created >= '2011-08-22 00:00:00') AND (created <= '2011-08-25 23:59:59')
+        // (created >= '2011-08-22 00:00:00') AND
+        // (created <= '2011-08-25 23:59:59')
 
         // called as CakeTime
         App::uses('CakeTime', 'Utility');
@@ -101,19 +103,31 @@ Formatting
     :rtype: string
 
     Will return a string formatted to the given format using the
-    `PHP date() formatting options <http://www.php.net/manual/en/function.date.php>`_::
+    `PHP strftime() formatting options <http://www.php.net/manual/en/function.strftime.php>`_::
 
         // called via TimeHelper
-        echo $this->Time->format('2011-08-22 11:53:00', 'F jS, Y h:i A');
-        // August 22nd, 2011 11:53 AM
+        echo $this->Time->format('2011-08-22 11:53:00', '%B %e, %Y %H:%M %p');
+        // August 22, 2011 11:53 AM
 
-        echo $this->Time->format('+2 days', 'r');
-        // 2 days from now formatted as Sun, 13 Nov 2011 03:36:10 +0800
+        echo $this->Time->format('+2 days', '%c');
+        // 2 days from now formatted as Sun, 13 Nov 2011 03:36:10 AM EET
 
         // called as CakeTime
         App::uses('CakeTime', 'Utility');
-        echo CakeTime::format('2011-08-22 11:53:00', 'F jS, Y h:i A');
-        echo CakeTime::format('+2 days', 'r');
+        echo CakeTime::format('2011-08-22 11:53:00', '%B %e, %Y %H:%M %p');
+        echo CakeTime::format('+2 days', '%c');
+
+    You can also provide the date/time as the first argument. When doing this
+    you should use ``strftime`` compatible formatting. This call signature
+    allows you to leverage locale aware date formatting which is not possible
+    using ``date()`` compatible formatting::
+
+        // called via TimeHelper
+        echo $this->Time->format('2012-01-13', '%d-%m-%Y', 'invalid');
+
+        // called as CakeTime
+        App::uses('CakeTime', 'Utility');
+        echo CakeTime::format('2011-08-22', '%d-%m-%Y');
 
     .. versionchanged:: 2.2
        ``$format`` and ``$date`` parameters are in opposite order as used in 2.1 and below.
@@ -168,7 +182,8 @@ Formatting
 
     Returns a formatted date string, given either a UNIX timestamp or a
     valid strtotime() date string. It take in account the default date
-    format for the current language if a LC_TIME file is used.
+    format for the current language if a LC_TIME file is used. For more info
+    about LC_TIME file check :ref:`here <lc-time>`.
 
     .. versionchanged:: 2.2
        ``$timezone`` parameter replaces ``$userOffset`` parameter used in 2.1 and below.
@@ -230,23 +245,35 @@ Formatting
         echo $this->Time->timeAgoInWords('Aug 22, 2011');
         // on 22/8/11
 
-        echo $this->Time->timeAgoInWords('Aug 22, 2011', array('format' => 'F jS, Y'));
         // on August 22nd, 2011
+        echo $this->Time->timeAgoInWords(
+            'Aug 22, 2011',
+            array('format' => 'F jS, Y')
+        );
 
         // called as CakeTime
         App::uses('CakeTime', 'Utility');
         echo CakeTime::timeAgoInWords('Aug 22, 2011');
-        echo CakeTime::timeAgoInWords('Aug 22, 2011', array('format' => 'F jS, Y'));
+        echo CakeTime::timeAgoInWords(
+            'Aug 22, 2011',
+            array('format' => 'F jS, Y')
+        );
 
     Use the 'end' option to determine the cutoff point to no longer will use words; default '+1 month'::
 
         // called via TimeHelper
-        echo $this->Time->timeAgoInWords('Aug 22, 2011', array('format' => 'F jS, Y', 'end' => '+1 year'));
+        echo $this->Time->timeAgoInWords(
+            'Aug 22, 2011',
+            array('format' => 'F jS, Y', 'end' => '+1 year')
+        );
         // On Nov 10th, 2011 it would display: 2 months, 2 weeks, 6 days ago
 
         // called as CakeTime
         App::uses('CakeTime', 'Utility');
-        echo CakeTime::timeAgoInWords('Aug 22, 2011', array('format' => 'F jS, Y', 'end' => '+1 year'));
+        echo CakeTime::timeAgoInWords(
+            'Aug 22, 2011',
+            array('format' => 'F jS, Y', 'end' => '+1 year')
+        );
 
     Use the 'accuracy' option to determine how precise the output should be.
     You can use this to limit the output::
@@ -306,6 +333,11 @@ Formatting
     .. versionadded:: 2.2
        ``$dateString`` parameter now also accepts a DateTime object.
 
+    .. versionadded:: 2.4
+       The new option parameters ``relativeString`` (defaults to ``%s ago``) and
+			 ``absoluteString`` (defaults to ``on %s``) to allow customization of the resulting
+       output string are now available.
+
 .. php:method:: toRSS($dateString, $timezone = NULL)
 
     :rtype: string
@@ -362,6 +394,14 @@ Testing Time
 .. php:method:: isThisYear($dateString, $timezone = NULL)
 .. php:method:: wasYesterday($dateString, $timezone = NULL)
 .. php:method:: isTomorrow($dateString, $timezone = NULL)
+.. php:method:: isFuture($dateString, $timezone = NULL)
+
+    .. versionadded:: 2.4
+
+.. php:method:: isPast($dateString, $timezone = NULL)
+
+    .. versionadded:: 2.4
+
 .. php:method:: wasWithinLast($timeInterval, $dateString, $timezone = NULL)
 
     .. versionchanged:: 2.2

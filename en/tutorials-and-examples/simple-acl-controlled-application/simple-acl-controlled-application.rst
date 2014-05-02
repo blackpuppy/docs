@@ -24,18 +24,18 @@ What you will need
 #. A running web server. We're going to assume you're using Apache,
    though the instructions for using other servers should be very
    similar. We might have to play a little with the server
-   configuration, but most folks can get Cake up and running without
+   configuration, but most folks can get CakePHP up and running without
    any configuration at all.
 #. A database server. We're going to be using MySQL in this
    tutorial. You'll need to know enough about SQL in order to create a
-   database: Cake will be taking the reins from there.
+   database: CakePHP will be taking the reins from there.
 #. Basic PHP knowledge. The more object-oriented programming you've
    done, the better: but fear not if you're a procedural fan.
 
 Preparing our Application
 =========================
 
-First, let's get a copy of fresh Cake code.
+First, let's get a copy of fresh CakePHP code.
 
 To get a fresh download, visit the CakePHP project at GitHub:
 https://github.com/cakephp/cakephp/tags and download the stable
@@ -127,10 +127,9 @@ Acl components. First add a login and logout action to your
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->redirect($this->Auth->redirect());
-            } else {
-                $this->Session->setFlash('Your username or password was incorrect.');
+                return $this->redirect($this->Auth->redirect());
             }
+            $this->Session->setFlash(__('Your username or password was incorrect.'));
         }
     }
 
@@ -150,8 +149,8 @@ Then create the following view file for login at
     echo $this->Form->end('Login');
 
 Next we'll have to update our User model to hash passwords before they go into
-the database.  Storing plaintext passwords is extremely insecure and
-AuthComponent will expect that your passwords are hashed.  In
+the database. Storing plaintext passwords is extremely insecure and
+AuthComponent will expect that your passwords are hashed. In
 ``app/Model/User.php`` add the following::
 
     App::uses('AuthComponent', 'Controller/Component');
@@ -159,14 +158,15 @@ AuthComponent will expect that your passwords are hashed.  In
         // other code.
 
         public function beforeSave($options = array()) {
-            $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+            $this->data['User']['password'] = AuthComponent::password(
+              $this->data['User']['password']
+            );
             return true;
         }
     }
 
 Next we need to make some modifications to ``AppController``. If
-you don't have ``/app/Controller/AppController.php``, create it. Note that
-this goes in /app/Controller/, not /app/app_controllers.php. Since we want our entire
+you don't have ``/app/Controller/AppController.php``, create it. Since we want our entire
 site controlled with Auth and Acl, we will set them up in
 ``AppController``::
 
@@ -184,9 +184,18 @@ site controlled with Auth and Acl, we will set them up in
 
         public function beforeFilter() {
             //Configure AuthComponent
-            $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
-            $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
-            $this->Auth->loginRedirect = array('controller' => 'posts', 'action' => 'add');
+            $this->Auth->loginAction = array(
+              'controller' => 'users', 
+              'action' => 'login'
+            );
+            $this->Auth->logoutRedirect = array(
+              'controller' => 'users', 
+              'action' => 'login'
+            );
+            $this->Auth->loginRedirect = array(
+              'controller' => 'posts', 
+              'action' => 'add'
+            );
         }
     }
 
@@ -326,10 +335,19 @@ implement ``bindNode()`` in ``User`` model::
         return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
     }
 
-This method will tell ACL to skip checking ``User`` Aro's and to
+Modify the ``actsAs`` for the model ``User`` and disable the requester directive::
+
+    public $actsAs = array('Acl' => array('type' => 'requester', 'enabled' => false));
+
+This method along with configuration change will tell ACL to skip checking ``User`` Aro's and to
 check only ``Group`` Aro's.
 
-Every user has to have assigned ``group_id`` for this to work.
+Every user has to have assigned ``group_id`` for this to work. In addition, you have 
+to change the following in ``User`` model::
+
+    public $actsAs = array('Acl' => array('type' => 'requester', 'enabled' => false));
+
+this avoids the afterSave to be called.
 
 In this case our ``aros`` table will look like this::
 

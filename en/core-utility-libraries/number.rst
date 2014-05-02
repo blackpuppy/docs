@@ -52,11 +52,11 @@ automatically echo the output into the view.
     +---------------------+----------------------------------------------------+
     | $currency           | 1234.56, formatted by currency type                |
     +=====================+====================================================+
-    | EUR                 | € 1.236,33                                         |
+    | EUR                 | €1.234,56                                          |
     +---------------------+----------------------------------------------------+
-    | GBP                 | £ 1,236.33                                         |
+    | GBP                 | £1,234.56                                          |
     +---------------------+----------------------------------------------------+
-    | USD                 | $ 1,236.33                                         |
+    | USD                 | $1,234.56                                          |
     +---------------------+----------------------------------------------------+
 
     The third parameter is an array of options for further defining the
@@ -97,6 +97,9 @@ automatically echo the output into the view.
     | fractionPosition    | Either 'before' or 'after' to place the fraction   |
     |                     | symbol                                             |
     +---------------------+----------------------------------------------------+
+    | fractionExponent    | Fraction exponent of this specific currency.       |
+    |                     | Defaults to 2.                                     |
+    +---------------------+----------------------------------------------------+
 
     If a non-recognized $currency value is supplied, it is prepended to
     a USD formatted number. For example::
@@ -110,6 +113,9 @@ automatically echo the output into the view.
         // called as CakeNumber
         App::uses('CakeNumber', 'Utility');
         echo CakeNumber::currency('1234.56', 'FOO');
+
+    .. versionchanged:: 2.4
+        The ``fractionExponent`` option was added.
 
 .. php:method:: defaultCurrency(string $currency)
 
@@ -130,34 +136,35 @@ automatically echo the output into the view.
     currency formats easier::
 
         // called as NumberHelper
-        $this->Number->addFormat('BRR', array('before' => 'R$ '));
+        $this->Number->addFormat('BRL', array('before' => 'R$', 'thousands' => '.', 'decimals' => ','));
 
         // called as CakeNumber
         App::uses('CakeNumber', 'Utility');
-        CakeNumber::addFormat('BRR', array('before' => 'R$ '));
+        CakeNumber::addFormat('BRL', array('before' => 'R$', 'thousands' => '.', 'decimals' => ','));
 
-    You can now use `BRR` as a short form when formatting currency amounts::
+    You can now use `BRL` as a short form when formatting currency amounts::
 
         // called as NumberHelper
-        echo $this->Number->currency($value, 'BRR');
+        echo $this->Number->currency($value, 'BRL');
 
         // called as CakeNumber
         App::uses('CakeNumber', 'Utility');
-        echo CakeNumber::currency($value, 'BRR');
+        echo CakeNumber::currency($value, 'BRL');
 
     Added formats are merged with the following defaults::
 
        array(
            'wholeSymbol'      => '',
            'wholePosition'    => 'before',
-           'fractionSymbol'   => '',
+           'fractionSymbol'   => false,
            'fractionPosition' => 'after',
            'zero'             => 0,
            'places'           => 2,
            'thousands'        => ',',
            'decimals'         => '.',
            'negative'         => '()',
-           'escape'           => true
+           'escape'           => true,
+           'fractionExponent' => 2
        )
 
 .. php:method:: precision(mixed $number, int $precision = 3)
@@ -180,25 +187,38 @@ automatically echo the output into the view.
         echo CakeNumber::precision(456.91873645, 2);
 
 
-.. php:method:: toPercentage(mixed $number, int $precision = 2)
+.. php:method:: toPercentage(mixed $number, int $precision = 2, array $options = array())
 
-    :param float $number: The value to covert
-    :param integer $precision: The number of decimal places to display
+    :param float $number: The value to covert.
+    :param integer $precision: The number of decimal places to display.
+    :param array $options: Options, see below.
+
+    +---------------------+----------------------------------------------------+
+    | Option              | Description                                        |
+    +=====================+====================================================+
+    | multiply            | Boolean to indicate whether the value has to be    |
+    |                     | multiplied by 100. Useful for decimal percentages. |
+    +---------------------+----------------------------------------------------+
 
     Like precision(), this method formats a number according to the
     supplied precision (where numbers are rounded to meet the given
     precision). This method also expresses the number as a percentage
     and prepends the output with a percent sign.::
 
-        // called as NumberHelper
+        // Called as NumberHelper. Output: 45.69%
         echo $this->Number->toPercentage(45.691873645);
 
-        // Outputs
-        45.69%
-
-        // called as CakeNumber
+        // Called as CakeNumber. Output: 45.69%
         App::uses('CakeNumber', 'Utility');
         echo CakeNumber::toPercentage(45.691873645);
+
+        // Called with multiply. Output: 45.69%
+        echo CakeNumber::toPercentage(0.45691, 2, array(
+            'multiply' => true
+        ));
+
+    .. versionadded:: 2.4
+        The ``$options`` argument with the ``multiply`` option was added.
 
 .. php:method:: fromReadableSize(string $size, $default)
 

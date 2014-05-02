@@ -3,7 +3,7 @@ Security
 
 .. php:class:: Security
 
-The `security library <http://api20.cakephp.org/class/security>`_
+The `security library <http://api.cakephp.org/2.4/class-Security.html>`_
 handles basic security measures such as providing methods for
 hashing and encrypting data.
 
@@ -22,13 +22,15 @@ Security API
         // Later decrypt your text
         $nosecret = Security::cipher($secret, 'my_key');
 
-    ``cipher()`` uses a **weak** XOR cipher and should **not** be used for
-    important or sensitive data.
+    .. warning::
+
+        ``cipher()`` uses a **weak** XOR cipher and should **not** be used.
+        It is only included for backwards compatibility.
 
 .. php:staticmethod:: rijndael($text, $key, $mode)
 
     :param string $text: The text to encrypt
-    :param string $key: The key to use for encryption.  This must be longer than
+    :param string $key: The key to use for encryption. This must be longer than
         32 bytes.
     :param string $mode: The mode to use, either 'encrypt' or 'decrypt'
 
@@ -42,12 +44,57 @@ Security API
         $decrypted = Security::rijndael($encrypted, Configure::read('Security.key'), 'decrypt');
 
     ``rijndael()`` can be used to store data you need to decrypt later, like the
-    contents of cookies.  It should **never** be used to store passwords.
+    contents of cookies. It should **never** be used to store passwords.
     Instead you should use the one way hashing methods provided by
     :php:meth:`~Security::hash()`
 
     .. versionadded:: 2.2
         ``Security::rijndael()`` was added in 2.2.
+
+.. php:staticmethod:: encrypt($text, $key, $hmacSalt = null)
+
+    :param string $plain: The value to encrypt.
+    :param string $key: The 256 bit/32 byte key to use as a cipher key.
+    :param string $hmacSalt: The salt to use for the HMAC process. Leave null to use Security.salt.
+
+    Encrypt ``$text`` using AES-256. The ``$key`` should be a value with a
+    lots of variance in the data much like a good password. The returned result
+    will be the encrypted value with an HMAC checksum.
+
+    This method should **never** be used to store passwords.  Instead you should
+    use the one way hashing methods provided by :php:meth:`~Security::hash()`.
+    An example use would be::
+
+        // Assuming key is stored somewhere it can be re-used for
+        // decryption later.
+        $key = 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA';
+        $result = Security::encrypt($value, $key);
+
+    Encrypted values can be decrypted using :php:meth:`Security::decrypt()`.
+
+    .. versionadded:: 2.5
+
+.. php:staticmethod:: decrypt($cipher, $key, $hmacSalt = null)
+
+    :param string $cipher: The ciphertext to decrypt.
+    :param string $key: The 256 bit/32 byte key to use as a cipher key.
+    :param string $hmacSalt: The salt to use for the HMAC process. Leave null to use Security.salt.
+
+    Decrypt a previously encrypted value. The ``$key`` and ``$hmacSalt``
+    parameters must match the values used to encrypt or decryption will fail. An
+    example use would be::
+
+        // Assuming key is stored somewhere it can be re-used for
+        // decryption later.
+        $key = 'wt1U5MACWJFTXGenFoZoiLwQGrLgdbHA';
+
+        $cipher = $user['User']['secrets'];
+        $result = Security::decrypt($cipher, $key);
+
+    If the value cannot be decrypted due to changes in the key or HMAC salt
+    ``false`` will be returned.
+
+    .. versionadded:: 2.5
 
 .. php:staticmethod:: generateAuthKey( )
 
@@ -79,7 +126,7 @@ Security API
         // Using the default hash algorithm
         $hash = Security::hash('CakePHP Framework');
 
-    ``hash()`` also supports more secure hashing algorithms like bcrypt.  When
+    ``hash()`` also supports more secure hashing algorithms like bcrypt. When
     using bcrypt, you should be mindful of the slightly different usage.
     Creating an initial hash works the same as other algorithms::
 
@@ -94,28 +141,18 @@ Security API
         $newHash = Security::hash($newPassword, 'blowfish', $storedPassword);
 
     When comparing values hashed with bcrypt, the original hash should be
-    provided as the ``$salt`` parameter.  This allows bcrypt to reuse the same
+    provided as the ``$salt`` parameter. This allows bcrypt to reuse the same
     cost and salt values, allowing the generated hash to end up with the same
     resulting hash given the same input value.
 
     .. versionchanged:: 2.3
         Support for bcrypt was added in 2.3
 
-
-.. php:staticmethod:: inactiveMins( )
-
-    :rtype: integer
-
-    Get allowed minutes of inactivity based on security level.::
-
-        $mins = Security::inactiveMins();
-        // If your config Security.level is set to 'medium' then $mins will equal 100
-
 .. php:staticmethod:: setHash( $hash )
 
     :rtype: void
 
-    Sets the default hash method for the Security object. This 
+    Sets the default hash method for the Security object. This
     affects all objects using Security::hash().
 
 .. php:staticmethod:: validateAuthKey( $authKey )

@@ -9,8 +9,11 @@ usually does–we've noticed that a few users struggle with getting
 everything to play nicely on their systems.
 
 Here are a few things you might try to get it running correctly.
-First look at your httpd.conf (Make sure you are editing the system
-httpd.conf rather than a user- or site-specific httpd.conf).
+First look at your httpd.conf. (Make sure you are editing the system
+httpd.conf rather than a user- or site-specific httpd.conf.)
+
+These files can vary between different distributions and Apache versions.
+You may also take a look at http://wiki.apache.org/httpd/DistrosDefaultLayout for further information.
 
 
 #. Make sure that an .htaccess override is allowed and that
@@ -19,10 +22,10 @@ httpd.conf rather than a user- or site-specific httpd.conf).
 
        # Each directory to which Apache has access can be configured with respect
        # to which services and features are allowed and/or disabled in that
-       # directory (and its subdirectories). 
+       # directory (and its subdirectories).
        #
-       # First, we configure the "default" to be a very restrictive set of 
-       # features.  
+       # First, we configure the "default" to be a very restrictive set of
+       # features.
        #
        <Directory />
            Options FollowSymLinks
@@ -31,31 +34,27 @@ httpd.conf rather than a user- or site-specific httpd.conf).
        #    Deny from all
        </Directory>
 
-#. Make sure you are loading up mod\_rewrite correctly. You should
+#. Make sure you are loading mod\_rewrite correctly. You should
    see something like::
 
        LoadModule rewrite_module libexec/apache2/mod_rewrite.so
 
-   In many systems these will be commented out (by being prepended
-   with a #) by default, so you may just need to remove those leading
-   # symbols.
+   In many systems these will be commented out by default, so you may 
+   just need to remove the leading # symbols.
 
    After you make changes, restart Apache to make sure the settings
    are active.
 
-   Verify that you your .htaccess files are actually in the right
-   directories.
+   Verify that your .htaccess files are actually in the right
+   directories. Some operating systems treat files that start 
+   with '.' as hidden and therefore won't copy them.
 
-   This can happen during copying because some operating systems treat
-   files that start with '.' as hidden and therefore won't see them to
-   copy.
-
-#. Make sure your copy of CakePHP is from the downloads section of
-   the site or our GIT repository, and has been unpacked correctly by
+#. Make sure your copy of CakePHP comes from the downloads section of
+   the site or our Git repository, and has been unpacked correctly, by
    checking for .htaccess files.
 
-   Cake root directory (needs to be copied to your document, this
-   redirects everything to your Cake app)::
+   CakePHP root directory (must be copied to your document;
+   redirects everything to your CakePHP app)::
 
        <IfModule mod_rewrite.c>
           RewriteEngine on
@@ -63,7 +62,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
           RewriteRule    (.*) app/webroot/$1 [L]
        </IfModule>
 
-   Cake app directory (will be copied to the top directory of your
+   CakePHP app directory (will be copied to the top directory of your
    application by bake)::
 
        <IfModule mod_rewrite.c>
@@ -72,7 +71,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
           RewriteRule    (.*) webroot/$1    [L]
        </IfModule>
 
-   Cake webroot directory (will be copied to your application's web
+   CakePHP webroot directory (will be copied to your application's web
    root by bake)::
 
        <IfModule mod_rewrite.c>
@@ -82,10 +81,10 @@ httpd.conf rather than a user- or site-specific httpd.conf).
            RewriteRule ^(.*)$ index.php [QSA,L]
        </IfModule>
 
-   If your CakePHP site still has problems with mod\_rewrite you might 
-   want to try and modify settings for virtualhosts. If on ubuntu, 
-   edit the file /etc/apache2/sites-available/default (location is 
-   distribution dependent). In this file, ensure that 
+   If your CakePHP site still has problems with mod\_rewrite, you might
+   want to try modifying settings for Virtual Hosts. On Ubuntu,
+   edit the file /etc/apache2/sites-available/default (location is
+   distribution-dependent). In this file, ensure that
    ``AllowOverride None`` is changed to ``AllowOverride All``, so you have::
 
        <Directory />
@@ -99,8 +98,9 @@ httpd.conf rather than a user- or site-specific httpd.conf).
            Allow from all
        </Directory>
 
-   If on Mac OSX, another solution is to use the tool virtualhostx to
-   make a virtual host to point to your folder.  
+   On Mac OSX, another solution is to use the tool
+   `virtualhostx <http://clickontyler.com/virtualhostx/>`_
+   to make a Virtual Host to point to your folder.
 
    For many hosting services (GoDaddy, 1and1), your web server is
    actually being served from a user directory that already uses
@@ -111,7 +111,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
    /app/.htaccess, /app/webroot/.htaccess).
 
    This can be added to the same section with the RewriteEngine
-   directive, so for example your webroot .htaccess file would look
+   directive, so for example, your webroot .htaccess file would look
    like::
 
        <IfModule mod_rewrite.c>
@@ -123,8 +123,28 @@ httpd.conf rather than a user- or site-specific httpd.conf).
        </IfModule>
 
    The details of those changes will depend on your setup, and can
-   include additional things that are not Cake related. Please refer
+   include additional things that are not related to CakePHP. Please refer
    to Apache's online documentation for more information.
+
+#. (Optional) To improve production setup, you should prevent invalid assets
+   from being parsed by CakePHP. Modify your webroot .htaccess to something like::
+
+       <IfModule mod_rewrite.c>
+           RewriteEngine On
+           RewriteBase /path/to/cake/app
+           RewriteCond %{REQUEST_FILENAME} !-d
+           RewriteCond %{REQUEST_FILENAME} !-f
+           RewriteCond %{REQUEST_URI} !^/(app/webroot/)?(img|css|js)/(.*)$
+           RewriteRule ^(.*)$ index.php [QSA,L]
+       </IfModule>
+
+   The above will simply prevent incorrect assets from being sent to index.php
+   and instead display your webserver's 404 page.
+
+   Additionally you can create a matching HTML 404 page, or use the default
+   built-in CakePHP 404 by adding an ``ErrorDocument`` directive::
+
+       ErrorDocument 404 /404-not-found
 
 Pretty URLs on nginx
 ====================
@@ -147,7 +167,7 @@ you will need PHP running as a FastCGI instance.
     server {
         listen   80;
         server_name example.com;
-    
+
         # root directive should be global
         root   /var/www/example.com/public/app/webroot/;
         index  index.php;
@@ -156,7 +176,7 @@ you will need PHP running as a FastCGI instance.
         error_log /var/www/example.com/log/error.log;
 
         location / {
-            try_files $uri $uri/ /index.php?$uri&$args;
+            try_files $uri $uri/ /index.php?$args;
         }
 
         location ~ \.php$ {
@@ -179,8 +199,8 @@ these steps:
 
 #. Use `Microsoft's Web Platform Installer <http://www.microsoft.com/web/downloads/platform.aspx>`_ to install the URL
    `Rewrite Module 2.0 <http://www.iis.net/downloads/microsoft/url-rewrite>`_ or download it directly (`32-bit <http://www.microsoft.com/en-us/download/details.aspx?id=5747>`_ / `64-bit <http://www.microsoft.com/en-us/download/details.aspx?id=7435>`_).
-#. Create a new file in your CakePHP root folder, called web.config.
-#. Using Notepad or any XML-safe editor and copy the following
+#. Create a new file called web.config in your CakePHP root folder.
+#. Using Notepad or any XML-safe editor, copy the following
    code into your new web.config file...
 
 ::
@@ -190,50 +210,49 @@ these steps:
         <system.webServer>
             <rewrite>
                 <rules>
-                    <clear/>
-                    <rule name="Imported Rule 0" stopProcessing="true">
-                        <match url="^(img|css|files|js|favicon.ico)(.*)$"></match>
-                        <action type="Rewrite" url="app/webroot/{R:1}{R:2}" appendQueryString="false"></action>
+                    <rule name="Rewrite requests to test.php"
+                      stopProcessing="true">
+                        <match url="^test.php(.*)$" ignoreCase="false" />
+                        <action type="Rewrite" url="app/webroot/test.php{R:1}" />
                     </rule>
-                    <rule name="Imported Rule 1" stopProcessing="true">
+                    <rule name="Exclude direct access to app/webroot/*"
+                      stopProcessing="true">
+                        <match url="^app/webroot/(.*)$" ignoreCase="false" />
+                        <action type="None" />
+                    </rule>
+                    <rule name="Rewrite routed access to assets(img, css, files, js, favicon)"
+                      stopProcessing="true">
+                        <match url="^(img|css|files|js|favicon.ico)(.*)$" />
+                        <action type="Rewrite" url="app/webroot/{R:1}{R:2}"
+                          appendQueryString="false" />
+                    </rule>
+                    <rule name="Rewrite requested file/folder to index.php"
+                      stopProcessing="true">
                         <match url="^(.*)$" ignoreCase="false" />
-                        <conditions logicalGrouping="MatchAll">
-                            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                        </conditions>
-                        <action type="Rewrite" url="index.php?url={R:1}" appendQueryString="true" />
-                    </rule>
-                    <rule name="Imported Rule 2" stopProcessing="true">
-                        <match url="^$" ignoreCase="false" />
-                        <action type="Rewrite" url="app/webroot/" />
-                    </rule>
-                    <rule name="Imported Rule 3" stopProcessing="true">
-                        <match url="(.*)" ignoreCase="false" />
-                        <action type="Rewrite" url="app/webroot/{R:1}" />
-                    </rule>
-                    <rule name="Imported Rule 4" stopProcessing="true">
-                        <match url="^(.*)$" ignoreCase="false" />
-                        <conditions logicalGrouping="MatchAll">
-                            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                        </conditions>
-                        <action type="Rewrite" url="index.php?url={R:1}" appendQueryString="true" />
+                        <action type="Rewrite" url="index.php"
+                          appendQueryString="true" />
                     </rule>
                 </rules>
             </rewrite>
         </system.webServer>
     </configuration>
 
-It is also possible to use the Import functionality in IIS's URL
-Rewrite module to import rules directly from CakePHP's .htaccess
-files in root, /app/, and /app/webroot/ - although some editing
-within IIS may be necessary to get these to work. When Importing
-the rules this way, IIS will automatically create your web.config
-file for you (in the currently selected folder within IIS).
-
 Once the web.config file is created with the correct IIS-friendly
-rewrite rules, CakePHP's links, css, js, and rerouting should work
+rewrite rules, CakePHP's links, CSS, JavaScipt, and rerouting should work
 correctly.
+
+URL-Rewriting on lighttpd
+=========================
+
+Lighttpd does not support .htaccess functions, so you can remove all .htaccess files. 
+In the lighttpd configuration, make sure you've activated "mod_rewrite". Add a line:
+
+::
+
+    url.rewrite-if-not-file =(
+        "^([^\?]*)(\?(.+))?$" => "/index.php?url=$1&$3"
+    )
+
 
 I don't / can't use URL rewriting
 =================================

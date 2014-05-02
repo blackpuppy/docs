@@ -11,10 +11,10 @@ Time Helper has two main tasks that it can perform:
 #. It can test time (but cannot bend time, sorry).
 
 .. versionchanged:: 2.1
-   ``TimeHelper`` have been refactored into :php:class:`CakeTime` class to allow
+   ``TimeHelper`` has been refactored into the :php:class:`CakeTime` class to allow
    easier use outside of the ``View`` layer.
    Within a view, these methods are accessible via the `TimeHelper`
-   class and you can called it as you would call a normal helper method:
+   class and you can call it as you would call a normal helper method:
    ``$this->Time->method($args);``.
 
 Using the Helper
@@ -32,7 +32,12 @@ modifications to allow your users to set their time zone. Now that we know
 the time zone of the logged in user we can correct the date and time on our
 posts using the Time Helper::
 
-    echo $this->Time->format('F jS, Y h:i A', $post['Post']['created'], null, $user['User']['time_zone']);
+    echo $this->Time->format(
+      'F jS, Y h:i A',
+      $post['Post']['created'],
+      null,
+      $user['User']['time_zone']
+    );
     // Will display August 22nd, 2011 11:53 PM for a user in GMT+0
     // August 22nd, 2011 03:53 PM for a user in GMT-8
     // and August 23rd, 2011 09:53 AM GMT+10

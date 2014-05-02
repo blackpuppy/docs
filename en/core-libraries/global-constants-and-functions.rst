@@ -8,7 +8,7 @@ functions are for use with CakePHP classes (loading model or
 component classes), but many others make working with arrays or
 strings a little easier.
 
-We’ll also cover some of the constants available in CakePHP
+We'll also cover some of the constants available in CakePHP
 applications. Using these constants will help make upgrades more
 smooth, but are also convenient ways to point to certain files or
 directories in your CakePHP application.
@@ -23,9 +23,9 @@ such as debugging and translating content.
 .. php:function:: \_\_(string $string_id, [$formatArgs])
 
     This function handles localization in CakePHP applications. The
-    ``$string_id`` identifies the ID for a translation.  Strings
-    used for translations are treated as format strings for 
-    ``sprintf()``.  You can supply additional arguments to replace
+    ``$string_id`` identifies the ID for a translation. Strings
+    used for translations are treated as format strings for
+    ``sprintf()``. You can supply additional arguments to replace
     placeholders in your string::
 
         __('You have %s unread messages', $number);
@@ -38,68 +38,68 @@ such as debugging and translating content.
 
 .. php:function:: __c(string $msg, integer $category, mixed $args = null)
 
-    Note that the category must be specified with a numeric value, instead of 
-    the constant name. The values are:
+    Note that the category must be specified with an I18n class constant, instead of
+    only the constant name. The values are:
 
-    - 0 - LC_ALL
-    - 1 - LC_COLLATE
-    - 2 - LC_CTYPE
-    - 3 - LC_MONETARY
-    - 4 - LC_NUMERIC
-    - 5 - LC_TIME
-    - 6 - LC_MESSAGES
+    - I18n::LC_ALL - LC_ALL
+    - I18n::LC_COLLATE - LC_COLLATE
+    - I18n::LC_CTYPE - LC_CTYPE
+    - I18n::LC_MONETARY - LC_MONETARY
+    - I18n::LC_NUMERIC - LC_NUMERIC
+    - I18n::LC_TIME - LC_TIME
+    - I18n::LC_MESSAGES - LC_MESSAGES
 
 .. php:function:: __d(string $domain, string $msg, mixed $args = null)
 
     Allows you to override the current domain for a single message lookup.
 
-    Useful when internationalizing a plugin: 
+    Useful when internationalizing a plugin:
     ``echo __d('PluginName', 'This is my plugin');``
 
 .. php:function:: __dc(string $domain, string $msg, integer $category, mixed $args = null)
 
-    Allows you to override the current domain for a single message lookup. It 
+    Allows you to override the current domain for a single message lookup. It
     also allows you to specify a category.
 
-    Note that the category must be specified with a numeric value, instead of 
-    the constant name. The values are:
+    Note that the category must be specified with an I18n class constant, instead of
+    only the constant name. The values are:
 
-    - 0 - LC_ALL
-    - 1 - LC_COLLATE
-    - 2 - LC_CTYPE
-    - 3 - LC_MONETARY
-    - 4 - LC_NUMERIC
-    - 5 - LC_TIME
-    - 6 - LC_MESSAGES
+    - I18n::LC_ALL - LC_ALL
+    - I18n::LC_COLLATE - LC_COLLATE
+    - I18n::LC_CTYPE - LC_CTYPE
+    - I18n::LC_MONETARY - LC_MONETARY
+    - I18n::LC_NUMERIC - LC_NUMERIC
+    - I18n::LC_TIME - LC_TIME
+    - I18n::LC_MESSAGES - LC_MESSAGES
 
 .. php:function:: __dcn(string $domain, string $singular, string $plural, integer $count, integer $category, mixed $args = null)
 
-    Allows you to override the current domain for a single plural message 
-    lookup. It also allows you to specify a category. Returns correct plural 
-    form of message identified by $singular and $plural for count $count from 
+    Allows you to override the current domain for a single plural message
+    lookup. It also allows you to specify a category. Returns correct plural
+    form of message identified by $singular and $plural for count $count from
     domain $domain.
 
-    Note that the category must be specified with a numeric value, instead of 
-    the constant name. The values are:
+    Note that the category must be specified with an I18n class constant, instead of
+    only the constant name. The values are:
 
-    - 0 - LC_ALL
-    - 1 - LC_COLLATE
-    - 2 - LC_CTYPE
-    - 3 - LC_MONETARY
-    - 4 - LC_NUMERIC
-    - 5 - LC_TIME
-    - 6 - LC_MESSAGES
+    - I18n::LC_ALL - LC_ALL
+    - I18n::LC_COLLATE - LC_COLLATE
+    - I18n::LC_CTYPE - LC_CTYPE
+    - I18n::LC_MONETARY - LC_MONETARY
+    - I18n::LC_NUMERIC - LC_NUMERIC
+    - I18n::LC_TIME - LC_TIME
+    - I18n::LC_MESSAGES - LC_MESSAGES
 
 .. php:function:: __dn(string $domain, string $singular, string $plural, integer $count, mixed $args = null)
 
-    Allows you to override the current domain for a single plural message 
-    lookup. Returns correct plural form of message identified by $singular and 
+    Allows you to override the current domain for a single plural message
+    lookup. Returns correct plural form of message identified by $singular and
     $plural for count $count from domain $domain.
 
 .. php:function:: __n(string $singular, string $plural, integer $count, mixed $args = null)
 
-    Returns correct plural form of message identified by $singular and $plural 
-    for count $count. Some languages have more than one form for plural 
+    Returns correct plural form of message identified by $singular and $plural
+    for count $count. Some languages have more than one form for plural
     messages dependent on the count.
 
 .. php:function:: am(array $one, $two, $three...)
@@ -126,7 +126,7 @@ such as debugging and translating content.
     If ``$showHTML`` is true or left as null, the data is rendered to be
     browser-friendly.
     If $showFrom is not set to false, the debug output will start with the line from
-    which it was called
+    which it was called.
     Also see :doc:`/development/debugging`
 
 .. php:function:: env(string $key)
@@ -155,7 +155,7 @@ such as debugging and translating content.
 
 .. php:function:: pluginSplit(string $name, boolean $dotAppend = false, string $plugin = null)
 
-    Splits a dot syntax plugin name into its plugin and classname. If $name 
+    Splits a dot syntax plugin name into its plugin and class name. If $name
     does not have a dot, then index 0 will be null.
 
     Commonly used like ``list($plugin, $name) = pluginSplit('Users.User');``
@@ -193,7 +193,7 @@ Most of the following constants refer to paths in your application.
 
 .. php:const:: CACHE
 
-    Path to the cache files directory. It can be shared between hosts in a 
+    Path to the cache files directory. It can be shared between hosts in a
     multi-server setup.
 
 .. php:const:: CAKE
@@ -212,9 +212,14 @@ Most of the following constants refer to paths in your application.
 
     Path to the public CSS directory.
 
+    .. deprecated:: 2.4
+
 .. php:const:: CSS_URL
 
     Web path to the CSS files directory.
+
+    .. deprecated:: 2.4
+        Use config value ``App.cssBaseUrl`` instead.
 
 .. php:const:: DS
 
@@ -222,23 +227,36 @@ Most of the following constants refer to paths in your application.
 
 .. php:const:: FULL_BASE_URL
 
-    Full url prefix. Such as ``https://example.com``
+    Full URL prefix. Such as ``https://example.com``
+
+    .. deprecated:: 2.4
+        This constant is deprecated, you should use :php:meth:`Router::fullbaseUrl()` instead.
 
 .. php:const:: IMAGES
 
     Path to the public images directory.
 
+    .. deprecated:: 2.4
+
 .. php:const:: IMAGES_URL
 
     Web path to the public images directory.
+
+    .. deprecated:: 2.4
+        Use config value ``App.imageBaseUrl`` instead.
 
 .. php:const:: JS
 
     Path to the public JavaScript directory.
 
+    .. deprecated:: 2.4
+
 .. php:const:: JS_URL
 
     Web path to the js files directory.
+
+    .. deprecated:: 2.4
+        Use config value ``App.jsBaseUrl`` instead.
 
 .. php:const:: LOGS
 

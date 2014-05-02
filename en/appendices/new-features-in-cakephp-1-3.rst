@@ -66,7 +66,7 @@ See :doc:`JsHelper documentation </core-libraries/helpers/js>` for more informat
 
 **Pagination Helper**
 
-Pagination helper provides additional css classes for styling and
+Pagination helper provides additional CSS classes for styling and
 you can set the default sort() direction.
 ``PaginatorHelper::next()`` and ``PaginatorHelper::prev()`` now
 generate span tags by default, instead of divs.
@@ -233,7 +233,12 @@ You use ``tableParameters`` just as you would any other key in a
 schema file. Much like ``indexes``::
 
     var $comments => array(
-        'id' => array('type' => 'integer', 'null' => false, 'default' => 0, 'key' => 'primary'),
+        'id' => array(
+          'type' => 'integer',
+          'null' => false,
+          'default' => 0,
+          'key' => 'primary'
+        ),
         'post_id' => array('type' => 'integer', 'null' => false, 'default' => 0),
         'comment' => array('type' => 'text'),
         'indexes' => array(
@@ -302,21 +307,41 @@ Router and Dispatcher
 
 **Router**
 
-Generating urls with new style prefixes works exactly the same as
+Generating URLs with new style prefixes works exactly the same as
 admin routing did in 1.2. They use the same syntax and
 persist/behave in the same way. Assuming you have
 ``Configure::write('Routing.prefixes', array('admin', 'member'));``
 in your core.php you will be able to do the following from a
-non-prefixed url::
+non-prefixed URL::
 
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'member' => true));
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'admin' => true));
+    $this->Html->link(
+      'Go',
+      array('controller' => 'posts', 'action' => 'index', 'member' => true)
+    );
+    $this->Html->link(
+      'Go',
+      array('controller' => 'posts', 'action' => 'index', 'admin' => true)
+    );
 
-Likewise, if you are in a prefixed url and want to go to a
-non-prefixed url, do the following::
+Likewise, if you are in a prefixed URL and want to go to a
+non-prefixed URL, do the following::
 
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'member' => false));
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'admin' => false));
+    $this->Html->link(
+      'Go',
+      array(
+        'controller' => 'posts',
+        'action' => 'index',
+        'member' => false
+      )
+    );
+    $this->Html->link(
+      'Go',
+      array(
+        'controller' => 'posts',
+        'action' => 'index',
+        'admin' => false
+      )
+    );
 
 **Route classes**
 
@@ -456,7 +481,7 @@ updated to allow the scaffolding of any one prefix::
         var $scaffold = 'member';
     }
 
-Would use scaffolding for member prefixed urls.
+Would use scaffolding for member prefixed URLs.
 
 **Validation**
 
@@ -510,8 +535,8 @@ native validation mechanisms if available::
 **Validation::uuid()**
 
 A uuid() pattern validation has been added to the ``Validation``
-class. It will check that a given string matches a uuid by pattern
-only. It does not ensure uniqueness of the given uuid.
+class. It will check that a given string matches a UUID by pattern
+only. It does not ensure uniqueness of the given UUID.
 
 
 .. meta::

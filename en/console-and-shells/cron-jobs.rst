@@ -2,52 +2,22 @@ Running Shells as cronjobs
 ##########################
 
 A common thing to do with a shell is making it run as a cronjob to
-clean up the database once in a while or send newsletters. However,
-when you have added the console path to the PATH variable via
-``~/.profile``, it will be unavailable to the cronjob.
+clean up the database once in a while or send newsletters. This is
+trivial to setup, for example::
 
-The following BASH script will call your shell and append the
-needed paths to $PATH. Copy and save this to your Console folder as
-'cakeshell' and don't forget to make it executable.
-(``chmod +x cakeshell``)
+      */5  *    *    *    *  cd /full/path/to/app && Console/cake myshell myparam
+    # *    *    *    *    *  command to execute
+    # │    │    │    │    │
+    # │    │    │    │    │
+    # │    │    │    │    \───── day of week (0 - 6) (0 to 6 are Sunday to Saturday,
+      |    |    |    |           or use names)
+    # │    │    │    \────────── month (1 - 12)
+    # │    │    \─────────────── day of month (1 - 31)
+    # │    \──────────────────── hour (0 - 23)
+    # \───────────────────────── min (0 - 59)
 
-::
-
-    #!/bin/bash
-    TERM=dumb
-    export TERM
-    cmd="cake"
-    while [ $# -ne 0 ]; do
-        if [ "$1" = "-cli" ] || [ "$1" = "-console" ]; then 
-            PATH=$PATH:$2
-            shift
-        else
-            cmd="${cmd} $1"
-        fi
-        shift
-    done
-    $cmd
-
-You can call it like::
-
-    $ ./Console/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console
-
-The ``-cli`` parameter takes a path which points to the php cli
-executable and the ``-console`` parameter takes a path which points
-to the CakePHP console.
-
-As a cronjob this would look like::
-
-    # m h dom mon dow command
-    */5 *   *   *   * /full/path/to/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console -app /full/path/to/app
-
-A simple trick to debug a crontab is to set it up to dump it's
-output to a logfile. You can do this like::
-
-    # m h dom mon dow command
-    */5 *   *   *   * /full/path/to/cakeshell myshell myparam -cli /usr/bin -console /cakes/2.x.x/lib/Cake/Console -app /full/path/to/app >> /path/to/log/file.log 2>&1
-
+You can see more info here: http://en.wikipedia.org/wiki/Cron
 
 .. meta::
     :title lang=en: Running Shells as cronjobs
-    :keywords lang=en: cronjob,bash script,path path,crontab,logfile,cakes,shells,dow,shell,cakephp,fi,running
+    :keywords lang=en: cronjob,bash script,crontab

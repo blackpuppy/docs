@@ -4,13 +4,13 @@ CakeEmail
 .. php:class:: CakeEmail(mixed $config = null)
 
 ``CakeEmail`` is a new class to send email. With this
-class you can send email from any place of your application. In addition to
+class you can send email from any place in your application. In addition to
 using the EmailComponent from your controller, you can also send mail from
-Shells, and Models.
+Shells and Models.
 
 This class replaces the :php:class:`EmailComponent` and gives more flexibility
 in sending emails. For example, you can create your own transports to send
-email instead of using the provided smtp and mail.
+email instead of using the provided SMTP and Mail transports.
 
 Basic usage
 ===========
@@ -20,7 +20,7 @@ First of all, you should ensure the class is loaded using :php:meth:`App::uses()
     App::uses('CakeEmail', 'Network/Email');
 
 Using CakeEmail is similar to using :php:class:`EmailComponent`. But instead of
-using attributes you must use methods. Example::
+using attributes you use methods. Example::
 
     $Email = new CakeEmail();
     $Email->from(array('me@example.com' => 'My Site'));
@@ -41,7 +41,7 @@ Choosing the sender
 -------------------
 
 When sending email on behalf of other people it's often a good idea to define the
-original sender using the Sender header.  You can do so using ``sender()``::
+original sender using the Sender header. You can do so using ``sender()``::
 
     $Email = new CakeEmail();
     $Email->sender('app@example.com', 'MyApp emailer');
@@ -49,14 +49,13 @@ original sender using the Sender header.  You can do so using ``sender()``::
 .. note::
 
     It's also a good idea to set the envelope sender when sending mail on another
-    person's behalf.  This prevents them from getting any messages about
+    person's behalf. This prevents them from getting any messages about
     deliverability.
 
 Configuration
 =============
 
-Similar of database configuration, emails can have a class to centralize all the
-configuration.
+Similar to database configuration, email configuration can be centralized in a class.
 
 Create the file ``app/Config/email.php`` with the class ``EmailConfig``.
 The ``app/Config/email.php.default`` has an example of this file.
@@ -93,8 +92,8 @@ you can also just load an array of configs::
     //or in constructor::
     $Email = new CakeEmail(array('from' => 'me@example.org', 'transport' => 'MyCustom'));
 
-You can configure SSL SMTP servers, like Gmail. To do so, put the ``'ssl://'``
-at prefix in the host and configure the port value accordingly.  Example::
+You can configure SSL SMTP servers such as Gmail. To do so, prefix the host with
+``'ssl://'`` and configure the port value accordingly. Example::
 
     class EmailConfig {
         public $gmail = array(
@@ -151,7 +150,7 @@ The following configuration keys are used:
 - ``'subject'``: Subject of the message. See ``CakeEmail::subject()``.
 - ``'message'``: Content of message. Do not set this field if you are using rendered content.
 - ``'headers'``: Headers to be included. See ``CakeEmail::setHeaders()``.
-- ``'viewRender'``: If you are using rendered content, set the view classname.
+- ``'viewRender'``: If you are using rendered content, set the view class name.
   See ``CakeEmail::viewRender()``.
 - ``'template'``: If you are using rendered content, set the template name. See
   ``CakeEmail::template()``.
@@ -167,10 +166,10 @@ The following configuration keys are used:
 - ``'log'``: Log level to log the email headers and message. ``true`` will use
   LOG_DEBUG. See also ``CakeLog::write()``
 
-All these configurations are optional, except ``'from'``. If you put more
-configuration in this array, the configurations will be used in the
+All of these configurations are optional, except ``'from'``. If you put more
+configurations in this array, the configurations will be used in the
 :php:meth:`CakeEmail::config()` method and passed to the transport class ``config()``.
-For example, if you are using smtp transport, you should pass the host, port and
+For example, if you are using the SMTP transport, you should pass the host, port and
 other configurations.
 
 .. note::
@@ -178,7 +177,7 @@ other configurations.
     The values of above keys using Email or array, like from, to, cc, etc will be passed
     as first parameter of corresponding methods. The equivalent for:
     ``CakeEmail::from('my@example.com', 'My Site')``
-    would be defined as  ``'from' => array('my@example.com' => 'My Site')`` in your config
+    would be defined as  ``'from' => array('my@example.com' => 'My Site')`` in your config.
 
 Setting headers
 ---------------
@@ -191,13 +190,13 @@ See ``CakeEmail::setHeaders()`` and ``CakeEmail::addHeaders()``
 Sending templated emails
 ------------------------
 
-Emails are often much more than just a simple text message.  In order
+Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
 :doc:`view layer </views>`.
 
 The templates for emails reside in a special folder in your applications
-``View`` directory.  Email views can also use layouts, and elements just like
-normal views::
+``View`` directory called ``Emails``. Email views can also use layouts,
+and elements just like normal views::
 
     $Email = new CakeEmail();
     $Email->template('welcome', 'fancy')
@@ -237,7 +236,7 @@ In your email templates you can use these with::
     <p>Here is your value: <b><?php echo $value; ?></b></p>
 
 You can use helpers in emails as well, much like you can in normal view files.
-By default only the :php:class:`HtmlHelper` is loaded.  You can load additional
+By default only the :php:class:`HtmlHelper` is loaded. You can load additional
 helpers using the ``helpers()`` method::
 
     $Email->helpers(array('Html', 'Custom', 'Text'));
@@ -262,7 +261,7 @@ You can do this using themes by telling CakeEmail to use appropriate theme using
     $Email->theme('TestTheme');
 
 This allows you to override the `new_comment` template in your theme without modifying
-the Blog plugin.  The template file needs to be created in the following path:
+the Blog plugin. The template file needs to be created in the following path:
 ``APP/View/Themed/TestTheme/Blog/Emails/text/new_comment.ctp``.
 
 Sending attachments
@@ -270,7 +269,7 @@ Sending attachments
 
 .. php:method:: attachments($attachments = null)
 
-You can attach files to email messages as well.  There are a few
+You can attach files to email messages as well. There are a few
 different formats depending on what kind of files you have, and how
 you want the filenames to appear in the recipient's mail client:
 
@@ -296,24 +295,31 @@ you want the filenames to appear in the recipient's mail client:
    Content ID (when set the content ID the attachment is transformed to inline).
    The mimetype and contentId are optional in this form.
 
-   4.1. When you are using the ``contentId``, you can use the file in the html
+   4.1. When you are using the ``contentId``, you can use the file in the HTML
    body like ``<img src="cid:my-content-id">``.
 
    4.2. You can use the ``contentDisposition`` option to disable the
-   ``Content-Disposition`` header for an attachment.  This is useful when
+   ``Content-Disposition`` header for an attachment. This is useful when
    sending ical invites to clients using outlook.
 
+   4.3 Instead of the ``file`` option you can provide the file contents as
+   a string using the ``data`` option. This allows you to attach files without
+   needing file paths to them.
+
 .. versionchanged:: 2.3
-    The ``contentDisposition`` option was added in 2.3
+    The ``contentDisposition`` option was added.
+
+.. versionchanged:: 2.4
+    The ``data`` option was added.
 
 Using transports
 ----------------
 
 Transports are classes designed to send the e-mail over some protocol or method.
-CakePHP support the Mail (default), Debug and Smtp transports.
+CakePHP supports the Mail (default), Debug and SMTP transports.
 
 To configure your method, you must use the :php:meth:`CakeEmail::transport()`
-method or have the transport in your configuration
+method or have the transport in your configuration.
 
 Creating custom Transports
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -334,7 +340,7 @@ transport). To start off your file should look like::
     }
 
 You must implement the method ``send(CakeEmail $Email)`` with your custom logic.
-Optionally, you can implement the ``config($config)`` method.  ``config()`` is
+Optionally, you can implement the ``config($config)`` method. ``config()`` is
 called before send() and allows you to accept user configurations. By default,
 this method puts the configuration in protected attribute ``$_config``.
 
@@ -345,6 +351,23 @@ Example::
     $yourInstance = $Email->transport('your')->transportClass();
     $yourInstance->myCustomMethod();
     $Email->send();
+
+Relaxing address validation rules
+---------------------------------
+
+.. php:method:: emailPattern($pattern = null)
+
+If you are having validation issues when sending to non-compliant addresses, you
+can relax the pattern used to validate email addresses. This is sometimes
+necessary when dealing with some Japanese ISP's::
+
+    $email = new CakeEmail('default');
+
+    // Relax the email pattern, so you can send
+    // to non-conformant addresses.
+    $email->emailPattern($newPattern);
+
+.. versionadded:: 2.4
 
 
 Sending messages quickly
@@ -364,7 +387,7 @@ This method will send an email to you@example.com, from me@example.com with
 subject Subject and content Message.
 
 The return of ``deliver()`` is a :php:class:`CakeEmail` instance with all
-configurations set.  If you do not want to send the email right away, and wish
+configurations set. If you do not want to send the email right away, and wish
 to configure a few things before sending, you can pass the 5th parameter as
 false.
 

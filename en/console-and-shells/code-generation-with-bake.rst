@@ -8,18 +8,14 @@ just talking skeleton classes: Bake can create a fully functional
 application in just a few minutes. In fact, Bake is a natural step
 to take once an application has been scaffolded.
 
-Those new to Bake (especially Windows users) may find the
-`Bake screencast <http://tv.cakephp.org/video/gwoo/2010/12/24/setting_up_the_cakephp_console_on_windows>`_
-helpful in setting things up before continuing.
-
 Depending on the configuration of your setup, you may have to set
 execute rights on the cake bash script or call it using ./cake
 bake. The cake console is run using the PHP CLI (command line
 interface). If you have problems running the script, ensure that
 you have the PHP CLI installed and that it has the proper modules
-enabled (eg: MySQL) Users also might have issues if the 
+enabled (eg: MySQL) Users also might have issues if the
 database host is 'localhost' and should try '127.0.0.1' instead.
-This could cause issues with PHP CLI. 
+This could cause issues with PHP CLI.
 
 When running Bake for the first time, you'll be prompted to create
 a Database Configuration file, if you haven't created one already.
@@ -44,7 +40,7 @@ will present you with the following options:
     [T]est case
     [Q]uit
     What would you like to Bake? (D/M/V/C/P/F/T/Q)
-    >  
+    >
 
 Alternatively, you can run any of these commands directly from the
 command line::
@@ -58,6 +54,10 @@ command line::
     $ cake bake test
     $ cake bake plugin plugin_name
     $ cake bake all
+
+
+.. versionchanged:: 2.5
+    Test files produced by ``bake test`` include calls to `PHPunit's markTestIncomplete() <http://phpunit.de/manual/3.7/en/incomplete-and-skipped-tests.html>`_ to draw attention to empty test methods. Before 2.5, empty tests pass silently.
 
 
 Modify default HTML produced by "baked" templates
@@ -84,15 +84,17 @@ don't use 'default'.
 For baking custom projects
 --------------------------
 
-Go into: lib/Cake/Console/Templates/skel
-Notice the base application files there
-Copy them to your: app/Console/Templates/skel
-Make changes to the HTML output to control the way "bake" builds
-your views
-Pass the skeleton path parameter to the project task
+#. Go into: lib/Cake/Console/Templates/skel
+#. Notice the base application files there
+#. Copy them to your:
+   app/Console/Templates/skel
+#. Make changes to the HTML output to control the way "bake" builds
+   your views
+#. Pass the skeleton path parameter to the project task
+
 ::
 
-    cake bake project -skel Console/Templates/skel
+    cake bake project --skel Console/Templates/skel
 
 .. note::
 
@@ -102,7 +104,7 @@ Pass the skeleton path parameter to the project task
        Line Interface.
     -  Since the full path to the skeleton needs to be manually
        entered, you can specify any directory holding your template build
-       you want, including using multiple templates. (Unless Cake starts
+       you want, including using multiple templates. (Unless CakePHP starts
        supporting overriding the skel folder like it does for views)
 
 
@@ -120,7 +122,7 @@ features and enhancements have been built in.
 -  All the different bake tasks now allow you to use connections
    other than default for baking. Using the ``-connection`` parameter.
 -  Plugin support has been greatly improved. You can use either
-   ``-plugin PluginName`` or ``Plugin.class``.
+   ``--plugin PluginName`` or ``Plugin.class``.
 -  Questions have been clarified, and made easier to understand.
 -  Multiple validations on models has been added.
 -  Self Associated models using ``parent_id`` are now detected. For
@@ -218,9 +220,9 @@ themes will be checked until the correct template is found.
 New in 1.3 are additional ways to specify plugin names when using
 bake. In addition to ``cake bake plugin Todo controller Posts``,
 there are two new forms. ``cake bake controller Todo.Posts`` and
-``cake bake controller Posts -plugin Todo``. The plugin parameter
+``cake bake controller Posts --plugin Todo``. The plugin parameter
 can be while using interactive bake as well.
-``cake bake controller -plugin Todo``, for example will allow you
+``cake bake controller --plugin Todo``, for example will allow you
 to use interactive bake to add controllers to your Todo plugin.
 Additional / multiple plugin paths are supported as well. In the
 past bake required your plugin to be in app/plugins. In 1.3 bake

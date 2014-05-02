@@ -20,7 +20,7 @@ be activated, this is done in ``app/Config/routes.php``::
 
     Router::parseExtensions('rss');
 
-In the call above we’ve activated the .rss extension. When using
+In the call above we've activated the .rss extension. When using
 :php:meth:`Router::parseExtensions()` you can pass as many arguments or
 extensions as you want. This will activate each
 extension/content-type for use in your application. Now when the
@@ -47,7 +47,7 @@ metadata in the controller action and pass it to your view using
 the :php:meth:`Controller::set()` method but this is inappropriate. That
 information can also go in the view. That will come later though,
 for now if you have a different set of logic for the data used to
-make the RSS feed and the data for the html view you can use the
+make the RSS feed and the data for the HTML view you can use the
 :php:meth:`RequestHandler::isRss()` method, otherwise your controller can stay
 the same::
 
@@ -57,14 +57,20 @@ the same::
 
     public function index() {
         if ($this->RequestHandler->isRss() ) {
-            $posts = $this->Post->find('all', array('limit' => 20, 'order' => 'Post.created DESC'));
+            $posts = $this->Post->find(
+                'all',
+                array('limit' => 20, 'order' => 'Post.created DESC')
+            );
             return $this->set(compact('posts'));
         }
 
         // this is not an Rss request, so deliver
         // data used by website's interface
-        $this->paginate['Post'] = array('order' => 'Post.created DESC', 'limit' => 10);
-        
+        $this->paginate['Post'] = array(
+            'order' => 'Post.created DESC',
+            'limit' => 10
+        );
+
         $posts = $this->paginate();
         $this->set(compact('posts'));
     }
@@ -84,9 +90,9 @@ An Rss layout is very simple, put the following contents in
         $channelData = array();
     }
     if (!isset($channelData['title'])) {
-        $channelData['title'] = $title_for_layout;
-    } 
-    $channel = $this->Rss->channel(array(), $channelData, $content_for_layout);
+        $channelData['title'] = $this->fetch('title');
+    }
+    $channel = $this->Rss->channel(array(), $channelData, $this->fetch('content'));
     echo $this->Rss->document($documentData, $channel);
 
 It doesn't look like much but thanks to the power in the ``RssHelper``
@@ -139,12 +145,9 @@ associative array into an element for each key value pair.
 
 ::
 
-    // You should import Sanitize
-    App::uses('Sanitize', 'Utility');
-
     foreach ($posts as $post) {
         $postTime = strtotime($post['Post']['created']);
-    
+
         $postLink = array(
             'controller' => 'posts',
             'action' => 'view',
@@ -154,17 +157,14 @@ associative array into an element for each key value pair.
             $post['Post']['slug']
         );
 
-        // This is the part where we clean the body text for output as the description 
-        // of the rss item, this needs to have only text to make sure the feed validates
-        $bodyText = preg_replace('=\(.*?\)=is', '', $post['Post']['body']);
-        $bodyText = $this->Text->stripLinks($bodyText);
-        $bodyText = Sanitize::stripAll($bodyText);
+        // Remove & escape any HTML to make sure the feed content will validate.
+        $bodyText = h(strip_tags($post['Post']['body']));
         $bodyText = $this->Text->truncate($bodyText, 400, array(
             'ending' => '...',
             'exact'  => true,
             'html'   => true,
         ));
-         
+
         echo  $this->Rss->item(array(), array(
             'title' => $post['Post']['title'],
             'link' => $postLink,
@@ -174,20 +174,18 @@ associative array into an element for each key value pair.
         ));
     }
 
-You can see above that we can use the loop to prepare the data to
-be transformed into XML elements. It is important to filter out any
-non-plain text characters out of the description, especially if you
-are using a rich text editor for the body of your blog. In the code
-above we use the :php:meth:`TextHelper::stripLinks()` method and a few methods
-from the Sanitize class, but we recommend writing a comprehensive
-text cleaning helper to really scrub the text clean. Once we have
-set up the data for the feed, we can then use the :php:meth:`RssHelper::item()`
-method to create the XML in RSS format. Once you have all this
-setup, you can test your RSS feed by going to your site
-``/posts/index.rss`` and you will see your new feed. It is always
-important that you validate your RSS feed before making it live.
-This can be done by visiting sites that validate the XML such as
-Feed Validator or the w3c site at http://validator.w3.org/feed/.
+You can see above that we can use the loop to prepare the data to be transformed
+into XML elements. It is important to filter out any non-plain text characters
+out of the description, especially if you are using a rich text editor for the
+body of your blog. In the code above we used ``strip_tags()`` and
+:php:func:`h()` to remove/escape any XML special characaters from the content,
+as they could cause validation errors. Once we have set up the data for the
+feed, we can then use the :php:meth:`RssHelper::item()` method to create the XML
+in RSS format. Once you have all this setup, you can test your RSS feed by going
+to your site ``/posts/index.rss`` and you will see your new feed. It is always
+important that you validate your RSS feed before making it live. This can be
+done by visiting sites that validate the XML such as Feed Validator or the w3c
+site at http://validator.w3.org/feed/.
 
 .. note::
 
@@ -263,14 +261,14 @@ Rss Helper API
 
     :rtype: string
 
-    Transforms an array of data using an optional callback, and maps it to a 
+    Transforms an array of data using an optional callback, and maps it to a
     set of ``<item />`` tags.
 
 .. php:method:: time(mixed $time)
 
     :rtype: string
 
-    Converts a time in any format to an RSS time. See 
+    Converts a time in any format to an RSS time. See
     :php:meth:`TimeHelper::toRSS()`.
 
 

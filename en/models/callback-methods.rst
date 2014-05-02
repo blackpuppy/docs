@@ -13,19 +13,19 @@ fired **before** model callbacks are.
 beforeFind
 ==========
 
-``beforeFind(array $queryData)``
+``beforeFind(array $query)``
 
-Called before any find-related operation. The ``$queryData`` passed
+Called before any find-related operation. The ``$query`` passed
 to this callback contains information about the current query:
 conditions, fields, etc.
 
 If you do not wish the find operation to begin (possibly based on a
-decision relating to the ``$queryData`` options), return *false*.
-Otherwise, return the possibly modified ``$queryData``, or anything
+decision relating to the ``$query`` options), return *false*.
+Otherwise, return the possibly modified ``$query``, or anything
 you want to get passed to find and its counterparts.
 
 You might use this callback to restrict find operations based on a
-user’s role, or make caching decisions based on the current load.
+user's role, or make caching decisions based on the current load.
 
 afterFind
 =========
@@ -74,12 +74,14 @@ formatting::
     public function afterFind($results, $primary = false) {
         foreach ($results as $key => $val) {
             if (isset($val['Event']['begindate'])) {
-                $results[$key]['Event']['begindate'] = $this->dateFormatAfterFind($val['Event']['begindate']);
+                $results[$key]['Event']['begindate'] = $this->dateFormatAfterFind(
+                    $val['Event']['begindate']
+                );
             }
         }
         return $results;
     }
-    
+
     public function dateFormatAfterFind($dateString) {
         return date('d-m-Y', strtotime($dateString));
     }
@@ -92,6 +94,14 @@ beforeValidate
 Use this callback to modify model data before it is validated, or
 to modify validation rules if required. This function must also
 return *true*, otherwise the current save() execution will abort.
+
+afterValidate
+==============
+
+``afterValidate()``
+
+Called after data has been checked for errors. Use this callback to perform
+any data cleanup or preparation if needed.
 
 beforeSave
 ==========
@@ -117,9 +127,16 @@ changed very easily. Use the code below in the appropriate model.
 ::
 
     public function beforeSave($options = array()) {
-        if (!empty($this->data['Event']['begindate']) && !empty($this->data['Event']['enddate'])) {
-            $this->data['Event']['begindate'] = $this->dateFormatBeforeSave($this->data['Event']['begindate']);
-            $this->data['Event']['enddate'] = $this->dateFormatBeforeSave($this->data['Event']['enddate']);
+        if (!empty($this->data['Event']['begindate']) &&
+            !empty($this->data['Event']['enddate'])
+        ) {
+
+            $this->data['Event']['begindate'] = $this->dateFormatBeforeSave(
+                $this->data['Event']['begindate']
+            );
+            $this->data['Event']['enddate'] = $this->dateFormatBeforeSave(
+                $this->data['Event']['enddate']
+            );
         }
         return true;
     }
@@ -136,13 +153,16 @@ changed very easily. Use the code below in the appropriate model.
 afterSave
 =========
 
-``afterSave(boolean $created)``
+``afterSave(boolean $created, array $options = array())``
 
 If you have logic you need to be executed just after every save
-operation, place it in this callback method.
+operation, place it in this callback method. The saved data will
+be available in ``$this->data``.
 
 The value of ``$created`` will be true if a new record was created
 (rather than an update).
+
+The ``$options`` array is the same one passed to ``Model::save()``.
 
 beforeDelete
 ============
@@ -164,9 +184,12 @@ on this record will also be deleted.
 ::
 
     // using app/Model/ProductCategory.php
-    // In the following example, do not let a product category be deleted if it still contains products.
-    // A call of $this->Product->delete($id) from ProductsController.php has set $this->id .
-    // Assuming 'ProductCategory hasMany Product', we can access $this->Product in the model.
+    // In the following example, do not let a product category be deleted if it
+    // still contains products.
+    // A call of $this->Product->delete($id) from ProductsController.php has set
+    // $this->id .
+    // Assuming 'ProductCategory hasMany Product', we can access $this->Product
+    // in the model.
     public function beforeDelete($cascade = true) {
         $count = $this->Product->find("count", array(
             "conditions" => array("product_category_id" => $this->id)
@@ -185,6 +208,15 @@ afterDelete
 
 Place any logic that you want to be executed after every deletion
 in this callback method.
+
+::
+
+    // perhaps after deleting a record from the database, you also want to delete
+    // an associated file
+    public function afterDelete() {
+        $file = new File($this->data['SomeModel']['file_path']);
+        $file->delete();
+    }
 
 onError
 =======

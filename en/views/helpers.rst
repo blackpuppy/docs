@@ -6,22 +6,25 @@ Helpers are the component-like classes for the presentation layer
 of your application. They contain presentational logic that is
 shared between many views, elements, or layouts. This chapter will
 show you how to create your own helpers, and outline the basic
-tasks CakePHP’s core helpers can help you accomplish.
+tasks CakePHP's core helpers can help you accomplish.
 
 CakePHP features a number of helpers that aid in view creation.
 They assist in creating well-formed markup (including forms), aid
-in formatting text, times and numbers, and can even speed up Ajax
+in formatting text, times and numbers, and can even speed up AJAX
 functionality. For more information on the helpers included in CakePHP,
-check out :ref:`core-helpers`.
+check out the chapter for each helper:
+
+.. include:: /core-libraries/toc-helpers.rst
+    :start-line: 11
 
 .. _configuring-helpers:
 
 Using and Configuring Helpers
 =============================
 
-You enable helpers in CakePHP by making a controller aware of them.  Each
+You enable helpers in CakePHP by making a controller aware of them. Each
 controller has a :php:attr:`~Controller::$helpers` property that lists the
-helpers to be made available in the view.  To enable a helper in your view, add
+helpers to be made available in the view. To enable a helper in your view, add
 the name of the helper to the controller's ``$helpers`` array::
 
     class BakeriesController extends AppController {
@@ -42,10 +45,10 @@ do not use the helper as well as help keep the controller better
 organized::
 
     class BakeriesController extends AppController {
-        public function bake {
+        public function bake() {
             $this->helpers[] = 'Time';
         }
-        public function mix {
+        public function mix() {
             // The Time helper is not loaded here and thus not available
         }
     }
@@ -77,7 +80,7 @@ As of 2.3 the options are merged with the ``Helper::$settings`` property of
 the helper.
 
 One common setting to use is the ``className`` option, which allows you to
-create aliased helpers in your views.  This feature is useful when you want to
+create aliased helpers in your views. This feature is useful when you want to
 replace ``$this->Html`` or another common Helper reference with a custom
 implementation::
 
@@ -103,15 +106,8 @@ The above would *alias* ``MyHtmlHelper`` to ``$this->Html`` in your views.
     Aliasing a helper replaces that instance anywhere that helper is used,
     including inside other Helpers.
 
-.. tip::
-
-    Aliasing the Html or Session Helper while using the core PagesController
-    will not work. It is better to copy
-    ``lib/Cake/Controller/PagesController.php`` into your ``app/Controller/``
-    folder.
-
 Using helper settings allows you to declaratively configure your helpers and
-keep configuration logic out of your controller actions.  If you have
+keep configuration logic out of your controller actions. If you have
 configuration options that cannot be included as part of a class declaration,
 you can set those in your controller's beforeRender callback::
 
@@ -126,16 +122,16 @@ Using Helpers
 =============
 
 Once you've configured which helpers you want to use in your controller,
-each helper is exposed as a public property in the view.  For example, if you
+each helper is exposed as a public property in the view. For example, if you
 were using the :php:class:`HtmlHelper` you would be able to access it by
 doing the following::
 
     echo $this->Html->css('styles');
 
-The above would call the ``css`` method on the HtmlHelper.  You can
-access any loaded helper using ``$this->{$helperName}``.  There may
+The above would call the ``css`` method on the HtmlHelper. You can
+access any loaded helper using ``$this->{$helperName}``. There may
 come a time where you need to dynamically load a helper from inside
-a view.  You can use the view's :php:class:`HelperCollection` to
+a view. You can use the view's :php:class:`HelperCollection` to
 do this::
 
     $mediaHelper = $this->Helpers->load('Media', $mediaSettings);
@@ -147,14 +143,14 @@ Callback methods
 ================
 
 Helpers feature several callbacks that allow you to augment the
-view rendering process.  See the :ref:`helper-api` and the
+view rendering process. See the :ref:`helper-api` and the
 :doc:`/core-libraries/collections` documentation for more information.
 
 Creating Helpers
 ================
 
-If a core helper (or one showcased on github or the Bakery)
-doesn’t fit your needs, helpers are easy to create.
+If a core helper (or one showcased on GitHub or the Bakery)
+doesn't fit your needs, helpers are easy to create.
 
 Let's say we wanted to create a helper that could be used to output
 a specifically crafted CSS-styled link you needed many different
@@ -273,13 +269,13 @@ Callbacks
 
 .. php:method:: beforeRenderFile($viewFile)
 
-    Is called before each view file is rendered.  This includes elements,
+    Is called before each view file is rendered. This includes elements,
     views, parent views and layouts.
 
 .. php:method:: afterRenderFile($viewFile, $content)
 
-    Is called after each view file is rendered.  This includes elements, views,
-    parent views and layouts.  A callback can modify and return ``$content`` to
+    Is called after each view file is rendered. This includes elements, views,
+    parent views and layouts. A callback can modify and return ``$content`` to
     change how the rendered content will be displayed in the browser.
 
 .. php:method:: beforeRender($viewFile)
@@ -302,36 +298,6 @@ Callbacks
 
     Is called after layout rendering is complete. Receives the layout filename as an
     argument.
-
-Core Helpers
-============
-
-:doc:`/core-libraries/helpers/cache`
-    Used by the core to cache view content.
-:doc:`/core-libraries/helpers/form`
-    Creates HTML forms and form elements that self populate and handle
-    validation problems.
-:doc:`/core-libraries/helpers/html`
-    Convenience methods for crafting well-formed markup. Images, links,
-    tables, header tags and more.
-:doc:`/core-libraries/helpers/js`
-    Used to create Javascript compatible with various Javascript
-    libraries.
-:doc:`/core-libraries/helpers/number`
-    Number and currency formatting.
-:doc:`/core-libraries/helpers/paginator`
-    Model data pagination and sorting.
-:doc:`/core-libraries/helpers/rss`
-    Convenience methods for outputting RSS feed XML data.
-:doc:`/core-libraries/helpers/session`
-    Access for reading session values in views.
-:doc:`/core-libraries/helpers/text`
-    Smart linking, highlighting, word smart truncation.
-:doc:`/core-libraries/helpers/time`
-    Proximity detection (is this next year?), nice string
-    formatting(Today, 10:30 am) and time zone conversion.
-
-
 
 .. meta::
     :title lang=en: Helpers

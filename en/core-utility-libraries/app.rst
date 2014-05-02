@@ -3,7 +3,7 @@ App Class
 
 .. php:class:: App
 
-The app class is responsible for path management, class location and class loading. 
+The app class is responsible for path management, class location and class loading.
 Make sure you follow the :ref:`file-and-classname-conventions`.
 
 Packages
@@ -62,8 +62,8 @@ Loading classes
 
 .. note::
 
-    Loading vendors usually means you are loading packages that do not follow 
-    conventions. For most vendor packages using ``App::import()`` is 
+    Loading vendors usually means you are loading packages that do not follow
+    conventions. For most vendor packages using ``App::import()`` is
     recommended.
 
 Loading files from plugins
@@ -76,7 +76,8 @@ from::
     // Load the class Comment in app/Plugin/PluginName/Model/Comment.php
     App::uses('Comment', 'PluginName.Model');
 
-    // Load the class CommentComponent in app/Plugin/PluginName/Controller/Component/CommentComponent.php
+    // Load the class CommentComponent in
+    // app/Plugin/PluginName/Controller/Component/CommentComponent.php
     App::uses('CommentComponent', 'PluginName.Controller/Component');
 
 
@@ -102,8 +103,8 @@ Finding paths to packages using App::path()
 
     :rtype: array
 
-    Get all the currently loaded paths from App. Useful for inspecting or 
-    storing all paths App knows about. For a paths to a specific package 
+    Get all the currently loaded paths from App. Useful for inspecting or
+    storing all paths App knows about. For a paths to a specific package
     use :php:meth:`App::path()`
 
 .. php:staticmethod:: core(string $package)
@@ -130,7 +131,7 @@ Adding paths for App to find packages in
 
     Sets up each package location on the file system. You can configure multiple
     search paths for each package, those will be used to look for files one
-    folder at a time in the specified order. All paths should be terminated
+    folder at a time in the specified order. All paths must be terminated
     with a directory separator.
 
     Adding additional controller paths for example would alter where CakePHP
@@ -140,13 +141,15 @@ Adding paths for App to find packages in
     Usage::
 
         //will setup a new search path for the Model package
-        App::build(array('Model' => array('/a/full/path/to/models/'))); 
+        App::build(array('Model' => array('/a/full/path/to/models/')));
 
         //will setup the path as the only valid path for searching models
-        App::build(array('Model' => array('/path/to/models/')), App::RESET); 
+        App::build(array('Model' => array('/path/to/models/')), App::RESET);
 
         //will setup multiple search paths for helpers
-        App::build(array('View/Helper' => array('/path/to/helpers/', '/another/path/'))); 
+        App::build(array(
+            'View/Helper' => array('/path/to/helpers/', '/another/path/')
+        ));
 
 
     If reset is set to true, all loaded plugins will be forgotten and they will
@@ -154,13 +157,13 @@ Adding paths for App to find packages in
 
     Examples::
 
-        App::build(array('controllers' => array('/full/path/to/controllers')));
-        //becomes 
-        App::build(array('Controller' => array('/full/path/to/Controller')));
+        App::build(array('controllers' => array('/full/path/to/controllers/')));
+        //becomes
+        App::build(array('Controller' => array('/full/path/to/Controller/')));
 
-        App::build(array('helpers' => array('/full/path/to/views/helpers')));
-        //becomes 
-        App::build(array('View/Helper' => array('/full/path/to/View/Helper')));
+        App::build(array('helpers' => array('/full/path/to/views/helpers/')));
+        //becomes
+        App::build(array('View/Helper' => array('/full/path/to/View/Helper/')));
 
     .. versionchanged:: 2.0
         ``App::build()`` will not merge app paths with core paths anymore.
@@ -171,7 +174,7 @@ Adding paths for App to find packages in
 Add new packages to an application
 ----------------------------------
 
-``App::build()`` can be used to add new package locations.  This is useful
+``App::build()`` can be used to add new package locations. This is useful
 when you want to add new top level packages or, sub-packages to your
 application::
 
@@ -180,8 +183,8 @@ application::
     ), App::REGISTER);
 
 The ``%s`` in newly registered packages will be replaced with the
-:php:const:`APP` path.  You must include a trailing ``/`` in registered
-packages.  Once packages are registered, you can use ``App::build()`` to
+:php:const:`APP` path. You must include a trailing ``/`` in registered
+packages. Once packages are registered, you can use ``App::build()`` to
 append/prepend/reset paths like any other package.
 
 .. versionchanged:: 2.1
@@ -261,20 +264,20 @@ Including files with App::import()
 
         // The same as require('Controller/UsersController.php');
         App::import('Controller', 'Users');
-        
+
         // We need to load the class
         $Users = new UsersController();
-        
+
         // If we want the model associations, components, etc to be loaded
         $Users->constructClasses();
 
-    **All classes that were loaded in the past using App::import('Core', $class) will need to be 
+    **All classes that were loaded in the past using App::import('Core', $class) will need to be
     loaded using App::uses() referring to the correct package. This change has provided large
     performance gains to the framework.**
 
     .. versionchanged:: 2.0
 
-    * The method no longer looks for classes recursively, it strictly uses the values for the 
+    * The method no longer looks for classes recursively, it strictly uses the values for the
       paths defined in :php:meth:`App::build()`
     * It will not be able to load ``App::import('Component', 'Component')`` use
       ``App::uses('Component', 'Controller');``.
@@ -293,15 +296,15 @@ Overriding classes in CakePHP
 
 You can override almost every class in the framework, exceptions are the
 :php:class:`App` and :php:class:`Configure` classes. Whenever you like to
-perform such overriding, just add your class to your app/Lib folder mimicking
-the internal structure of the framework.  Some examples to follow
+perform such overriding, just add your class to your ``app/Lib`` folder mimicking
+the internal structure of the framework. Some examples to follow:
 
 * To override the :php:class:`Dispatcher` class, create ``app/Lib/Routing/Dispatcher.php``
 * To override the :php:class:`CakeRoute` class, create ``app/Lib/Routing/Route/CakeRoute.php``
 * To override the :php:class:`Model` class, create ``app/Lib/Model/Model.php``
 
-When you load the replaced files, the app/Lib files will be loaded instead of
-the built-in core classes.
+When you load the overridden classes now, the files in ``app/Lib`` will be loaded
+instead of the built-in core ones.
 
 Loading Vendor Files
 ====================
@@ -312,15 +315,16 @@ the same conventions as loading other files::
     // Load the class Geshi in app/Vendor/Geshi.php
     App::uses('Geshi', 'Vendor');
 
-To load classes in subdirectories, you'll need to add those paths 
+To load classes in subdirectories, you'll need to add those paths
 with ``App::build()``::
 
-    // Load the class ClassInSomePackage in app/Vendor/SomePackage/ClassInSomePackage.php
+    // Load the class ClassInSomePackage in
+    // app/Vendor/SomePackage/ClassInSomePackage.php
     App::build(array('Vendor' => array(APP . 'Vendor' . DS . 'SomePackage')));
     App::uses('ClassInSomePackage', 'Vendor');
 
-Your vendor files may not follow conventions, have a class that differs from 
-the file name or does not contain classes. You can load those files using 
+Your vendor files may not follow conventions, have a class that differs from
+the file name or does not contain classes. You can load those files using
 ``App::import()``. The following examples illustrate how to load vendor
 files from a number of path structures. These vendor files could be located in
 any of the vendor folders.
@@ -331,7 +335,7 @@ To load **app/Vendor/geshi.php**::
 
 .. note::
 
-    The geshi file must be a lower-case file name as Cake will not
+    The geshi file must be a lower-case file name as CakePHP will not
     find it otherwise.
 
 To load **app/Vendor/flickr/flickr.php**::
@@ -344,14 +348,30 @@ To load **app/Vendor/some.name.php**::
 
 To load **app/Vendor/services/well.named.php**::
 
-    App::import('Vendor', 'WellNamed', array('file' => 'services' . DS . 'well.named.php'));
+    App::import(
+        'Vendor',
+        'WellNamed',
+        array('file' => 'services' . DS . 'well.named.php')
+    );
 
-It wouldn't make a difference if your vendor files are inside your /vendors 
-directory. Cake will automatically find it.
+To load **app/Plugin/Awesome/Vendor/services/well.named.php**::
+
+    App::import(
+        'Vendor',
+        'Awesome.WellNamed',
+        array('file' => 'services' . DS . 'well.named.php')
+    );
+
+It wouldn't make a difference if your vendor files are inside your /vendors
+directory. CakePHP will automatically find it.
 
 To load **vendors/vendorName/libFile.php**::
 
-    App::import('Vendor', 'aUniqueIdentifier', array('file' => 'vendorName' . DS . 'libFile.php'));
+    App::import(
+        'Vendor',
+        'aUniqueIdentifier',
+        array('file' => 'vendorName' . DS . 'libFile.php')
+    );
 
 App Init/Load/Shutdown Methods
 ==============================
@@ -376,7 +396,7 @@ App Init/Load/Shutdown Methods
 
     :rtype: void
 
-    Object destructor. Writes cache file if changes have been made to the 
+    Object destructor. Writes cache file if changes have been made to the
     ``$_map``.
 
 .. meta::

@@ -13,7 +13,7 @@ the same way Inflector is called. Example: :php:meth:`Set::combine()`.
 
 .. deprecated:: 2.2
     The Set class has been deprecated in 2.2 in favour of the :php:class:`Hash`
-    class.  It offers a more consistent interface and API.
+    class. It offers a more consistent interface and API.
 
 Set-compatible Path syntax
 ==========================
@@ -115,7 +115,7 @@ available.
 
 .. php:staticmethod:: classicExtract($data, $path = null)
 
-    :rtype: array
+    :rtype: mixed
 
     Gets a value from an array or object that is contained in a given
     path using an array path syntax, i.e.:
@@ -681,7 +681,7 @@ available.
 
     :rtype: string
 
-    The enum method works well when using html select elements. It
+    The enum method works well when using HTML select elements. It
     returns a value from an array list if the key exists.
 
     If a comma separated $list is passed arrays are numeric with the
@@ -705,7 +705,7 @@ available.
 
 .. php:staticmethod:: extract($path, $data = null, $options = array())
 
-    :rtype: array
+    :rtype: mixed
 
     Set::extract uses basic XPath 2.0 syntax to return subsets of your
     data from a find or a find all. This function allows you to
@@ -763,7 +763,7 @@ available.
     in ``/lib/Cake/Test/Case/Utility/SetTest.php``.
 
 
-.. php:staticmethod:: filter($var, $isArray = null)
+.. php:staticmethod:: filter($var)
 
     :rtype: array
 

@@ -15,10 +15,10 @@ are a few examples of how to use the $htmlAttributes parameter:
 
 .. code-block:: html
 
-    Desired attributes: <tag class="someClass" />      
+    Desired attributes: <tag class="someClass" />
     Array parameter: array('class' => 'someClass')
-     
-    Desired attributes: <tag name="foo" value="bar" />  
+
+    Desired attributes: <tag name="foo" value="bar" />
     Array parameter:  array('name' => 'foo', 'value' => 'bar')
 
 
@@ -40,14 +40,14 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: charset($charset=null)
 
-    :param string $charset: Desired character set.  If null, the value of 
-       ``App.encoding`` will be used.
+    :param string $charset: Desired character set. If null, the value of
+        ``App.encoding`` will be used.
 
     Used to create a meta tag specifying the document's character.
     Defaults to UTF-8
 
     Example use::
- 
+
         echo $this->Html->charset();
 
     Will output:
@@ -66,12 +66,12 @@ methods of the HtmlHelper and how to use them.
 
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 
-.. php:method:: css(mixed $path, string $rel = null, array $options = array())
+.. php:method:: css(mixed $path, array $options = array())
 
-    :param mixed $path: Either a string of the css file to link, or an array with multiple files
-    :param string $rel: The value of the generated tag's rel attribute.  If null, 'stylesheet'
-       will be used.
-    :param array $options: An array of :term:`html attributes`.
+    .. versionchanged:: 2.4
+
+    :param mixed $path: Either a string of the CSS file to link, or an array with multiple files
+    :param array $options: An array of options or :term:`html attributes`.
 
     Creates a link(s) to a CSS style-sheet. If key 'inline' is set to
     false in ``$options`` parameter, the link tags are added to the
@@ -79,10 +79,12 @@ methods of the HtmlHelper and how to use them.
     tag of the document.
 
     You can use the ``block`` option to control which block the link element
-    will be appended to.  By default it will append to the ``css`` block.
+    will be appended to. By default it will append to the ``css`` block.
+
+    If key 'rel' in ``$options`` array is set to 'import' the stylesheet will be imported.
 
     This method of CSS inclusion assumes that the CSS file specified
-    resides inside the /app/webroot/css directory.::
+    resides inside the /app/webroot/css directory if path doesn't start with a '/'.::
 
         echo $this->Html->css('forms');
 
@@ -104,17 +106,19 @@ methods of the HtmlHelper and how to use them.
         <link rel="stylesheet" type="text/css" href="/css/tables.css" />
         <link rel="stylesheet" type="text/css" href="/css/menu.css" />
 
-    You can include css files from any loaded plugin using 
-    :term:`plugin syntax`.  To include ``app/Plugin/DebugKit/webroot/css/toolbar.css``
+    You can include CSS files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/css/toolbar.css``
     You could use the following::
 
         echo $this->Html->css('DebugKit.toolbar.css');
 
-    If you want to include a css file which shares a name with a loaded
-    plugin you can do the following.  For example if you had a ``Blog`` plugin,
+    If you want to include a CSS file which shares a name with a loaded
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/css/Blog.common.css``, you would::
+    
+    .. versionchanged:: 2.4
 
-        echo $this->Html->css('Blog.common.css', null, array('plugin' => false));
+        echo $this->Html->css('Blog.common.css', array('plugin' => false));
 
     .. versionchanged:: 2.1
         The ``block`` option was added.
@@ -123,7 +127,7 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: meta(string $type, string $url = null, array $options = array())
 
     :param string $type: The type meta tag you want.
-    :param mixed $url: The url for the meta tag, either a string or a :term:`routing array`.
+    :param mixed $url: The URL for the meta tag, either a string or a :term:`routing array`.
     :param array $options: An array of :term:`html attributes`.
 
     This method is handy for linking to external resources like RSS/Atom feeds
@@ -201,7 +205,7 @@ methods of the HtmlHelper and how to use them.
     should be set to an array. To output a robots noindex tag use the
     following code::
 
-        echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex')); 
+        echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));
 
     .. versionchanged:: 2.1
         The ``block`` option was added.
@@ -236,13 +240,17 @@ methods of the HtmlHelper and how to use them.
     ::
 
         echo $this->Html->docType();
-        // Outputs: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        // Outputs:
+        // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        //    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
         echo $this->Html->docType('html5');
         // Outputs: <!DOCTYPE html>
 
         echo $this->Html->docType('html4-trans');
-        // Outputs: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+        // Outputs:
+        // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        //    "http://www.w3.org/TR/html4/loose.dtd">
 
     .. versionchanged:: 2.1
         The default doctype is html5 in 2.1.
@@ -260,7 +268,7 @@ methods of the HtmlHelper and how to use them.
             'background' => '#633',
             'border-bottom' => '1px solid #000',
             'padding' => '10px'
-        )); 
+        ));
 
     Will output::
 
@@ -280,7 +288,7 @@ methods of the HtmlHelper and how to use them.
 
     .. code-block:: html
 
-        <img src="/img/cake_logo.png" alt="CakePHP" /> 
+        <img src="/img/cake_logo.png" alt="CakePHP" />
 
     To create an image link specify the link destination using the
     ``url`` option in ``$htmlAttributes``.::
@@ -309,14 +317,14 @@ methods of the HtmlHelper and how to use them.
 
         <img src="http://example.com/img/logo.jpg" alt="" />
 
-    You can include image files from any loaded plugin using 
-    :term:`plugin syntax`.  To include ``app/Plugin/DebugKit/webroot/img/icon.png``
+    You can include image files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/img/icon.png``
     You could use the following::
 
         echo $this->Html->image('DebugKit.icon.png');
 
     If you want to include a image file which shares a name with a loaded
-    plugin you can do the following.  For example if you had a ``Blog`` plugin,
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/js/Blog.icon.png``, you would::
 
         echo $this->Html->image('Blog.icon.png', array('plugin' => false));
@@ -335,7 +343,11 @@ methods of the HtmlHelper and how to use them.
     specify attributes for the element and whether or not the
     ``$title`` should be escaped.::
 
-        echo $this->Html->link('Enter', '/pages/home', array('class' => 'button', 'target' => '_blank'));
+        echo $this->Html->link(
+            'Enter',
+            '/pages/home',
+            array('class' => 'button', 'target' => '_blank')
+        );
 
     Will output:
 
@@ -347,7 +359,11 @@ methods of the HtmlHelper and how to use them.
 
         echo $this->Html->link(
             'Dashboard',
-            array('controller' => 'dashboards', 'action' => 'index', 'full_base' => true)
+            array(
+                'controller' => 'dashboards',
+                'action' => 'index',
+                'full_base' => true
+            )
         );
 
     Will output:
@@ -357,7 +373,7 @@ methods of the HtmlHelper and how to use them.
         <a href="http://www.yourdomain.com/dashboards/index">Dashboard</a>
 
 
-    Specify ``$confirmMessage`` to display a javascript ``confirm()``
+    Specify ``$confirmMessage`` to display a JavaScript ``confirm()``
     dialog::
 
         echo $this->Html->link(
@@ -371,7 +387,12 @@ methods of the HtmlHelper and how to use them.
 
     .. code-block:: html
 
-        <a href="/recipes/delete/6" onclick="return confirm('Are you sure you wish to delete this recipe?');">Delete</a>
+        <a href="/recipes/delete/6"
+            onclick="return confirm(
+                'Are you sure you wish to delete this recipe?'
+            );">
+            Delete
+        </a>
 
     Query strings can also be created with ``link()``.::
 
@@ -383,10 +404,35 @@ methods of the HtmlHelper and how to use them.
         );
 
     Will output:
-  
+
     .. code-block:: html
 
         <a href="/images/view/1?height=400&width=500">View image</a>
+
+    When using named parameters, use the array syntax and include
+    names for ALL parameters in the URL. Using the string syntax for
+    paramters (i.e. "recipes/view/6/comments:false" will result in
+    the colon characters being HTML escaped and the link will not work
+    as desired.::
+
+        <?php
+        echo $this->Html->link(
+            $this->Html->image("recipes/6.jpg", array("alt" => "Brownies")),
+            array(
+                'controller' => 'recipes',
+                'action' => 'view',
+                'id' => 6,
+                'comments' => false
+            )
+        );
+
+    Will output:
+
+    .. code-block:: html
+
+        <a href="/recipes/view/id:6/comments:false">
+            <img src="/img/recipes/6.jpg" alt="Brownies" />
+        </a>
 
     HTML special characters in ``$title`` will be converted to HTML
     entities. To disable this conversion, set the escape option to
@@ -407,8 +453,30 @@ methods of the HtmlHelper and how to use them.
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
+    Setting ``escape`` to false will also disable escaping of attributes of the
+    link. As of 2.4 you can use the option ``escapeTitle`` to disable just
+    escaping of title and not the attributes.::
+
+        <?php
+        echo $this->Html->link(
+            $this->Html->image('recipes/6.jpg', array('alt' => 'Brownies')),
+            'recipes/view/6',
+            array('escapeTitle' => false, 'title' => 'hi "howdy"')
+        );
+
+    Will output:
+
+    .. code-block:: html
+
+        <a href="/recipes/view/6" title="hi &quot;howdy&quot;">
+            <img src="/img/recipes/6.jpg" alt="Brownies" />
+        </a>
+
+   .. versionchanged:: 2.4
+        The ``escapeTitle`` option was added.
+
     Also check :php:meth:`HtmlHelper::url` method
-    for more examples of different types of urls.
+    for more examples of different types of URLs.
 
 .. php:method:: media(string|array $path, array $options)
 
@@ -424,7 +492,7 @@ methods of the HtmlHelper and how to use them.
           or "video". If type is not provided media type is guessed based on
           file's mime type.
         - `text` Text to include inside the video tag
-        - `pathPrefix` Path prefix to use for relative urls, defaults to 
+        - `pathPrefix` Path prefix to use for relative URLs, defaults to
           'files/'
         - `fullBase` If provided the src attribute will get a full address
           including domain name
@@ -449,14 +517,21 @@ methods of the HtmlHelper and how to use them.
         <video src="http://www.somehost.com/files/video.mp4">Fallback text</video>
 
        <?php echo $this->Html->media(
-            array('video.mp4', array('src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'")),
+            array(
+                'video.mp4',
+                array(
+                    'src' => 'video.ogg',
+                    'type' => "video/ogg; codecs='theora, vorbis'"
+                )
+            ),
             array('autoplay')
         ); ?>
 
         // Output
         <video autoplay="autoplay">
             <source src="/files/video.mp4" type="video/mp4"/>
-            <source src="/files/video.ogg" type="video/ogg; codecs='theora, vorbis'"/>
+            <source src="/files/video.ogg" type="video/ogg;
+                codecs='theora, vorbis'"/>
         </video>
 
 .. php:method:: tag(string $tag, string $text, array $htmlAttributes)
@@ -473,15 +548,15 @@ methods of the HtmlHelper and how to use them.
         <?php
         echo $this->Html->tag('span', 'Hello World.', array('class' => 'welcome'));
         ?>
-         
+
         // Output
         <span class="welcome">Hello World</span>
-         
+
         // No text specified.
         <?php
         echo $this->Html->tag('span', null, array('class' => 'welcome'));
         ?>
-         
+
         // Output
         <span class="welcome">
 
@@ -494,7 +569,7 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: div(string $class, string $text, array $options)
 
-    :param string $class: The classname for the div.
+    :param string $class: The class name for the div.
     :param string $text: The content inside the div.
     :param array $options: An array of :term:`html attributes`.
 
@@ -504,19 +579,19 @@ methods of the HtmlHelper and how to use them.
     set to true, $text will be printed HTML-escaped.
 
     If no text is specified, only an opening div tag is returned.:
- 
+
     .. code-block:: php
 
         <?php
         echo $this->Html->div('error', 'Please enter your credit card number.');
         ?>
-        
+
         // Output
         <div class="error">Please enter your credit card number.</div>
 
 .. php:method::  para(string $class, string $text, array $options)
 
-    :param string $class: The classname for the paragraph.
+    :param string $class: The class name for the paragraph.
     :param string $text: The content inside the paragraph.
     :param array $options: An array of :term:`html attributes`.
 
@@ -528,19 +603,19 @@ methods of the HtmlHelper and how to use them.
         <?php
         echo $this->Html->para(null, 'Hello World.');
         ?>
-        
+
         // Output
         <p>Hello World.</p>
 
 .. php:method:: script(mixed $url, mixed $options)
 
-    :param mixed $url: Either a string to a single Javascript file, or an
+    :param mixed $url: Either a string to a single JavaScript file, or an
        array of strings for multiple files.
     :param array $options: An array of :term:`html attributes`.
 
-    Include a script file(s), contained either locally or as a remote url.
+    Include a script file(s), contained either locally or as a remote URL.
 
-    By default, script tags are added to the document inline.  If you override
+    By default, script tags are added to the document inline. If you override
     this by setting ``$options['inline']`` to false, the script tags will instead
     be added to the ``script`` block which you can print elsewhere in the document.
     If you wish to override which block name is used, you can do so by setting
@@ -554,8 +629,8 @@ methods of the HtmlHelper and how to use them.
     generated script tag. If an array of script tags is used, the
     attributes will be applied to all of the generated script tags.
 
-    This method of javascript file inclusion assumes that the
-    javascript file specified resides inside the ``/app/webroot/js``
+    This method of JavaScript file inclusion assumes that the
+    JavaScript file specified resides inside the ``/app/webroot/js``
     directory::
 
         echo $this->Html->script('scripts');
@@ -579,7 +654,8 @@ methods of the HtmlHelper and how to use them.
 
     .. code-block:: html
 
-        <script type="text/javascript" href="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" href="http://code.jquery.com/jquery.min.js">
+            </script>
 
     The first parameter can be an array to include multiple files.::
 
@@ -597,19 +673,19 @@ methods of the HtmlHelper and how to use them.
     option::
 
         echo $this->Html->script('wysiwyg', array('block' => 'scriptBottom'));
-        
+
     In your layout you can output all the script tags added to 'scriptBottom'::
 
         echo $this->fetch('scriptBottom');
 
-    You can include script files from any loaded plugin using 
-    :term:`plugin syntax`.  To include ``app/Plugin/DebugKit/webroot/js/toolbar.js``
+    You can include script files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/js/toolbar.js``
     You could use the following::
 
         echo $this->Html->script('DebugKit.toolbar.js');
 
     If you want to include a script file which shares a name with a loaded
-    plugin you can do the following.  For example if you had a ``Blog`` plugin,
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/js/Blog.plugins.js``, you would::
 
         echo $this->Html->script('Blog.plugins.js', array('plugin' => false));
@@ -632,7 +708,7 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: scriptStart($options = array())
 
-    :param array $options: An array of :term:`html attributes` to be used when 
+    :param array $options: An array of :term:`html attributes` to be used when
         scriptEnd is called.
 
     Begin a buffering code block. This code block will capture all
@@ -656,9 +732,9 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: nestedList(array $list, array $options = array(), array $itemOptions = array(), string $tag = 'ul')
 
     :param array $list: Set of elements to list.
-    :param array $options: Additional HTML attributes of the list (ol/ul) tag 
+    :param array $options: Additional HTML attributes of the list (ol/ul) tag
         or if ul/ol use that as tag.
-    :param array $itemOptions: Additional HTML attributes of the list item (LI) 
+    :param array $itemOptions: Additional HTML attributes of the list item (LI)
         tag.
     :param string $tag: Type of list tag to use (ol/ul).
 
@@ -777,7 +853,7 @@ methods of the HtmlHelper and how to use them.
             array('Jun 21st, 2007', 'Smart Cookies', 'Yes'),
             array('Aug 1st, 2006', 'Anti-Java Cake', 'No'),
         ));
-         
+
     Output:
 
     .. code-block:: html
@@ -789,18 +865,58 @@ methods of the HtmlHelper and how to use them.
     ::
 
         echo $this->Html->tableCells(array(
-            array('Jul 7th, 2007', array('Best Brownies', array('class' => 'highlight')) , 'Yes'),
+            array(
+                'Jul 7th, 2007',
+                array(
+                    'Best Brownies',
+                    array('class' => 'highlight')
+                ),
+                'Yes'),
             array('Jun 21st, 2007', 'Smart Cookies', 'Yes'),
-            array('Aug 1st, 2006', 'Anti-Java Cake', array('No', array('id' => 'special'))),
+            array(
+                'Aug 1st, 2006',
+                'Anti-Java Cake',
+                array('No', array('id' => 'special'))
+            ),
         ));
 
     Output:
 
     .. code-block:: html
 
-        <tr><td>Jul 7th, 2007</td><td class="highlight">Best Brownies</td><td>Yes</td></tr>
-        <tr><td>Jun 21st, 2007</td><td>Smart Cookies</td><td>Yes</td></tr>
-        <tr><td>Aug 1st, 2006</td><td>Anti-Java Cake</td><td id="special">No</td></tr>
+        <tr>
+            <td>
+                Jul 7th, 2007
+            </td>
+            <td class="highlight">
+                Best Brownies
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Jun 21st, 2007
+            </td>
+            <td>
+                Smart Cookies
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Aug 1st, 2006
+            </td>
+            <td>
+                Anti-Java Cake
+            </td>
+            <td id="special">
+                No
+            </td>
+        </tr>
 
     ::
 
@@ -812,7 +928,7 @@ methods of the HtmlHelper and how to use them.
             ),
             array('class' => 'darker')
         );
-        
+
     Output:
 
     .. code-block:: html
@@ -824,12 +940,12 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: url(mixed $url = NULL, boolean $full = false)
 
     :param mixed $url: A :term:`routing array`.
-    :param mixed $full: Either a boolean to indicate whether or not the base path should 
+    :param mixed $full: Either a boolean to indicate whether or not the base path should
         be included on an array of options for :php:meth:`Router::url()`
 
-    Returns an URL pointing to a combination of controller and action.
+    Returns a URL pointing to a combination of controller and action.
     If $url is empty, it returns the REQUEST\_URI, otherwise it
-    generates the url for the controller and action combo. If full is
+    generates the URL for the controller and action combo. If full is
     true, the full base URL will be prepended to the result::
 
         echo $this->Html->url(array(
@@ -837,7 +953,7 @@ methods of the HtmlHelper and how to use them.
             "action" => "view",
             "bar"
         ));
-         
+
         // Output
         /posts/view/bar
 
@@ -850,7 +966,7 @@ methods of the HtmlHelper and how to use them.
             "action" => "view",
             "foo" => "bar"
         ));
-         
+
         // Output
         /posts/view/foo:bar
 
@@ -861,7 +977,7 @@ methods of the HtmlHelper and how to use them.
             "action" => "list",
             "ext" => "rss"
         ));
-         
+
         // Output
         /posts/list.rss
 
@@ -880,12 +996,12 @@ methods of the HtmlHelper and how to use them.
             "?" => array("foo" => "bar"),
             "#" => "first"
         ));
-        
+
         // Output
         /posts/search?foo=bar#first
 
     For further information check
-    `Router::url <http://api20.cakephp.org/class/router#method-Routerurl>`_
+    `Router::url <http://api.cakephp.org/2.4/class-Router.html#_url>`_
     in the API.
 
 .. php:method:: useTag(string $tag)
@@ -909,7 +1025,7 @@ Changing the tags output by HtmlHelper
 
 .. php:method:: loadConfig(mixed $configFile, string $path = null)
 
-    The built in tag sets for :php:class:`HtmlHelper` are XHTML compliant,
+    The built-in tag sets for :php:class:`HtmlHelper` are XHTML compliant,
     however if you need to generate HTML for HTML5 you will need to
     create and load a new tags config file containing the tags you'd
     like to use. To change the tags used create ``app/Config/html5_tags.php``
@@ -933,13 +1049,13 @@ Creating breadcrumb trails with HtmlHelper
 
 .. php:method:: getCrumbs(string $separator = '&raquo;', string $startText = false)
 
-    CakePHP has the built in ability to automatically create a
+    CakePHP has the built-in ability to automatically create a
     breadcrumb trail in your app. To set this up, first add something
     similar to the following in your layout template::
 
         echo $this->Html->getCrumbs(' > ', 'Home');
 
-    The ``$startText`` option can also accept an array.  This gives more control
+    The ``$startText`` option can also accept an array. This gives more control
     over the generated first link::
 
         echo $this->Html->getCrumbs(' > ', array(
@@ -960,7 +1076,7 @@ Creating breadcrumb trails with HtmlHelper
     breadcrumb trails on each of the pages::
 
         $this->Html->addCrumb('Users', '/users');
-        $this->Html->addCrumb('Add User', '/users/add');
+        $this->Html->addCrumb('Add User', array('controller' => 'users', 'action' => 'add'));
 
     This will add the output of "**Home > Users > Add User**" in your
     layout where getCrumbs was added.
@@ -969,16 +1085,16 @@ Creating breadcrumb trails with HtmlHelper
 
     :param array $options: An array of :term:`html attributes` for the
         containing ``<ul>`` element. Can also contain the 'separator',
-        'firstClass' and 'lastClass' options.
+        'firstClass', 'lastClass' and 'escape' options.
     :param string|array $startText: The text or element that precedes the ul.
 
     Returns breadcrumbs as a (x)html list.
 
     This method uses :php:meth:`HtmlHelper::tag()` to generate list and its
     elements. Works similar to :php:meth:`~HtmlHelper::getCrumbs()`, so it uses
-    options which every crumb was added with.  You can use the ``$startText``
-    parameter to provide the first breadcrumb link/text.  This is useful when
-    you always want to include a root link.  This option works the same as the
+    options which every crumb was added with. You can use the ``$startText``
+    parameter to provide the first breadcrumb link/text. This is useful when
+    you always want to include a root link. This option works the same as the
     ``$startText`` option for :php:meth:`~HtmlHelper::getCrumbs()`.
 
     .. versionchanged:: 2.1
@@ -986,6 +1102,9 @@ Creating breadcrumb trails with HtmlHelper
 
     .. versionchanged:: 2.3
         The 'separator', 'firstClass' and 'lastClass' options were added.
+        
+    .. versionchanged:: 2.5
+        The 'escape' option was added.
 
 
 .. meta::
