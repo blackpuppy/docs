@@ -3,9 +3,11 @@ HtmlHelper助件
 
 .. php:class:: HtmlHelper(View $view, array $settings = array())
 
-HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、更快，更能够适应变化。使用这个助件会让你的应用程序本身更轻巧，在所处领域中相对于核心功能更灵活。
+HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、更快，更能够适应变
+化。使用这个助件会让你的应用程序本身更轻巧，在所处领域中相对于核心功能更灵活。
 
-许多 HtmlHelper 的方法包括一个``$htmlAttributes``参数，这让你可以采用标签的任何额外属性。下面是一些如何使用 $htmlAttributes 参数的例子:
+许多 HtmlHelper 的方法包括一个``$htmlAttributes``参数，这让你可以采用标签的任何额
+外属性。下面是一些如何使用 $htmlAttributes 参数的例子:
 
 .. code-block:: html
 
@@ -18,16 +20,21 @@ HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、
 
 .. note::
 
-    缺省情况下 HtmlHelper 助件在所有视图(view)中都可以使用。如果你得到一个错误信息，告诉你它(HtmlHelper 助件)不存在，通常这是因为它的名字在一个手工配置的 $helpers 控制器(controller)变量中被落掉了。
+    缺省情况下 HtmlHelper 助件在所有视图(view)中都可以使用。如果你得到一个错误信
+    息，告诉你它(HtmlHelper 助件)不存在，通常这是因为它的名字在一个手工配置的
+    $helpers 控制器(controller)变量中被落掉了。
 
 插入完好格式的(HTML)元素
 =================================
 
-HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记。别怕经常使用它——你可以在 CakePHP 中缓存视图，从而在视图渲染和发送时节约一些 CPU 时间。这一节介绍 HtmlHelper 助件的一些方法及如何使用它们。
+HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记。别怕经常使用它——你
+可以在 CakePHP 中缓存视图，从而在视图渲染和发送时节约一些 CPU 时间。这一节介绍 
+HtmlHelper 助件的一些方法及如何使用它们。
 
 .. php:method:: charset($charset=null)
  
-    :param string $charset: 想要的字符集。如果是 null，就会使用``App.encoding``的值。
+    :param string $charset: 想要的字符集。如果是 null，就会使用``App.encoding``
+    的值。
 
     用来创建一个 meta 标签，指明页面的字符集。
     缺省值为 UTF-8。
@@ -55,13 +62,17 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
 .. php:method:: css(mixed $path, string $rel = null, array $options = array())
 
-    :param mixed $path: 或者是一个字符串，指向要连接的 css 文件，或者是数组，包含多个文件。
-    :param string $rel: 生成标签的 rel 属性的值。如果是 null，就会使用'stylesheet'。.
+    :param mixed $path: 或者是一个字符串，指向要连接的 css 文件，或者是数组，包含
+    多个文件。
+    :param string $rel: 生成标签的 rel 属性的值。如果是 null，就会使用
+    'stylesheet'。.
     :param array $options: :term:`html attributes`数组。
 
-    创建 CSS 样式的链接。如果``$options``参数中的键'inline'设置为 false，link 标签就会被加到``css``代码块，你可以把这个代码块在 document 的 head 标签内输出。
+    创建 CSS 样式的链接。如果``$options``参数中的键'inline'设置为 false，link 标
+    签就会被加到``css``代码块，你可以把这个代码块在 document 的 head 标签内输出。
 
-    你可以用``block``选项来控制把 link 元素加到哪个代码块中。缺省情况下，这会加到``css``代码块。
+    你可以用``block``选项来控制把 link 元素加到哪个代码块中。缺省情况下，这会加到
+    ``css``代码块。
 
     这种引入 CSS 的方法假定给出的 CSS 文件位于 /app/webroot/css 目录内。::
 
@@ -85,11 +96,13 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
         <link rel="stylesheet" type="text/css" href="/css/tables.css" />
         <link rel="stylesheet" type="text/css" href="/css/menu.css" />
 
-    你可以用:term:`plugin syntax`来引入任何已经加载的插件中的 css 文件。要引入``app/Plugin/DebugKit/webroot/css/toolbar.css``，你可以用下面的代码::
+    你可以用:term:`plugin syntax`来引入任何已经加载的插件中的 css 文件。要引入
+    ``app/Plugin/DebugKit/webroot/css/toolbar.css``，你可以用下面的代码::
 
         echo $this->Html->css('DebugKit.toolbar.css');
 
-    如果你要引入与一个加载的插件同名的 css 文件，你可以像下面这样做。例如，如果你有一个``Blog``插件，又要引入``app/webroot/css/Blog.common.css``，你可以::
+    如果你要引入与一个加载的插件同名的 css 文件，你可以像下面这样做。例如，如果你
+    有一个``Blog``插件，又要引入``app/webroot/css/Blog.common.css``，你可以::
 
         echo $this->Html->css('Blog.common.css', null, array('plugin' => false));
 
@@ -100,12 +113,17 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 .. php:method:: meta(string $type, string $url = null, array $options = array())
 
     :param string $type: 你需要的type meta 标签。
-    :param mixed $url: meta 标签的地址(url)，或者是字符串，或者是:term:`routing array`。
+    :param mixed $url: meta 标签的地址(url)，或者是字符串，或者是
+    :term:`routing array`。
     :param array $options: :term:`html attributes`的数组。
 
-    要链接到象 RSS/Atom 推送(feed?)和 favicon 这样的外部资源，该方法很方便。与 css() 类似，你可以指定你是否要让它以 inline 的方式输出，还是要通过设置 $attributes 参数(译注：指 $options 参数)中的 'inline' 键为 false，即 ``array('inline' => false)``，来附加在``meta``代码块的最后。
+    要链接到象 RSS/Atom 推送(*feed*)和 favicon 这样的外部资源，该方法很方便。与 
+    css() 类似，你可以指定你是否要让它以 inline 的方式输出，还是要通过设置 
+    $attributes 参数(译注：指 $options 参数)中的 'inline' 键为 false，即 
+    ``array('inline' => false)``，来附加在``meta``代码块的最后。
 
-    如果你使用 $attributes 参数(译注：应该是指 $options 参数)来设置"type"属性，CakePHP 有一些快捷方式:
+    如果你使用 $attributes 参数(译注：应该是指 $options 参数)来设置"type"属性，
+    CakePHP 有一些快捷方式:
 
     ======== ======================
      类型     转译得到的值
@@ -169,7 +187,10 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
         // 输出
         <meta name="description" content="在这里输入任意 meta 描述" />
 
-    如果你要添加定制的 meta 标签，那么第一个参数应当设置为数组。要输出不让机器人做索引(robots noindex)的标签，使用下面的代码::
+    如果你要添加定制的 meta 标签，那么第一个参数应当设置为数组。要输出防止漫游器
+    将网页编入索引(*robots noindex*)的标签(译注：可参考`noindex 
+    <http://baike.baidu.com/link?url=wZMV3V5BOO9BrKxVaSp2jEUO2ICTI-cFhFOkcOkQ5FzxcTa0_1s9yQFib06vigYuC1RHYETpkwLHPnVS4qqd5_>`_
+    )，使用下面的代码::
 
         echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex')); 
 
@@ -183,7 +204,7 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     返回 (X)HTML doctype 标签。可依据下表提供 doctype。
 
     +--------------------------+----------------------------------+
-    | 类型                     | 转换所得的值                 |
+    | 类型                     | 转换所得的值                     |
     +==========================+==================================+
     | html4-strict             | HTML4 Strict                     |
     +--------------------------+----------------------------------+
@@ -221,7 +242,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param array $data: 一组代表 CSS 属性的键 => 值对。
     :param boolean $oneline: 内容是否要在一行上。
 
-    基于传入该方法的键和值来构建 CSS 样式。如果你的 CSS 文件是动态的，这将特别方便。::
+    基于传入该方法的键和值来构建 CSS 样式。如果你的 CSS 文件是动态的，这将特别方
+    便。::
 
         echo $this->Html->style(array(
             'background' => '#633',
@@ -248,7 +270,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
         <img src="/img/cake_logo.png" alt="CakePHP" /> 
 
-    要创建图像链接，用``$htmlAttributes``(译注: 指$options 参数)中的``url``选项指定链接目标。::
+    要创建图像链接，用``$htmlAttributes``(译注: 指$options 参数)中的``url``选项
+    指定链接目标。::
 
 
         echo $this->Html->image("recipes/6.jpg", array(
@@ -264,7 +287,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
-    如果你要创建电子邮件中的图像，或者需要图像的绝对路径，你可以使用``fullBase``选项::
+    如果你要创建电子邮件中的图像，或者需要图像的绝对路径，你可以使用``fullBase``
+    选项::
 
         echo $this->Html->image("logo.png", array('fullBase' => true));
 
@@ -274,11 +298,14 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
         <img src="http://example.com/img/logo.jpg" alt="" />
 
-    你可以使用:term:`plugin syntax`来引入任何加载的插件中的图像。要引入``app/Plugin/DebugKit/webroot/img/icon.png``，你可以使用下面的代码::
+    你可以使用:term:`plugin syntax`来引入任何加载的插件中的图像。要引入
+    ``app/Plugin/DebugKit/webroot/img/icon.png``，你可以使用下面的代码::
 
         echo $this->Html->image('DebugKit.icon.png');
 
-    如果你要引入与加载的插件重名的图像文件，你可以采用下面的做法。例如，你有一个``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指``app/webroot/img/Blog.icon.png``)，你可以::
+    如果你要引入与加载的插件重名的图像文件，你可以采用下面的做法。例如，你有一个
+    ``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指
+    ``app/webroot/img/Blog.icon.png``)，你可以::
 
         echo $this->Html->image('Blog.icon.png', array('plugin' => false));
 
@@ -292,7 +319,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param mixed $url: 或者是字符串表示的位置，或者是:term:`routing array`。
     :param array $options: :term:`html attributes`数组。
 
-    创建 HTML 链接的通用方法。用``$options``来指定元素的属性，及是否要转义``$title``。::
+    创建 HTML 链接的通用方法。用``$options``来指定元素的属性，及是否要转义
+    ``$title``。::
 
         echo $this->Html->link('Enter', '/pages/home', array('class' => 'button', 'target' => '_blank'));
 
@@ -346,7 +374,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
         <a href="/images/view/1?height=400&width=500">View image</a>
 
-    ``$title``中的 HTML 特殊字符会被转换成 HTML 字符实体(HTML Entities)。要禁用这种转换，在``$options``数组中设置 escape 选项为 false。::
+    ``$title``中的 HTML 特殊字符会被转换成 HTML 字符实体(HTML Entities)。要禁用这
+    种转换，在``$options``数组中设置 escape 选项为 false。::
 
         <?php
         echo $this->Html->link(
@@ -367,15 +396,19 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
 .. php:method:: media(string|array $path, array $options)
 
-    :param string|array $path: 视频文件的路径，相对于`webroot/{$options['pathPrefix']}`目录。或者是数组，每项本身可以是路径字符串或包含键`src`和`type`的关联数组。
+    :param string|array $path: 视频文件的路径，相对于
+    `webroot/{$options['pathPrefix']}`目录。或者是数组，每项本身可以是路径字符串
+    或包含键`src`和`type`的关联数组。
     :param array $options: HTML 属性数组，以及特殊选项。
 
         选项:
 
-        - `type` 要生成的媒体元素的类型，合法值为"audio"或"video"。如果没有提供类型，媒体类型将基于文件的 mime 类型来推测。
+        - `type` 要生成的媒体元素的类型，合法值为"audio"或"video"。如果没有提供类
+          型，媒体类型将基于文件的 mime 类型来推测。
         - `text` 在 video 标签(译注: 应当指生成的媒体标签)内使用的文字
         - `pathPrefix` 相对路径所使用的路径前缀，缺省为'files/'
-        - `fullBase` 如果提供(译注：应当指当其值为true)，src 属性就会是包括域名的完整网址。
+        - `fullBase` 如果提供(译注：应当指当其值为true)，src 属性就会是包括域名
+          的完整网址。
 
     .. versionadded:: 2.1
 
@@ -434,7 +467,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
     .. note::
 
-        缺省情况下文字没有转义，但你可以用``$htmlOptions['escape'] = true``来转义文字。这代替了之前版本里的第四个参数``boolean $escape = false``。
+        缺省情况下文字没有转义，但你可以用``$htmlOptions['escape'] = true``来转义
+        文字。这代替了之前版本里的第四个参数``boolean $escape = false``。
 
 .. php:method:: div(string $class, string $text, array $options)
 
@@ -442,7 +476,9 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param string $text: div 内的内容。
     :param array $options: :term:`html attributes`数组。
 
-    用来创建 div 包裹的标记片段。第一个参数指定 CSS 类，第二个参数用来提供要被 div 标签包裹的文字。如果最后一个参数设置为 true (译注：应当是指设置``$htmlOptions['escape'] = true``)，$text 将被 HTML 转义后再输出。
+    用来创建 div 包裹的标记片段。第一个参数指定 CSS 类，第二个参数用来提供要被 div 
+    标签包裹的文字。如果最后一个参数设置为 true (译注：应当是指设置
+    ``$htmlOptions['escape'] = true``)，$text 将被 HTML 转义后再输出。
 
     如果没有给出文字，只返回开始 div 标签。:
  
@@ -461,7 +497,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param string $text: 段落内的内容。
     :param array $options: :term:`html attributes`数组。
 
-    返回由 CSS 类修饰的 <p> 标签包裹的文字。如果没有提供文字，则只返回开始 <p> 标签。:
+    返回由 CSS 类修饰的 <p> 标签包裹的文字。如果没有提供文字，则只返回开始 <p> 标
+    签。:
 
     .. code-block:: php
 
@@ -474,19 +511,25 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
 .. php:method:: script(mixed $url, mixed $options)
 
-    :param mixed $url: 或者是指向单一 Javascript 文件的字符串，或者(指向)多个文件的数组。
+    :param mixed $url: 或者是指向单一 Javascript 文件的字符串，或者(指向)多个文
+    件的数组。
     :param array $options: :term:`html attributes`数组。
 
     引入一个或多个脚本文件，存在于本地或是远程地址(url)。
 
-    缺省情况下，脚本标签会以 inline 的方式添加到文档中。如果你设置``$options['inline']``为 false，脚本(script)标签就会被添加到``script``代码块，这样你就可以把它输出到文档的其它地方。
+    缺省情况下，脚本标签会以 inline 的方式添加到文档中。如果你设置
+    ``$options['inline']``为 false，脚本(script)标签就会被添加到``script``代码块，
+    这样你就可以把它输出到文档的其它地方。
     如果你想要改变所使用的代码块名称，你可以通过设置``$options['block']``来实现。
 
-    ``$options['once']``控制你是否要在一次请求中只引入该脚本一次，或者多次。缺省值为 true。
+    ``$options['once']``控制你是否要在一次请求中只引入该脚本一次，或者多次。缺省
+    值为 true。
 
-    你可以用 $options 参数来为生成的脚本标签设置额外的属性。如果用的是脚本标签数组，属性就会应用于所有生成的脚本标签。
+    你可以用 $options 参数来为生成的脚本标签设置额外的属性。如果用的是脚本标签数
+    组，属性就会应用于所有生成的脚本标签。
 
-    这个引入 javascript 文件的方法假定给出的 javascript 文件位于``/app/webroot/js``目录内::
+    这个引入 javascript 文件的方法假定给出的 javascript 文件位于
+    ``/app/webroot/js``目录内::
 
         echo $this->Html->script('scripts');
 
@@ -530,11 +573,13 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
         echo $this->fetch('scriptBottom');
 
-    你可以使用:term:`plugin syntax`引入任何加载的插件中的脚本文件。要引入``app/Plugin/DebugKit/webroot/js/toolbar.js``，你可以使用下面的代码::
+    你可以使用:term:`plugin syntax`引入任何加载的插件中的脚本文件。要引入
+    ``app/Plugin/DebugKit/webroot/js/toolbar.js``，你可以使用下面的代码::
 
         echo $this->Html->script('DebugKit.toolbar.js');
 
-    如果你要引入与加载的插件重名的脚本文件，你可以采用下面的做法。例如，如果你有一个``Blog``插件，而又想引入``app/webroot/js/Blog.plugins.js``，你可以::
+    如果你要引入与加载的插件重名的脚本文件，你可以采用下面的做法。例如，如果你有
+    一个``Blog``插件，而又想引入``app/webroot/js/Blog.plugins.js``，你可以::
 
         echo $this->Html->script('Blog.plugins.js', array('plugin' => false));
 
@@ -547,17 +592,22 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param string $code: 要放入脚本标签的代码。
     :param array $options: :term:`html attributes`数组。
 
-    生成包含``$code``的代码块。设置 ``$options['inline']``为 false，使代码块出现在``script``视图代码块中。定义的其它选项会被作为脚本标签的属性。``$this->Html->scriptBlock('stuff', array('defer' => true));``会创建带有``defer="defer"``的脚本标签。
+    生成包含``$code``的代码块。设置 ``$options['inline']``为 false，使代码块出现
+    在``script``视图代码块中。定义的其它选项会被作为脚本标签的属性。
+    ``$this->Html->scriptBlock('stuff', array('defer' => true));``会创建带有
+    ``defer="defer"``的脚本标签。
 
 .. php:method:: scriptStart($options = array())
 
     :param array $options: 当 scriptEnd 调用时使用的:term:`html attributes`数组。
 
-    开始一个缓冲代码块。该代码块会捕获所有在``scriptStart()``和``scriptEnd()``之间的输出，并创建脚本标签。选项和``scriptBlock()``一样。
+    开始一个缓冲代码块。该代码块会捕获所有在``scriptStart()``和``scriptEnd()``之
+    间的输出，并创建脚本标签。选项和``scriptBlock()``一样。
 
 .. php:method:: scriptEnd()
 
-    结束缓冲脚本代码块，返回生成的脚本元素，或者如果脚本代码块用 inline = false 开始则返回 null。
+    结束缓冲脚本代码块，返回生成的脚本元素，或者如果脚本代码块用 inline = false 
+    开始则返回 null。
 
     一个使用``scriptStart()``和``scriptEnd()``的例子会是这样::
 
@@ -570,7 +620,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 .. php:method:: nestedList(array $list, array $options = array(), array $itemOptions = array(), string $tag = 'ul')
 
     :param array $list: 要列出来的一组元素。
-    :param array $options: 列表(ol/ul)标签的额外 HTML 属性，或者如果是 ul/ol，就用它作为标签。
+    :param array $options: 列表(ol/ul)标签的额外 HTML 属性，或者如果是 ul/ol，
+    就用它作为标签。
     :param array $itemOptions: 列表元素(LI)标签的额外 HTML 属性。
     :param string $tag: 要使用的列表标签(ol/ul)。
 
@@ -675,12 +726,11 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
     :param array $oddTrOptions: 奇数<tr>的:term:`html attributes`数组。
     :param array $evenTrOptions: 偶数<tr>的:term:`html attributes`数组。
     :param boolean $useCount: 添加(样式)类"column-$i"。
-    :param boolean $continueOddEven: 如果是 false，就会使用非静态 $count 变量，从而对该调用的奇偶计数重置为零。
+    :param boolean $continueOddEven: 如果是 false，就会使用非静态 $count 变量，
+    从而对该调用的奇偶计数重置为零。
 
-    成行地创建表格格子，给奇数行和偶数行<tr>设置不同的属性。对一个特定的<td>属性(译注：指不一样的属性，参看下面的例子)，将该表格格子包裹在数组中。::
-    Creates table cells, in rows, assigning <tr> attributes differently
-    for odd- and even-numbered rows. Wrap a single table cell within an
-    array() for specific <td>-attributes. ::
+    成行地创建表格格子，给奇数行和偶数行<tr>设置不同的属性。对一个特定的<td>属性
+    (译注：指不一样的属性，参看下面的例子)，将该表格格子包裹在数组中。::
 
         echo $this->Html->tableCells(array(
             array('Jul 7th, 2007', 'Best Brownies', 'Yes'),
@@ -704,7 +754,7 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
             array('Aug 1st, 2006', 'Anti-Java Cake', array('No', array('id' => 'special'))),
         ));
 
-    输出: Output:
+    输出:
 
     .. code-block:: html
 
@@ -723,7 +773,7 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
             array('class' => 'darker')
         );
         
-    输出: Output:
+    输出:
 
     .. code-block:: html
 
@@ -734,9 +784,12 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 .. php:method:: url(mixed $url = NULL, boolean $full = false)
 
     :param mixed $url: 一个:term:`routing array`数组。
-    :param mixed $full: 或者是布尔值，说明是否包含根路径，或者是:php:meth:`Router::url()`的选项数组。
+    :param mixed $full: 或者是布尔值，说明是否包含根路径，或者是
+    :php:meth:`Router::url()`的选项数组。
 
-    返回控制器和动作组合形成的网址(URL)。如果 $url为空，它会返回REQUEST\_URI，否则它生成控制器和动作组合而成的网址。如果参数 full 为 true，结果就会前缀以完整的根路径::
+    返回控制器和动作组合形成的网址(URL)。如果 $url为空，它会返回REQUEST\_URI，否
+    则它生成控制器和动作组合而成的网址。如果参数 full 为 true，结果就会前缀以完整
+    的根路径::
 
         echo $this->Html->url(array(
             "controller" => "posts",
@@ -790,7 +843,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
         // 输出
         /posts/search?foo=bar#first
 
-    更详细的信息，请查看 API 中的`Router::url <http://api20.cakephp.org/class/router#method-Routerurl>`_。
+    更详细的信息，请查看 API 中的
+    `Router::url <http://api20.cakephp.org/class/router#method-Routerurl>`_。
 
 .. php:method:: useTag(string $tag)
 
@@ -813,7 +867,9 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
 .. php:method:: loadConfig(mixed $configFile, string $path = null)
 
-    :php:class:`HtmlHelper`内置的标签集是兼容于 XHTML 的，不过如果你要生成 HTML5 的 HTML，你需要创建并加载新的标签配置文件，该文件应当包含你要使用的标签。要改变使用的标签，创建文件``app/Config/html5_tags.php``，包含(如下内容)::
+    :php:class:`HtmlHelper`内置的标签集是兼容于 XHTML 的，不过如果你要生成 HTML5 
+    的 HTML，你需要创建并加载新的标签配置文件，该文件应当包含你要使用的标签。要改
+    变使用的标签，创建文件``app/Config/html5_tags.php``，包含(如下内容)::
 
         $config = array('tags' => array(
             'css' => '<link rel="%s" href="%s" %s>',
@@ -825,18 +881,21 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
             // ...
         ));
 
-    然后你就可以通过调用``$this->Html->loadConfig('html5_tags');``来加载这个标签集。
+    然后你就可以通过调用``$this->Html->loadConfig('html5_tags');``来加载这个标签
+    集。
 
 用 HtmlHelper 助件来创建 breadcrumb 路径
 ==========================================
 
 .. php:method:: getCrumbs(string $separator = '&raquo;', string $startText = false)
 
-    CakePHP 有内置的功能在应用程序中自动创建 breadcrumb 路径。要为此做设置，首先在布局模板中加入象下面这样的代码::
+    CakePHP 有内置的功能在应用程序中自动创建 breadcrumb 路径。要为此做设置，首先
+    在布局模板中加入象下面这样的代码::
 
         echo $this->Html->getCrumbs(' > ', 'Home');
 
-    ``$startText``参数也可以接受一个数组。这为控制生成的第一个链接提供了更多的控制::
+    ``$startText``参数也可以接受一个数组。这为控制生成的第一个链接提供了更多的控
+    制::
 
         echo $this->Html->getCrumbs(' > ', array(
             'text' => $this->Html->image('home.png'),
@@ -844,7 +903,8 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
             'escape' => false
         ));
 
-    任何不是``text``或者``url``的键，会被作为``$options``参数传递给:php:meth:`~HtmlHelper::link()`方法。
+    任何不是``text``或者``url``的键，会被作为``$options``参数传递给
+    :php:meth:`~HtmlHelper::link()`方法。
 
     .. versionchanged:: 2.1
         现在``$startText``参数能够接受数组了。
@@ -860,12 +920,17 @@ HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记
 
 .. php:method:: getCrumbList(array $options = array(), mixed $startText)
 
-    :param array $options: 包裹的``<ul>``元素的:term:`html attributes`数组。也可以包含'separator'、'firstClass'和'lastClass'选项。
+    :param array $options: 包裹的``<ul>``元素的:term:`html attributes`数组。也可
+    以包含'separator'、'firstClass'和'lastClass'选项。
     :param string|array $startText: 在 ul 之前的文字或元素。
 
     返回 (x)html 列表形式的 breadcrumbs。
 
-    该方法使用:php:meth:`HtmlHelper::tag()`来生成列表及其元素。与:php:meth:`~HtmlHelper::getCrumbs()`的工作方式类似，所以它使用添加每个 crumb 时所用的选项。你可以用``$startText``参数来提供第一个 breadcrumb 的链接/文字。这可以用于当你总是要包括一个根链接时。这个选项和:php:meth:`~HtmlHelper::getCrumbs()`的``$startText``选项是一样的。
+    该方法使用:php:meth:`HtmlHelper::tag()`来生成列表及其元素。与
+    :php:meth:`~HtmlHelper::getCrumbs()`的工作方式类似，所以它使用添加每个 crumb 
+    时所用的选项。你可以用``$startText``参数来提供第一个 breadcrumb 的链接/文字。
+    这可以用于当你总是要包括一个根链接时。这个选项和
+    :php:meth:`~HtmlHelper::getCrumbs()`的``$startText``选项是一样的。
 
     .. versionchanged:: 2.1
         添加了``$startText``参数。
