@@ -190,7 +190,7 @@ PHP 标签中::
      *
      * @param Model $Model 使用的模型。
      * @param array $array 数组值。
-     * @param boolean $boolean 布尔值。
+     * @param bool $boolean 布尔值。
      */
     public function foo(Model $Model, array $array, $boolean) {
     }
