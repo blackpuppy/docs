@@ -6,17 +6,20 @@
 欢迎
 #######
 
-CakePHP CookBook 是一个开放的开发社区可编辑的文档项目。我们希望保持一个高质量的、有效的、准确的文档。
+CakePHP CookBook 是一个开放开发和社区可以编辑的文档项目。我们希望把文档的质量、有
+效性和准确性都保持在一个较高的水平。请注意在右上角的“改善本文档”按钮; 它会引导
+您进入当前页面的 GitHub 在线编辑器，让您可以轻松地为文档贡献任何添加、删除或更正。
 
 .. container:: 离线下载
 
-    **任何地方阅读本书**
+    **在任何地方阅读本书**
 
-    您几乎可以在任何地方阅读本书，当前可用格式有PDF和EPUB，您可以把它下载到您的其他设备中阅读。
+    您几乎可以在任何地方阅读本书，当前提供的格式有 PDF 和 EPUB，您可以在更多设备
+    上阅读它，也可以(把它下载下来)离线阅读。
 
     - `PDF <../_downloads/en/CakePHPCookbook.pdf>`_
     - `EPUB <../_downloads/en/CakePHPCookbook.epub>`_
-    - `Original Source <http://github.com/cakephp/docs>`_
+    - `原文出处 <http://github.com/cakephp/docs>`_
 
 入门指南
 ===============
@@ -24,35 +27,36 @@ CakePHP CookBook 是一个开放的开发社区可编辑的文档项目。我们
 创建一个博客
 ------------
 
-从 :doc:`博客教程</tutorials-and-examples/blog/blog>` 中，通过建立一个基础博客系统了解到CakePHP的基础内容。
+从 :doc:`博客教程</tutorials-and-examples/blog/blog>` 开始。您会了解 CakePHP 的基
+本知识，并在此过程中建立一个基本的博客。
 
-约定规则
+约定
 -----------
 
-了解典型的 :doc:`CakePHP 请求
-</getting-started/a-typical-cakephp-request>` 和 :doc:`约定规则
-</getting-started/cakephp-conventions>`
+了解驱动 CakePHP 的典型的 :doc:`CakePHP 请求
+</getting-started/a-typical-cakephp-request>` 和 :doc:`约定
+</getting-started/cakephp-conventions>`。
 
 控制器(Controllers)
------------
+-------------------
 
-控制器用来处理请求，并且帮助和协调对客户端的响应。详情见 :doc:`/controllers`
+控制器用来处理请求，并且帮助协调和准备对客户端的响应。详情见 :doc:`/controllers`。
 
 视图(Views)
------
+-----------
 
-视图是 CakePHP 的表现层。它们负责把获取自模型的数据转换成客户所请求的格式。详情见 :doc:`/views`
+视图是 CakePHP 的表现层。它们负责把获取自模型的数据转换成客户所请求的输出格式。详情见 :doc:`/views`。
 
 模型(Models)
-------
+------------
 
-模型是应用程序的核心, 它们负责校验、存储和获取数据。详情见:doc:`/models`
+模型是应用程序的核心, 它们负责数据的验证、存储和检索。详情见:doc:`/models`。
 
 获取帮助
 ============
 
-如果你遇到困难，请见获取帮助节 :doc:`获取帮助
-</cakephp-overview/where-to-get-help>`
+如果你遇到困难，有一些地方 :doc:`你可以获取帮助
+</cakephp-overview/where-to-get-help>`。
 
 
 
