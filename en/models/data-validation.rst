@@ -463,9 +463,10 @@ in the view's form as the reason why the field was not valid.
 Dynamically change validation rules
 ===================================
 
-Using ``$validate`` property to declare validation rules is a good ways of defining
-statically rules for each model. Nevertheless there are cases when you want to
-dynamically add, change or remove validation rules from the predefined set.
+Using the ``$validate`` property to declare validation rules is a good way of
+statically defining rules for each model. Nevertheless, there are cases when you
+want to dynamically add, change or remove validation rules from the predefined
+set.
 
 All validation rules are stored in a ``ModelValidator`` object, which holds
 every rule set for each field in your model. Defining new validation rules is as
@@ -559,8 +560,9 @@ directly into the ``CakeValidationRule`` object::
     $this->validator()->getField('password')
         ->getRule('required')->message = 'This field cannot be left blank';
 
-Properties in any ``CakeValidationRule`` are named as the valid array keys you
-can use for defining such rules using the ``$validate`` property in the model.
+Properties in any ``CakeValidationRule`` get their name from the array keys 
+one is allowed to use when defining a validation rule's properties, such as the 
+array keys 'message' and 'allowEmpty' for example.
 
 As with adding new rule to the set, it is also possible to modify existing rules
 using the array interface::
@@ -943,9 +945,7 @@ with usage examples.
 .. php:method:: Model::isUnique()
 
     The data for the field must be unique, it cannot be used by any
-    other rows.
-
-    ::
+    other rows::
 
         public $validate = array(
             'login' => array(
@@ -953,6 +953,19 @@ with usage examples.
                 'message' => 'This username has already been taken.'
             )
         );
+
+    You can validate that a set of fields are unique by providing multiple
+    fields::
+
+        public $validate = array(
+            'email' => array(
+                'rule'    => array('isUnique', 'email', 'username'),
+                'message' => 'This username & email combination has already been used.'
+            )
+        );
+
+    Make sure to include the original field in the list of fields when making
+    a unique rule across multiple fields.
 
 .. php:staticmethod:: luhn(string|array $check, boolean $deep = false)
 

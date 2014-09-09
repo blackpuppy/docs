@@ -70,6 +70,12 @@ Scaffold
 Core
 ====
 
+App
+---
+
+- ``App::pluginPath()`` has been deprecated. ``CakePlugin::path()`` should be used instead.
+
+
 CakePlugin
 ----------
 
@@ -232,7 +238,7 @@ View
 View
 ----
 
-- ``$title_for_layout`` is deprecated. Use ``$this->fetch('title');`` and 
+- ``$title_for_layout`` is deprecated. Use ``$this->fetch('title');`` and
   ``$this->assign('title', 'your-page-title');`` instead.
 - :php:meth:`View::get()` now accepts a second argument to provide a default
   value.
@@ -247,6 +253,8 @@ FormHelper
 - :php:meth:`FormHelper::end()` and :php:meth:`FormHelper::secure()` allow you
   to pass additional options that are turned into attributes on the generated
   hidden inputs. This is useful when you want to use the HTML5 ``form`` attribute.
+- :php:meth:`FormHelper::postLink()` now allows you to buffer the generated form
+  tag instead of returning it with the link. This helps avoiding nested form tags.
 
 PaginationHelper
 ----------------

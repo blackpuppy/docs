@@ -383,10 +383,10 @@ callback of your model using appropriate password hasher class::
 
     class User extends AppModel {
         public function beforeSave($options = array()) {
-            if (!empty($this->data['User']['password'])) {
+            if (!empty($this->data[$this->alias]['password'])) {
                 $passwordHasher = new SimplePasswordHasher(array('hashType' => 'sha256'));
-                $this->data['User']['password'] = $passwordHasher->hash(
-                    $this->data['User']['password']
+                $this->data[$this->alias]['password'] = $passwordHasher->hash(
+                    $this->data[$this->alias]['password']
                 );
             }
             return true;
@@ -433,9 +433,9 @@ from the normal password hash::
     class User extends AppModel {
         public function beforeSave($options = array()) {
             // make a password for digest auth.
-            $this->data['User']['digest_hash'] = DigestAuthenticate::password(
-                $this->data['User']['username'],
-                $this->data['User']['password'],
+            $this->data[$this->alias]['digest_hash'] = DigestAuthenticate::password(
+                $this->data[$this->alias]['username'],
+                $this->data[$this->alias]['password'],
                 env('SERVER_NAME')
             );
             return true;
@@ -450,7 +450,7 @@ other password hashes, based on the RFC for digest authentication.
     The third parameter of DigestAuthenticate::password() must match the
     'realm' config value defined when DigestAuthentication was
     configured in AuthComponent::$authenticate. This defaults to
-    ``env('SCRIPT_NAME)``. You may wish to use a static string if you
+    ``env('SCRIPT_NAME')``. You may wish to use a static string if you
     want consistent hashes in multiple environments.
 
 Creating custom password hasher classes

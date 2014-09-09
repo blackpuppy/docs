@@ -5,7 +5,7 @@ Installer CakePHP avec l'installeur PEAR
 ========================================
 
 CakePHP publie un package PEAR que vous pouvez installer en utilisant
-l'installeur PEAR. L'installation avec l'installeur PEAR peut simplifier
+l'installateur PEAR. L'installation avec l'installateur PEAR peut simplifier
 le partage des librairies de CakePHP dans plusieurs applications. Pour
 installer CakePHP avec PEAR, vous devrez faire comme suit::
 
@@ -27,7 +27,7 @@ Installer CakePHP avec composer
 ===============================
 
 Composer est un outil de gestion de dépendance pour PHP 5.3+. Il règle
-plusieurs problèmes que l'installeur PEAR a, et simplifie la gestion de
+plusieurs problèmes que l'installateur PEAR a, et simplifie la gestion de
 plusieurs versions de librairies. Puisque CakePHP publie un package PEAR,
 vous pouvez installer CakePHP en utilisant
 `composer <http://getcomposer.org>`_. Avant d'installer CakePHP, vous devrez
@@ -37,14 +37,14 @@ application CakePHP ressemblerait à ce qui suit::
     {
         "name": "example-app",
         "require": {
-            "cakephp/cakephp": ">=2.5.0"
+            "cakephp/cakephp": "2.5.*"
         },
         "config": {
             "vendor-dir": "Vendor/"
         }
     }
 
-Sauvegardez ce JSON dans ``composer.json`` dans le répetoire racine de votre
+Sauvegardez ce JSON dans ``composer.json`` dans le répetoire APP de votre
 projet. Ensuite, téléchargez le fichier composer.phar dans votre projet. Après
 avoir téléchargé composer, installez CakePHP. Dans le même répertoire que votre
 fichier ``composer.json``, lancez ce qui suit::
@@ -61,21 +61,21 @@ de répertoire qui ressemble à::
             bin/
             autoload.php
             composer/
-            pear-pear.cakephp.org/
+            cakephp/
 
 Vous êtes maintenant prêt à générer le reste du squelette de votre
 application::
 
     $ Vendor/bin/cake bake project <path to project>
 
-Par défaut ``bake`` va hard-code :php:const:`CAKE_CORE_INCLUDE_PATH`. Pour
+Par défaut ``bake`` va mettre en dur :php:const:`CAKE_CORE_INCLUDE_PATH`. Pour
 rendre votre application plus portable, vous devrez modifier
 ``webroot/index.php``, en changeant ``CAKE_CORE_INCLUDE_PATH`` en un chemin
 relatif::
 
     define(
         'CAKE_CORE_INCLUDE_PATH',
-        ROOT . '/Vendor/cakephp/cakephp/lib'
+        APP . '/Vendor/cakephp/cakephp/lib'
     );
 
 .. note::
@@ -83,14 +83,14 @@ relatif::
     Si vous pensez créer des tests unitaires pour votre application, vous
     devrez aussi faire les changements ci-dessus dans ``webroot/test.php``.
 
-Si vous installez d'autres librairies avec composer, vous devrez configurer
-l'autoloader, et régler un problème dans l'autoloader de composer. Dans votre
+Si vous installez d'autres librairies avec Composer, vous devrez configurer
+l'autoloader et régler un problème dans l'autoloader de Composer. Dans votre
 fichier ``Config/bootstrap.php``, ajoutez ce qui suit::
 
     // Charger l'autoload de composer.
-    require APP . '/Vendor/autoload.php';
+    require APP . 'Vendor/autoload.php';
 
-    // Retire et re-prepend l'autoloader de CakePHP puisque composer pense que
+    // Retire et réajoute l'autoloader de CakePHP puisque Composer pense que
     // c'est le plus important.
     // See http://goo.gl/kKVJO7
     spl_autoload_unregister(array('App', 'load'));
@@ -99,7 +99,6 @@ fichier ``Config/bootstrap.php``, ajoutez ce qui suit::
 Vous devriez maintenant avoir une application CakePHP fonctionnelle avec
 CakePHP installé via composer. Assurez-vous de garder les fichiers
 composer.json et composer.lock.json avec le reste de votre code source.
-
 
 Partager les librairies de CakePHP pour plusieurs applications
 ==============================================================
@@ -123,8 +122,8 @@ système de fichier, avec l'exception de webroot, qui a besoin d'être acessible
 pour votre serveur web. Vous pouvez même déplacer le dossier webroot en-dehors
 du dossier app tant que vous dîtes à CakePHP où vous le mettez.
 
-Pour configurer votre installation de Cake, vous aurez besoin de faire quelques
-changements aux fichiers suivants.
+Pour configurer votre installation de CakePHP, vous aurez besoin de faire
+quelques changements aux fichiers suivants.
 
 -  /app/webroot/index.php
 -  /app/webroot/test.php (si vous utilisez la fonctionnalité de
@@ -133,20 +132,19 @@ changements aux fichiers suivants.
 Il y a trois constantes que vous devrez modifier: ``ROOT``,
 ``APP_DIR``, et ``CAKE_CORE_INCLUDE_PATH``.
 
-
 - ``ROOT`` doit être définie vers le chemin du répertoire qui contient le
   dossier app.
 - ``APP_DIR`` doit être définie comme le nom (de base) de votre dossier app.
 - ``CAKE_CORE_INCLUDE_PATH`` doit être définie comme le chemin du dossier
   des librairies de CakePHP.
 
-Testons cela avec un exemple pour que vous puissiez voir ce à quoi peut
+Testons cela avec un exemple pour que vous puissiez voir à quoi peut
 ressembler une installation avancée en pratique. Imaginez que je souhaite
 configurer CakePHP pour travailler comme ce qui suit:
 
 -  Les librairies du coeur de CakePHP seront placées dans /usr/lib/cake.
 -  Le répertoire webroot de l'application sera /var/www/monsite/.
--  Le répertoire app de mon application sera /home/moi/monapp.
+-  Le répertoire app de mon application sera /home/me/monapp.
 
 Etant donné ce type de configuration, j'aurai besoin de modifier mon fichier
 webroot/index.php (qui finira dans /var/www/mysite/index.php, dans cet

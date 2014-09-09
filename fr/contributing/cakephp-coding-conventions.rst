@@ -202,8 +202,7 @@ Il y a des espaces des deux côtés du signe égal.
 Typehinting
 -----------
 
-Les arguments qui attendent des objets ou des tableaux peuvent être typés.
-Nous ne typons que les méthodes publiques car le typage prend du temps::
+Les arguments qui attendent des objets ou des tableaux peuvent être typés::
 
     /**
      * Some method description.
@@ -250,17 +249,17 @@ décrire le block de code commenté.
 Les commentaires doivent inclure les tags de
 `phpDocumentor <http://phpdoc.org>`_ suivants:
 
-*  `@author <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.author.pkg.html>`_
-*  `@copyright <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.copyright.pkg.html>`_
-*  `@deprecated <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.deprecated.pkg.html>`_
-*  `@example <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.example.pkg.html>`_
-*  `@ignore <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.ignore.pkg.html>`_
-*  `@internal <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.internal.pkg.html>`_
-*  `@link <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.link.pkg.html>`_
-*  `@see <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.see.pkg.html>`_
-*  `@since <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.since.pkg.html>`_
-*  `@tutorial <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.tutorial.pkg.html>`_
-*  `@version <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.version.pkg.html>`_
+*  `@author <http://phpdoc.org/docs/latest/references/phpdoc/tags/author.html>`_
+*  `@copyright <http://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.html>`_
+*  `@deprecated <http://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html>`_
+   Using the ``@version <vector> <description>`` format, where ``version`` and ``description`` are mandatory.
+*  `@example <http://phpdoc.org/docs/latest/references/phpdoc/tags/example.html>`_
+*  `@ignore <http://phpdoc.org/docs/latest/references/phpdoc/tags/ignore.html>`_
+*  `@internal <http://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html>`_
+*  `@link <http://phpdoc.org/docs/latest/references/phpdoc/tags/link.html>`_
+*  `@see <http://phpdoc.org/docs/latest/references/phpdoc/tags/see.html>`_
+*  `@since <http://phpdoc.org/docs/latest/references/phpdoc/tags/since.html>`_
+*  `@version <http://phpdoc.org/docs/latest/references/phpdoc/tags/version.html>`_
 
 Les tags de PhpDoc sont un peu du même style que les tags de JavaDoc dans
 Java. Les tags sont seulement traités si ils sont la première chose dans la
@@ -295,6 +294,55 @@ ligne DocBlock, par exemple::
 
 Les blocks de commentaires, avec une exception du premier block dans le
 fichier, doivent toujours être précédés par un retour à la ligne.
+
+Types de Variables
+------------------
+
+Les types de variables pour l'utilisation dans DocBlocks:
+
+Type
+    Description
+mixed
+    Une variable avec un type indéfini (ou multiple).
+int
+    Variable de type Integer (Tout nombre).
+float
+    Type Float (nombres à virgule).
+bool
+    Type Logique (true ou false).
+string
+    Type String (toutes les valeurs en " " ou ' ').
+null
+    Type null. Habituellement utilisé avec un autre type.
+array
+    Type Tableau.
+object
+    Type Objet.
+resource
+    Type Ressource (retourné par exemple par mysql\_connect()).
+    Rappelez vous que quand vous spécifiez un type en mixed, vous devez
+    indiquer si il est inconnu, ou les types possibles.
+callable
+    Function appelable.
+
+Vous pouvez aussi combiner les types en utilisant le caractère pipe::
+
+    int|bool
+
+Pour plus de deux types, il est habituellement mieux d'utiliser seulement
+``mixed``.
+
+Quand vous retournez l'objet lui-même, par ex pour chaîner, vous devriez
+utilisez ``$this`` à la place::
+
+    /**
+     * Foo function.
+     *
+     * @return $this
+     */
+    public function foo() {
+        return $this;
+    }
 
 Inclure les Fichiers
 ====================
@@ -406,43 +454,6 @@ Les noms de fichier qui ne contiennent pas de classes, doivent être écrits en
 minuscules et soulignés, par exemple::
 
     nom_de_fichier_long.php
-
-Types de Variables
-------------------
-
-Les types de variables pour l'utilisation dans DocBlocks:
-
-Type
-    Description
-mixed
-    Une variable avec un type indéfini (ou multiple).
-int
-    Variable de type Integer (Tout nombre).
-float
-    Type Float (nombres à virgule).
-bool
-    Type Logique (true ou false).
-string
-    Type String (toutes les valeurs en " " ou ' ').
-null
-    Type null. Habituellement utilisé avec un autre type.
-array
-    Type Tableau.
-object
-    Type Objet.
-resource
-    Type Ressource (retourné par exemple par mysql\_connect()).
-    Rappelez vous que quand vous spécifiez un type en mixed, vous devez
-    indiquer si il est inconnu, ou les types possibles.
-callable
-    Function appelable.
-
-Vous pouvez aussi combiner les types en utilisant le caractère pipe::
-
-    int|bool
-
-Pour plus de deux types, il est habituellement mieux d'utiliser seulement
-``mixed``.
 
 Casting
 -------

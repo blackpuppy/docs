@@ -148,7 +148,7 @@ Otherwise a new record is created::
 
 .. tip::
 
-    When calling save in a loop, don't forget to call ``create()``.
+    When calling save in a loop, don't forget to call ``clear()``.
 
 
 If you want to update a value, rather than create a new one, make sure
@@ -207,12 +207,14 @@ as keys:
   will enable only those callbacks.
 * ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
 
-:php:meth:`Model::updateAll(array $fields, array $conditions)`
+:php:meth:`Model::updateAll(array $fields, mixed $conditions)`
 ==============================================================
 
-Updates one or more records in a single call. Records to be updated are
-identified by the ``$conditions`` array, and fields to be updated,
+Updates one or more records in a single call. Fields to be updated,
 along with their values, are identified by the ``$fields`` array.
+Records to be updated are identified by the ``$conditions`` array.
+If ``$conditions`` argument is not supplied or it is set to ``true``,
+all records will be updated.
 
 For example, to approve all bakers who have been members for over a
 year, the update call might look something like::
@@ -913,8 +915,9 @@ named differently and its behavior is more predictable.
     keys, you can prevent losing the extra field values by setting
     ``'unique'`` array key to ``'keepExisting'``. You could think of
     this similar to 'unique' => true, but without losing data from
-    the extra fields during save operation. See: :ref:`HABTM
-    association arrays <ref-habtm-arrays>`.
+    the extra fields during save operation. Additionally, if you used
+    bake in order to create the models, this is set automatically. 
+    See: :ref:`HABTM association arrays <ref-habtm-arrays>`.
 
 However, in most cases it's easier to make a model for the join table
 and setup hasMany, belongsTo associations as shown in example above

@@ -72,8 +72,8 @@ correct traitant la requête.
 
 Une fois que la requête arrive au controller, celui-ci va communiquer avec
 la couche Model pour traiter la récupération de données ou les opérations
-de sauvegarde qui seraient nécessaires. Après que cette communication est
-finie, le controller va donner à l'objet vue correct, la tâche de générer une
+de sauvegarde qui seraient nécessaires. Cette communication terminée, 
+le controller va donner à l'objet vue correct, la tâche de générer une
 sortie résultant des données fournies par le model.
 
 Finalement, quand cette sortie est générée, elle est immédiatement rendue
@@ -86,7 +86,7 @@ donc gardez cela à l'esprit pour la suite.
 Bénéfices
 =========
 
-Pourquoi utiliser MVC? Parce que c'est un logiciel vraiment construit selon le
+Pourquoi utiliser CakePHP ? Parce que c'est un logiciel vraiment construit selon le
 patron MVC, qui transforme une application en un dossier élaboré maintenable,
 modulable et rapide. Elaborer les tâches de l'application en séparant les
 models, vues et controllers, allègent votre application. De nouvelles
