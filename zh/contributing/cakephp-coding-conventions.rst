@@ -182,8 +182,7 @@ PHP 标签中::
 类型约束
 -----------
 
-接受对象或者数组的参数可以使用类型约束。不过，我们只对公有方法中使用类型约束，因
-为类型约束不是没有代价的::
+接受对象或者数组的参数可以使用类型约束::
 
     /**
      * 方法描述。
@@ -225,17 +224,17 @@ PHP 标签中::
 
 注释可以包括以下`phpDocumentor <http://phpdoc.org>`_标签:
 
-*  `@author <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.author.pkg.html>`_
-*  `@copyright <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.copyright.pkg.html>`_
-*  `@deprecated <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.deprecated.pkg.html>`_
-*  `@example <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.example.pkg.html>`_
-*  `@ignore <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.ignore.pkg.html>`_
-*  `@internal <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.internal.pkg.html>`_
-*  `@link <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.link.pkg.html>`_
-*  `@see <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.see.pkg.html>`_
-*  `@since <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.since.pkg.html>`_
-*  `@tutorial <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.tutorial.pkg.html>`_
-*  `@version <http://manual.phpdoc.org/HTMLframesConverter/phpdoc.de/phpDocumentor/tutorial_tags.version.pkg.html>`_
+*  `@author <http://phpdoc.org/docs/latest/references/phpdoc/tags/author.html>`_
+*  `@copyright <http://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.html>`_
+*  `@deprecated <http://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html>`_
+   使用格式``@version <vector> <description>``，其中``version``和``description``是必须的。
+*  `@example <http://phpdoc.org/docs/latest/references/phpdoc/tags/example.html>`_
+*  `@ignore <http://phpdoc.org/docs/latest/references/phpdoc/tags/ignore.html>`_
+*  `@internal <http://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html>`_
+*  `@link <http://phpdoc.org/docs/latest/references/phpdoc/tags/link.html>`_
+*  `@see <http://phpdoc.org/docs/latest/references/phpdoc/tags/see.html>`_
+*  `@since <http://phpdoc.org/docs/latest/references/phpdoc/tags/since.html>`_
+*  `@version <http://phpdoc.org/docs/latest/references/phpdoc/tags/version.html>`_
 
 PhpDoc 标签非常类似于 Java 中的 JavaDoc 标签。标签只有出现在 DocBlock 行的开头才
 会起作用, 例如::
@@ -268,6 +267,51 @@ PhpDoc 标签非常类似于 Java 中的 JavaDoc 标签。标签只有出现在 
     }
 
 所有注释段, 除了一个文件中的第一段, 之前总是应当有一个空行。
+
+变量类型
+--------
+
+DocBlock 中使用的变量类型:
+
+类型
+    描述
+mixed
+    有未定义(或多种)类型的变量。
+int
+    整数类型变量(整数)。
+float
+    浮点数类型(浮点数)。
+bool
+    逻辑类型(true或者false)。
+string
+    字符串类型(位于" "或' '中的任何值)。
+null
+    空类型。通常与另一种类型一起使用。
+array
+    数组类型。
+object
+    对象类型。 如果可能应该使用更明确的类名。
+resource
+    资源类型(例如由mysql\_connect()返回的)。
+    记住, 如果你指定了混合类型, 则需指明是未知, 或者可以是哪些类型。
+callable
+    可调用的函数。
+
+你也可以用竖线(pipe char)组合多个类型::
+
+    int|bool
+
+对两种以上的类型，通常最好使用``mixed``。
+
+当返回对象本身时，例如为了实现链式方法，应当使用``$this``::
+
+    /**
+     * Foo function.
+     *
+     * @return $this
+     */
+    public function foo() {
+        return $this;
 
 包括文件
 ========
@@ -366,41 +410,6 @@ PHP 标签
 不包含类的文件, 其文件名应当小写, 并且以下划线分隔单词, 例如::
 
     long_file_name.php
-
-变量类型
---------
-
-DocBlock 中使用的变量类型:
-
-类型
-    描述
-mixed
-    有未定义(或多种)类型的变量。
-int
-    整数类型变量(整数)。
-float
-    浮点数类型(浮点数)。
-bool
-    逻辑类型(true或者false)。
-string
-    字符串类型(位于" "或' '中的任何值)。
-null
-    空类型。通常与另一种类型一起使用。
-array
-    数组类型。
-object
-    对象类型。 如果可能应该使用更明确的类名。
-resource
-    资源类型(例如由mysql\_connect()返回的)。
-    记住, 如果你指定了混合类型, 则需指明是未知, 或者可以是哪些类型。
-callable
-    可调用的函数。
-
-你也可以用竖线(pipe char)组合多个类型::
-
-    int|bool
-
-对两种以上的类型，通常最好使用``mixed``。
 
 强制转换(Casting)
 -----------------

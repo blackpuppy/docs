@@ -21,7 +21,7 @@
 .. note::
 
     如果你对 Git 完全陌生，我们强烈建议你阅读优秀且免费的
-    `ProGit<http://progit.org>`_这本书。
+    `ProGit <http://git-scm.com/book/>`_这本书。
 
 从 GitHub 获得一份 CakePHP 源程序的克隆(*clone*)。
 
@@ -117,8 +117,8 @@ CakePHP 仓库的改动，保持与 CakePHP 仓库一致::
 
     请记住，所有你贡献给CakePHP的代码将被置于MIT许可之下，
     `Cake Software Foundation <http://cakefoundation.org/pages/about>`_将会成为任
-    何贡献出去的代码的所有者，并且所有贡献的代码将受`贡献者许可协议
-    <http://cakefoundation.org/pages/cla>`_的约束。
+    何贡献出去的代码的所有者。代码贡献者应当遵循`CakePHP Community Guidelines 
+    <http://community.cakephp.org/guidelines>`_.
 
 所有合并到维护分支中的臭虫修复，也将被核心团队定期地合并到即将发布的下一个版本。
 
