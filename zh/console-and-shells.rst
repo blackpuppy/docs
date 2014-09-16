@@ -134,7 +134,7 @@ If you are on Windows Vista or 7, you should follow the steps below.
 #. Click Ok and ``cake`` should work anywhere.
 
 创建一个shell Creating a shell
-================
+==============================
 
 让我们创建一个shell在命令行中使用。在这个例子中，我们创建一个简单的Hello world的shell。
 

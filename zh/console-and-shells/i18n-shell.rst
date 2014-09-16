@@ -1,5 +1,5 @@
 shell支持国际化I18N
-##########
+####################
 
 CakePHP 使用 `po files <http://en.wikipedia.org/wiki/GNU_gettext>`_ 作为
 它们翻译的源文件来支持国际化功能。这让他们可以同 `poedit <http://www.poedit.net/>`_  
@@ -54,7 +54,7 @@ i18n shell提供了一个快速和简便的方法来生成po模板文件。这�
 
 跳过对已有的POT文件覆盖警告
 --------------------------------------------------
-.. 版本新增:: 2.2
+.. versionadded:: 2.2
 
 有了参数 --overwrite ,shell将会默认覆盖已有的POT文件而不发出警告 ::
 
@@ -63,7 +63,7 @@ i18n shell提供了一个快速和简便的方法来生成po模板文件。这�
 从CakePHP的核心库中抽取信息
 Extracting messages from the CakePHP core libraries
 ---------------------------------------------------
-.. 版本新增:: 2.2
+.. versionadded:: 2.2
 
 默认情况下，extract shell脚本将会询问你是否要抽取CakePHP核心库中用到的信息。设置
 --extract-core为yes或no来设置默认的动作。 ::

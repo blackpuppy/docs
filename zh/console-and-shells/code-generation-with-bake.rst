@@ -77,7 +77,7 @@ baking 自定义的项目
 
     cake bake project -skel Console/Templates/skel
 
-.. 注意::
+.. note::
 
     -  你必须运行指定的项目任务 ``cake bake project`` 这样路径参数才能被传递。
     -  模板路径使用相对于CLI当前路径的相对路径
@@ -155,7 +155,7 @@ Fixture 和 test 的baking在过去是个难题。你只可以在baking类的时
 ，fixtures，模型，测试用例，以及1.2中的视图文件。同时，你也可以有多个模板集，或，
 bake主题，bake主题可以在你的app中提供或者作为插件的一部分。例如使用bake主题插件的
 路径可能是``app/Plugin/BakeTheme/Console/Templates/dark_red/`` 。一个bake主题名是
- ``blue_bunny`` 的可能会被放在 ``app/Console/Templates/blue_bunny``。你可以在
+``blue_bunny`` 的可能会被放在 ``app/Console/Templates/blue_bunny``。你可以在
 ``lib/Cake/Console/Templates/default/`` 中查看那个文件和目录是一个bake主题要求的。
 然而，和视图文件一样，如果你的bake主题并没有实现一个模板，其他的已经安装的主题会
 被检测直到正确的模板被找到。

@@ -6,7 +6,7 @@ Test shell
 
 这里有更多的关于test shell的基本使用资料 :ref:`run-tests-from-command-line`.
 
-.. 版本变动:: 2.1
+.. versionadded:: 2.1
     在2.1中增加 ``test`` shell ，在2.0中的 ``testsuite`` shell 仍旧可用，但使用的是新函数。
 
 

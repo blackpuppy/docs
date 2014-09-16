@@ -14,7 +14,7 @@ Schema Shell提供了一项功能来创建schema对象、schema sql转储以及�
 
 这将会生成 schema.php 文件，位于 ``app/Config/Schema`` 目录。
 
-.. 注意::
+.. note::
 
     schema shell将只处理模型定义过的表。强制处理所有的表，需要在命令行中加上  ``-f``  选项。
 
@@ -36,7 +36,7 @@ CakeSchema 回调
 
 在生成schema后，你会想要插入一些数据到表中让你的应用跑起来。这个可以通过CakeSchema
 回调来实现。每一个schema文件中都含有一个 ``before($event = array())`` 和一个
- ``after($event = array())`` 方法。
+``after($event = array())`` 方法。
 
 ``$event`` 变量是一个含有两个键的数据。一个是告诉一个表是在被删除还是被创建，另一个
 是错误。例如 ::
@@ -125,7 +125,7 @@ distribute database changes.
     $ git commit -a
     
 
-.. 注意 ::
+.. note::
 
     如果项目没有被版本化，管理schema将会通过快照来完成（见上一节）。
    
