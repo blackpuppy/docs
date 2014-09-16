@@ -9,9 +9,9 @@ CakePHP 概述
 .. toctree::
     :maxdepth: 1
     
-    cakephp-overview/what-is-cakephp-why-use-it CakePHP是什么? 为什么使用它?
-    cakephp-overview/understanding-model-view-controller 理解 模型 - 视图 - 控制器
-    cakephp-overview/where-to-get-help 从哪儿获取帮助
+    cakephp-overview/what-is-cakephp-why-use-it
+    cakephp-overview/understanding-model-view-controller
+    cakephp-overview/where-to-get-help
 
 
 .. meta::
