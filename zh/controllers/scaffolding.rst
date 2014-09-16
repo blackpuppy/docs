@@ -195,5 +195,5 @@ Custom scaffolding views for all controllers should be placed like so::
 
 
 .. meta::
-    :title lang=en: Scaffolding
-    :keywords lang=en: database schemas,loose structure,scaffolding,scaffold,php class,database tables,web developer,downside,web application,logic,developers,cakephp,running,current,delete,database application
+    :title lang=zh: Scaffolding
+    :keywords lang=zh: database schemas,loose structure,scaffolding,scaffold,php class,database tables,web developer,downside,web application,logic,developers,cakephp,running,current,delete,database application

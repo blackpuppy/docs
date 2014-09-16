@@ -221,6 +221,6 @@ mind that not everything needs to be a filter, `Controllers` and `Components` ar
 usually a more accurate choice for adding any request handling code to your app.
 
 .. meta::
-    :title lang=en: Dispatcher Filters
-    :description lang=en: Dispatcher filters are a middleware layer for CakePHP allowing to alter the request or response before it is sent
-    :keywords lang=en: middleware, filters, dispatcher, request, response, rack, application stack, events, beforeDispatch, afterDispatch, router
+    :title lang=zh: Dispatcher Filters
+    :description lang=zh: Dispatcher filters are a middleware layer for CakePHP allowing to alter the request or response before it is sent
+    :keywords lang=zh: middleware, filters, dispatcher, request, response, rack, application stack, events, beforeDispatch, afterDispatch, router

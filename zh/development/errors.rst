@@ -141,5 +141,5 @@ If you want to keep the default fatal error behavior, you can call ``ErrorHandle
 from your custom handler.
 
 .. meta::
-    :title lang=en: Error Handling
-    :keywords lang=en: stack traces,error constants,error array,default displays,anonymous functions,error handlers,default error,error level,exception handler,php error,error handler,write error,core classes,exception handling,configuration error,application code,callback,custom error,exceptions,bitmasks,fatal error
+    :title lang=zh: Error Handling
+    :keywords lang=zh: stack traces,error constants,error array,default displays,anonymous functions,error handlers,default error,error level,exception handler,php error,error handler,write error,core classes,exception handling,configuration error,application code,callback,custom error,exceptions,bitmasks,fatal error

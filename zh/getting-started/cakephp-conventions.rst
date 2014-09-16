@@ -151,5 +151,5 @@ files that you’d need to create anyway.
 
 
 .. meta::
-    :title lang=en: CakePHP Conventions
-    :keywords lang=en: web development experience,maintenance nightmare,index method,legacy systems,method names,php class,uniform system,config files,tenets,apples,conventions,conventional controller,best practices,maps,visibility,news articles,functionality,logic,cakephp,developers
+    :title lang=zh: CakePHP Conventions
+    :keywords lang=zh: web development experience,maintenance nightmare,index method,legacy systems,method names,php class,uniform system,config files,tenets,apples,conventions,conventional controller,best practices,maps,visibility,news articles,functionality,logic,cakephp,developers

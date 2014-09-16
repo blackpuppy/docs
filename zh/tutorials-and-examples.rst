@@ -19,5 +19,5 @@
 
 
 .. meta::
-    :title lang=en: Tutorials & Examples
-    :keywords lang=en: application tutorials,glob,bakery,repository,applications,blog,acl
+    :title lang=zh: Tutorials & Examples
+    :keywords lang=zh: application tutorials,glob,bakery,repository,applications,blog,acl

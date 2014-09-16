@@ -572,5 +572,5 @@ Cake's 的路由设置在 ``/app/Config/routes.php``  文件. 你可以注释掉
 
 
 .. meta::
-    :title lang=en: Blog Tutorial - Adding a layer
-    :keywords lang=en: doc 模型,validation check,controller actions,post模型 ,php class,模型类,模型 object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete
+    :title lang=zh: Blog Tutorial - Adding a layer
+    :keywords lang=zh: doc 模型,validation check,controller actions,post模型 ,php class,模型类,模型 object,business logic,database table,naming convention,bread and butter,callbacks,prefixes,nutshell,interaction,array,cakephp,interface,applications,delete

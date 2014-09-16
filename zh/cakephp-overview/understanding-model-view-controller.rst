@@ -75,5 +75,5 @@ CakePHP来创建你的第一个应用，你将不会再想用其他方法啦。
 
 
 .. meta::
-    :title lang=en: Understanding Model-View-Controller
-    :keywords lang=en: model view controller,model layer,formatted result,model objects,music documents,business logic,text representation,first glance,retrieving data,software design,html page,videos music,new friends,interaction,cakephp,interface,photo,presentation,mvc,photos
+    :title lang=zh: Understanding Model-View-Controller
+    :keywords lang=zh: model view controller,model layer,formatted result,model objects,music documents,business logic,text representation,first glance,retrieving data,software design,html page,videos music,new friends,interaction,cakephp,interface,photo,presentation,mvc,photos

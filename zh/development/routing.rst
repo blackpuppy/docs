@@ -1048,5 +1048,5 @@ Router API
 
 
 .. meta::
-    :title lang=en: Routing
-    :keywords lang=en: controller actions,default routes,mod rewrite,code index,string url,php class,incoming requests,dispatcher,url url,meth,maps,match,parameters,array,config,cakephp,apache,router
+    :title lang=zh: Routing
+    :keywords lang=zh: controller actions,default routes,mod rewrite,code index,string url,php class,incoming requests,dispatcher,url url,meth,maps,match,parameters,array,config,cakephp,apache,router

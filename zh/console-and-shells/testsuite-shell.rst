@@ -11,5 +11,5 @@ Test shell
 
 
 .. meta::
-    :title lang=en: Test Shell
-    :keywords lang=en: cakephp testing,test shell,testsuite,command line
+    :title lang=zh: Test Shell
+    :keywords lang=zh: cakephp testing,test shell,testsuite,command line

@@ -333,5 +333,5 @@ in the controller and view.
 
 
 .. meta::
-    :title lang=en: Sessions
-    :keywords lang=en: session defaults,session classes,utility features,session timeout,session ids,persistent data,session key,session cookie,session data,last session,core database,security level,useragent,security reasons,session id,attr,countdown,regeneration,sessions,config
+    :title lang=zh: Sessions
+    :keywords lang=zh: session defaults,session classes,utility features,session timeout,session ids,persistent data,session key,session cookie,session data,last session,core database,security level,useragent,security reasons,session id,attr,countdown,regeneration,sessions,config

@@ -34,5 +34,5 @@ created in your ``app/Controller/`` folder. You can also copy the file from
 
 
 .. meta::
-    :title lang=en: The Pages Controller
-    :keywords lang=en: pages controller,default controller,lib,cakephp,ships,php,file folder
+    :title lang=zh: The Pages Controller
+    :keywords lang=zh: pages controller,default controller,lib,cakephp,ships,php,file folder

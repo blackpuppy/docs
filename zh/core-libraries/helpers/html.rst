@@ -940,6 +940,6 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
 
 .. meta::
-    :title lang=en: HtmlHelper
-    :description lang=en: The role of the HtmlHelper in CakePHP is to make HTML-related options easier, faster, and more resilient to change.
-    :keywords lang=en: html helper,cakephp css,cakephp script,content type,html image,html link,html tag,script block,script start,html url,cakephp style,cakephp crumbs
+    :title lang=zh: HtmlHelper
+    :description lang=zh: The role of the HtmlHelper in CakePHP is to make HTML-related options easier, faster, and more resilient to change.
+    :keywords lang=zh: html helper,cakephp css,cakephp script,content type,html image,html link,html tag,script block,script start,html url,cakephp style,cakephp crumbs

@@ -767,5 +767,5 @@ CRUD 动作(创建，读取，更新和删除)相关的四个属性。你可以�
 
 
 .. meta::
-    :title lang=en: Access Control Lists
-    :keywords lang=en: fantasy novel,access control list,request objects,online diary,request object,acls,adventurers,gandalf,lingo,web service,computer system,grandma,lord of the rings,entities,assets,logic,cakephp,stuff,control objects,control object
+    :title lang=zh: Access Control Lists
+    :keywords lang=zh: fantasy novel,access control list,request objects,online diary,request object,acls,adventurers,gandalf,lingo,web service,computer system,grandma,lord of the rings,entities,assets,logic,cakephp,stuff,control objects,control object

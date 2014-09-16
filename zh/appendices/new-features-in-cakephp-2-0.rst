@@ -290,5 +290,5 @@ removing connections at runtime.
 
 
 .. meta::
-    :title lang=en: New Features in CakePHP 2.0
-    :keywords lang=en: time reductions,doctypes,model construction,key value,option one,database connection,content view,configuration file,constructor,great time,array,new features,bootstrap process,elements,new models
+    :title lang=zh: New Features in CakePHP 2.0
+    :keywords lang=zh: time reductions,doctypes,model construction,key value,option one,database connection,content view,configuration file,constructor,great time,array,new features,bootstrap process,elements,new models

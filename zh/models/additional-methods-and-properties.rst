@@ -114,5 +114,5 @@ Gets all the models with which this model is associated.
 ``getInsertID()``的别名.
 
 .. meta::
-    :title lang=en: Additional Methods and Properties
-    :keywords lang=en: model classes,model functions,model class,interval,array
+    :title lang=zh: Additional Methods and Properties
+    :keywords lang=zh: model classes,model functions,model class,interval,array

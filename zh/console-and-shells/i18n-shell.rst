@@ -85,5 +85,5 @@ i18n shell也可以用来初始化 :php:class:`TranslateBehavior` 使用的默�
 
 
 .. meta::
-    :title lang=en: I18N shell
-    :keywords lang=en: pot files,locale default,translation tools,message string,app locale,php class,validation,i18n,translations,shell,models
+    :title lang=zh: I18N shell
+    :keywords lang=zh: pot files,locale default,translation tools,message string,app locale,php class,validation,i18n,translations,shell,models

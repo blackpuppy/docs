@@ -589,5 +589,5 @@ CakeResponse API
 
 
 .. meta::
-    :title lang=en: Request and Response objects
-    :keywords lang=en: request controller,request parameters,array indices,purpose index,response objects,domain information,request object,request data,interrogating,params,previous versions,introspection,dispatcher,rout,data structures,arrays,ip address,migration,indexes,cakephp
+    :title lang=zh: Request and Response objects
+    :keywords lang=zh: request controller,request parameters,array indices,purpose index,response objects,domain information,request object,request data,interrogating,params,previous versions,introspection,dispatcher,rout,data structures,arrays,ip address,migration,indexes,cakephp

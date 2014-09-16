@@ -68,6 +68,6 @@ truncating long stretches of text.
     :end-before: end-string
 
 .. meta::
-    :title lang=en: TextHelper
-    :description lang=en: The Text Helper contains methods to make text more usable and friendly in your views.
-    :keywords lang=en: text helper,autoLinkEmails,autoLinkUrls,autoLink,excerpt,highlight,stripLinks,truncate,string text
+    :title lang=zh: TextHelper
+    :description lang=zh: The Text Helper contains methods to make text more usable and friendly in your views.
+    :keywords lang=zh: text helper,autoLinkEmails,autoLinkUrls,autoLink,excerpt,highlight,stripLinks,truncate,string text

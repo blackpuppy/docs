@@ -163,5 +163,5 @@ distribute database changes.
     [n] >
 
 .. meta::
-    :title lang=en: Schema management and migrations
-    :keywords lang=en: schema files,schema management,schema objects,database schema,table statements,database changes,migrations,versioning,snapshots,sql,snapshot,shell,config,functionality,choices,models,php files,php file,directory,running
+    :title lang=zh: Schema management and migrations
+    :keywords lang=zh: schema files,schema management,schema objects,database schema,table statements,database changes,migrations,versioning,snapshots,sql,snapshot,shell,config,functionality,choices,models,php files,php file,directory,running

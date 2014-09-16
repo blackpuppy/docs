@@ -67,5 +67,5 @@ that it is associated to many iCal events.
 
 
 .. meta::
-    :title lang=en: CakePHP Structure
-    :keywords lang=en: user management system,controller actions,application extensions,default behavior,maps,logic,snap,definitions,aids,models,route map,blog,plugins,fit
+    :title lang=zh: CakePHP Structure
+    :keywords lang=zh: user management system,controller actions,application extensions,default behavior,maps,logic,snap,definitions,aids,models,route map,blog,plugins,fit

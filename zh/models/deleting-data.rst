@@ -53,5 +53,5 @@ Example::
     如果删除条件执行正确但没有找到匹配的记录，造成没有任何记录被删除，deleteAll() 也将返回true。
 
 .. meta::
-    :title lang=en: Deleting Data
-    :keywords lang=en: doc models,custom logic,callback methods,model class,database model,callbacks,information model,request data,deleteall,fragment,leverage,array,cakephp,failure,recipes,benefit,delete,data model
+    :title lang=zh: Deleting Data
+    :keywords lang=zh: doc models,custom logic,callback methods,model class,database model,callbacks,information model,request data,deleteall,fragment,leverage,array,cakephp,failure,recipes,benefit,delete,data model

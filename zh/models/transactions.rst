@@ -46,5 +46,5 @@
 实际的嵌套事务默认设为false。使用``$dataSource->useNestedTransactions = true;``来开启它。
 
 .. meta::
-    :title lang=en: Transactions
-    :keywords lang=en: transaction methods,datasource,rollback,data source,begin,commit,nested transaction
+    :title lang=zh: Transactions
+    :keywords lang=zh: transaction methods,datasource,rollback,data source,begin,commit,nested transaction

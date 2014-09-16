@@ -196,5 +196,5 @@ recommended that you use the methods PHPUnit offers.
 
 
 .. meta::
-    :title lang=en: PHPUnit Migration Hints
-    :keywords lang=en: free transition,vendor directory,static methods,teardown,test cases,pear,dependencies,test case,replacements,phpunit,migration,simpletest,cakephp,discover channel
+    :title lang=zh: PHPUnit Migration Hints
+    :keywords lang=zh: free transition,vendor directory,static methods,teardown,test cases,pear,dependencies,test case,replacements,phpunit,migration,simpletest,cakephp,discover channel

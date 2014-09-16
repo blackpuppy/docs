@@ -448,5 +448,5 @@ App Init/Load/Shutdown Methods
     ``$_map``.
 
 .. meta::
-    :title lang=en: App Class
-    :keywords lang=en: compatible implementation,model behaviors,path management,loading files,php class,class loading,model behavior,class location,component model,management class,autoloader,classname,directory location,override,conventions,lib,textile,cakephp,php classes,loaded
+    :title lang=zh: App Class
+    :keywords lang=zh: compatible implementation,model behaviors,path management,loading files,php class,class loading,model behavior,class location,component model,management class,autoloader,classname,directory location,override,conventions,lib,textile,cakephp,php classes,loaded

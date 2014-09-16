@@ -20,5 +20,5 @@
 
 
 .. meta::
-    :title lang=en: Development
-    :keywords lang=en: development sessions,debugging,exceptions
+    :title lang=zh: Development
+    :keywords lang=zh: development sessions,debugging,exceptions

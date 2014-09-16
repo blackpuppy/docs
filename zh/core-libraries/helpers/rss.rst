@@ -275,6 +275,6 @@ Rss Helper API
 
 
 .. meta::
-    :title lang=en: RssHelper
-    :description lang=en: The RSS helper makes generating XML for RSS feeds easy.
-    :keywords lang=en: rss helper,rss feed,isrss,rss item,channel data,document data,parse extensions,request handler
+    :title lang=zh: RssHelper
+    :description lang=zh: The RSS helper makes generating XML for RSS feeds easy.
+    :keywords lang=zh: rss helper,rss feed,isrss,rss item,channel data,document data,parse extensions,request handler

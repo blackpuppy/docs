@@ -160,5 +160,5 @@ http://localhost/cake/app/users/initdb)。使用 ``SELECT * FROM aros_acos`` 你
 
 
 .. meta::
-    :title lang=en: Simple Acl controlled Application - part 2
-    :keywords lang=en: shell interface,magic solution,aco,unzipped,config,sync,syntax,cakephp,php,running,acl
+    :title lang=zh: Simple Acl controlled Application - part 2
+    :keywords lang=zh: shell interface,magic solution,aco,unzipped,config,sync,syntax,cakephp,php,running,acl

@@ -49,5 +49,5 @@ validates 方法调用 invalidFields 方法，后者填入模型的 validationEr
 
 
 .. meta::
-    :title lang=en: Validating Data from the Controller
-    :keywords lang=en: password rules,validations,subset,array,logs,logic,email,first name last name,models,options,data model
+    :title lang=zh: Validating Data from the Controller
+    :keywords lang=zh: password rules,validations,subset,array,logs,logic,email,first name last name,models,options,data model

@@ -167,5 +167,5 @@ webserver用户是谁 (``<?php echo `whoami`; ?>``) 并将目录 ``app/tmp`` 改
 
 
 .. meta::
-    :title lang=en: Blog Tutorial
-    :keywords lang=en: model view controller,object oriented programming,application logic,directory setup,basic knowledge,database server,server configuration,reins,documentroot,readme,repository,web server,productivity,lib,sql,aim,cakephp,servers,apache,downloads
+    :title lang=zh: Blog Tutorial
+    :keywords lang=zh: model view controller,object oriented programming,application logic,directory setup,basic knowledge,database server,server configuration,reins,documentroot,readme,repository,web server,productivity,lib,sql,aim,cakephp,servers,apache,downloads

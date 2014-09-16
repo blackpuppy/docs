@@ -105,5 +105,5 @@ AclBehavior 行为也让你获取与一条模型记录相关联的 Acl 节点。
     $node = $this->User->node($user, 'Aro');
 
 .. meta::
-    :title lang=en: ACL
-    :keywords lang=en: group node,array type,root node,acl system,acl entry,parent child relationships,model reference,php class,aros,group id,aco,aro,user group,alias,fly
+    :title lang=zh: ACL
+    :keywords lang=zh: group node,array type,root node,acl system,acl entry,parent child relationships,model reference,php class,aros,group id,aco,aro,user group,alias,fly

@@ -1416,5 +1416,5 @@ SQL queries if combined with any of the former techniques described for associat
 
 
 .. meta::
-    :title lang=en: Associations: Linking Models Together
-    :keywords lang=en: relationship types,relational mapping,recipe database,relational database,this section covers,web applications,recipes,models,cakephp,storage
+    :title lang=zh: Associations: Linking Models Together
+    :keywords lang=zh: relationship types,relational mapping,recipe database,relational database,this section covers,web applications,recipes,models,cakephp,storage

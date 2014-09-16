@@ -385,5 +385,5 @@ Note that in contrast to a component included in a controller no callbacks will 
 
 
 .. meta::
-    :title lang=en: Components
-    :keywords lang=en: array controller,core libraries,authentication request,array name,access control lists,public components,controller code,core components,cookiemonster,login cookie,configuration settings,functionality,logic,sessions,cakephp,doc
+    :title lang=zh: Components
+    :keywords lang=zh: array controller,core libraries,authentication request,array name,access control lists,public components,controller code,core components,cookiemonster,login cookie,configuration settings,functionality,logic,sessions,cakephp,doc

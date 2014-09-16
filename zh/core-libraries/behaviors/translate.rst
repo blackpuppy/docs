@@ -309,5 +309,5 @@ SQL 的错误。
 
 
 .. meta::
-    :title lang=en: Translate
-    :keywords lang=en: invalid sql,correct layout,translation table,layout changes,database tables,array,queries,cakephp,models,translate,public name
+    :title lang=zh: Translate
+    :keywords lang=zh: invalid sql,correct layout,translation table,layout changes,database tables,array,queries,cakephp,models,translate,public name

@@ -96,5 +96,5 @@ CakePHP 就会自动使该模型可以访问。例如，一个叫 IngredientsCon
 
 
 .. meta::
-    :title lang=en: Models
-    :keywords lang=en: information workflow,csv file,object oriented programming,model class,model classes,model definition,internal model,core model,simple declaration,application model,php class,database table,data model,data access,external web,inheritance,different ways,validity,functionality,queries
+    :title lang=zh: Models
+    :keywords lang=zh: information workflow,csv file,object oriented programming,model class,model classes,model definition,internal model,core model,simple declaration,application model,php class,database table,data model,data access,external web,inheritance,different ways,validity,functionality,queries

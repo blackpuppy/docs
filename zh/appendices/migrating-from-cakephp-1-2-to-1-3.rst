@@ -732,5 +732,5 @@ versions, it is recommend that the new path is used.
 
 
 .. meta::
-    :title lang=en: Migrating from CakePHP 1.2 to 1.3
-    :keywords lang=en: inflections,bootstrap,unit tests,constants,cipher,php 5,replacements,pear,array,variables,models,cakephp,plugins
+    :title lang=zh: Migrating from CakePHP 1.2 to 1.3
+    :keywords lang=zh: inflections,bootstrap,unit tests,constants,cipher,php 5,replacements,pear,array,variables,models,cakephp,plugins

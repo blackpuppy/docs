@@ -390,6 +390,6 @@ Testing Time
 .. end-caketime
 
 .. meta::
-    :title lang=en: CakeTime
-    :description lang=en: CakeTime class helps you format time and test time.
-    :keywords lang=en: time,format time,timezone,unix epoch,time strings,time zone offset,utc,gmt
+    :title lang=zh: CakeTime
+    :description lang=zh: CakeTime class helps you format time and test time.
+    :keywords lang=zh: time,format time,timezone,unix epoch,time strings,time zone offset,utc,gmt

@@ -330,5 +330,5 @@
 
 
 .. meta::
-    :title lang=en: Simple Authentication and Authorization Application
-    :keywords lang=en: auto increment,authorization application,model user,array,conventions,authentication,urls,cakephp,delete,doc,columns
+    :title lang=zh: Simple Authentication and Authorization Application
+    :keywords lang=zh: auto increment,authorization application,model user,array,conventions,authentication,urls,cakephp,delete,doc,columns

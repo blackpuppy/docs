@@ -34,5 +34,5 @@ Figure: 2. 典型的Cake请求。
 
 
 .. meta::
-    :title lang=en: A Typical CakePHP Request
-    :keywords lang=en: optional element,model usage,controller class,custom cake,business logic,request example,request url,flow diagram,basic ingredients,datasources,sending emails,callback,cakes,manipulation,authentication,router,web server,parameters,cakephp,models
+    :title lang=zh: A Typical CakePHP Request
+    :keywords lang=zh: optional element,model usage,controller class,custom cake,business logic,request example,request url,flow diagram,basic ingredients,datasources,sending emails,callback,cakes,manipulation,authentication,router,web server,parameters,cakephp,models

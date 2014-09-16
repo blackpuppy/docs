@@ -15,5 +15,5 @@ CakePHP 概述
 
 
 .. meta::
-    :title lang=en: CakePHP Overview
-    :keywords lang=en: web application framework,model view controller,object oriented programming,piece of cake,cookbook,functionality,xml,cakephp
+    :title lang=zh: CakePHP Overview
+    :keywords lang=zh: web application framework,model view controller,object oriented programming,piece of cake,cookbook,functionality,xml,cakephp

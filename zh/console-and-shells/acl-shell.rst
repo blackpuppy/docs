@@ -68,5 +68,5 @@ view 命令会返回 ARO 或者 ACO 树。可选的节点参数可以只返回�
     ./Console/cake acl view
 
 .. meta::
-    :title lang=en: ACL Shell
-    :keywords lang=en: record style,style reference,acl,database tables,group id,notations,alias,privilege,node,privileges,shell,databases
+    :title lang=zh: ACL Shell
+    :keywords lang=zh: record style,style reference,acl,database tables,group id,notations,alias,privilege,node,privileges,shell,databases

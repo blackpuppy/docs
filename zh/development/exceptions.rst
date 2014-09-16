@@ -441,5 +441,5 @@ and the configured loggers.
 
 
 .. meta::
-    :title lang=en: Exceptions
-    :keywords lang=en: uncaught exceptions,stack traces,logic errors,anonymous functions,renderer,html page,error messages,flexibility,lib,array,cakephp,php
+    :title lang=zh: Exceptions
+    :keywords lang=zh: uncaught exceptions,stack traces,logic errors,anonymous functions,renderer,html page,error messages,flexibility,lib,array,cakephp,php

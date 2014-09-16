@@ -244,5 +244,5 @@ refer to the :ref:`core configuration<core-configuration-baseurl>`.
 
 
 .. meta::
-    :title lang=en: URL Rewriting
-    :keywords lang=en: url rewriting, mod_rewrite, apache, iis, plugin assets, nginx
+    :title lang=zh: URL Rewriting
+    :keywords lang=zh: url rewriting, mod_rewrite, apache, iis, plugin assets, nginx

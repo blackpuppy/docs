@@ -278,5 +278,5 @@ HelperCollection :doc:`collection </core-libraries/collections>`是一个 集合
 
 
 .. meta::
-    :title lang=en: Helpers
-    :keywords lang=en: php class,time function,presentation layer,processing power,ajax,markup,array,functionality,logic,syntax,elements,cakephp,plugins
+    :title lang=zh: Helpers
+    :keywords lang=zh: php class,time function,presentation layer,processing power,ajax,markup,array,functionality,logic,syntax,elements,cakephp,plugins

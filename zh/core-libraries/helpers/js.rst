@@ -918,6 +918,6 @@ control and more complex effects to be created.
 
 
 .. meta::
-    :title lang=en: JsHelper
-    :description lang=en: The Js Helper supports the javascript libraries Prototype, jQuery and Mootools and provides methods for manipulating javascript.
-    :keywords lang=en: js helper,javascript,cakephp jquery,cakephp mootools,cakephp prototype,cakephp jquery ui,cakephp scriptaculous,cakephp javascript,javascript engine
+    :title lang=zh: JsHelper
+    :description lang=zh: The Js Helper supports the javascript libraries Prototype, jQuery and Mootools and provides methods for manipulating javascript.
+    :keywords lang=zh: js helper,javascript,cakephp jquery,cakephp mootools,cakephp prototype,cakephp jquery ui,cakephp scriptaculous,cakephp javascript,javascript engine

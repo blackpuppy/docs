@@ -45,6 +45,6 @@ accepts a valid timezone identifier string or an instance of `DateTimeZone` clas
     :end-before: end-caketime
 
 .. meta::
-    :title lang=en: TimeHelper
-    :description lang=en: The Time Helper will help you format time and test time.
-    :keywords lang=en: time helper,format time,timezone,unix epoch,time strings,time zone offset,utc,gmt
+    :title lang=zh: TimeHelper
+    :description lang=zh: The Time Helper will help you format time and test time.
+    :keywords lang=zh: time helper,format time,timezone,unix epoch,time strings,time zone offset,utc,gmt

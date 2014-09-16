@@ -125,6 +125,6 @@ UPDATE 或 DELETE 查询，则该视图的缓存会被清除，下一次请求�
 
 
 .. meta::
-    :title lang=en: CacheHelper
-    :description lang=en: The Cache helper assists in caching entire layouts and views, saving time repetitively retrieving data.
-    :keywords lang=en: cache helper,view caching,cache action,cakephp cache,nocache,clear cache
+    :title lang=zh: CacheHelper
+    :description lang=zh: The Cache helper assists in caching entire layouts and views, saving time repetitively retrieving data.
+    :keywords lang=zh: cache helper,view caching,cache action,cakephp cache,nocache,clear cache

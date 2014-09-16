@@ -237,5 +237,5 @@ This section was moved to :doc:`URL rewriting </installation/url-rewriting>`.
 
 
 .. meta::
-    :title lang=en: Advanced Installation
-    :keywords lang=en: libraries folder,core libraries,application code,different places,filesystem,constants,webroot,restriction,apps,web server,lib,cakephp,directories,path
+    :title lang=zh: Advanced Installation
+    :keywords lang=zh: libraries folder,core libraries,application code,different places,filesystem,constants,webroot,restriction,apps,web server,lib,cakephp,directories,path

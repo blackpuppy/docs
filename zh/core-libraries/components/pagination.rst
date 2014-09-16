@@ -329,5 +329,5 @@ pagination navigation.
 
 
 .. meta::
-    :title lang=en: Pagination
-    :keywords lang=en: order array,query conditions,php class,web applications,headaches,obstacles,complexity,programmers,parameters,paginate,designers,cakephp,satisfaction,developers
+    :title lang=zh: Pagination
+    :keywords lang=zh: order array,query conditions,php class,web applications,headaches,obstacles,complexity,programmers,parameters,paginate,designers,cakephp,satisfaction,developers

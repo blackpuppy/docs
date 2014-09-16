@@ -70,5 +70,5 @@ upgrade shell可以完成升级你的CakePHP从1.3到2.0的大部分工作。
 删除了。欢迎进入2.x!
 
 .. meta::
-    :title lang=en: .. _upgrade-shell:
-    :keywords lang=en: api docs,shell
+    :title lang=zh: .. _upgrade-shell:
+    :keywords lang=zh: api docs,shell

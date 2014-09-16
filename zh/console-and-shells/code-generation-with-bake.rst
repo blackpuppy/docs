@@ -172,5 +172,5 @@ Todo插件。额外的/多个插件路径也被支持。在过去bake要求插�
 
 
 .. meta::
-    :title lang=en: Code Generation with Bake
-    :keywords lang=en: command line interface,functional application,atabase,database configuration,bash script,basic ingredients,roject,odel,path path,code generation,scaffolding,windows users,configuration file,few minutes,config,iew,shell,models,running,mysql
+    :title lang=zh: Code Generation with Bake
+    :keywords lang=zh: command line interface,functional application,atabase,database configuration,bash script,basic ingredients,roject,odel,path path,code generation,scaffolding,windows users,configuration file,few minutes,config,iew,shell,models,running,mysql

@@ -38,5 +38,5 @@
 
 
 .. meta::
-    :title lang=en: Running Shells as cronjobs
-    :keywords lang=en: cronjob,bash script,path path,crontab,logfile,cakes,shells,dow,shell,cakephp,fi,running
+    :title lang=zh: Running Shells as cronjobs
+    :keywords lang=zh: cronjob,bash script,path path,crontab,logfile,cakes,shells,dow,shell,cakephp,fi,running

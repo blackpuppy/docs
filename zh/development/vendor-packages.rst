@@ -17,5 +17,5 @@ for more information.
 
 
 .. meta::
-    :title lang=en: Vendor packages
-    :keywords lang=en: assets
+    :title lang=zh: Vendor packages
+    :keywords lang=zh: assets

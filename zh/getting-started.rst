@@ -24,5 +24,5 @@ CakePHP框架为应用程序提供了坚实的基础。它控制着所有方面�
 
 
 .. meta::
-    :title lang=en: Getting Started
-    :keywords lang=en: folder structure,table names,initial request,database table,organizational structure,rst,filenames,conventions,mvc,web page,sit
+    :title lang=zh: Getting Started
+    :keywords lang=zh: folder structure,table names,initial request,database table,organizational structure,rst,filenames,conventions,mvc,web page,sit

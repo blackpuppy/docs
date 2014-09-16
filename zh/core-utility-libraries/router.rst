@@ -18,5 +18,5 @@ the :php:class:`Router` class.
 
 
 .. meta::
-    :title lang=en: Router
-    :keywords lang=en: array controller,php class,indexes,urls,configure router,parameters
+    :title lang=zh: Router
+    :keywords lang=zh: array controller,php class,indexes,urls,configure router,parameters

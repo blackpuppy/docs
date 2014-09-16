@@ -221,5 +221,5 @@ Which will do the following internal call::
     __d('validation', 'Username should be between %d and %d characters', array(2, 10));
 
 .. meta::
-    :title lang=en: Internationalization & Localization
-    :keywords lang=en: internationalization localization,internationalization and localization,localization features,language application,gettext,l10n,daunting task,adaptation,pot,i18n,audience,translation,languages
+    :title lang=zh: Internationalization & Localization
+    :keywords lang=zh: internationalization localization,internationalization and localization,localization features,language application,gettext,l10n,daunting task,adaptation,pot,i18n,audience,translation,languages

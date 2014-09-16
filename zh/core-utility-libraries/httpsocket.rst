@@ -370,5 +370,5 @@ authentication. For example::
 
 
 .. meta::
-    :title lang=en: HttpSocket
-    :keywords lang=en: array name,array data,query parameter,query string,php class,string query,test type,string data,google,query results,webservices,apis,parameters,cakephp,meth,search results
+    :title lang=zh: HttpSocket
+    :keywords lang=zh: array name,array data,query parameter,query string,php class,string query,test type,string data,google,query results,webservices,apis,parameters,cakephp,meth,search results

@@ -863,5 +863,5 @@ elements you can use attribute matching with methods like ``extract()``.
 
 
 .. meta::
-    :title lang=en: Hash
-    :keywords lang=en: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path
+    :title lang=zh: Hash
+    :keywords lang=zh: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path

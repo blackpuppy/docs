@@ -255,5 +255,5 @@ is handled by the cache.
 
 
 .. meta::
-    :title lang=en: Model Attributes
-    :keywords lang=en: alternate table,default model,database configuration,model example,database table,default database,model class,model behavior,class model,plural form,database connections,database connection,attribute,attributes,complete list,config,cakephp,api,class example
+    :title lang=zh: Model Attributes
+    :keywords lang=zh: alternate table,default model,database configuration,model example,database table,default database,model class,model behavior,class model,plural form,database connections,database connection,attribute,attributes,complete list,config,cakephp,api,class example
