@@ -35,8 +35,8 @@ CakePHP 的许可是基于 MIT 许可协议的。这意味着在保持版权声�
 有两个主要的方式可以获得 CakePHP 的最新拷贝。你可以从官网下载压缩文档(zip/tar.gz/
 tar.bz2)，也可以从 git 库中获取代码。
 
-要下载 CakePHP 最新的主版本，访问官方网站 
-`http://cakephp.org <http://cakephp.org>`_ 并点击 "Download Now" 链接。
+要下载 CakePHP 最新的主版本，请访问官方网站 
+`http://cakephp.org <http://cakephp.org>`_ 并点击 "Download" 链接。
 
 所有 CakePHP 的当前发行版本都托管在 `GitHub <http://github.com/cakephp/cakephp>`_ 
 上。GitHub 同时托管了 CakePHP 自身和许多 CakePHP 的其它插件。CakePHP 的所有发行版
@@ -102,7 +102,7 @@ cake\_2\_0。开发安装方式的目录结构将如下所示::
 CakePHP 应用程序。
 
 多个应用程序使用同一份 CakePHP 拷贝
-----------------------------------------------------
+-----------------------------------
 
 如果你正在开发多个应用程序，通常更合理的做法是让这些应用程序共享一份 CakePHP 核心。
 达到这个目的有几个办法。通常最容易的做法是使用 PHP 的 ``include_path`` 。首先，克
@@ -112,9 +112,10 @@ CakePHP 应用程序。
 
 这会克隆 CakePHP 到 ``/home/mark/projects`` 目录下。如果不想使用 git，你可以下载
 一个 zip 包，以下的步骤是相同的。接下来，你必须找到并修改 ``php.ini`` 文件。在 
-\*nix 系统中，这通常位于 ``/etc/php.ini`` ，不过，可以使用 ``php -i`` 并找到 
-'Loaded Configuration File'。一旦找到正确的 ini 文件，修改 ``include_path`` 设置
-使其包含 ``/home/mark/projects/cakephp/lib`` 。例如：
+\*nix 系统中，这通常位于 ``/etc/php.ini`` ，不过，使用 ``php -i`` 并寻找 
+'Loaded Configuration File'，你就可以找到(该文件)实际的位置。一旦找到正确的 ini 
+文件，修改 ``include_path`` 设置使其包含 ``/home/mark/projects/cakephp/lib`` 。例
+如：
 
     include_path = .:/home/mark/projects/cakephp/lib:/usr/local/php/lib/php
 
@@ -168,7 +169,7 @@ http://www.example.com 访问。注意这种安装方式可能需要你有能够
 ==========
 
 好了，让我们将 CakePHP 运行起来。取决于所采用的设置，你应当将浏览器指向 
-http://example.com/ 或者 http://example.com/cake\_install/。此时，你将会看到 
+http://example.com/ 或者 http://example.com/cake\_2\_0/。此时，你将会看到 
 CakePHP 的默认主页，和当前数据库连接状态的消息。
 
 恭喜！你已经可以 :doc:`创建你的第一个 CakePHP 应用程序 </getting-started>` 了。
