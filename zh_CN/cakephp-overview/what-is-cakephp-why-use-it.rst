@@ -1,51 +1,51 @@
-什么是 CakePHP? 为什么使用它?
+CakePHP 是什么? 为什么使用它?
 #############################
 
 `CakePHP <http://www.cakephp.org/>`_ 是一个
-`免费 <http://en.wikipedia.org/wiki/MIT_License>`_,
-`开源 <http://en.wikipedia.org/wiki/Open_source>`_,
-`快速开发 <http://en.wikipedia.org/wiki/Rapid_application_development>`_
-`框架 <http://en.wikipedia.org/wiki/Application_framework>`_
-用于 `PHP <http://www.php.net/>`_.  是程序员创建Web应用程序的一个基础结构。
-我们的首要目标是使您能够进行结构化的和快速的开发而无损灵活性。
+`免费 <http://en.wikipedia.org/wiki/MIT_License>`_ 、
+`开源 <http://en.wikipedia.org/wiki/Open_source>`_ 、
+`快速开发 <http://en.wikipedia.org/wiki/Rapid_application_development>`_ 的
+`PHP <http://www.php.net/>`_ 
+`框架 <http://en.wikipedia.org/wiki/Application_framework>`_ 。是程序员创建 
+web 应用程序的一个基础结构。我们的首要目标是使您能够进行结构化的和快速的开发，而
+又不丧失灵活性。
 
-CakePHP让Web开发不再单调。我们为您提供所有的工具，你需要开始编码你真正需要去做的：
-特定于应用程序的逻辑。每次你坐下来开发一个新的项目，而不是重新发明轮子，检出
-CakePHP的副本，并开始使用它来开发您的应用程序的真正核心。
+CakePHP 让 web 开发不再单调。它提供您开始编码需要的所有工具，直到您完工所需要的：
+特定于应用程序的业务逻辑。您不必每次开始一个新项目都要重新发明轮子，而是获取
+CakePHP 的拷贝，并开始使用它来开发您的应用程序的业务逻辑。
 
-CakePHP有个开发团队 `developer team <https://github.com/cakephp?tab=members>`_
-和社区。
+CakePHP 有积极的 `开发团队 <https://github.com/cakephp?tab=members>`_ 和社区，为
+该项目带来巨大的价值。使用 CakePHP，除了让你避免重新发明轮子，也意味着你的应用程
+序的核心是经过充分测试、并且不断改进的。
 
-CakePHP 提供的功能:
+下面列出你使用 CakePHP 时所获得的好处:
 
 
--  充满活力友好的社区 `community <http://cakephp.org/feeds>`_
--  灵活的许可证 `licensing <http://en.wikipedia.org/wiki/MIT_License>`_
--  与 PHP 5.2.8 及更高的版本兼容.
+-  活跃友好的 :ref:`cakephp-official-communities`
+-  灵活的 `许可证 <http://en.wikipedia.org/wiki/MIT_License>`_
+-  与 PHP 5.2.8 及更高版本兼容
 -  整合了
-   `CRUD <http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>`_
-   方便与数据库互动
--  应用的快速搭建
-   `scaffolding <http://en.wikipedia.org/wiki/Scaffold_(programming)>`_.
--  代码生成。
--  `MVC <http://en.wikipedia.org/wiki/Model-view-controller>`_
-   架构.
--  使用干净的自定义URLs和路由调度请求。
--  内建的验证
-   `validation <http://en.wikipedia.org/wiki/Data_validation>`_.
--  快速和灵活的模板
-   `templating <http://en.wikipedia.org/wiki/Web_template_system>`_
-   (PHP syntax, with helpers).
--  视图助手(AJAX, JavaScript, HTML Forms等)。
--  Email, Cookie, Security, Session, and Request Handling
-   Components.
--  可扩展的
-   `ACL <http://en.wikipedia.org/wiki/Access_control_list>`_.
--  数据清除.
--  可扩展的 `Caching <http://en.wikipedia.org/wiki/Web_cache>`_.
--  本地化.
--  在网站的目录中运行，几乎不需要改动
-   `Apache <http://httpd.apache.org/>`_ 配置。
+   `CRUD <http://en.wikipedia.org/wiki/Create,_read,_update_and_delete>`_ ，
+   便于数据库操作
+-  应用程序的
+   `脚手架 <http://en.wikipedia.org/wiki/Scaffold_(programming)>`_
+-  代码生成
+-  `MVC <http://en.wikipedia.org/wiki/Model-view-controller>`_ 架构
+-  请求调度使用整洁、自定义的网址和路由
+-  内建的
+   `验证 <http://en.wikipedia.org/wiki/Data_validation>`_
+-  快速灵活的
+   `模板 <http://en.wikipedia.org/wiki/Web_template_system>`_
+   (PHP 语法，以及助件)
+-  用于AJAX, JavaScript, HTML 表单等的视图助件
+-  用于邮件、Cookie、安全、回话(*Session*)和请求处理的组件
+-  灵活的
+   `ACL <http://en.wikipedia.org/wiki/Access_control_list>`_
+-  数据检查
+-  灵活的 `缓存 <http://en.wikipedia.org/wiki/Web_cache>`_
+-  本地化
+-  可在任何网站目录中运行，几乎不需要改动
+   `Apache <http://httpd.apache.org/>`_ 配置
 
 
 .. meta::
