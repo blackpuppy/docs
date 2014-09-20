@@ -1,6 +1,0 @@
-[submodule "_wiki"]
-	path = _wiki
-	url = git@github.com:blackpuppy/docs.wiki.git
-[submodule "_project"]
-	path = _project
-	url = git@github.com:blackpuppy/cake-doc-project.git
