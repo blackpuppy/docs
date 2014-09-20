@@ -1,28 +1,21 @@
-URL重写
+URL 重写
 #############
 
-Apache and mod\_rewrite (and .htaccess)
+Apache 和 mod\_rewrite (以及 .htaccess)
 =======================================
 
-While CakePHP is built to work with mod\_rewrite out of the box–and
-usually does–we've noticed that a few users struggle with getting
-everything to play nicely on their systems.
+虽然 CakePHP 编写的就是要自动和 mod\_rewrite 一起使用——而且通常可以——但是我们的确注意到一些用户在他们的系统中很难使所有东西在一起顺利地运行。
 
-Here are a few things you might try to get it running correctly.
-First look at your httpd.conf (Make sure you are editing the system
-httpd.conf rather than a user- or site-specific httpd.conf).
+这里有一些你可以尝试的办法，来让它正确地运行。首先，查看 httpd.conf。(确保你是在修改系统级的 httpd.conf，而不是用户级或者站点级的 httpd.conf。)
+
+这些文件随(Linux)发行版本的不同和 Apache 版本的不同而有所变化。你也可以查看 http://wiki.apache.org/httpd/DistrosDefaultLayout 以获取更多的信息。
 
 
-#. Make sure that an .htaccess override is allowed and that
-   AllowOverride is set to All for the correct DocumentRoot. You
-   should see something similar to::
+#. 确保允许 .htaccess 优先(*override*)，并且正确的 DocumentRoot 的 AllowOverride 设置为 All。你应当看到类似于::
 
-       # Each directory to which Apache has access can be configured with respect
-       # to which services and features are allowed and/or disabled in that
-       # directory (and its subdirectories).
+       # Apache 可以访问的每个目录可以设置该目录(及其子目录)允许及/或不允许何种服务和特性。
        #
-       # First, we configure the "default" to be a very restrictive set of
-       # features.
+       # 首先，我们配置 "default" 为很有限的一组特性。
        #
        <Directory />
            Options FollowSymLinks
@@ -31,31 +24,19 @@ httpd.conf rather than a user- or site-specific httpd.conf).
        #    Deny from all
        </Directory>
 
-#. Make sure you are loading up mod\_rewrite correctly. You should
-   see something like::
+#. 确保正确加载了 mod\_rewrite。你应当看到类似于::
 
        LoadModule rewrite_module libexec/apache2/mod_rewrite.so
 
-   In many systems these will be commented out (by being prepended
-   with a #) by default, so you may just need to remove those leading
-   # symbols.
+   在很多系统中缺省情况下这是被注释掉的，这样你就只需去掉开头的#符号。
 
-   After you make changes, restart Apache to make sure the settings
-   are active.
+   做完修改后，重启 Apache，确保设置起作用。
 
-   Verify that you your .htaccess files are actually in the right
-   directories.
+   核实你的 .htaccess 文件的确在正确的目录中。某些操作系统认为以'.'开头的文件是隐藏的，因此不会拷贝这些文件。
 
-   This can happen during copying because some operating systems treat
-   files that start with '.' as hidden and therefore won't see them to
-   copy.
+#. 确保你的 CakePHP 拷贝来自官网的下载部分或者我们的 Git 库，并且查看各个 .htaccess 文件以确保解压正确。
 
-#. Make sure your copy of CakePHP is from the downloads section of
-   the site or our GIT repository, and has been unpacked correctly by
-   checking for .htaccess files.
-
-   Cake root directory (needs to be copied to your document, this
-   redirects everything to your Cake app)::
+   CakePHP 根目录(需要拷贝到你的文档目录; 会把所有的输入转向到你的 CakePHP 应用程序)::
 
        <IfModule mod_rewrite.c>
           RewriteEngine on
@@ -63,8 +44,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
           RewriteRule    (.*) app/webroot/$1 [L]
        </IfModule>
 
-   Cake app directory (will be copied to the top directory of your
-   application by bake)::
+   CakePHP app 目录(bake 会把它拷贝到你的应用程序的最高一级目录)::
 
        <IfModule mod_rewrite.c>
           RewriteEngine on
@@ -72,8 +52,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
           RewriteRule    (.*) webroot/$1    [L]
        </IfModule>
 
-   Cake webroot directory (will be copied to your application's web
-   root by bake)::
+   CakePHP 的 webroot 目录(bake 会把它拷贝到你的应用程序的 webroot 目录)::
 
        <IfModule mod_rewrite.c>
            RewriteEngine On
@@ -82,11 +61,7 @@ httpd.conf rather than a user- or site-specific httpd.conf).
            RewriteRule ^(.*)$ index.php [QSA,L]
        </IfModule>
 
-   If your CakePHP site still has problems with mod\_rewrite you might
-   want to try and modify settings for virtualhosts. If on ubuntu,
-   edit the file /etc/apache2/sites-available/default (location is
-   distribution dependent). In this file, ensure that
-   ``AllowOverride None`` is changed to ``AllowOverride All``, so you have::
+   如果你的 CakePHP 网站仍然有 mod\_rewrite 的问题，你也许可以尝试修改虚拟主机(*Virtual Host*)的设置。在 Ubuntu 系统中，编辑文件 /etc/apache2/sites-available/default (其位置取决于发行版本)。在该文件中，确保  ``AllowOverride None`` 改为 ``AllowOverride All`` ，所以就是::
 
        <Directory />
            Options FollowSymLinks
@@ -99,20 +74,12 @@ httpd.conf rather than a user- or site-specific httpd.conf).
            Allow from all
        </Directory>
 
-   If on Mac OSX, another solution is to use the tool virtualhostx to
-   make a virtual host to point to your folder.
+   在 Mac OSX 中，另一个方法是使用 `virtualhostx <http://clickontyler.com/virtualhostx/>`_ 工具来创建一个虚拟主机(*Virtual Host*)，指向你的目录。
 
-   For many hosting services (GoDaddy, 1and1), your web server is
-   actually being served from a user directory that already uses
-   mod\_rewrite. If you are installing CakePHP into a user directory
-   (http://example.com/~username/cakephp/), or any other URL structure
-   that already utilizes mod\_rewrite, you'll need to add RewriteBase
-   statements to the .htaccess files CakePHP uses (/.htaccess,
-   /app/.htaccess, /app/webroot/.htaccess).
+   对于很多托管服务(GoDaddy, 1and1)，你的 web 服务器实际上是从一个已经使用 mod\_rewrite 的用户目录提供的。如果你把 CakePHP 安装到一个用户目录(http://example.com/~username/cakephp/)，或者任何已经使用 mod\_rewrite 的网址结构，你需要在 CakePHP 使用的 .htaccess 文件(/.htaccess,
+   /app/.htaccess, /app/webroot/.htaccess)中添加 RewriteBase 语句。
 
-   This can be added to the same section with the RewriteEngine
-   directive, so for example your webroot .htaccess file would look
-   like::
+   这可以加在 RewriteEngine 指令所在的同一个小节中，例如，你的 webroot 的 .htaccess 文件可以象这样::
 
        <IfModule mod_rewrite.c>
            RewriteEngine On
@@ -122,19 +89,29 @@ httpd.conf rather than a user- or site-specific httpd.conf).
            RewriteRule ^(.*)$ index.php [QSA,L]
        </IfModule>
 
-   The details of those changes will depend on your setup, and can
-   include additional things that are not Cake related. Please refer
-   to Apache's online documentation for more information.
+   这些改动的细节取决于你的设置，而且可能包含与 CakePHP 无关的其它东西。更多信息请参考 Apache 的在线文档。
 
-Pretty URLs on nginx
+#. (可选) 要改善生产环境的设置，你应当让 CakePHP 避免解析非法的资源。可以把 webroot 的 .htaccess 文件修改成象下面这样::
+
+       <IfModule mod_rewrite.c>
+           RewriteEngine On
+           RewriteBase /path/to/cake/app
+           RewriteCond %{REQUEST_FILENAME} !-d
+           RewriteCond %{REQUEST_FILENAME} !-f
+           RewriteCond %{REQUEST_URI} !^/(app/webroot/)?(img|css|js)/(.*)$
+           RewriteRule ^(.*)$ index.php [QSA,L]
+       </IfModule>
+
+   上面的设置就会简单地避免错误的资源被送往 index.php，而显示你的 web 服务器的404页面。
+
+   另外，你可以创建一个匹配的 HTML 404 页面，或者添加 ``ErrorDocument`` 指令来使用 CakePHP 内置的 404 页面::
+
+       ErrorDocument 404 /404-not-found
+
+nginx 的友好网址
 ====================
 
-nginx is a popular server that uses less system
-resources than Apache. Its drawback is that it does not make use of .htaccess
-files like Apache, so it is necessary to create those
-rewritten URLs in the site-available configuration. Depending upon
-your setup, you will have to modify this, but at the very least,
-you will need PHP running as a FastCGI instance.
+nginx 不像 Apache 那样使用 .htaccess 文件，所以必须在站点的配置中创建这些重写网址。根据你的设置，你要修改这个(配置)，不过至少你要让 PHP 作为 FastCGI 实例来运行。
 
 ::
 
@@ -156,7 +133,7 @@ you will need PHP running as a FastCGI instance.
         error_log /var/www/example.com/log/error.log;
 
         location / {
-            try_files $uri $uri/ /index.php?$uri&$args;
+            try_files $uri $uri/ /index.php?$args;
         }
 
         location ~ \.php$ {
@@ -168,20 +145,15 @@ you will need PHP running as a FastCGI instance.
         }
     }
 
-URL Rewrites on IIS7 (Windows hosts)
+IIS7 的 URL 重写 (Windows 主机)
 ====================================
 
-IIS7 does not natively support .htaccess files. While there are
-add-ons that can add this support, you can also import htaccess
-rules into IIS to use CakePHP's native rewrites. To do this, follow
-these steps:
+IIS7 本身不支持 .htaccess 文件。虽然有插件(*add-on*)可增加这种支持，但是也可以把 htaccess 规则导入 IIS，来使用 CakePHP 的原生重写。为此，按照如下步骤进行:
 
 
-#. Use `Microsoft's Web Platform Installer <http://www.microsoft.com/web/downloads/platform.aspx>`_ to install the URL
-   `Rewrite Module 2.0 <http://www.iis.net/downloads/microsoft/url-rewrite>`_ or download it directly (`32-bit <http://www.microsoft.com/en-us/download/details.aspx?id=5747>`_ / `64-bit <http://www.microsoft.com/en-us/download/details.aspx?id=7435>`_).
-#. Create a new file in your CakePHP root folder, called web.config.
-#. Using Notepad or any XML-safe editor and copy the following
-   code into your new web.config file...
+#. 使用 `Microsoft 的 Web Platform Installer <http://www.microsoft.com/web/downloads/platform.aspx>`_ 来安装 URL `重写模块 2.0 <http://www.iis.net/downloads/microsoft/url-rewrite>`_ 或者直接下载(`32位 <http://www.microsoft.com/en-us/download/details.aspx?id=5747>`_ / `64位 <http://www.microsoft.com/en-us/download/details.aspx?id=7435>`_)。
+#. 在 CakePHP 根目录创建一个文件 web.config。
+#. 使用记事本(*Notepad*)或任何对 XML 安全的编辑器，拷贝下面的代码到新建的 web.config 文件中……
 
 ::
 
@@ -190,56 +162,63 @@ these steps:
         <system.webServer>
             <rewrite>
                 <rules>
-                    <clear/>
-                    <rule name="Imported Rule 0" stopProcessing="true">
-                        <match url="^(img|css|files|js|favicon.ico)(.*)$"></match>
-                        <action type="Rewrite" url="app/webroot/{R:1}{R:2}" appendQueryString="false"></action>
+                    <rule name="Rewrite requests to test.php"
+                      stopProcessing="true">
+                        <match url="^test.php(.*)$" ignoreCase="false" />
+                        <action type="Rewrite" url="app/webroot/test.php{R:1}" />
                     </rule>
-                    <rule name="Imported Rule 1" stopProcessing="true">
+                    <rule name="Exclude direct access to app/webroot/*"
+                      stopProcessing="true">
+                        <match url="^app/webroot/(.*)$" ignoreCase="false" />
+                        <action type="None" />
+                    </rule>
+                    <rule name="Rewrite routed access to assets(img, css, files, js, favicon)"
+                      stopProcessing="true">
+                        <match url="^(img|css|files|js|favicon.ico)(.*)$" />
+                        <action type="Rewrite" url="app/webroot/{R:1}{R:2}"
+                          appendQueryString="false" />
+                    </rule>
+                    <rule name="Rewrite requested file/folder to index.php"
+                      stopProcessing="true">
                         <match url="^(.*)$" ignoreCase="false" />
-                        <conditions logicalGrouping="MatchAll">
-                            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                        </conditions>
-                        <action type="Rewrite" url="index.php?url={R:1}" appendQueryString="true" />
-                    </rule>
-                    <rule name="Imported Rule 2" stopProcessing="true">
-                        <match url="^$" ignoreCase="false" />
-                        <action type="Rewrite" url="app/webroot/" />
-                    </rule>
-                    <rule name="Imported Rule 3" stopProcessing="true">
-                        <match url="(.*)" ignoreCase="false" />
-                        <action type="Rewrite" url="app/webroot/{R:1}" />
-                    </rule>
-                    <rule name="Imported Rule 4" stopProcessing="true">
-                        <match url="^(.*)$" ignoreCase="false" />
-                        <conditions logicalGrouping="MatchAll">
-                            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                        </conditions>
-                        <action type="Rewrite" url="index.php?url={R:1}" appendQueryString="true" />
+                        <action type="Rewrite" url="index.php"
+                          appendQueryString="true" />
                     </rule>
                 </rules>
             </rewrite>
         </system.webServer>
     </configuration>
 
-It is also possible to use the Import functionality in IIS's URL
-Rewrite module to import rules directly from CakePHP's .htaccess
-files in root, /app/, and /app/webroot/ - although some editing
-within IIS may be necessary to get these to work. When Importing
-the rules this way, IIS will automatically create your web.config
-file for you (in the currently selected folder within IIS).
+一旦创建了含有正确的 IIS 方式的重写规则的 web.config 文件，CakePHP 的链接、CSS、JavaScript和路由就应该可以正常工作了。
 
-Once the web.config file is created with the correct IIS-friendly
-rewrite rules, CakePHP's links, css, js, and rerouting should work
-correctly.
+lighttpd 的 URL 重写
+=========================
 
-I don't / can't use URL rewriting
+Lighttpd 不支持 .htaccess 功能，故而可以删除所有 .htaccess 文件。在 lighttpd 的配置中，确保启用了 "mod_rewrite"。增加一行:
+
+::
+
+    url.rewrite-if-not-file =(
+        "^([^\?]*)(\?(.+))?$" => "/index.php?url=$1&$3"
+    )
+
+Hiawatha 的 URL 重写
+==============================
+
+在 Hiawatha 中使用 CakePHP 所要求的 UrlToolkit 规则是:
+
+::
+
+    UrlToolkit {
+       ToolkitID = cakephp
+       RequestURI exists Return
+       Match .* Rewrite /index.php
+    }
+
+我不/无法使用 URL 重写
 =================================
 
-If you don't want to or can't use URL rewriting on your webserver,
-refer to the :ref:`core configuration<core-configuration-baseurl>`.
+如果在你的 web 服务器上不想或者不能使用 URL 重写，请参考 :ref:`核心配置<core-configuration-baseurl>`。
 
 
 
