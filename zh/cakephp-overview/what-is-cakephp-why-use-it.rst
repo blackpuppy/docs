@@ -1,5 +1,5 @@
-CakePHP 是什么? 为什么使用它?
-#############################
+什么是 CakePHP？为什么使用它？
+##############################
 
 `CakePHP <http://www.cakephp.org/>`_ 是一个
 `免费 <http://en.wikipedia.org/wiki/MIT_License>`_ 、
