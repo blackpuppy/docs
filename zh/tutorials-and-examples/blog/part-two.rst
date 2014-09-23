@@ -1,8 +1,8 @@
-Blog 教程 - 添加一个层
-##############################
+博客教程——添加一个层
+####################
 
-创建一个 Post 模型
-===================
+创建文章(*Posts*)模型
+=====================
 
 模型类是 CakePHP 应用程序的基础。通过创建一个能够和数据库交互的 CakePHP 模型，我
 们可以有足够的基础，便于以后进行查看、添加、编辑和删除的操作。
@@ -27,7 +27,7 @@ CakePHP 的模型类文件应该在 ``/app/Model`` 目录中，我们要创建�
 关于模型的更多信息，比如表的前缀、回调和验证，请查看手册中的 :doc:`/models` 一章。
 
 
-创建一个文章(*Posts*)控制器
+创建文章(*Posts*)控制器
 ===========================
 
 接下来，为我们的文章(*post*)创建一个控制器。这个控制器是所有文章的商业逻辑起作用
@@ -57,14 +57,14 @@ www.example.com/posts/index 来访问该方法中的商业逻辑。同样的，�
 
 .. warning::
 
-    你也许会忍不住以某种方式来命名控制器和动作去得到一个特定的网址。请抵制这种诱
-    惑。请遵循 CakePHP 的规范(首字母大写，复数名词，等等)，创建易读和易于理解的动
-    作名称。你可以使用"路由(*routes*)"将网址与你的代码映射起来，这个后面会讲到。
+    你也许会忍不住以某种方式来命名控制器和动作去得到一个特定的网址。请抵制住这种
+    诱惑。请遵循 CakePHP 的规范(首字母大写，复数名词，等等)，创建易读和易于理解的
+    动作名称。你可以使用"路由(*routes*)"将网址与你的代码映射起来，这个后面会讲到。
 
-在该动作中唯一的语句使用 ``set()`` 从控制器中把数据传递到视图(*view*)中(我们会在
-下一步创建视图)。该行代码设置名为'posts'的视图变量为 Post 模型的 ``find('all')`` 
-方法的返回值。我们的 Post 模型自动可以通过 ``$this->Post`` 来访问，是因为我们遵循
-了 CakePHP 的命名规范。
+在该动作中唯一的语句使用 ``set()`` 方法从控制器中把数据传递到视图(*view*)中(我们
+会在下一步创建视图)。该行代码设置名为'posts'的视图变量为 Post 模型的 
+``find('all')`` 方法的返回值。我们的 Post 模型自动可以通过 ``$this->Post`` 来访问，
+是因为我们遵循了 CakePHP 的命名规范。
 
 想了解更多的关于 CakePHP 控制器的信息，请查看 :doc:`/controllers` 一章。
 
@@ -159,9 +159,9 @@ CakePHP 的视图保存在 ``/app/View`` 目录中，在一个与相应的控制
 :doc:`/views/helpers` 一章了解到如何使用它们，但在这里值得注意的是，``link()`` 方
 法会产生一个带有标题(第一个参数)和网址(第二个参数)的 HTML 链接。
 
-当在 CakePHP 中指定网址时，推荐使用数组格式。在路由(*Routes*)一节中我们会详细解释
-这些。使用数组格式来表示网址让你可以利用 CakePHP 的反向路由功能。你也可以定义相对
-于应用程序根目录的路径，像 /controller/action/param1/param2 这样。
+在 CakePHP 中指定网址时，推荐使用数组格式。在路由(*Routes*)一节中我们会详细解释这
+些。使用数组格式来表示网址让你可以利用 CakePHP 的反向路由功能。你也可以定义相对于
+应用程序根目录的路径，像 /controller/action/param1/param2 这样。
 
 现在，你可以在浏览器中输入地址 http://www.example.com/posts/index。你应该可以看到
 你的视图正确地显示，带有标题，以及表格中的文章列表。
@@ -215,8 +215,8 @@ ErrorHandler 来处理。我们也作了同样的检查来确保用户访问的�
 
     <p><?php echo h($post['Post']['body']); ?></p>
 
-为了验证这是正确的，请打开浏览器访问 ``/posts/index`` 中的链接，或者手工输入查看
-一篇文章的请求 ``/posts/view/1``。
+为了验证这是正确的，请打开浏览器访问 ``/posts/index`` 页面中的链接，或者手工输入
+查看一篇文章的请求 ``/posts/view/1``。
 
 添加文章(*Posts*)
 =================
@@ -260,14 +260,14 @@ ErrorHandler 来处理。我们也作了同样的检查来确保用户访问的�
 .. note::
 
     ``$this->request->is()`` 方法接受一个参数，可以是请求方法(``get`` 、 
-    ``put`` 、 ``post`` 、 ``delete``)或者请求标识(``ajax``)。这**不**是检查特定提
-    交数据(*posted data*)的方法。比如，如果提交了书(*book*)的数据，
+    ``put`` 、 ``post`` 、 ``delete``)或者请求标识(``ajax``)。这 **不** 是检查特定
+    提交数据(*posted data*)的方法。比如，如果提交了书(*book*)的数据，
     ``$this->request->is('book')`` 不会返回 true。
 
 .. note::
 
-    在你会用到 SessionComponent 以及 SessionHelper 的控制器中，你要引入它们。如果
-    必要的话，在你的 AppController 中引入。
+    在会用到 SessionComponent 以及 SessionHelper 的控制器中，你要引入它们。如果必
+    要的话，在你的 AppController 中引入。
 
 这是 ``add()`` 动作所做的：如果这个请求的 HTTP 方法是 POST，将试图使用 Post (文
 章)模型保存数据。如果因为某些原因没有保存，就渲染视图。这让我们能够给用户显示验证
@@ -294,7 +294,7 @@ ErrorHandler 来处理。我们也作了同样的检查来确保用户访问的�
 的小节里讨论如何处理这些错误。
 
 我们首先调用 ``create()`` 方法，来重置模型的状态，以保存新的数据。这不会真的在数
-据库中创建一条记录，而是清除 Model::$id 并根据数据库字段的缺省值来设置 
+据库中创建一条记录，而是清空 Model::$id 并根据数据库字段的缺省值来设置 
 Model::$data。
 
 数据验证
@@ -336,8 +336,8 @@ CakePHP 关联到哪个字段，第二个参数让你定义一系列选项——
 的行数。在这里有一点自省和自动魔法(*introspection and automagic*)： ``input()`` 方法将会根据指定的模型字段输出不同的表单元素。
 
 对 ``$this->Form->end()`` 方法的调用生成一个提交按钮并结束表单。如果 ``end()`` 方
-法的第一个参数传入一个字符串，FormHelper 输出的提交按钮将以该字符串为提交按钮上的
-文字，并输出表单的结束标签。再次，关于助件(*helper*)的更多信息请参阅 
+法的第一个参数传入一个字符串，那么 FormHelper 输出的提交按钮将以该字符串为提交按钮
+上的文字，并输出表单的结束标签。再次，关于助件(*helper*)的更多信息请参阅 
 :doc:`/views/helpers`。
 
 现在让我们回去并更新我们的 ``/app/View/Posts/index.ctp`` 视图，添加 "Add Post" 链
@@ -500,9 +500,9 @@ edit 视图会是这样:
 
 这个逻辑删除 `$id` 指定的文章(*post*)，然后使用 ``$this->Session->setFlash()``，
 在重定向到 ``/posts`` 后，给用户显示确认信息。如果用户尝试通过 GET 请求删除文章
-(*post*)，我们就抛出异常。未被获取的异常将被 CakePHP 的异常处理捕获，并显示漂亮的
-错误页面。有许多内置的 :doc:`/development/exceptions`，可以用来表示应用程序需要生
-成的各种 HTTP 错误。
+(*post*)，我们就抛出异常。未捕获的异常将被 CakePHP 的异常处理捕获，并显示漂亮的错
+误页面。有许多内置的 :doc:`/development/exceptions`，可以用来表示应用程序需要生成
+的各种 HTTP 错误。
 
 因为我们仅仅是执行一些逻辑和重定向，所以这个动作没有视图。不过，你可能想要修改 
 index 视图，添加让用户删除文章(*post*)的链接:
@@ -562,7 +562,7 @@ index 视图，添加让用户删除文章(*post*)的链接:
 
 .. note::
 
-	这个视图的代码也使用了 FormHelper，当用户试图删除一篇文章(*post*)时，显示一个 
+    这个视图的代码也使用了 FormHelper，当用户试图删除一篇文章(*post*)时，显示一个 
     JavaScript 确认对话框供用户确认。
 
 路由(*Routes*)
@@ -579,7 +579,7 @@ PagesController 来响应，并渲染 "home" 视图。这里，我们会增加�
 换为我们的 PostsController。
 
 CakePHP 的路由设置在 ``/app/Config/routes.php`` 文件中。你应当注释掉或者删除掉缺
-省的根目录路由。该代码如下::
+省的根目录路由。该代码如下:
 
 .. code-block:: php
 
@@ -597,8 +597,8 @@ CakePHP 的路由设置在 ``/app/Config/routes.php`` 文件中。你应当注�
 
 .. note::
 
-    CakePHP 也支持'反向路由'。如果，基于上面定义的路由，你给一个接受数组的函数传
-    入 ``array('controller' => 'posts'，'action' => 'index')`` ，得到的网址就会是
+    CakePHP 也支持'反向路由'。基于上面定义的路由，如果你给一个接受数组的函数传入
+    ``array('controller' => 'posts'，'action' => 'index')`` ，得到的网址就会是
     '/'。所以，最好总是使用数组来表示网址，这样就表示你的路由定义了网址指向哪里，
     而且也确保链接指向相同的地方。
 
@@ -606,8 +606,8 @@ CakePHP 的路由设置在 ``/app/Config/routes.php`` 文件中。你应当注�
 ====
 
 用这种方法来创建应用程序会为你赢得甚至超出你最疯狂的幻想的平静、荣誉、爱和金钱。
-简单吧？记住，这个教程仅仅是基础。CakePHP 还提供了*更多*的功能，并且很灵活，碍于
-篇幅无法在这里详述。本手册余下的部分，可以指导你创建更加功能丰富的应用程序。
+简单吧？记住，这个教程仅仅是基础。CakePHP 还提供了 *更多* 的功能，并且很灵活，碍
+于篇幅无法在这里详述。本手册余下的部分，可以指导你创建更加功能丰富的应用程序。
 
 既然你已经创建了一个基本的 CakePHP 应用程序，那么你已经可以开始真的做点儿东西了。
 启动你自己的项目吧，别忘记阅读 :doc:`Cookbook </index>` 的其余部分，以及 
@@ -616,16 +616,16 @@ CakePHP 的路由设置在 ``/app/Config/routes.php`` 文件中。你应当注�
 如果需要，有很多方法可以获得你需要的帮助——请查看 
 :doc:`/cakephp-overview/where-to-get-help` 页面。欢迎加入 CakePHP！
 
-延伸阅读建议
-------------
+延伸阅读的建议
+--------------
 
 这些是学习 CakePHP 的人们接下来通常想去学习的常见任务：
 
-1. :ref:`view-layouts`: 定制网站的布局
-2. :ref:`view-elements`: 导入和重用视图片段
-3. :doc:`/controllers/scaffolding`: 在着手写代码前，先创建原型。
-4. :doc:`/console-and-shells/code-generation-with-bake`: 生成 CRUD 代码
-5. :doc:`/tutorials-and-examples/blog-auth-example/auth`: 用户身份验证和授权的教程
+1. :ref:`view-layouts`：定制网站的布局
+2. :ref:`view-elements`：导入和重用视图片段
+3. :doc:`/controllers/scaffolding`：在着手写代码前，先创建原型。
+4. :doc:`/console-and-shells/code-generation-with-bake`：生成 CRUD 代码
+5. :doc:`/tutorials-and-examples/blog-auth-example/auth`：用户身份验证和授权的教程
 
 
 .. meta::
