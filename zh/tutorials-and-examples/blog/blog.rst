@@ -90,8 +90,8 @@ Tmp 目录的权限
 
 表和列的名字并不是随意取的。如果你遵循 CakePHP 的数据库命名约定，以及类的命名约定
 (二者都在 :doc:`/getting-started/cakephp-conventions` 做了介绍)，你将可以利用许多
-现成的功能并免去配置的麻烦。CakePHP 足够灵活，可以适应即使最糟糕的旧式(*legacy*)数据库结构，
-不过遵循约定可以节省时间。
+现成的功能并免去配置的麻烦。CakePHP 足够灵活，可以适应即使最糟糕的旧式(*legacy*)
+数据库结构，不过遵循约定可以节省时间。
 
 请查看 :doc:`/getting-started/cakephp-conventions` 以获得更多的信息，但我只想说，
 命名数据库表为'posts'，将会自动把它连接到模型 Post，并且 CakePHP 将自动管理表的
