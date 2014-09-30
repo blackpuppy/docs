@@ -3,8 +3,8 @@
 
 请求与响应对象是在 CakePHP 2.0 新增的。在之前的版本中，这两个对象由数组表示，
 相关的方法是分散在 :php:class:`RequestHandlerComponent` ，:php:class:`Router`，
-:php:class:`Dispatcher` 和 :php:class:`Controller` 中。之前并没有专门的对象保存请求的相关信息
-。在2.0中，使用 :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 对象来实现了这个功能。
+:php:class:`Dispatcher` 和 :php:class:`Controller` 中。之前并没有专门的对象保存请求的相关信息。
+在2.0中，使用 :php:class:`CakeRequest` 和 :php:class:`CakeResponse` 对象来实现了这个功能。
 
 .. index:: $this->request
 .. _cake-request:
@@ -14,20 +14,18 @@ CakeRequest
 
 :php:class:`CakeRequest` 是 CakePHP 中默认的请求对象。它集合大量的
 用来请求数据以及与数据交互的信息。对于每个请求，将创建一个 CakeRequest 实例，
-然后通过引用的方式，传递给应用程序中使用请求数据的各个层。默认情况下，
- ``CakeRequest`` 赋值给 ``$this->request``，在控制器，视图和助手(Helpers)中都可以使用。
-在组件中，也可以通过控制器来访问到。 ``CakeRequest`` 履行的一些职责包括:
+然后通过引用的方式，传递给应用程序中使用请求数据的各个层。
+默认情况下，``CakeRequest`` 赋值给 ``$this->request``，
+在控制器，视图和助手(Helpers)中都可以使用。在组件中，也可以通过控制器来访问到。 ``CakeRequest`` 履行的一些职责包括:
 
 * 处理 GET，POST 和 FILES 数组，并放入你所熟悉的数据结构中。
-* 提供与请求相关的环境信息，比如，传送的header头，客户端IP地址，
-应用程序在服务器上运行的子域/域的信息。
+* 提供与请求相关的环境信息。比如，传送的header头，客户端IP地址和程序在服务器上运行的子域/域的信息。
 * 提供数组索引和对象属性两种方式，来访问请求参数。
 
 获取请求参数
 ============================
 
-CakeRequest 提供了几种方式获取请求参数。第一种是对象属性，第二种是数组索引，
-第三种是通过 ``$this->request->params``::
+CakeRequest 提供了几种方式获取请求参数。第一种是对象属性，第二种是数组索引，第三种是通过 ``$this->request->params``::
 
     $this->request->controller;
     $this->request['controller'];
@@ -55,12 +53,11 @@ CakeRequest 提供了几种方式获取请求参数。第一种是对象属性�
 * ``controller`` 处理当前请求的控制器。
 * ``action`` 处理当前请求的动作。
 * ``prefix`` 当前动作的前缀。更多信息请参见 :ref:`前缀路由 <prefix-routing>`。
-* ``bare`` 当请求来自于 :php:meth:`~Controller::requestAction()` ，并且包括 bare 选项时就会出现。
-Bare请求不会进行布局(*layout*)渲染。
+* ``bare`` 当请求来自于 :php:meth:`~Controller::requestAction()` ，并且包括 bare 选项时就会出现。Bare请求不会进行布局(*layout*)渲染。
 * ``requested`` 当请求来自 :php:meth:`~Controller::requestAction()` 时出现，并被设置为true。
 
 
-获取查询字符串(*Querystring*)参数
+获取查询字符串参数
 ================================
 
 查询字符串(*Querystring*)参数可以从 :php:attr:`CakeRequest::$query` 读取::
@@ -68,9 +65,10 @@ Bare请求不会进行布局(*layout*)渲染。
     // URL为 /posts/index?page=1&sort=title
     $this->request->query['page'];
 
-    // 你也可以通过数组方式获取
+    // 也可以通过数组方式获取
     $this->request['url']['page']; // BC 访问(*BC accessor*)会在将来的版本中废弃。
-你可以直接访问query属性，或者你可以用 :php:meth:`CakeRequest::query()`
+
+可以直接访问query属性，或者可以用 :php:meth:`CakeRequest::query()`
 以不会报错的方式读取URL查询数组。任何不存在的键都会返回 ``null``::
 
     $foo = $this->request->query('value_that_does_not_exist');
@@ -96,7 +94,7 @@ Bare请求不会进行布局(*layout*)渲染。
 
 .. versionadded:: 2.2
 
-当构建REST服务时，会经常接受以 ``PUT`` 和``DELETE`` 请求方式提交的数据。自从2.2版本开始， 对 ``PUT`` 和
+当构建REST服务时，会经常接受以 ``PUT`` 和 ``DELETE`` 请求方式提交的数据。自从2.2版本开始， 对 ``PUT`` 和
 ``DELETE`` 请求，对于任何 ``application/x-www-form-urlencoded`` 的请求，
 表单数据会自动存放到 ``$this->data``。
 关于接受的是JSON或XML数据，下文会解释如何访问这些请求文件体。
@@ -142,7 +140,7 @@ CakeRequest 也提供与应用程序中路径相关的有用信息。 :php:attr:
 * 环境值比较 —— 环境变量比较，把从 :php:func:`env()` 取得的值和一个给定值，进行是否相等的比较。
 * 模式值比较 —— 模式值比较可以把一个从 :php:func:`env()` 取得的值和一个正则表达式进行比较。
 * 基于选项的比较 —— 基于选项的比较使用一组选项来创建一个正则表达式。之后再添加相同的选项检测器就会合并选项。
-* 回调检测器 —— 回调检测器可以提供一个 'callback' 类型来进行检查。这个回调函数只接受请求对象作为唯一的参数。
+* 回调检测器 —— 回调检测器可以提供一个'callback'类型来进行检查。这个回调函数只接受请求对象作为唯一的参数。
 
 下面是一些例子::
 
@@ -366,11 +364,11 @@ CakePHP 默认使用 ``CakeResponse``。 ``CakeResponse`` 是使用起来灵活�
 也可以在控制器中设置 ``$this->response`` 来替换使用的响应实例。在测试中替换响应对象是很方便的，
 因为这样允许嵌入(*stub out*)与 ``header()`` 交互的方法。详情请参看 :ref:`cakeresponse-testing` 一节。
 
-处理内容类型(*content types*)
+处理内容类型
 ===========================
 
-你可以用 :php:meth:`CakeResponse::type()` 来控制你应用程序响应的内容类型(*Content-Type*)。
-如果你的应用程序需要处理不是 CakeResponse 内置的内容类型，你也可以用 ``type()`` 建立这些类型的对应::
+可以用 :php:meth:`CakeResponse::type()` 来控制应用程序响应的内容类型(*Content-Type*)。
+如果你的应用程序需要处理不是 CakeResponse 内置的内容类型，也可以用 ``type()`` 建立这些类型的对应::
 
     // 增加 vCard 类型
     $this->response->type(array('vcf' => 'text/v-card'));
@@ -379,14 +377,14 @@ CakePHP 默认使用 ``CakeResponse``。 ``CakeResponse`` 是使用起来灵活�
     $this->response->type('vcf');
 
 通常你会在控制器的 ``beforeFilter`` 回调中映射其它的内容类型，这样，
-如果你使用 :php:class:`RequestHandlerComponent` 的话，就可以利用它的自动切换视图的特性。
+如果使用 :php:class:`RequestHandlerComponent` 的话，就可以利用它的自动切换视图的特性。
 
 .. _cake-response-file:
 
 发送文件
 ===================
 
-有时候你需要发送文件作为对请求的响应。在2.3版本之前，你可以用 :doc:`/views/media-view` 来实现。在2.3版本中，
+有时候需要发送文件作为对请求的响应。在2.3版本之前，可以用 :doc:`/views/media-view` 来实现。在2.3版本中，
 MediaView 已被废弃，不过可以用 :php:meth:`CakeResponse::file()` 来发送文件作为响应::
 
     public function sendFile($id) {
@@ -400,7 +398,7 @@ MediaView 已被废弃，不过可以用 :php:meth:`CakeResponse::file()` 来发
 Cake 就会发送正确的内容类型文件头。可以在调用 :php:meth:`CakeResponse::file()`
 之前用 :php:meth:`CakeResponse::type()` 方法添加新类型。
 
-如果需要，也可以通过给定下面的选项，来强制文件下载，而不是显示在浏览器中::
+如果需要，也可以通过给定下面的选项来强制文件下载，而不是显示在浏览器中::
 
     $this->response->file($file['path'], array('download' => true, 'name' => 'foo'));
 
@@ -474,7 +472,7 @@ Expires，和 Max-age 会基于第二个参数进行设置。 Cache-Control 也�
 指示一个响应是否被不同的用户或客户端共享。这个方法实际控制这个文件头公有(*`public`*)或者私有(*`private`*)的部分。
 设置一个响应为私有，表示它的全部或者部分只适用于一个用户。要利用共享缓存，就需要设置控制指令为公有。
 
-此方法的第二个参数用于指定缓存的最大年龄(*`max-age`*)，以秒为单位，这段时间过后缓存就不认为是最新的了。::
+此方法的第二个参数用于指定缓存的最大年龄(*`max-age`*)，以秒为单位，这段时间过后缓存就不认为是最新的了::
 
     public function view() {
         ...
@@ -496,13 +494,13 @@ Expires，和 Max-age 会基于第二个参数进行设置。 Cache-Control 也�
 .. versionadded:: 2.1
 
 同样处于缓存过期模式之下，你可以设置 `Expires` 文件头，根据 HTTP 规范，这是一个日期/时间，之后响应就被认为不是最新的了。
-这个文件头可以用 :php:meth:`CakeResponse::expires()` 方法来设置。
+这个文件头可以用 :php:meth:`CakeResponse::expires()` 方法来设置::
 
     public function view() {
         $this->response->expires('+5 days');
     }
 
-这个方法也接受 DateTime 或者任何可以被 DateTime 解释的字符串。
+这个方法也接受 :php:class:`DateTime` 实例或者任何可以被 :php:class:`DateTime` 解释的字符串。
 
 Etag 文件头
 ---------------
@@ -532,10 +530,11 @@ Last Modified 文件头
 
 .. versionadded:: 2.1
 
-同样在 HTTP 缓存有效性验证模式下，你可以设置 `Last-Modified` 文件头，说明资源上次改变的日期和时间。
+同样在 HTTP 缓存有效性验证模式下，可以设置 `Last-Modified` 文件头，说明资源上次改变的日期和时间。
 设置这个文件头可以帮助 CakePHP 回答缓存客户端，基于客户端的缓存，响应是否有变化。
 
-要真正利用这个文件头，你必须或者手动调用 :php:meth:`CakeResponse::checkNotModified()` 方法，或者把 :php:class:`RequestHandlerComponent` 包括在你的控制器中::
+要真正利用这个文件头，你必须或者手动调用 :php:meth:`CakeResponse::checkNotModified()` 方法，
+或者把 :php:class:`RequestHandlerComponent` 包括在你的控制器中::
 
     public function view() {
         $article = $this->Article->find('first');
@@ -549,8 +548,8 @@ Last Modified 文件头
 Vary 文件头
 ---------------
 
-有些情况下，你也许会用同一网址提供不同的内容。这种情况通常是你有一个多语言网页，
-或者是根据请求资源的浏览器提供不同的 HTML。在这些情况下，你可以使用 Vary 文件头::
+有些情况下，也许会用同一网址提供不同的内容。这种情况通常是有一个多语言网页，
+或者是根据请求资源的浏览器提供不同的 HTML。在这些情况下，可以使用 Vary 文件头::
 
     $this->response->vary('User-Agent');
     $this->response->vary('Accept-Encoding', 'User-Agent');
@@ -571,7 +570,7 @@ CakeResponse 和测试
         // ...
     }
 
-另外，你也可以更容易地从命令行运行测试了，因为你可以用模拟(*mock*)来避免在命令行界面设置文件头引起的“文件头已发送(*headers sent*)”的错误。
+另外，可以更容易地从命令行运行测试了，因为可以模拟(*mock*)来避免在命令行界面设置文件头引起的“文件头已发送(*headers sent*)”的错误。
 
 
 CakeResponse API
