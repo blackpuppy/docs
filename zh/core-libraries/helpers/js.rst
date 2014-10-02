@@ -1,5 +1,4 @@
 JsHelper
-http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html
 ########
 
 .. php:class:: JsHelper(View $view, array $settings = array())
