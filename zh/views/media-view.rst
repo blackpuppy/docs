@@ -1,22 +1,22 @@
-媒体视图
-===========
+媒体视图(*Media Views*)
+=======================
 
 .. php:class:: MediaView
 
-.. 弃用:: 2.3
-   替换为 :ref:`cake-response-file` 。
-   
-媒体视图允许你发送二进制文件给用户。例如，你希望有一个webroot
-目录之外的目录存放文件防止用户直接访问它们。你可以使用媒体
-视图将文件拉取到 /app/ 中的一个特殊目录，并在传送文件之前验证用户。
+.. deprecated:: 2.3
+   请不要再使用，而是使用 :ref:`cake-response-file` 。
 
-使用媒体视图，你需要告诉你的控制器使用视图 MediaView 。
-然后只需要将你存放文件的位置填入参数中 ::
+媒体视图允许你发送二进制文件给用户。例如，你也许会希望使用 webroot 目录之外的目录
+存放文件以防止用户直接访问它们。你可以使用媒体视图从 /app/ 中的一个特殊目录中拉取
+文件，并在传送文件之前验证用户。
+
+要使用媒体视图，你需要告诉你的控制器使用 MediaView 类，而不是缺省的 View 类。然后，
+只需要传入其它参数指定文件位置::
 
     class ExampleController extends AppController {
         public function download() {
             $this->viewClass = 'Media';
-            // Download app/outside_webroot_dir/example.zip
+            // 下载 app/outside_webroot_dir/example.zip
             $params = array(
                 'id'        => 'example.zip',
                 'name'      => 'example',
@@ -28,54 +28,55 @@
         }
     }
 
-这是一个不属于 MediaView 的 ``$mimeType`` 中的mime类型的例子，
-同时使用一个相对于 ``app/webroot`` 目录的路径::
+下面这个例子渲染的文件，其 mime 类型不在 MediaView 的 ``$mimeType`` 数组中。同时
+使用相对于缺省的 ``app/webroot`` 目录的路径::
 
     public function download() {
         $this->viewClass = 'Media';
-        // Render app/webroot/files/example.docx
+        // 渲染 app/webroot/files/example.docx
         $params = array(
             'id'        => 'example.docx',
             'name'      => 'example',
             'extension' => 'docx',
             'mimeType'  => array(
-                'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                'docx' => 'application/vnd.openxmlformats-officedocument' .
+                    '.wordprocessingml.document'
             ),
             'path'      => 'files' . DS
         );
         $this->set($params);
     }
 
-可设变量
--------------------
+可设参数
+--------
 
 ``id``
-    ID 是位于文件服务器上的文件的名字包括扩展名。
+    ID 是位于文件服务器上包括扩展名的文件名。
 
 ``name``
-    name 可以让你定义显示给用户的文件名字，不包括文件扩展名。
+    name 让你可以定义发送给用户的不同的文件名。指定文件名时请不要包括扩展名。
 
 ``download``
-    一个布尔值，在头文件中标识是否阻止下载。
+    布尔值，说明是否在头文件中设置为强制下载。
 
 ``extension``
-    文件扩展名。这个是和可接受的mime类型匹配的。如果这个mime类型
-	没在列表中（或者在mimeType参数数组中提出），这个文件就无法
-	被下载。
+    文件扩展名。与可接受的 mime 类型内部列表相匹配。如果指定的 mime 类型不在列表
+    中(或者不在 mimeType 参数数组中)，这个文件就无法下载。
 
 ``path``
-    目录名字，包括最终的目录分隔符，是绝对路径，但可以在 ``app/webroot`` 目录的相对路径访问到。
+    目录名，包括最终的目录分隔符。应当是绝对路径，但可以是相对于 ``app/webroot`` 
+    目录。
 
 ``mimeType``
-    一个数据，用来添加额外的mime类型，整合进 MediaView 的内置mime类型列表中。
+    额外 mime 类型的数组，会与 MediaView 的可接受的 mime 类型内部列表合并。
 
 ``cache``
-	一个布尔值或整数值 - 如果设置为true，它就会允许浏览器缓存
-	文件（默认是不允许的）；或者设置成数字，表示缓存将在多少秒
-	之后过期。
+    布尔值或整数值 — 如果设置为 true，它就会允许浏览器缓存
+    文件(默认为不允许)；或者设置成数字，表示缓存将在多少秒
+    之后过期。
 
 
-.. 下一步::
+.. todo::
 
     加入例子说明如何使用媒体视图发送文件。
 
