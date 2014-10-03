@@ -1,4 +1,3 @@
-Associations: Linking Models Together
 关联：将模型连接在一起
 #####################################
 
