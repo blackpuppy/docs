@@ -88,8 +88,8 @@ IngredientsController 的控制器会自动初始化 Ingredient 模型，并把�
 这里展示了如何使用已经关联在一起的模型。要明白关联是如何定义的，请看 
 :doc:`模型的关联一节 <models/associations-linking-models-together>`。
 
-更多关于模型
-============
+关于模型的更多内容
+==================
 
 .. toctree::
     :maxdepth: 1
