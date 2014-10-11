@@ -1,79 +1,40 @@
 关联：将模型连接在一起
-#####################################
+######################
 
-CakePHP中的一个非常强劲的特性就是由模型提供关系映射，通过关联来管理多个模型间的连接。
+CakePHP 的最强大的特性之一就是由模型提供的连接关系的映射。在 CakePHP 中，模型间
+的连接是通过关联(*association*)来处理的。
 
-One of the most powerful features of CakePHP is the ability to link
-relational mapping provided by the model. In CakePHP, the links
-between models are handled through associations.
+在应用程序的不同对象间定义关联应当是一个自然的过程。例如：在一个食谱数据库中，一
+份食谱可能有多条评论，每条评论有一位作者，而每位作者又可能有多份食谱。定义这些关
+系运作的方式，使得你能以一种直观且强大的方式访问你的数据。
 
-在应用程序的不同对象间定义关联是一个自然过程。例如：在一个食谱数据库，
-一个食谱可能有多个评论，每个评论有一个作者，而每个作者又可能有多个食谱。
-定义这些关系的方式，使得你以一种直观且强大的方式访问你的数据。
+本节的目的是展示如何在 CakePHP 中计划、定义以和使用模型之间的关系。
 
-Defining relations between different objects in your application
-should be a natural process. For example: in a recipe database, a
-recipe may have many reviews, reviews have a single author, and
-authors may have many recipes. Defining the way these relations
-work allows you to access your data in an intuitive and powerful
-way.
+虽然数据可能有多种来源，但在 web 应用程序中最常见的存储方式是关系型数据库。本节
+介绍的大部分内容将基于这种方式。
 
-本节的目的是展示如何在CakePHP中谋划、定义以及利用模型间的关系。
+欲知与插件模型的关联，请参见 :ref:`plugin-models`。
 
-The purpose of this section is to show you how to plan for, define,
-and utilize associations between models in CakePHP.
-
-虽然数据可能有多种来源，但在web应用程序中最常见的则是存储在关系数据库中。 本节将覆盖这方面的大部分内容。
-
-While data can come from a variety of sources, the most common form
-of storage in web applications is a relational database. Most of
-what this section covers will be in that context.
-
-关于与插件模型一起的关联的信息，请参见插件模型 :ref:`plugin-models`。
-
-For information on associations with Plugin models, see
-:ref:`plugin-models`.
-
-
-Relationship Types
 关系类型
-------------------
+--------
 
-CakePHP 的关系类型有四种： hasOne、hasMany、belongsTo 和 hasAndBelongsToMany (HABTM)。
-
-The four association types in CakePHP are: hasOne, hasMany,
-belongsTo, and hasAndBelongsToMany (HABTM).
+CakePHP 的四种关联类型是：hasOne、hasMany、belongsTo 和 hasAndBelongsToMany 
+(HABTM)。
 
 ============= ===================== =======================================
-Relationship  Association Type      Example
+关系          关联类型              例子
 ============= ===================== =======================================
-one to one    hasOne                A user has one profile.
+一对一        hasOne                一个用户只有一份个人资料。
 ------------- --------------------- ---------------------------------------
-one to many   hasMany               A user can have multiple recipes.
+一对多        hasMany               一个用户可以有多份食谱。
 ------------- --------------------- ---------------------------------------
-many to one   belongsTo             Many recipes belong to a user.
+多对一        belongsTo             多份食谱属于同一个用户。
 ------------- --------------------- ---------------------------------------
-many to many  hasAndBelongsToMany   Recipes have, and belong to many ingredients.
-============= ===================== =======================================
-
-============= ===================== =======================================
-关系 		  关联类型				例子
-============= ===================== =======================================
-一对一    	  hasOne                一个用户只有一份个人资料
-------------- --------------------- ---------------------------------------
-一对多        hasMany               一个用户有多份食谱
-------------- --------------------- ---------------------------------------
-多对一        belongsTo             多份食谱属于同一个用户
-------------- --------------------- ---------------------------------------
-多对多        hasAndBelongsToMany   多份食谱有且属于多种成分
+多对多        hasAndBelongsToMany   多份食谱有且属于多种原料。
 ============= ===================== =======================================
 
-关联是通过创建一个以关联命名的变量来定义的。 此变量有时候可能是简单的字符串，但也可能是用于定义关联细节的复杂的多维数组。
-
-Associations are defined by creating a class variable named after
-the association you are defining. The class variable can sometimes
-be as simple as a string, but can be as complete as a
-multidimensional array used to define association specifics.
+要定义关联，创建一个以要定义的关联命名的类变量。此变量有时候可以简单到只是一个字
+符串，但也可以复杂到是一个多维数组，来定义关联细节。
 
 ::
 
@@ -81,22 +42,16 @@ multidimensional array used to define association specifics.
         public $hasOne = 'Profile';
         public $hasMany = array(
             'Recipe' => array(
-                'className'  => 'Recipe',
+                'className' => 'Recipe',
                 'conditions' => array('Recipe.approved' => '1'),
-                'order'      => 'Recipe.created DESC'
+                'order' => 'Recipe.created DESC'
             )
         );
     }
 
-在上面的例子中，第一个实例的单词'Recipe'是别名。它是关系的唯一标识，可以是你选择的任何东西。
-通常选择与要引用的类相同的名字。然而，**每个模型的别名在应用程序中必须唯一**。下面有一些正确的例子：
-
-In the above example, the first instance of the word 'Recipe' is
-what is termed an 'Alias'. This is an identifier for the
-relationship and can be anything you choose. Usually, you will
-choose the same name as the class that it references. However,
-**aliases for each model must be unique app wide**. For example it is
-appropriate to have::
+在上面的例子中，第一个 'Recipe' 是所谓的 '别名(*Alias*)'。它是关系的标识，可以是
+任何东西。通常选择与它引用的类相同的名字。不过，**每个模型的别名在应用程序中必须
+唯一**。例如，下面是正确的::
 
     class User extends AppModel {
         public $hasMany = array(
@@ -114,193 +69,113 @@ appropriate to have::
     class Group extends AppModel {
         public $hasMany = array(
             'MyRecipe' => array(
-                'className'  => 'Recipe',
-            )
-        );
-        public $hasAndBelongsToMany = array(
-            'Member' => array(
-                'className' => 'User',
-            )
-        );
-    }
-
-但是下面的写法在任何环境下都不工作::
-but the following will not work well in all circumstances::
-
-    class User extends AppModel {
-        public $hasMany = array(
-            'MyRecipe' => array(
                 'className' => 'Recipe',
             )
         );
         public $hasAndBelongsToMany = array(
             'Member' => array(
-                'className' => 'Group',
-            )
-        );
-    }
-
-    class Group extends AppModel {
-        public $hasMany = array(
-            'MyRecipe' => array(
-                'className'  => 'Recipe',
-            )
-        );
-        public $hasAndBelongsToMany = array(
-            'Member' => array(
                 'className' => 'User',
             )
         );
     }
 
-这是因为在HABTM关联中，别名'Member'同时指向了User模型(在Group模型中)和Group 模型(在User模型中)。
-在不同的模型为某个模型起不唯一的别名，可能会带来未知的后果。
+但是下面的代码在任何情况下都不大行得通::
 
-because here we have the alias 'Member' referring to both the User
-(in Group) and the Group (in User) model in the HABTM associations.
-Choosing non-unique names for model aliases across models can cause
-unexpected behavior.
+这是因为在上面的 HABTM 关联中，别名 'Member' 既指向了 User 模型(在 Group 模型中)，
+又指向了 Group 模型(在 User 模型中)。在涉及多个模型时，为模型别名起不唯一的名字，
+可能会引起预料不到的行为。
 
-Cake会自动在关联模型对象间建立连接。所以可以在User模型中以如下方式访问Recipe模型::
-
-Cake will automatically create links between associated model
-objects. So for example in your ``User`` model you can access the
-``Recipe`` model as::
+CakePHP 会自动在关联模型对象之间建立连接。所以，例如，在 ``User`` 模型中，可以用
+如下方式访问 ``Recipe`` 模型::
 
     $this->Recipe->someFunction();
 
-同样的，也能在控制器中循着模型关系访问关联模型：
-
-Similarly in your controller you can access an associated model
-simply by following your model associations::
+同样的，在控制器中，也可以简单地循着模型关系访问关联的模型::
 
     $this->User->Recipe->someFunction();
 
 .. note::
 
-	记住，关系定义是'单向的'。如果定义了User hasMany Recipe，对Recipe模型是没有影响的。
-	需要定义 Recipe belongsTo User才能从Recipe模型访问User模型。
+    记住，关联定义是'单向的'。如果定义了 User hasMany Recipe(用户有很多菜谱)，这
+    对 Recipe 模型没有任何影响。需要定义 Recipe belongsTo User(菜谱属于用户)才能
+    从 Recipe 模型访问 User 模型。
 
     Remember that associations are defined 'one way'. If you define
-    User hasMany Recipe that has no effect on the Recipe Model. You
+    User hasMany Recipe, that has no effect on the Recipe Model. You
     need to define Recipe belongsTo User to be able to access the User
-    model from your Recipe model
+    model from your Recipe model.
 
 hasOne
 ------
 
-让我们设置User模型以hasOne类型关联到Profile模型。
+让我们设置 User 模型以 hasOne 关系关联到 Profile 模型。
 
-Let’s set up a User model with a hasOne relationship to a Profile
-model.
-
-首先，数据库表需要有正确的主键。对于hasOne关系，一个表必须包含指向另一个表的外键。
-在本例中，profiles表将包含一个叫做user_id的字段。基本模式是:
-
-First, your database tables need to be keyed correctly. For a
-hasOne relationship to work, one table has to contain a foreign key
-that points to a record in the other. In this case the profiles
-table will contain a field called user\_id. The basic pattern is:
+首先，数据库表需要有正确的键。要使 hasOne 关系运作，一个表必须定义指向另一个表的
+记录的外键。在本例中，profiles 表需要包含一个叫做 user\_id 的字段。其基本模式是：
 
 **hasOne:** *另一个* 模型包含外键。
 
-**hasOne:** the *other* model contains the foreign key.
-
-==================== ==================
-Relation 关系        Schema 结构
-==================== ==================
-Apple hasOne Banana  bananas.apple\_id
--------------------- ------------------
-User hasOne Profile  profiles.user\_id
--------------------- ------------------
-Doctor hasOne Mentor mentors.doctor\_id
-==================== ==================
+======================================== ==================
+关系                                     数据结构
+======================================== ==================
+Apple hasOne Banana (苹果有一个香蕉)     bananas.apple\_id
+---------------------------------------- ------------------
+User hasOne Profile (用户有一份个人资料) profiles.user\_id
+---------------------------------------- ------------------
+Doctor hasOne Mentor (博士有一位导师)    mentors.doctor\_id
+======================================== ==================
 
 .. note::
 
-	关于这一点，并没有强制要求遵循 CakePHP 约定，你能够很容易地在关联定义中使用任何外键来覆盖它。
-	虽然如此，遵守规则将使你的代码更简捷，更易于阅读和维护。
+    关于这一点，并没有强制要求遵循 CakePHP 的约定。你能够很容易地在关联定义中覆
+    盖任何外键的使用。虽然如此，遵守规则仍将减少代码的重复，使其更易于阅读和维护。
 
-    It is not mandatory to follow CakePHP conventions, you can easily override
-    the use of any foreignKey in your associations definitions. Nevertheless sticking
-    to conventions will make your code less repetitive, easier to read and to maintain.
-
-User模型文件保存为/app/Model/User.php。为了定义‘User hasOne Profile’关联，需要在模型类中添加$hasOne属性。
-记得要在/app/Model/Profile.php文件中放一个Profile模型，否则关联将不工作：
-
-The User model file will be saved in /app/Model/User.php. To
-define the ‘User hasOne Profile’ association, add the $hasOne
-property to the model class. Remember to have a Profile model in
-/app/Model/Profile.php, or the association won’t work::
+User 模型文件会保存为 /app/Model/User.php。为了定义 'User hasOne Profile (用户有
+一份个人资料)' 的关联，为模型类添加 $hasOne 属性。记得要在 
+/app/Model/Profile.php 文件中定义 Profile 模型，否则关联将无法工作::
 
     class User extends AppModel {
         public $hasOne = 'Profile';
     }
 
-有两种途径在模型文件中描述此关系。最简单的方法是设置$hasOne属性为一个包含要关联的模型名的字符串，就像我们上面做的那样。
+有两种方法在模型文件中描述此关系。最简单的方法是设置 $hasOne 属性为一个包含关联
+模型的类名的字符串，就像我们上面做的那样。
 
-There are two ways to describe this relationship in your model
-files. The simplest method is to set the $hasOne attribute to a
-string containing the classname of the associated model, as we’ve
-done above.
-
-如果需要更全面的控制，可以使用数组语法定义关联。例如，你可能想要限制关联只包含某些记录。
-
-If you need more control, you can define your associations using
-array syntax. For example, you might want to limit the association
-to include only certain records.
+如果需要更多的控制，可以使用数组语法定义关联。例如，你可能想要限制关联只包含某些
+记录。
 
 ::
 
     class User extends AppModel {
         public $hasOne = array(
             'Profile' => array(
-                'className'    => 'Profile',
-                'conditions'   => array('Profile.published' => '1'),
-                'dependent'    => true
+                'className' => 'Profile',
+                'conditions' => array('Profile.published' => '1'),
+                'dependent' => true
             )
         );
     }
 
-hasOne 关联数组包含的键有:
+hasOne 关联数组可以包含的键有:
 
-Possible keys for hasOne association arrays include:
 
--  **className**: 被关联到当前模型的模型类名。如果你定义了 ‘User hasOne Profile’关系，类名的键名将是 ‘Profile.’
--  **foreignKey**: 另一张表中的外键名。如果需要定义多个 hasOne 关系，这个键非常有用。其默认值为当前模型的单数模型名缀以 ‘_id’。
-在上面的例子中，就默认为 ‘user_id’。
--  **conditions**: 一个 find() 兼容条件的数组或者类似 array(‘Profile.approved’ => true) 的SQL字符串.
--  **fields**: 需要在匹配的关联模型数据中获取的字段的列表。默认返回所有的字段。
--  **order**: 一个 find() 兼容排序子句或者类似 array(‘Profile.last_name’ => ‘ASC’) 的SQL字符串。
--  **dependent**: 当 dependent 键被设置为 true，并且模型的 delete() 方法调用时的参数cascade被设置为true，关联模型的记录同时被删除。
-在本例中，我们将其设置为 true 将导致删除一个 User 时同时删除与其相关的 Profile。
+-  **className**: 与当前模型关联的模型的类名。如果你要定义 'User hasOne Profile
+   (用户有一份个人资料)' 的关系，className 键应当是 'Profile'。
+-  **foreignKey**: 另一模型中的外键名。如果需要定义多个 hasOne 关系，这个键非常
+   有用。其默认值为当前模型的以下划线分隔的单数模型名称，并后缀以 '\_id'。在上面
+   的例子中，就默认为 'user\_id'。
+-  **conditions**: 兼容 find() 的条件数组或者是 SQL 字符串，例如
+   array('Profile.approved' => true)。
+-  **fields**: 在读取关联模型数据时，需要读取的字段的列表。默认返回所有的字段。
+-  **order**: 兼容 find() 的排序子句或者 SQL 字符串，例如
+   array('Profile.last_name' => 'ASC')。
+-  **dependent**: 当 dependent 键被设置为 true，并且调用模型的 delete() 方法时参
+   数 cascade 也被设置为 true，关联模型的记录也会一起被删除。在本例中，我们将其
+   设置为 true 将导致删除一个 User 时也会删除她/他关联的 Profile。
 
--  **className**: the classname of the model being associated to
-   the current model. If you’re defining a ‘User hasOne Profile’
-   relationship, the className key should equal ‘Profile.’
--  **foreignKey**: the name of the foreign key found in the other
-   model. This is especially handy if you need to define multiple
-   hasOne relationships. The default value for this key is the
-   underscored, singular name of the current model, suffixed with
-   ‘\_id’. In the example above it would default to 'user\_id'.
--  **conditions**: an array of find() compatible conditions or SQL
-   strings such as array('Profile.approved' => true)
--  **fields**: A list of fields to be retrieved when the associated
-   model data is fetched. Returns all fields by default.
--  **order**: an array of find() compatible order clauses or SQL
-   strings such as array('Profile.last_name' => 'ASC')
--  **dependent**: When the dependent key is set to true, and the
-   model’s delete() method is called with the cascade parameter set to
-   true, associated model records are also deleted. In this case we
-   set it true so that deleting a User will also delete her associated
-   Profile.
+一旦定义了关系，User 模型的 find 操作也会读取关联的 Profile 记录，如果存在的话::
 
-一旦定义了关系，执行User模型上的find操作将匹配存在关联的Profile记录::
-
-Once this association has been defined, find operations on the User
-model will also fetch a related Profile record if it exists::
-
-    //Sample results from a $this->User->find() call.
+    //调用 $this->User->find() 的结果示例。
 
     Array
     (
@@ -320,120 +195,73 @@ model will also fetch a related Profile record if it exists::
     )
 
 belongsTo
-属于
 ---------
 
-现在我们有了通过访问 User 模型获取相关 Profile 数据的办法，让我们在 Profile 模型中定义 belongsTo 关联以获取相关的 User 数据。
-belongsTo 关联是 hasOne 和 hasMany 关联的自然补充：它允许我们从其它途径查看数据。
+现在我们可以从 User 模型访问 Profile 的数据，让我们在 Profile 模型中定义 
+belongsTo 关联以获取相关的 User 数据。belongsTo 关联是 hasOne 和 hasMany 
+关联的自然补充：它让我们可以从另一个方向查看数据。
 
-Now that we have Profile data access from the User model, let’s
-define a belongsTo association in the Profile model in order to get
-access to related User data. The belongsTo association is a natural
-complement to the hasOne and hasMany associations: it allows us to
-see the data from the other direction.
-
-在为 belongsTo 关系定义数据库表的键时，遵循如下约定：
-
-When keying your database tables for a belongsTo relationship,
-follow this convention:
+在为 belongsTo 关系定义数据库表的键时，请遵循如下约定：
 
 **belongsTo:** *当前模型* 包含外键。
-**belongsTo:** the *current* model contains the foreign key.
 
-======================= ==================
-Relation  关系          Schema  结构
-======================= ==================
-Banana belongsTo Apple  bananas.apple\_id
------------------------ ------------------
-Profile belongsTo User  profiles.user\_id
------------------------ ------------------
-Mentor belongsTo Doctor mentors.doctor\_id
-======================= ==================
+========================================= ==================
+关系                                      数据结构
+========================================= ==================
+Banana belongsTo Apple (香蕉属于苹果)     bananas.apple\_id
+----------------------------------------- ------------------
+Profile belongsTo User (个人资料属于用户) profiles.user\_id
+----------------------------------------- ------------------
+Mentor belongsTo Doctor (导师属于博士)    mentors.doctor\_id
+========================================= ==================
 
 .. tip::
 
-	如果一个模型(表)包含一个外键，它belongsTo另一个模型(表)。
-    If a model(table) contains a foreign key, it belongsTo the other
-    model(table).
+    如果一个模型(表)包含一个外键，它 belongsTo 另一个模型(表)。
 
-我们可以使用如下字符串语法，在/app/Model/Profile.php 文件中的Profile模型中定义belongsTo关联::
-
-We can define the belongsTo association in our Profile model at
-/app/Model/Profile.php using the string syntax as follows::
+在 /app/Model/Profile.php 文件中的 Profile 模型里，我们可以使用如下字符串语法来
+定义 belongsTo 关联::
 
     class Profile extends AppModel {
         public $belongsTo = 'User';
     }
 
-
-我们还能使用数组语法定义特定的关系::
-
-We can also define a more specific relationship using array
-syntax::
+我们也可以使用数组语法定义更为特定的关系::
 
     class Profile extends AppModel {
         public $belongsTo = array(
             'User' => array(
-                'className'    => 'User',
-                'foreignKey'   => 'user_id'
+                'className' => 'User',
+                'foreignKey' => 'user_id'
             )
         );
     }
 
-belongsTo 关联数组包含的键有:
+belongsTo 关联数组可以包含的键有:
 
-Possible keys for belongsTo association arrays include:
 
--  **className**: 被关联到当前模型的模型类名。如果你定义了 ‘Profile belongsTo User’关系，类名的键名将为 ‘User.’。
--  **foreignKey**: 当前模型中需要的外键。用于需要定义多个 belongsTo 关系。其默认值为另一模型的单数模型名缀以 ‘_id’。
--  **conditions**: 一个 find() 兼容条件的数组或者类似 array('User.active' => true) 的 SQL 字符串。
--  **type**: SQL 查询的 join 类型，默认为 Left，这不可能在所有情况下都符合你的需求，
-在你想要从主模型和关联模型获取全部内容或者什么都不要时很有用！(仅在某些条件下有效)。
-**(注：类型值必须是小写，例如：left, inner)**
-   **(NB: type value is in lower case - i.e. left, inner)**
--  **fields**: 需要在匹配的关联模型数据中获取的字段的列表。默认返回所有的字段。
--  **order**: 一个 find() 兼容排序子句或者类似 array('User.username' => 'ASC') 的 SQL 字符串。
--  **counterCache**: 如果此键的值设置为 true，当你在做 ``save()`` 或者``delete()`` 操作时关联模型将自动递增或递减外键关联的表的“[singular\_model\_name]\_count”列的值。
-如果它是一个字符串，则其将是计数用的列名。计数列的值表示关联行的数量。
-也可以通过使用数组指定多个计数缓存，键为列名，值为条件，参见:ref:`multiple-counterCache`
--  **counterScope**: 用于更新计数缓存列的可选条件数组。
+-  **className**: 与当前模型关联的模型的类名。如果你要定义 'Profile belongsTo
+   User (个人资料属于用户)' 的关系，className 键应当是 'User'。
+-  **foreignKey**: 当前模型中的外键。如果需要定义多个 belongsTo 关系，这特别方便。
+   其默认值为另一模型的以下划线分隔的单数模型名，后缀以 ``_id``。
+-  **conditions**: 兼容 find() 的条件数组或者 SQL 字符串，例如
+   ``array('User.active' => true)``。
+-  **type**: SQL 查询使用的 join 类型。默认为 'LEFT'，这也许不能在所有情况下都符
+   合你的需要。在你想要获取主模型和关联模型的所有记录、或者什么都不要时，'INNER' 
+   (当和某些条件一起使用时)也许会有帮助。
+-  **fields**: 在读取关联模型数据时，需要读取的字段的列表。默认返回所有的字段。
+-  **order**: 兼容 find() 的排序子句或者 SQL 字符串，例如
+   ``array('User.username' => 'ASC')``。
+-  **counterCache**: 如果此键的值设置为 true，当你在做 ``save()`` 或者
+   ``delete()`` 操作时，关联模型将自动递增或递减外键关联的表的 "[以下划线分隔的
+   单数模型名称]\_count" 列的值。如果它是一个字符串，那这就是要使用的列名。计数
+   器列的值表示关联记录的行数。也可以通过使用数组指定多个计数器缓存，详见 
+   :ref:`multiple-counterCache`。
+-  **counterScope**: 可选的用于更新计数器缓存字段的条件数组。
 
--  **className**: the classname of the model being associated to
-   the current model. If you’re defining a ‘Profile belongsTo User’
-   relationship, the className key should equal ‘User.’
--  **foreignKey**: the name of the foreign key found in the current
-   model. This is especially handy if you need to define multiple
-   belongsTo relationships. The default value for this key is the
-   underscored, singular name of the other model, suffixed with
-   ``_id``.
--  **conditions**: an array of find() compatible conditions or SQL
-   strings such as ``array('User.active' => true)``
--  **type**: the type of the join to use in the SQL query, default
-   is LEFT which may not fit your needs in all situations, INNER may
-   be helpful when you want everything from your main and associated
-   models or nothing at all! (effective when used with some conditions
-   of course).
-   **(NB: type value is in lower case - i.e. left, inner)**
--  **fields**: A list of fields to be retrieved when the associated
-   model data is fetched. Returns all fields by default.
--  **order**: an array of find() compatible order clauses or SQL
-   strings such as ``array('User.username' => 'ASC')``
--  **counterCache**: If set to true the associated Model will
-   automatically increase or decrease the
-   “[singular\_model\_name]\_count” field in the foreign table
-   whenever you do a ``save()`` or ``delete()``. If it's a string then it's the
-   field name to use. The value in the counter field represents the
-   number of related rows. You can also specify multiple counter caches
-   by defining an array, see :ref:`multiple-counterCache`
--  **counterScope**: Optional conditions array to use for updating
-   counter cache field.
+一旦定义了关联，Profile 模型的 find 操作将同时获取相关的 User 记录，如果存在的话::
 
-一旦定义了关联，Profile模型上的find操作将同时获取相关的存在的User记录::
-
-Once this association has been defined, find operations on the
-Profile model will also fetch a related User record if it exists::
-
-    //Sample results from a $this->Profile->find() call.
+    //调用 $this->Profile->find() 的结果示例。
 
     Array
     (
@@ -452,116 +280,169 @@ Profile model will also fetch a related User record if it exists::
             )
     )
 
+计数器缓存(*counterCache*) - 缓存 count()
+=========================================
+
+这个功能帮助你缓存相关数据的计数器。避免了手工调用 ``find('count')`` 方法计算记
+录的数量，而是让模型自动追踪关联的 ``$hasMany`` 模型的任何添加/删除操作，并递增/
+递减父模型表的专用整数字段。
+
+这个字段的名称由单数模型名称后缀以下划线和单词 "count" 构成::
+
+    my_model_count
+
+比方说有一个叫 ``ImageComment`` 的模型和一个叫 ``Image`` 的模型，你就要在 
+``images`` 表中添加一个新的整数字段，并命名为 ``image_comment_count``。
+
+下面是更多的示例：
+
+========== ======================= =========================================
+模型       关联模型                例子
+========== ======================= =========================================
+User       Image                   users.image\_count
+---------- ----------------------- -----------------------------------------
+Image      ImageComment            images.image\_comment\_count
+---------- ----------------------- -----------------------------------------
+BlogEntry  BlogEntryComment        blog\_entries.blog\_entry\_comment\_count
+========== ======================= =========================================
+
+一旦添加了计数器字段，就可以使用它了。要启用计数器缓存，在关联中添加 
+``counterCache`` 键并将其值设置为 ``true``::
+
+    class ImageComment extends AppModel {
+        public $belongsTo = array(
+            'Image' => array(
+                'counterCache' => true,
+            )
+        );
+    }
+
+自此，你每次添加或删除一个关联到 ``Image`` 的 ``ImageComment``，
+``image_comment_count`` 字段的数字都会自动调整。
+
+计数器范围(*counterScope*)
+==========================
+
+你还可以指定 ``counterScope``。这允许你指定一个简单的条件，告诉模型什么情况下更
+新(或者什么情况下不更新，取决于你如何看)计数器的值。
+
+在我们的 Image 模型示例中，我们可以象下面这样指定::
+
+    class ImageComment extends AppModel {
+        public $belongsTo = array(
+            'Image' => array(
+                'counterCache' => 'active_comment_count', //custom field name
+                // 只有当 "ImageComment" 是 active = 1 时，才计数
+                'counterScope' => array(
+                  'ImageComment.active' => 1
+                )
+            )
+        );
+    }
+
+.. _multiple-counterCache:
+
+多个计数器缓存(*counterCache*)
+==============================
+
+CakePHP 从 2.0 版本起，支持在单个模型关系中有多个 ``counterCache``。也可以为每个
+``counterCache`` 定义 ``counterScope``。假设有 ``User`` 模型和 ``Message`` 模型，
+要统计每个用户的已读消息和未读消息的数量。
+
+========= ====================== ===========================================
+模型      字段                   说明
+========= ====================== ===========================================
+User      users.messages\_read   对已读 ``Message`` 计数
+--------- ---------------------- -------------------------------------------
+User      users.messages\_unread 对未读 ``Message`` 计数
+--------- ---------------------- -------------------------------------------
+Message   messages.is\_read      判断一条 ``Message`` 是已读还是未读。
+========= ====================== ===========================================
+
+基于上面这样的设置，``belongsTo`` 应当像这样::
+
+    class Message extends AppModel {
+        public $belongsTo = array(
+            'User' => array(
+                'counterCache' => array(
+                    'messages_read' => array('Message.is_read' => 1),
+                    'messages_unread' => array('Message.is_read' => 0)
+                )
+            )
+        );
+    }
+
 hasMany
-一对多
 -------
 
-下一步：定义一个 “User hasMany Comment” 关联。一个 hasMany 关联将允许我们在获取 User 记录的同时获取用户的评论。
+下一步：定义一个 "User hasMany Comment (用户有多条评论)" 的关联。hasMany 关联将
+让我们可以在读取用户(*User*)记录的同时读取用户的评论。
 
-Next step: defining a “User hasMany Comment” association. A hasMany
-association will allow us to fetch a user’s comments when we fetch
-a User record.
-
-在为 hasMany 关系定义数据库表的键时，遵循如下约定:
-
-When keying your database tables for a hasMany relationship, follow
-this convention:
+在为 hasMany 关系定义数据库表的键时，请遵循如下约定:
 
 **hasMany:** *其它* 模型包含外键
 
-**hasMany:** the *other* model contains the foreign key.
+======================================== ==================
+关系                                     数据构
+======================================== ==================
+User hasMany Comment (用户有多条评论)    Comment.user\_id
+---------------------------------------- ------------------
+Cake hasMany Virtue (蛋糕有多项优点)     Virtue.cake\_id
+---------------------------------------- ------------------
+Product hasMany Option (产品有多个选项)  Option.product\_id
+======================================== ==================
 
-======================= ==================
-Relation   关系         Schema 结构
-======================= ==================
-User hasMany Comment    Comment.user\_id
------------------------ ------------------
-Cake hasMany Virtue     Virtue.cake\_id
------------------------ ------------------
-Product hasMany Option  Option.product\_id
-======================= ==================
-
-我们可以使用如下字符串语法，在 /app/Model/User.php 文件中的User模型中定义hasMnay关联::
-
-We can define the hasMany association in our User model at
-/app/Model/User.php using the string syntax as follows::
+在 /app/Model/User.php 文件的 User 模型中，我们可以使用如下字符串语法定义 hasMany
+关联::
 
     class User extends AppModel {
         public $hasMany = 'Comment';
     }
 
-我们还能使用数组语法定义特定的关系::
-
-We can also define a more specific relationship using array
-syntax::
+我们也可以使用数组语法定义更特定的关系::
 
     class User extends AppModel {
         public $hasMany = array(
             'Comment' => array(
-                'className'     => 'Comment',
-                'foreignKey'    => 'user_id',
-                'conditions'    => array('Comment.status' => '1'),
-                'order'         => 'Comment.created DESC',
-                'limit'         => '5',
-                'dependent'     => true
+                'className' => 'Comment',
+                'foreignKey' => 'user_id',
+                'conditions' => array('Comment.status' => '1'),
+                'order' => 'Comment.created DESC',
+                'limit' => '5',
+                'dependent' => true
             )
         );
     }
 
-hasMany 关联数组包含的键有:
-Possible keys for hasMany association arrays include:
+hasMany 关联数组可以包含的键有:
 
--  **className**: 被关联到当前模型的模型类名。如果你定义了 ‘User hasMany Comment’关系，类名键的值将为 ‘Comment.’。
--  **foreignKey**: 另一张表中的外键名。如果需要定义多个 hasMany 关系，这个键非常有用。其默认值为当前模型的单数模型名缀以 ‘\_id’。
--  **conditions**:  一个 find() 兼容条件的数组或者类似 array(‘Comment.visible’ => true) 的 SQL 字符串。
--  **order**:  一个 find() 兼容排序子句或者类似 array(‘Profile.last_name’ => ‘ASC’) 的 SQL 字符串。
--  **offset**: 获取和关联前要跳过的行数（根据提供的条件 - 多数用于分页时的当前页的偏移量）。
--  **dependent**: 如果 dependent 设置为 true，就有可能进行模型的递归删除。在本例中，当 User 记录被删除后，关联的 Comment 记录将被删除。
--  **exclusive**:  当 exclusive 设置为 true，将用 deleteAll() 代替分别删除每个实体来来完成递归模型删除。
-这大大提高了性能，但可能不是所有情况下的理想选择。
--  **finderQuery**:  CakePHP 中用于获取关联模型的记录的完整 SQL 查询。用在包含许多自定义结果的场合。
-如果你建立的一个查询包含关联模型 ID 的引用，在查询中使用 ``{$__cakeID__$}`` 标记它。
-例如，如果你的 Apple 模型 hasMany Orange，
-此查询看上去有点像这样： ``SELECT Orange.* from oranges as Orange WHERE Orange.apple_id = {$__cakeID__$};``;
 
--  **className**: the classname of the model being associated to
-   the current model. If you’re defining a ‘User hasMany Comment’
-   relationship, the className key should equal ‘Comment.’
--  **foreignKey**: the name of the foreign key found in the other
-   model. This is especially handy if you need to define multiple
-   hasMany relationships. The default value for this key is the
-   underscored, singular name of the actual model, suffixed with
-   ‘\_id’.
--  **conditions**: an array of find() compatible conditions or SQL
-   strings such as array('Comment.visible' => true)
--  **order**:  an array of find() compatible order clauses or SQL
-   strings such as array('Profile.last_name' => 'ASC')
--  **limit**: The maximum number of associated rows you want
-   returned.
--  **offset**: The number of associated rows to skip over (given
-   the current conditions and order) before fetching and associating.
--  **dependent**: When dependent is set to true, recursive model
-   deletion is possible. In this example, Comment records will be
-   deleted when their associated User record has been deleted.
--  **exclusive**: When exclusive is set to true, recursive model
-   deletion does the delete with a deleteAll() call, instead of
-   deleting each entity separately. This greatly improves performance,
-   but may not be ideal for all circumstances.
--  **finderQuery**: A complete SQL query CakePHP can use to fetch
-   associated model records. This should be used in situations that
-   require very custom results.
-   If a query you're building requires a reference to the associated
-   model ID, use the special ``{$__cakeID__$}`` marker in the query.
-   For example, if your Apple model hasMany Orange, the query should
-   look something like this:
-   ``SELECT Orange.* from oranges as Orange WHERE Orange.apple_id = {$__cakeID__$};``
+-  **className**: 与当前模型关联的模型的类名。如果你定义了 'User hasMany
+   Comment (用户有多条评论)' 关系，className 键的值应当为 'Comment'。
+-  **foreignKey**: 另一个模型中的外键名。如果需要定义多个 hasMany 关系，这特别方
+   便。其默认值为当前模型以下划线分隔的单数模型名称后缀以 '\_id'。
+-  **conditions**: 兼容 find() 的条件数组或者 SQL 字符串，例如
+   array('Comment.visible' => true)。
+-  **order**: 兼容 find() 的排序子句或者 SQL 字符串，例如
+   array('Profile.last_name' => 'ASC')。
+-  **limit**: 要返回的关联数据的最大行数。
+-  **offset**: 在读取和关联之前，要跳过的关联数据行数(在当前查询条件和排序的情况
+   下)。
+-  **dependent**: 当 dependent 设置为 true，就可以进行模型的递归删除。在本例中，
+   当关联的  User 记录被删除时，Comment 记录也将被删除。
+-  **exclusive**: 当 exclusive 设置为 true，将调用 deleteAll() 进行模型的递归删
+   除，而不是分别删除每条数据。这大大提高了性能，但可能并非在所有情况下都是最好
+   的选择。
+-  **finderQuery**: 可供 CakePHP 用于读取关联模型记录的完整 SQL 查询语句。这应当
+   用于要求高度定制结果的场合。如果构建的查询语句要求使用关联模型 ID，可以在查询
+   语句中使用特殊标记 ``{$__cakeID__$}``。例如，如果 Apple 模型 hasMany Orange，
+   查询语句就应当象这样：
+   ``SELECT Orange.* from oranges as Orange WHERE Orange.apple_id = {$__cakeID__$};`` 。
 
-一旦关联被建立，User 模型上的 find 操作也将获取相关的 Comment 数据（如果它存在的话）：
 
-Once this association has been defined, find operations on the User
-model will also fetch related Comment records if they exist::
+一旦关联被建立，User 模型的 find 操作也将读取相关的 Comment 数据，如果存在的话::
 
-    //Sample results from a $this->User->find() call.
+    //调用 $this->User->find() 的结果示例。
 
     Array
     (
@@ -586,200 +467,44 @@ model will also fetch related Comment records if they exist::
                         [id] => 124
                         [user_id] => 121
                         [title] => More on Gwoo
-                        [body] => But what of the ‘Nut?
+                        [body] => But what of the 'Nut?
                         [created] => 2006-05-01 10:41:01
                     )
             )
     )
 
-有件事需要记住：你还需要定义 Comment belongsTo User 关联，用于从两个方向获取数据。
-我们在这一节概述了能够使你从 User 模型获取 Comment 数据的方法。
-在 Comment 模型中添加 Comment belongsTo User 关系将使你能够从 Comment 模型中获取 User 数据 -
-这样的链接关系才是完整的且允许从两个模型的角度获取信息流。
-
-One thing to remember is that you’ll need a complimentary Comment
-belongsTo User association in order to get the data from both
-directions. What we’ve outlined in this section empowers you to get
-Comment data from the User. Adding the Comment belongsTo User
-association in the Comment model empowers you to get User data from
-the Comment model - completing the connection and allowing the flow
-of information from either model’s perspective.
-
-counterCache - Cache your count()
-counterCache - 缓存你的 count()
----------------------------------
-
-这个功能帮助你缓存相关数据的计数。模型通过自己追踪指向关联 ``$hasMany`` 模型的所有的添加/删除并递增/递减父模型表的专用整数列，
-替代手工调用 ``find('count')`` 计算记录的计数。
-
-This function helps you cache the count of related data. Instead of
-counting the records manually via ``find('count')``, the model
-itself tracks any addition/deleting towards the associated
-``$hasMany`` model and increases/decreases a dedicated integer
-field within the parent model table.
-
-这个列的名称由列的单数名后缀以下划线和单词"count"构成：
-
-The name of the field consists of the singular model name followed
-by a underscore and the word "count"::
-
-    my_model_count
-
-如果你有一个叫 ``ImageComment`` 的模型和一个叫 ``Image`` 的模型，你需要添加一个指向 ``images`` 表的新的整数列并命名为``image_comment_count``。
-
-Let's say you have a model called ``ImageComment`` and a model
-called ``Image``, you would add a new INT-field to the ``images``
-table and name it ``image_comment_count``.
-
-下面是更多的示例:
-Here are some more examples:
-
-========== ======================= =========================================
-Model      Associated Model        Example
-========== ======================= =========================================
-User       Image                   users.image\_count
----------- ----------------------- -----------------------------------------
-Image      ImageComment            images.image\_comment\_count
----------- ----------------------- -----------------------------------------
-BlogEntry  BlogEntryComment        blog\_entries.blog\_entry\_comment\_count
-========== ======================= =========================================
-
-一旦你添加了计数列，就可以使用它了。通过在你的关联中添加 counterCache 键并将其值设置为 ``true``，可以激活 counter-cache::
-
-Once you have added the counter field you are good to go. Activate
-counter-cache in your association by adding a ``counterCache`` key
-and set the value to ``true``::
-
-    class ImageComment extends AppModel {
-        public $belongsTo = array(
-            'Image' => array(
-                'counterCache' => true,
-            )
-        );
-    }
-
-自此，你每次添加或删除一个关联到``Image``的``ImageComment``，``image_comment_count``字段的数字都会自动调整。
-
-From now on, every time you add or remove a ``ImageComment`` associated to
-``Image``, the number within ``image_comment_count`` is adjusted
-automatically.
-
-counterScope
-============
-
-你还可以指定 ``counterScope``.。它允许你指定一个简单的条件，通知模型什么时候更新（不更新）计数值，这依赖于你如何查看。
-
-You can also specify ``counterScope``. It allows you to specify a
-simple condition which tells the model when to update (or when not
-to, depending on how you look at it) the counter value.
-
-在我们的 Image 模型示例中，我们可以象下面这样指定::
-
-Using our Image model example, we can specify it like so::
-
-    class ImageComment extends AppModel {
-        public $belongsTo = array(
-            'Image' => array(
-                'counterCache' => true,
-                'counterScope' => array('Image.active' => 1) // only count if "Image" is active = 1
-            )
-        );
-    }
-
-.. _multiple-counterCache:
-
-Multiple counterCache
-多个counterCache
-=====================
-
-CakePHP从2.0起在单一模型关联中支持多个``counterCache``。同样地可能需要为每个``counterCache``定义
-``counterScope``。假设有一个``User``模型和``Message``模型，如果想统计每个用户已阅读信息和未阅读信息量。
-
-Since 2.0 CakePHP supports having multiple ``counterCache`` in a single model
-relation. It is also possible to define a ``counterScope`` for each ``counterCache``.
-Assuming you have a ``User`` model and a ``Message`` model and you want to be able
-to count the amount of read and unread messages for each user.
-
-========= ====================== ===========================================
-Model     Field                  Description
-========= ====================== ===========================================
-User      users.messages\_read   Count read ``Message``
---------- ---------------------- -------------------------------------------
-User      users.messages\_unread Count unread ``Message``
---------- ---------------------- -------------------------------------------
-Message   messages.is\_read      Determines if a ``Message`` is read or not.
-========= ====================== ===========================================
-
-像这样设置``belongsTo``::
-With this setup your ``belongsTo`` would look like this::
-
-    class Message extends AppModel {
-        public $belongsTo = array(
-            'User' => array(
-                'counterCache' => array(
-                    'messages_read' => array('Message.is_read' => 1),
-                    'messages_unread' => array('Message.is_read' => 0)
-                )
-            )
-        );
-    }
+要记住的一点是，还需要互补的 Comment belongsTo User (评论属于用户)关联，才能从两
+个方向获取数据。本节涵盖的内容让你能够从 User 模型获取 Comment 数据。在 Comment 
+模型中添加 Comment belongsTo User 关联，使你能够从 Comment 模型中获取 User 数据，
+这样才构成完整的连接，允许信息以任一模型的视角流动。
 
 hasAndBelongsToMany (HABTM)
 ---------------------------
 
-现在，你已经是 CakePHP 模型关联的专家了。你已经深谙对象关系中的三种关联。
+好了。现在你已经可以认为自己是 CakePHP 模型关联的专业人士了。你已经深谙对象关系
+中占主要部分的三种关联。
 
-Alright. At this point, you can already call yourself a CakePHP
-model associations professional. You're already well versed in the
-three associations that take up the bulk of object relations.
+现在我们来解决最后一种关系类型：hasAndBelongsToMany，或 HABTM。这种关联用于两个
+模型需要以不同方式多次重复连接的场合。
 
-现在我们来解决最后一种关系类型： hasAndBelongsToMany，也称为 HABTM。
-这种关联用于两个模型需要多次重复以不同方式连接的场合。
+hasMany 与 HABTM 主要不同点在于，HABTM 中对象间的连接不是排他的。例如，以 HABTM 
+方式连接 Recipe 模型和 Ingredient 模型。用西红柿作为我奶奶的意大利面菜谱(Recipe)
+的原料(Ingredient)，并不会"用光"这种原料。我也可以把它用于色拉菜谱(Recipe)。
 
-Let's tackle the final relationship type: hasAndBelongsToMany, or
-HABTM. This association is used when you have two models that need
-to be joined up, repeatedly, many times, in many different ways.
+hasMany 关联对象间的连接是排他的。如果 User hasMnay Comments，一条评论仅连接到一
+个特定的用户，它不能再被用于(其它用户)。
 
-hasMany 与 HABTM 主要不同点是 HABTM 中对象间的连接不是唯一的。
-例如，以 HABTM 方式连接 Recipe 模型和 Ingredient 模型。
-西红柿不只可以作为我奶奶意大利面（Recipe）的成分（Ingredient），我也可以用它做色拉（Recipe）。
+继续。我们需要在数据库中设置一个额外的表，用来处理 HABTM 关联。这个新连接表的名
+字需要包含涉及的两个模型的名字，按字母顺序并且用下划线( \_ )间隔。表的内容应当有
+两个字段，为指向涉及的模型主键的外键(应当是整数类型)。为避免任何问题，不要为这个
+两个字段定义复合主键。如果应用程序要求唯一索引，你可以定义一个。如果你计划在这个
+表中加入任何额外的信息，或者使用 'with' 模型，你需要添加一个额外的主键字段(按照
+约定为 'id')。
 
-The main difference between hasMany and HABTM is that a link
-between models in HABTM is not exclusive. For example, we're about
-to join up our Recipe model with an Ingredient model using HABTM.
-Using tomatoes as an Ingredient for my grandma's spaghetti recipe
-doesn't "use up" the ingredient. I can also use it for a salad Recipe.
-
-hasMany 关联对象间的连接是唯一的。如果我们的 User hasMnay Comments，一个评论仅连接到一个特定的用户。它不能被再利用。
-
-Links between hasMany associated objects are exclusive. If my User
-hasMany Comments, a comment is only linked to a specific user. It's
-no longer up for grabs.
-
-继续前进。我们需要在数据库中设置一个额外的表，用来处理 HABTM 关联。
-这个新连接表的名字需要包含两个相关模型的名字，按字母顺序并且用下划线( \_ )间隔。
-表的内容有两个列，每个外键（整数类型）都指向相关模型的主键。为避免出现问题 - 不要为这个两个列定义复合主键，
-如果应用程序包含复合主键，你可以定义一个唯一的索引（作为外键指向的键）。
-如果你计划在这个表中加入任何额外的信息，或者使用 ‘with’ 模型，你需要添加一个附加主键列(约定为 ‘id’)
-
-Moving on. We'll need to set up an extra table in the database to
-handle HABTM associations. This new join table's name needs to
-include the names of both models involved, in alphabetical order,
-and separated with an underscore ( \_ ). The contents of the table
-should be two fields, each foreign keys (which should be integers)
-pointing to both of the primary keys of the involved models. To
-avoid any issues - don't define a combined primary key for these
-two fields, if your application requires it you can define a unique
-index. If you plan to add any extra information to this table, or use
-a 'with' model, you should add an additional primary key field (by convention
-'id').
-
-**HABTM** 包含一个单独的连接表，其表名包含两个 模型 的名字。
-**HABTM** requires a separate join table that includes both *model*
-names.
+**HABTM** 要求一个单独的连接表，其表名包含两个 *模型* 的名字。
 
 ========================= ================================================================
-Relationship              HABTM Table Fields
+关系                      HABTM 表的字段
 ========================= ================================================================
 Recipe HABTM Ingredient   **ingredients_recipes**.id, **ingredients_recipes**.ingredient_id, **ingredients_recipes**.recipe_id
 ------------------------- ----------------------------------------------------------------
@@ -791,121 +516,71 @@ Foo HABTM Bar             **bars_foos**.id, **bars_foos**.foo_id, **bars_foos**.
 
 .. note::
 
-	按照约定，表名是按字母顺序组成的。在关联定义中自定义表名是可能的。
-    Table names are by convention in alphabetical order. It is
-    possible to define a custom table name in association definition
+    按照约定，(两个模型的)表名是按字母顺序的。也可以在关联定义中使用自定义表名。
 
-确保表 **cakes** 和 **recipes** 遵循了约定，由表中的 id 列担当主键。
-如果它们与假定的不同，模型的 主键 必须被改变。参见:ref:`model-primaryKey`
+按照约定，确保表 **cakes** 和 **recipes** 应当使用 "id" 字段作为主键。如果它们与
+约定的不同，那就必须在模型的 :ref:`model-primaryKey` 中做(相应的)改变。
 
-Make sure primary keys in tables **cakes** and **recipes** have
-"id" fields as assumed by convention. If they're different than
-assumed, it has to be changed in model's :ref:`model-primaryKey`
-
-一旦这个新表被建立，我们就可以在模型文件中建立 HABTM 关联了。这次我们将直接跳到数组语法：
-
-Once this new table has been created, we can define the HABTM
-association in the model files. We're gonna skip straight to the
-array syntax this time::
+一旦建立了这个新表，我们就可以在模型文件中定义 HABTM 关联了。这次我们将直接跳到
+数组语法::
 
     class Recipe extends AppModel {
         public $hasAndBelongsToMany = array(
             'Ingredient' =>
                 array(
-                    'className'              => 'Ingredient',
-                    'joinTable'              => 'ingredients_recipes',
-                    'foreignKey'             => 'recipe_id',
-                    'associationForeignKey'  => 'ingredient_id',
-                    'unique'                 => true,
-                    'conditions'             => '',
-                    'fields'                 => '',
-                    'order'                  => '',
-                    'limit'                  => '',
-                    'offset'                 => '',
-                    'finderQuery'            => '',
-                    'deleteQuery'            => '',
-                    'insertQuery'            => ''
+                    'className' => 'Ingredient',
+                    'joinTable' => 'ingredients_recipes',
+                    'foreignKey' => 'recipe_id',
+                    'associationForeignKey' => 'ingredient_id',
+                    'unique' => true,
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => '',
+                    'limit' => '',
+                    'offset' => '',
+                    'finderQuery' => '',
+                    'with' => ''
                 )
         );
     }
 
-HABTM 关联数组可能包含的键有：
-
-Possible keys for HABTM association arrays include:
+HABTM 关联数组可以包含的键有：
 
 .. _ref-habtm-arrays:
 
--  **className**: 关联到当前模型的模型类名。如果你定义了 ‘Recipe HABTM Ingredient’ 关系，这个类名将是 ‘Ingredient.’
--  **joinTable**: 在本关联中使用的连接表的名字（如果当前表没有按照 HABTM 连接表的约定命名的话）。
--  **with**: 为连接表定义模型名。默认的情况下，CakePHP 将自动为你建立一个模型。上例中，它被称为 IngredientsRecipe。
-可以使用这个键来覆盖默认的名字。连接表模型能够像所有的 “常规” 模型那样用来直接访问连接表。
-通过建立带有相同类名和文件名的模型类，可以向连接表搜索中加入任何自定义行为，例如向其加入更多的信息/列。
--  **foreignKey**: 当前模型中需要的外键。用于需要定义多个 HABTM 关系。其默认值为当前模型的单数模型名缀以 ‘_id’。
--  **associationForeignKey**: 另一张表中的外键名。用于需要定义多个 HABTM 关系。其默认值为另一模型的单数模型名缀以 ‘_id’。
--  **unique**: 布尔值或者字符串``keepExisting``。
-    - 如果为 true （默认值），Cake 将在插入新行前删除外键表中存在的相关记录。现有的关系在更新时需要再次传递。
-    - 如果为 false，Cake 将插入相关记录，并且在保存过程中不删除连接记录。
-    - 如果设置为 keepExisting，其行为与`true`相同，但现有关联不被删除。
--  **conditions**: 一个find()兼容条件的数组或者SQL字符串。如果在关联表上设置了条件，需要使用 ‘with’ 模型，并且在其上定义必要的belongsTo关联。
--  **fields**: 需要在匹配的关联模型数据中获取的字段的列表。默认返回所有的字段。
--  **order**: 一个 find() 兼容排序子句或者 SQL 字符串。
--  **limit**: 想返回的关联行的最大行数。
--  **offset**: 获取和关联前要跳过的行数(根据提供的条件 - 多数用于分页时的当前页的偏移量)
--  **finderQuery, deleteQuery, insertQuery**: CakePHP 能用来获取、删除或者建立新的关联模型记录的完整 SQL 查询语句。用在包含很多自定义结果的场合。
+-  **className**: 关联到当前模型的模型类名。如果你定义了 'Recipe HABTM
+   Ingredient (菜谱有许多且属于原料)' 的关系，这个类名应当是 'Ingredient'。
+-  **joinTable**: 在本关联中使用的连接表的名字(如果当前表没有遵循 HABTM 连接表的
+   命名约定)。
+-  **with**: 为连接表定义模型名。默认的情况下，CakePHP 将自动为你建立一个模型。
+   上例中，它被称为 IngredientsRecipe。可以使用这个键来覆盖默认的名字。连接表模
+   型能够象所有的“常规”模型那样用来直接访问连接表。通过创建带有这样名称和文件名
+   的模型类，可以向连接表搜索中加入任何自定义行为，例如加入更多的信息/列。
+-  **foreignKey**: 当前模型的外键名称。在需要定义多个 HABTM 关系时，这特别方便。
+   该键的默认值为当前模型的以下划线分隔的单数模型名，后缀以 '\_id'。
+-  **associationForeignKey**: 另一个模型中的外键名。在需要定义多个 HABTM 关系，
+   这特别方便。该键的默认值为另一模型的以下划线分隔的单数模型名，后缀以 '\_id'。
+-  **unique**: 布尔值或者字符串 ``keepExisting`` 。
+    - 如果为 true (默认值)，CakePHP 将先删除外键表中存在的关系记录，再插入新记录。
+      现有的关联在更新时需要再次传递。
+    - 如果为 false，CakePHP 将插入指定的新关系记录，并且保留现有关系记录，这可能
+      导致重复的关系记录。
+    - 如果设置为 ``keepExisting``，其行为与 `true` 类似，但是有一项额外的检查，
+      如果要添加的任何记录与现有的关系记录重复，现有关系记录不被删除，而重复记录
+      则被忽略。这可用于，例如，当连接表中有其它数据需要保留时。
+-  **conditions**: 兼容 find() 的条件数组或者 SQL 字符串。如果关联表有条件，应当
+   使用 'with' 模型，并且在关联表定义必要的 belongsTo 关联。
+-  **fields**: 在读取关联模型数据时要读取的字段的列表。默认返回所有的字段。
+-  **order**: 兼容 find() 的排序子句或者 SQL 字符串。
+-  **limit**: 要返回的关联行的最大行数。
+-  **offset**: 在读取和关联前要跳过的关联行的行数(给定当前的条件和排序)
+-  **finderQuery**: CakePHP 用来读取关联模型记录的完整 SQL 查询语句。这应当用在
+   要求高度定制结果的场合。
 
--  **className**: the classname of the model being associated to
-   the current model. If you're defining a ‘Recipe HABTM Ingredient'
-   relationship, the className key should equal ‘Ingredient.'
--  **joinTable**: The name of the join table used in this
-   association (if the current table doesn't adhere to the naming
-   convention for HABTM join tables).
--  **with**: Defines the name of the model for the join table. By
-   default CakePHP will auto-create a model for you. Using the example
-   above it would be called IngredientsRecipe. By using this key you can
-   override this default name. The join table model can be used just
-   like any "regular" model to access the join table directly. By creating
-   a model class with such name and filename you can add any custom behavior
-   to the join table searches, such as adding more information/columns to it
--  **foreignKey**: the name of the foreign key found in the current
-   model. This is especially handy if you need to define multiple
-   HABTM relationships. The default value for this key is the
-   underscored, singular name of the current model, suffixed with
-   ‘\_id'.
--  **associationForeignKey**: the name of the foreign key found in
-   the other model. This is especially handy if you need to define
-   multiple HABTM relationships. The default value for this key is the
-   underscored, singular name of the other model, suffixed with
-   ‘\_id'.
--  **unique**: boolean or string ``keepExisting``.
-    - If true (default value) cake will first delete existing relationship
-      records in the foreign keys table before inserting new ones.
-      Existing associations need to be passed again when updating.
-    - When false, cake will insert the relationship record, and that
-      no join records are deleted during a save operation.
-    - When set to ``keepExisting``, the behavior is similar to `true`,
-      but existing associations are not deleted.
--  **conditions**: an array of find() compatible conditions or SQL
-   string.  If you have conditions on an associated table, you should use a
-   'with' model, and define the necessary belongsTo associations on it.
--  **fields**: A list of fields to be retrieved when the associated
-   model data is fetched. Returns all fields by default.
--  **order**: an array of find() compatible order clauses or SQL
-   strings
--  **limit**: The maximum number of associated rows you want
-   returned.
--  **offset**: The number of associated rows to skip over (given
-   the current conditions and order) before fetching and associating.
--  **finderQuery, deleteQuery, insertQuery**: A complete SQL query
-   CakePHP can use to fetch, delete, or create new associated model
-   records. This should be used in situations that require very custom
-   results.
+一旦定义了关联，Recipe 模型的 find 操作也会读取相关的 Ingredient 记录，如果存在
+的话::
 
-一旦关联被创建，Recipe 模型上的 find 操作将可同时获取到存在的相关的 Tag 记录::
-
-Once this association has been defined, find operations on the
-Recipe model will also fetch related Tag records if they exist::
-
-    // Sample results from a $this->Recipe->find() call.
+    //调用 $this->Recipe->find() 的结果示例。
 
     Array
     (
@@ -936,83 +611,51 @@ Recipe model will also fetch related Tag records if they exist::
             )
     )
 
-如果在使用 Ingredient 模型时想获取 Recipe 数据，记得在 Ingredient 模型中定义 HABTM 关联。
-
-Remember to define a HABTM association in the Ingredient model if you'd
-like to fetch Recipe data when using the Ingredient model.
+如果要想在使用 Ingredient 模型时获取 Recipe 数据，记得在 Ingredient 模型中定义 
+HABTM 关联。
 
 .. note::
 
-   HABTM 数据被视为完整的数据集。每次一个新的关联数据被加入，数据库中的关联行的完整数据集被删除并重新建立。
-   所以总是需要为保存操作传递整个数据集。使用 HABTM 的另一方法参见:ref:`hasMany-through`
-
-   HABTM data is treated like a complete set, each time a new data association is added
-   the complete set of associated rows in database is dropped and created again so you
-   will always need to pass the whole data set for saving. For an alternative to using
-   HABTM see :ref:`hasMany-through`
+   HABTM 数据被视为完整的集合。每次添加新的数据关联，数据库中关联行的整个集合会
+   被删除并重新创建，所以应当总是传入整个数据集来保存。欲知使用 HABTM 的其它方法，
+   请参见 :ref:`hasMany-through`。
 
 .. tip::
 
-	关于保存 HABTM 对象的更多信息请参见:ref:`saving-habtm`
-    For more information on saving HABTM objects see :ref:`saving-habtm`
+    欲知关于保存 HABTM 对象的更多信息，请参见 :ref:`saving-habtm`。
 
 
 .. _hasMany-through:
 
-hasMany through (The Join Model)
-hasMany 贯穿(连接模型)
---------------------------------
+通过(连接模型)的 hasMany
+------------------------
 
-有时候需要存储带有多对多关系的附加数据。考虑以下情况：
-
-It is sometimes desirable to store additional data with a many to
-many association. Consider the following
+有时候需要在多对多关联中保存附加数据。考虑以下情况
 
 `Student hasAndBelongsToMany Course`
 
 `Course hasAndBelongsToMany Student`
 
-换句话说，一个Student可以有很多Courses，而一个Course也能被多个Student选择。 这个简单的多对多关联需要一个类似于如下结构的表::
-    id | student_id | course_id
-
-In other words, a Student can take many Courses and a Course can be
-taken by many Students. This is a simple many to many association
-demanding a table such as this::
+换句话说，一名学生(*Student*)可以选修多门课程(*Course*)，而一门课程(*Course*)也
+可以被多名学生(*Student*)选修。 这个简单的多对多关联需要一个类似于如下结构的表::
 
     id | student_id | course_id
 
-现在，如果我们要存储学生在课程上出席的天数及他们的最终级别，这张表将变成::
-    id | student_id | course_id | days_attended | grade
-
-问题是，hasAndBelongsToMany 不支持这类情况，因为 hasAandBelongsToMany 关联被存储时，先要删除这个关联。列中的额外数据会丢失，且放到新插入的数据中。
-
-Now what if we want to store the number of days that were attended
-by the student on the course and their final grade? The table we'd
-want would be::
+现在，如果我们要保存学生在这门课程中出勤的天数以及他们的最终分数呢？需要的这张表
+将变成::
 
     id | student_id | course_id | days_attended | grade
 
-The trouble is, hasAndBelongsToMany will not support this type of
-scenario because when hasAndBelongsToMany associations are saved,
-the association is deleted first. You would lose the extra data in
-the columns as it is not replaced in the new insert.
+问题是，hasAndBelongsToMany 不支持这类情况，因为 hasAndBelongsToMany 关联保存时，
+先要删除这个关联。这些列中的额外数据会丢失，因为新插入的数据中没有这些数据。
 
     .. versionchanged:: 2.1
 
-	你可以将 unique 设置为 keepExisting 防止在保存过程丢失额外的数据。
-	参阅:ref:`HABTM association arrays <ref-habtm-arrays>`。
+    你可以将 ``unique`` 设置为 ``keepExisting`` 来防止在保存操作中丢失额外的数据。
+    请参阅 :ref:`HABTM association arrays <ref-habtm-arrays>`。
 
-    You can set ``unique`` setting to ``keepExisting`` circumvent
-    losing extra data during the save operation.  See ``unique``
-    key in :ref:`HABTM association arrays <ref-habtm-arrays>`.
-
-实现我们的要求的方法是使用一个**连接模型**，或者也称为**hasMany through**关联。
-具体作法是模型与自身关联。现在我们建立一个新的模型 CourseMembership。下面是此模型的定义。
-
-The way to implement our requirement is to use a **join model**,
-otherwise known as a **hasMany through** association.
-That is, the association is a model itself. So, we can create a new
-model CourseMembership. Take a look at the following models.::
+实现需求的方法是使用 **连接模型**，或者也称为 **hasMany through** 关联。即，关联
+自身也是一个模型。现在我们建立一个新的模型 CourseMembership。请看下面的模型。::
 
             // Student.php
             class Student extends AppModel {
@@ -1037,48 +680,33 @@ model CourseMembership. Take a look at the following models.::
                 );
             }
 
-CourseMembership 连接模型唯一标识了一个给定的学生额外参与的课程，存入扩展元信息中。
+CourseMembership 连接模型除了保存额外的元信息(即关联信息)，还唯一地标识了一名给
+定学生对一门课程的参与(即出勤天数及分数)。
 
-The CourseMembership join model uniquely identifies a given
-Student's participation on a Course in addition to extra
-meta-information.
-
-连接表非常有用，Cake使其非常容易地与内置的hasMany和belongsTo关联及saveAll特性一同使用。
-
-Join models are pretty useful things to be able to use and Cake
-makes it easy to do so with its built-in hasMany and belongsTo
-associations and saveAll feature.
+连接模型是非常有用的功能，借助于内置的 hasMany 和 belongsTo 关联及 saveAll 特性，
+CakePHP 让使用它非常容易。
 
 .. _dynamic-associations:
 
-Creating and Destroying Associations on the Fly
 动态创建和销毁关联
------------------------------------------------
+------------------
 
-有时候需要在运行时动态建立和销毁模型关联。比如以下几种情况:
-Sometimes it becomes necessary to create and destroy model
-associations on the fly. This may be for any number of reasons:
+有时候必须在运行时动态建立和销毁模型关联。这也许是因为以下任何几种原因:
 
--  想减少获取的关联数据的量，但是所有的关联都是循环的第一级。
--  想要改变定义关联的方法以便排序或者过滤关联数据。
 
-这种关联的建立与销毁由 CakePHP 模型 bindModel() 和 unbindModel() 方法完成。
-(还有一个非常有用的行为叫 "Containable"，更多信息请参阅手册中 内置行为 一节)。
-我们来设置几个模型，看看 bindModel() 和 unbindModel() 如何工作。
-我们从两个模型开始::
+-  想减少获取的关联数据的数据量，但是所有的关联都是在关联的第一级。
+-  想要改变定义关联的方式以便排序或者过滤关联数据。
 
-This association creation and destruction is done using the CakePHP
-model bindModel() and unbindModel() methods. (There is also a very
-helpful behavior called "Containable", please refer to manual
-section about Built-in behaviors for more information). Let's set
-up a few models so we can see how bindModel() and unbindModel()
-work. We'll start with two models::
+这种关联的建立与取消由 CakePHP 模型的 bindModel() 和 unbindModel() 方法来完成。
+(还有一个非常有用的行为叫 "Containable"。欲知更多信息，请参阅手册中内置行为一节。)
+让我们来设置几个模型，看看 bindModel() 和 unbindModel() 方法如何工作。我们从两个
+模型开始::
 
     class Leader extends AppModel {
         public $hasMany = array(
             'Follower' => array(
                 'className' => 'Follower',
-                'order'     => 'Follower.rank'
+                'order' => 'Follower.rank'
             )
         );
     }
@@ -1087,87 +715,54 @@ work. We'll start with two models::
         public $name = 'Follower';
     }
 
-现在，在LeaderController控制器中，我们能够使用Leader模型的find()方法获取一个Leader和它的追随者(followers) 。
-就像你上面看到的那样，Leader 模型的关联关系数组定义了"Leader hasMany Followers"关系。
-为了演示一下实际效果，我们使用 unbindModel() 删除控制器动作中的关联::
-
-Now, in the LeadersController, we can use the find() method in the
-Leader model to fetch a Leader and its associated followers. As you
-can see above, the association array in the Leader model defines a
-"Leader hasMany Followers" relationship. For demonstration
-purposes, let's use unbindModel() to remove that association in a
-controller action::
+现在，在 LeaderController 控制器中，我们能够使用 Leader 模型的 find() 方法获取一
+个 Leader 和与它关联的追随者(followers)。就像你上面看到的那样，Leader 模型的关联
+数组定义了 "Leader hasMany Followers" 关系。出于演示的目的，让我们在控制器动作中
+使用 unbindModel() 方法删除该关联::
 
     public function some_action() {
-    	// 获取 Leaders 及其相关的 Followers
-        // This fetches Leaders, and their associated Followers
+        // 这会获取 Leader 及其相关的 Followers
         $this->Leader->find('all');
 
-		// 删除 hasMany...
-        // Let's remove the hasMany...
+        // 让我们删除 hasMany 关联……
         $this->Leader->unbindModel(
             array('hasMany' => array('Follower'))
         );
 
-		// 现在使用 find 函数将只返回 Leaders，没有 Followers
-        // Now using a find function will return
-        // Leaders, with no Followers
+        // 现在使用 find 函数将只返回 Leaders，而没有 Followers
         $this->Leader->find('all');
 
-		// NOTE: unbindModel 只影响紧随其后的 find 函数。再往后的 find 调用仍将使用预配置的关联信息。
-        // NOTE: unbindModel only affects the very next
-        // find function. An additional find call will use
-        // the configured association information.
+        // 注：unbindModel 方法只影响紧随其后的 find 方法。再往后调用 find 方法
+        // 时仍将使用配置的关联信息。
 
-		// 所以此处在unbindModel()后面再次使用find('all')，又会获取 Leaders 及与其相关的 Followers ...
-        // We've already used find('all') after unbindModel(),
-        // so this will fetch Leaders with associated
-        // Followers once again...
+        // 我们已经在 unbindModel() 之后调用了 find('all')，所以这次又会获取 
+        // Leaders 及相关的 Followers……
         $this->Leader->find('all');
     }
 
 .. note::
 
-	使用 bindModel() 和 unbindModel() 来添加和删除关联，仅在*紧随其后* 的 find 操作中有效，除非第二个参数设置为*false*。
-	如果第二个参数被设置为 false，请求的剩余位置仍将保持 bind 行为。
+    使用 bindModel() 和 unbindModel() 方法来添加和删除关联，仅在 *紧随其后* 的 
+    find 操作中有效，除非第二个参数设置为 false。如果第二个参数被设置为 *false*，
+    在请求的余下阶段仍将保持这种(动态绑定的)效果。
 
-    Removing or adding associations using bind- and unbindModel() only
-    works for the *next* find operation only unless the second
-    parameter has been set to false. If the second parameter has been
-    set to *false*, the bind remains in place for the remainder of the
-    request.
-
-以下是 unbindModel() 的基本用法模板::
-Here’s the basic usage pattern for unbindModel()::
+以下是 unbindModel() 的基本用法模式::
 
     $this->Model->unbindModel(
-        array('associationType' => array('associatedModelClassName'))
+        array('关联类型' => array('关联模型类名'))
     );
 
-现在我们成功地在运行过程中删除了一个关联。 让我们来添加一个。
-我们要为没有Principle的Leader模型来一些Principle关联。
-我们的Principle模型文件除了public $name声明语句之外，什么都没有。
-我们在运行中给我们的Leader关联一些 Principles(谨记它仅在紧随其后的 find 操作中有效)。
-在 LeadersController 中的函数如下::
-
-Now that we've successfully removed an association on the fly,
-let's add one. Our as-of-yet unprincipled Leader needs some
-associated Principles. The model file for our Principle model is
-bare, except for the public $name statement. Let's associate some
-Principles to our Leader on the fly (but remember–only for just the
-following find operation). This function appears in the
-LeadersController::
+现在我们成功地动态删除了一个关联。让我们来添加一个。我们至今尚没有 Principle 的
+Leader 模型需要一些关联的 Principle。我们的 Principle 模型文件几乎是空的，只有 
+public $name 声明语句。让我们动态给我们的 Leader 关联一些 Principle (但记得，这
+仅在紧随其后的 find 操作中有效)。在 LeadersController 控制器中有如下函数::
 
     public function another_action() {
-     	// 在 leader.php 文件中没有 Leader hasMany Principles 关联，所以这里的 find 只获取了 Leaders。
-        // There is no Leader hasMany Principles in
-        // the leader.php model file, so a find here,
-        // only fetches Leaders.
+        // 在 leader.php 模型文件中没有 Leader hasMany Principles 关联，所以这里
+        // 的 find 只读取了 Leaders。
         $this->Leader->find('all');
 
-		// 我们来用 bindModel() 为 Leader 模型添加一个新的关联：
-        // Let's use bindModel() to add a new association
-        // to the Leader model:
+        // 让我们用 bindModel() 方法为 Leader 模型添加一个新的关联：
         $this->Leader->bindModel(
             array('hasMany' => array(
                     'Principle' => array(
@@ -1177,44 +772,33 @@ LeadersController::
             )
         );
 
-		// 现在我们已经正确的设置了关联，我们可以使用单个的 find 函数来获取带有相关 principles 的 Leader：
-        // Now that we're associated correctly,
-        // we can use a single find function to fetch
-        // Leaders with their associated principles:
+        // 现在我们已经正确地设置了关联，我们可以调用一次 find 函数来获取 Leader
+        // 及其相关的 principle：
         $this->Leader->find('all');
     }
 
-就是这样。bindModel() 的基本用法是封装在以你尝试建立的关联类型命名的数组中的常规数组::
+就是这样。bindModel() 方法的基本用法是封装在数组中的常规关联数组，该数组的键为要
+建立的关联的类型::
 
     $this->Model->bindModel(
-        array('associationName' => array(
-                'associatedModelClassName' => array(
-                    // normal association keys go here...
+        array('关联名称' => array(
+                '关联模型类名' => array(
+                    // 这里是常规的关联的键……
                 )
             )
         )
     );
 
-即使不需要通过绑定模型对模型文件中的关联定义做任何排序，仍然需要为使新关联正常工作设置正确的排序键
+虽然新绑定的模型在它的模型文件中不需要定义任何关联，但是要使新的关联正常工作，仍
+然需要为其设置正确的(数据库表的)键。
 
-Even though the newly bound model doesn't need any sort of
-association definition in its model file, it will still need to be
-correctly keyed in order for the new association to work properly.
+与同一模型的多个关系
+--------------------
 
-Multiple relations to the same model
-同一模型上的多个关系
-------------------------------------
-
-有时一个模型有多个与其它模型的关联。例如，你可能需要有一个关联两个User模型的Message模型。
-一个是要向其发送消息的用户，一个是从其接收消息的用户。
-消息表有一个user\_id字段，还有一个 recipient\_id字段。这样的话消息模型看起来就像下面这样::
-
-There are cases where a Model has more than one relation to another
-Model. For example you might have a Message model that has two
-relations to the User model. One relation to the user that sends a
-message, and a second to the user that receives the message. The
-messages table will have a field user\_id, but also a field
-recipient\_id. Now your Message model can look something like::
+有些情况下，一个模型与另一个模型有多种关系。例如，消息(Message)模型与用户(User)
+模型有两种关系：一种是与发送消息的用户的关系，第二种是与接收消息的用户的关系。
+messages 表有一个 user\_id 字段，还有一个 recipient\_id 字段。这样的话消息
+(Message)模型看起来就象这样::
 
     class Message extends AppModel {
         public $belongsTo = array(
@@ -1229,10 +813,7 @@ recipient\_id. Now your Message model can look something like::
         );
     }
 
-Recipient 是 User 模型的别名。来瞧瞧 User 模型是什么样的：
-
-Recipient is an alias for the User model. Now let's see what the
-User model would look like::
+Recipient 是 User 模型的别名。现在来瞧瞧 User 模型是什么样的::
 
     class User extends AppModel {
         public $hasMany = array(
@@ -1247,9 +828,7 @@ User model would look like::
         );
     }
 
-它也可以建立如下的自关联::
-
-It is also possible to create self associations as shown below::
+也可以建立自我关联，如下所示::
 
     class Post extends AppModel {
 
@@ -1269,50 +848,31 @@ It is also possible to create self associations as shown below::
     }
 
 **获取关联记录的嵌套数组:**
-**Fetching a nested array of associated records:**
 
-如果表里有 parent_id 可以使用:ref:`model-find-threaded`来获取单个查询记录的嵌套数组而不用再设置任何关联设置。
-
-If your table has ``parent_id`` field you can also use :ref:`model-find-threaded`
-to fetch nested array of records using a single query without
-setting up any associations.
+如果表里有 ``parent_id`` 字段，可以调用 :ref:`model-find-threaded` 使用单个查询
+来获取记录的嵌套数组，而不用设置任何关联。
 
 .. _joining-tables:
 
-Joining tables
 连接表
---------------
+------
 
-在SQL中你可以使用JOIN子句绑定相关表。这允许你运行跨越多个表的复杂查询(例如：按给定的几个 tag 搜索帖子)。
+在 SQL 中，你可以使用 JOIN 语句连接相关的表。这让你可以运行涉及多个表的复杂查询(
+例如，按给定的几个标签(*tag*)搜索文章(*post*))。
 
-In SQL you can combine related tables using the JOIN statement.
-This allows you to perform complex searches across multiples tables
-(i.e: search posts given several tags).
+在 CakePHP 中某些关联(belongsTo 和 hasOne)会自动进行连接(*join*)来读取数据，所以
+可以执行基于相关模型的数据的查询来读取模型数据。
 
-在 CakePHP 中一些关联（belongsTo 和 hasOne）自动执行 join 以检索数据，所以能根据相关数据检索模型的查询。
-
-In CakePHP some associations (belongsTo and hasOne) performs
-automatic joins to retrieve data, so you can issue queries to
-retrieve models based on data in the related one.
-
-但是这不适用于 hasMany 和 hasAndBelongsToMany 关联。这些地方需要强制向循环中添加 join。
-你必须定义与要联合的表的必要连接（join），使你的查询获得期望的结果。
-
-But this is not the case with hasMany and hasAndBelongsToMany
-associations. Here is where forcing joins comes to the rescue. You
-only have to define the necessary joins to combine tables and get
-the desired results for your query.
+但是这不适用于 hasMany 和 hasAndBelongsToMany 关联。这就需要强制进行连接(*join*)。
+只需要定义必要的连接(*join*)，就可以把表联合在一起，并获得期望的查询结果。
 
 .. note::
 
-	谨记，你需要将 recursion 设置为 -1，以使其正常工作。例如： $this->Channel->recursive = -1;
-    Remember you need to set the recursion to -1 for this to work. I.e:
+    谨记，你需要将递归(*recursion*)设置为 -1，才能正常工作：
     $this->Channel->recursive = -1;
 
-在表间强制添加 join 时，你需要在调用 Model::find() 时使用 "modern"语法，在 $options 数组中添加'joins'键。例如::
-To force a join between tables you need to use the "modern" syntax
-for Model::find(), adding a 'joins' key to the $options array. For
-example::
+在表间强制进行连接(*join*)时，需要使用 Model::find() 的"现代"语法，在 $options 
+数组中添加 'joins' 键。例如::
 
     $options['joins'] = array(
         array('table' => 'channels',
@@ -1328,33 +888,20 @@ example::
 
 .. note::
 
-	注意'join'数组不是一个键。
-    Note that the 'join' arrays are not keyed.
+    注意 'join' 数组没有键。
 
-在上面的例子中，叫做 Item 的模型 left join 到 channels 表。可以用模型名为表起别名，以使检索到的数组完全符合 CakePHP 的数据结构。
-In the above example, a model called Item is left joined to the
-channels table. You can alias the table with the Model name, so the
-retrieved data complies with the CakePHP data structure.
+在上面的例子中，名为 Item 的模型左连接(*left-join*)到 channels 表。可以用模型名
+作为表的别名，以使读取的数据符合 CakePHP 的数据结构。
 
-定义 join 所用的键如下:
-The keys that define the join are the following:
+定义连接(*join*)所用的键如下:
+
 
 -  **table**: 要连接的表。
--  **alias**: 表的别名。最好使用关联模型名。
-   associated with the table is the best bet.
--  **type**: 连接类型： inner， left 或者 right。
--  **conditions**: 执行 join 的条件。
+-  **alias**: 表的别名。与表关联的模型名是最好的选择。
+-  **type**: 连接(*join*)的类型： inner、left 或者 right。
+-  **conditions**: 执行连接(*join*)的条件。
 
--  **table**: The table for the join.
--  **alias**: An alias to the table. The name of the model
-   associated with the table is the best bet.
--  **type**: The type of join: inner, left or right.
--  **conditions**: The conditions to perform the join.
-
-对于 joins 选项，可以添加基于关系模型字段的条件：
-
-With joins, you could add conditions based on Related model
-fields::
+使用 joins 选项，可以添加基于关联模型字段的条件::
 
     $options['joins'] = array(
         array('table' => 'channels',
@@ -1372,20 +919,18 @@ fields::
 
     $privateItems = $Item->find('all', $options);
 
-可以在 hasAndBelongsToMany 中运行几个需要的 joins:
-You could perform several joins as needed in hasAndBelongsToMany:
+可以根据需要在 hasAndBelongsToMany 关联中运行若干个连接(*join*)：
 
-Suppose a Book hasAndBelongsToMany Tag association. This relation
-uses a books\_tags table as join table, so you need to join the
-books table to the books\_tags table, and this with the tags
-table::
+假设有 Book hasAndBelongsToMany Tag (书籍有且属于多个标签)的关联。该关系使用 
+books\_tags 表作为连接表，所以需要把 books 表连接(*join*)到 books\_tags 表，再把
+它与 tags 表连接(*join*)::
 
     $options['joins'] = array(
         array('table' => 'books_tags',
             'alias' => 'BooksTag',
             'type' => 'inner',
             'conditions' => array(
-                'Books.id = BooksTag.books_id'
+                'Book.id = BooksTag.book_id'
             )
         ),
         array('table' => 'tags',
@@ -1403,15 +948,11 @@ table::
 
     $books = $Book->find('all', $options);
 
-使用 joins 允许你以极为灵活的方式处理 CakePHP 的关系并获取数据，但是在很多情况下，你能使用其它工具达到同样的目的，
-例如正确地定义关联，运行时绑定模型或者使用 Containable 行为。
-使用这种特性要很小心，因为它在某些情况下可能会带来模式不规范的SQL查询。
-
-Using joins allows you to have a maximum flexibility in how CakePHP handles associations
-and fetch the data, however in most cases you can use other tools to achieve the same results
-such as correctly defining associations, binding models on the fly and using the Containable
-behavior. This feature should be used with care because it could lead, in a few cases, into bad formed
-SQL queries if combined with any of the former techniques described for associating models.
+使用连接(*join*)让你可以以最大的灵活性来控制 CakePHP 如何处理关联并获取数据。不
+过，在大多数情况下，你可以使用其它方式达到同样的目的，比如正确地定义关联，动态绑
+定模型，以及使用 Containable 行为。使用连接(*join*)这种特性应当很小心，因为如果
+和任何之前描述的关联模型的技术一起使用，在一些情况下，它可能会导致错误的 SQL 查
+询语句。
 
 
 .. meta::
