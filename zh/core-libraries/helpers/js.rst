@@ -35,7 +35,7 @@ echo $this->Html->script('jquery'); // 引入Jquery库，如果没有default.ctp
 
 默认js脚本会被缓存，所以我们必须输出缓存，在每个页面的结尾</body>标签内，执行echo $this->Js->writeBuffer();//输出缓存
 
-.. 警告::
+.. warning::
 
     You must include the library in your page and print the cache for
     the helper to function.
@@ -672,7 +672,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
         $this->Js->get('div.message');
         $this->Js->each('$(this).css({color: "red"});');
    
-    .. 生成代码:: javascript
+    .. code-block:: javascript
 
         $('div.message').each(function () { $(this).css({color: "red"}); });
 

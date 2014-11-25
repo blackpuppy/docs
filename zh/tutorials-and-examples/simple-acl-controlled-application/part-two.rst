@@ -149,7 +149,7 @@ http://localhost/cake/app/users/initdb)。使用 ``SELECT * FROM aros_acos`` 你
 基本上是删除 Auth的Session Key并且返回一个可用于重定向的url。
 如果有其他的session数据需要被删除也是在这里添加代码。
 
-齐活了（译者注：北京方言，意为都搞定了。）
+全部完成
 ========
 
 现在你应该已经让你的应用使用Auth 和 Acl来控制访问了。

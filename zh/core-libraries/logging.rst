@@ -1,5 +1,5 @@
 日志记录
-#######
+########
 
 虽然CakePHP的核心配置类的设置可以帮助我们看到一些运行状况。但有些时候
 为了查明到底发生了什么事情，我们要记录数据到磁盘中。因为在我们更加依赖SOAP和AJAX等技术
@@ -117,7 +117,7 @@ to true to log uncaught exceptions. See :doc:`/development/configuration`
 for more information.
 
 与日志流交互 Interacting with log streams
-============================
+=========================================
 
 当我们反过头来查看方法 :php:meth:`CakeLog::configured()`。返回的 ``configured()`` 是一个
 所有当前配置流的数组。可以使用 :php:meth:`CakeLog::drop()` 删除流。一旦日志流被移除，将不再接收消息。
@@ -129,7 +129,7 @@ streams using :php:meth:`CakeLog::drop()`. Once a log stream has been
 dropped it will no longer receive messages.
 
 使用默认的FileLog类 Using the default FileLog class
-===============================
+======================================================
 
 虽然CakeLog可以配置为编写大量的用户配置日志记录适配器,它还提供了一个默认的日志记录配置。
 默认的日志配置使用任何时候有 *没有其他* 日志适配器配置。
@@ -191,7 +191,7 @@ custom paths to be used::
 .. _writing-to-logs:
 
 写入日志 Writing to logs
-===============
+========================
 
 写入日志文件内容有两种方式。第一个是使用静态:php:meth:`CakeLog::write()`方法::
 

@@ -21,7 +21,7 @@ connection, etc.). Otherwise, it operates in its own little space,
 behaving much like it would if it were an application on its own.
 
 安装插件 Installing a Plugin
-===================
+============================
 
 安装一个插件，首先把插件放到 app/Plugin 目录。如果安装一个名为 'ContactManager'
 的插件，在 app/Plugin 目录下面应该有一个名为 'ContactManager' 的目录。在它下面有
@@ -53,7 +53,7 @@ settings for specific plugins. ``load()`` works similarly, but only loads the
 plugins you explicitly specify.
 
 插件配置 Plugin configuration
-====================
+================================
 
 load 和 loadAll 方法包含有很多插件的配置和路由参数。也许你想要自动加载所有插件，
 同时要为某些插件指定自定义路由和bootstrap文件。
@@ -118,7 +118,7 @@ them and setting up the database in their documentation. Some
 plugins will require more setup than others.
 
 高级bootstrapping  Advanced bootstrapping
-======================
+=========================================
 
 If you like to load more than one bootstrap file for a plugin. You can specify
 an array of files for the bootstrap configuration key::
