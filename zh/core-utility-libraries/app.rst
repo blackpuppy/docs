@@ -8,7 +8,7 @@ The app class is responsible for path management, class location and class loadi
 Make sure you follow the :ref:`file-and-classname-conventions`.
 
 Packages 包
-========
+===========
 
 CakePHP围绕包进行组织，每个类属于一个包或目录。可以使用 ``App::build('APackage/SubPackage', $paths)``
 配置应用程序中每个包的位置，通知该框架应该加载每一个类。CakePHP框架中的几乎每一个类
@@ -34,7 +34,7 @@ Once you've done this App will load your override file instead of the file
 inside CakePHP.
 
 Loading Classes 加载类
-===============
+=======================
 
 .. php:staticmethod:: uses(string $class, string $package)
 
@@ -343,7 +343,7 @@ Including files with App::import()
       past.
 
 Overriding classes in CakePHP 重载类
-=============================
+======================================
 
 可以重载框架内的几乎每一个类，除了 :php:class:`App` 和 :php:class:`Configure` 类。
 只需添加你自己的类到你的app/Lib目录，效仿框架内部的目录结构。下面有几个例子。
@@ -361,7 +361,7 @@ When you load the replaced files, the app/Lib files will be loaded instead of
 the built-in core classes.
 
 Loading Vendor Files  加载Vendor文件
-====================
+========================================
 
 可以使用``App::uses()``加载vendors目录中的类文件。遵循加载其他文件同样的规则::
 You can use ``App::uses()`` to load classes in vendors directories. It follows

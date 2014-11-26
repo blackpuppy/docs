@@ -141,7 +141,7 @@ bakers, pastry\_stores, and savory\_cakes.
     vendors, such as SQLServer, Postgres and MySQL.
 
 额外的类路径 Additional Class Paths
-======================
+====================================
 
 有时在同一个系统上的应用程序之间共享MVC类库是很有用的。
 。如果想要在两个应用程序间使用同一控制器,您可以使用CakePHP的引导。php将
@@ -805,7 +805,7 @@ lib/Cake/Utility/Inflector.php, with the added rules taking precedence
 over the core rules.
 
 引导启动CakePHP Bootstrapping CakePHP
-=====================
+=====================================
 
 如果有任何额外的配置需求，可以使用CakePHP的bootstrap文件，位于app/Config/bootstrap.php。
 这个文件会在CakePHP的核心启动后执行。

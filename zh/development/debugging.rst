@@ -1,5 +1,5 @@
 调试 Debugging
-#########
+###############
 
 调试在任何开发环节中都是不可避免和必要的。CakePHP并没有提供任何可以直接连接IDE或编辑器的工具，
 但提供了能够协助调试和显示在应用程序下内容的方法。
@@ -11,7 +11,7 @@ assist in debugging and exposing what is running under the hood of
 your application.
 
 基本调试 Basic Debugging
-===============
+==========================
 
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
 
@@ -59,6 +59,7 @@ reveal the stack trace, and on the "Code" link to reveal the
 error-causing lines.
 
 使用Debugger调试类
+========================
 
 Using the Debugger Class
 ========================
