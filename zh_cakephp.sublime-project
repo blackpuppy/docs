@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "F:\\VB_share\\vagrant\\vagrant_data"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\vagrant\\code\\cakephp_docs"
+		}
+	]
+}

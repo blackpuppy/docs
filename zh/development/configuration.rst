@@ -4,18 +4,8 @@
 配置CakePHP应用程序简直是小餐一碟。在安装完CakePHP，创建一个基本的
 web应用只需进行数据库配置。
 
-Configuring a CakePHP application is a piece of cake. After you
-have installed CakePHP, creating a basic web application requires
-only that you setup a database configuration.
-
-当然，可以充分利用CakePHP灵活的结构进行其他可选的配置。可以容易的添加那些继承自
-CakePHP核心的功能，配置额外的或不同的URL映射(路由)以及定义额外或不同的inflections。
-
-There are, however, other optional configuration steps you can take
-in order to take advantage of CakePHP flexible architecture. You
-can easily add to the functionality inherited from the CakePHP
-core, configure additional/different URL mappings (routes), and
-define additional/different inflections.
+当然，可以充分利用CakePHP灵活的结构进行其他可选的配置。可以容易的添加继承自
+CakePHP核心的功能，配置额外的/不同的URL映射(路由)以及定义额外/不同的inflections。
 
 .. index:: database.php, database.php.default
 .. _database-configuration:
@@ -23,14 +13,9 @@ define additional/different inflections.
 数据库配置
 ======================
 
-CakePHP的数据库配置信息存储在文件中，位于 ``app/Config/database.php`` 。
-实例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
+CakePHP的数据库配置信息存储在位于 ``app/Config/database.php`` 的文件中。
+示例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
 看起来像这样::
-
-CakePHP expects database configuration details to be in a file at
-``app/Config/database.php``. An example database configuration file can
-be found at ``app/Config/database.php.default``. A finished
-configuration should look something like this::
 
     class DATABASE_CONFIG {
         public $default = array(
@@ -45,32 +30,16 @@ configuration should look something like this::
     }
 
 默认情况下使用名为$default数组，除非在模型中指定 ``$useDbConfig`` 。
-举例，如果一个应用程序除了默认的数据库配置信息还有一个额外的遗留的(legacy)
+举个例子，如果一个应用程序除了默认的数据库配置信息还有一个额外遗留的
 数据库，应该创建一个结构类似于$default数组且名为$legacy的连接配置信息。
 然后在适当的模型中设置 ``public $useDbConfig = 'legacy';`` 。
 
-The $default connection array is used unless another connection is
-specified by the ``$useDbConfig`` property in a model. For example, if
-my application has an additional legacy database in addition to the
-default one, I could use it in my models by creating a new $legacy
-database connection array similar to the $default array, and by
-setting ``public $useDbConfig = 'legacy';`` in the appropriate models.
-
-
-填写配置数组中的键/值对以满足您的需求。
-
-Fill out the key/value pairs in the configuration array to best
-suit your needs.
+填写配置数组中的键/值对以满足需求。
 
 datasource
-
 	数据源的名字。
 	例如可填：Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite。
 	可以使用 :term:`plugin syntax` 指定插件数据源。
-
-    The name of the datasource this configuration array is for.
-    Examples: Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite.
-    You can use :term:`plugin syntax` to indicate plugin datasource to use.
 persistent
     是否使用持久化连接数据库。
 host
@@ -84,77 +53,52 @@ database
 prefix (*可选*)
     数据库中每个表的前缀名。如果表没有前缀，设置为空字符串。
 port (*可选*)
-	使用的TCP端口或Unix套接字连接到服务器。
-    The TCP port or Unix socket used to connect to the server.
+	TCP或Unix套接字连接到服务器的端口。
 encoding
 	指定了发送SQL语句到服务器的所用字符集。默认使用数据库的默认编码，
-	除了DB2数据库以外所有的数据库。如果你想使用UTF-8编码
+	除了DB2数据库以外所有的数据库。如果想使用UTF-8编码
 	进行mysql/mysqli连接。必须使用'utf8'没有连字符。
-
-    Indicates the character set to use when sending SQL statements to
-    the server. This defaults to the database's default encoding for
-    all databases other than DB2. If you wish to use UTF-8 encoding
-    with mysql/mysqli connections you must use 'utf8' without the
-    hyphen.
 schema
-    使用PostgreSQL数据库设置指定使用哪个模式(schema)。
+    当使用PostgreSQL数据库，设置指定使用哪个模式。
 datasource
     使用的非DBO(non-DBO)数据源。例如'ldap', 'twitter'。
 unix_socket
 	通过unix socket文件作为驱动程序。如果
-	使用postgres,想使用unix socket,需要将host留白。
-    Used by drivers that support it to connect via unix socket files. If you are
-    using postgres and want to use unix sockets, leave the host key blank.
+	使用postgres数据库想使用unix socket,需要将host参数留空。
+ssl_key
+    SSL密钥(SSL key)文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+ssl_cert
+	SSL证书(SSL certificate )文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+ssl_ca
+	SSL证书颁发机构(SSL certificate authority)文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+settings
+    一个包含键值对的数组，发送到数据库服务器。
+
+.. versionchanged:: 2.4
+    参数 ``settings``, ``ssl_key``, ``ssl_cert`` 和 ``ssl_ca`` 是在2.4新增的。
 
 .. note::
 
-	前缀设置作用于表，**并不是** 模型。举例，如果为Apple和Flavor模型创建了一个连接表，
+	前缀设置作用于表，**并不是** 模型。举个例子，如果为Apple和Flavor模型创建了一个连接表，
 	应命名为prefix\_apples\_flavors(**而不是** prefix\_apples\_prefix\_flavors)，
 	前缀设置为'prefix\_'。
 
-    The prefix setting is for tables, **not** models. For example, if
-    you create a join table for your Apple and Flavor models, you name
-    it prefix\_apples\_flavors (**not**
-    prefix\_apples\_prefix\_flavors), and set your prefix setting to
-    'prefix\_'.
-
 关于这点，可以看下命名约束章节 :doc:`/getting-started/cakephp-conventions` 。
 正确的表或字段命名可以避免过多设置。举例，如果将表命名为big\_boxes，对应的模型名就是
-BigBox，控制器名是BigBoxesController。一切都自动关联起来了。按照约定，使用小写驼峰和
-复数形式的表名。例如：bakers，pastry\_stores，and savory\_cakes。
-
-At this point, you might want to take a look at the
-:doc:`/getting-started/cakephp-conventions`. The correct
-naming for your tables (and the addition of some columns) can score
-you some free functionality and help you avoid configuration. For
-example, if you name your database table big\_boxes, your model
-BigBox, your controller BigBoxesController, everything just works
-together automatically. By convention, use underscores, lower case,
-and plural forms for your database table names - for example:
-bakers, pastry\_stores, and savory\_cakes.
+BigBox，控制器名是BigBoxesController。一切都自动关联起来了。按照约定，表名使用小写驼峰的
+复数形式。例如：bakers，pastry\_stores，and savory\_cakes。
 
 .. todo::
 
     为不同数据库的具体选项添加信息。比如SQLServer， Postgres 和 MySQL
 
-    Add information about specific options for different database
-    vendors, such as SQLServer, Postgres and MySQL.
-
 额外的类路径 Additional Class Paths
 ====================================
 
 有时在同一个系统上的应用程序之间共享MVC类库是很有用的。
-。如果想要在两个应用程序间使用同一控制器,您可以使用CakePHP的引导。php将
-这些额外的类。
+。如果想要在两个应用程序间使用同一控制器,可以使用CakePHP的引导文件bootstrap.php
 
-It’s occasionally useful to be able to share MVC classes between
-applications on the same system. If you want the same controller in
-both applications, you can use CakePHP’s bootstrap.php to bring
-these additional classes into view.
-
-在bootstrap.php使用 :php:meth:`App::build()` 定义路径。CakePHP会搜寻这些额外的类。
-By using :php:meth:`App::build()` in bootstrap.php we can define additional
-paths where CakePHP will look for classes::
+在bootstrap.php使用 :php:meth:`App::build()` 定义路径。CakePHP会搜寻这些额外的类::
 
     App::build(array(
         'Model'                     => array('/path/to/models', '/next/path/to/models'),
@@ -180,9 +124,6 @@ paths where CakePHP will look for classes::
 .. note::
 
 	所有额外的路径配置应该在程序的bootstrap.php顶部定义。这样会确保路径会适用于程序中其他地方。
-    All additional path configuration should be done at the top of your application's
-    bootstrap.php. This will ensure that the paths are available for the rest of your
-    application.
 
 
 .. index:: core.php, configuration
@@ -195,24 +136,11 @@ paths where CakePHP will look for classes::
 应用程序的行为。在我们深入这些特殊的变量之前，应该熟悉 :php:class:`Configure`
 CakePHP的配置注册类。
 
-Each application in CakePHP contains a configuration file to
-determine CakePHP's internal behavior.
-``app/Config/core.php``. This file is a collection of Configure class
-variable definitions and constant definitions that determine how
-your application behaves. Before we dive into those particular
-variables, you’ll need to be familiar with :php:class:`Configure`, CakePHP’s
-configuration registry class.
-
 CakePHP 核心配置
 --------------------------
 
 :php:class:`Configure` 类用来管理一系列CakePHP配置变量。这些变量位于 ``app/Config/core.php``。
 下面是每个变量的描述以及是怎样影响到程序的。
-
-The :php:class:`Configure` class is used to manage a set of core CakePHP
-configuration variables. These variables can be found in
-``app/Config/core.php``. Below is a description of each variable and
-how it affects your CakePHP application.
 
 debug
     改变 CakePHP 调试输出。
@@ -225,35 +153,17 @@ Error
 	配置错误处理。默认使用 :php:meth:`ErrorHandler::handleError()` 。
 	当debug > 0，会使用 :php:class:`Debugger` 显示错误。当debug = 0会将错误记录在日志中。
 
-    Configure the Error handler used to handle errors for your application.
-    By default :php:meth:`ErrorHandler::handleError()` is used.  It will display
-    errors using :php:class:`Debugger`, when debug > 0
-    and log errors with :php:class:`CakeLog` when debug = 0.
-
-    Sub-keys:
+    子键名:
 
     * ``handler`` - callback -处理错误的回调方法。可设置为任何回调类型，包含匿名方法。
     * ``level`` - int - 要捕获的错误等级。
     * ``trace`` - boolean - 是否在日志文件记录堆栈跟踪信息。
 
-    * ``handler`` - callback - The callback to handle errors. You can set this to any
-      callback type, including anonymous functions.
-    * ``level`` - int - The level of errors you are interested in capturing.
-    * ``trace`` - boolean - Include stack traces for errors in log files.
-
 Exception
     配置异常处理程序用于未捕获的异常。默认下，会使用ErrorHandler::handleException()。
     专门为异常显示一个HTML页面。当debug > 0，像Missing Controller也会显示错误。
-    当debug = 0，framework errors will be coerced into generic HTTP errors。
+    当debug = 0，框架错误将强迫输出到HTTP错误。
     想了解跟过异常处理，参见 :doc:`exceptions` 章节。
-
-    Configure the Exception handler used for uncaught exceptions.  By default,
-    ErrorHandler::handleException() is used. It will display a HTML page for
-    the exception, and while debug > 0, framework errors like
-    Missing Controller will be displayed.  When debug = 0,
-    framework errors will be coerced into generic HTTP errors.
-    For more information on Exception handling, see the :doc:`exceptions`
-    section.
 
 .. _core-configuration-baseurl:
 
