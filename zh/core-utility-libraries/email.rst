@@ -177,7 +177,8 @@ The above configuration would enable TLS communication for email messages.
 .. _email-configurations:
 
 配置 Configurations
---------------
+-------------------
+
 下面是配置数组的键名。
 The following configuration keys are used:
 

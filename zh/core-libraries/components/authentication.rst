@@ -1,5 +1,5 @@
-Authentication 授权认证
-##############
+Authentication 认证
+#######################
 
 .. php:class:: AuthComponent(ComponentCollection $collection, array $settings = array())
 
@@ -15,8 +15,8 @@ ways of identifying and checking user authorization.
 
 .. _authentication-objects:
 
-Authentication 授权认证
-==============
+Authentication 认证
+===================
 
 身份验证是一个通过提供凭证来识别用户的过程,确保用户说谁就是谁。
 通常根据已知的用户列表对用户名和密码进行检查。在CakePHP,还有几个内建的
