@@ -10,4 +10,4 @@ env:
     - "FTP_USER=cakephp"
     - "FTP_PASSWORD=cakephp@285366184"
 after_success:
-    "find ./build/html/zh -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://42.96.185.133/cakephp_zh/{} \\;"
+    "find ./build/html/zh/contributing -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://42.96.185.133/com.cakephpchina/{} \\;"
