@@ -3,18 +3,21 @@ python:
   - "2.7"
 
 env:
-  secure: "jtRd2z/99U4fGaJPOUb0xjZtGRWxG6p5ux3bhi2gWpmVm99KT5yIvTDW4zkTH9+jW6CLsvby1vlagL86y6dHwjkLHLtxHgEZSWf7Vs92+Reaz0U56wNSC1Zr2BK5pGsLme/g1n66we+qpUy/2oWHH0wMilfdIco36tlvRocBq5E="
-  secure: "mTboF6BdtFSm1ndaaT94onVvj79ZRBr5i6NRTK58Pp48xbM7fFMumGKO7Ei8ZfwNz0bgWUb+cs+lwxZ2J8DwJ1BFFZVMk5cENSxaLyWb9oR7bH4wQCqz6IV5MADGuWpc60un1bdjGZnycf2//CvVXhO8mxBX0u+Pxa21+ifi4BA="
+  secure: "LHcJox+t+cqGLdNXK8kHegyNjPYn/zfj4lL2vH8r2pT0oC6wujPmOE5XlyyufYm67rYvySES4ds/mCTFtEduu33Am9uNlHrlKqoIk9SeAPJ2nNtVxppH/+F50C7RGB4hGc658RPXO7CDhHr0HtmkyibgFxXJDSxa4ULKsv7dU9Y="
+  secure: "LXM56uqDPtqdBdnZFTN+QMayz3eBX+BJNugMSMiVvGpxA34FMQxOPhRG6KMTx6WYglrS47upqfIatIVyOXw8pic7D+gDbdtHFfcuOeMq471VN1VD57UgIIjikSQcER1YRlANKw8LvkLh+YoVuCoPJ/xvSLTGrXC0z8XQMIn2KCM="
 
 # whitelist
 branches:
   only:
     - oschina
 
+# Use this to prepare the system to install prerequisites or dependencies
+before_install: "sudo apt-get update"
+
 # command to install dependencies
 install: "pip install -q -r requirements.txt --use-mirrors"
 
-# command to run tests
+# command to build
 script: make html
 
 after_success:
