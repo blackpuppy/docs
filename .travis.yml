@@ -3,8 +3,9 @@ python:
   - "2.7"
 
 env:
-  secure: "LHcJox+t+cqGLdNXK8kHegyNjPYn/zfj4lL2vH8r2pT0oC6wujPmOE5XlyyufYm67rYvySES4ds/mCTFtEduu33Am9uNlHrlKqoIk9SeAPJ2nNtVxppH/+F50C7RGB4hGc658RPXO7CDhHr0HtmkyibgFxXJDSxa4ULKsv7dU9Y="
-  secure: "LXM56uqDPtqdBdnZFTN+QMayz3eBX+BJNugMSMiVvGpxA34FMQxOPhRG6KMTx6WYglrS47upqfIatIVyOXw8pic7D+gDbdtHFfcuOeMq471VN1VD57UgIIjikSQcER1YRlANKw8LvkLh+YoVuCoPJ/xvSLTGrXC0z8XQMIn2KCM="
+  global:
+    - secure: "LHcJox+t+cqGLdNXK8kHegyNjPYn/zfj4lL2vH8r2pT0oC6wujPmOE5XlyyufYm67rYvySES4ds/mCTFtEduu33Am9uNlHrlKqoIk9SeAPJ2nNtVxppH/+F50C7RGB4hGc658RPXO7CDhHr0HtmkyibgFxXJDSxa4ULKsv7dU9Y="
+    - secure: "LXM56uqDPtqdBdnZFTN+QMayz3eBX+BJNugMSMiVvGpxA34FMQxOPhRG6KMTx6WYglrS47upqfIatIVyOXw8pic7D+gDbdtHFfcuOeMq471VN1VD57UgIIjikSQcER1YRlANKw8LvkLh+YoVuCoPJ/xvSLTGrXC0z8XQMIn2KCM="
 
 # whitelist
 branches:
@@ -18,7 +19,9 @@ before_install: "sudo apt-get update"
 install: "pip install -q -r requirements.txt --use-mirrors"
 
 # command to build
-script: make html
+script:
+  - "make html-en"
+  - "make html-zh"
 
 after_success:
-    "find ./build/html/zh/contributing -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://42.96.185.133/com.cakephpchina/{} \\;"
+  "find ./build/html/zh/contributing -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://42.96.185.133/com.cakephpchina/{} \\;"
