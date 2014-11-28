@@ -1,12 +1,21 @@
 language: python
 python:
   - "2.7"
-# command to install dependencies
-install: "pip install -q -r requirements.txt --use-mirrors"
-# command to run tests
-script: make html
+
 env:
   secure: "jtRd2z/99U4fGaJPOUb0xjZtGRWxG6p5ux3bhi2gWpmVm99KT5yIvTDW4zkTH9+jW6CLsvby1vlagL86y6dHwjkLHLtxHgEZSWf7Vs92+Reaz0U56wNSC1Zr2BK5pGsLme/g1n66we+qpUy/2oWHH0wMilfdIco36tlvRocBq5E="
   secure: "mTboF6BdtFSm1ndaaT94onVvj79ZRBr5i6NRTK58Pp48xbM7fFMumGKO7Ei8ZfwNz0bgWUb+cs+lwxZ2J8DwJ1BFFZVMk5cENSxaLyWb9oR7bH4wQCqz6IV5MADGuWpc60un1bdjGZnycf2//CvVXhO8mxBX0u+Pxa21+ifi4BA="
+
+# whitelist
+branches:
+  only:
+    - oschina
+
+# command to install dependencies
+install: "pip install -q -r requirements.txt --use-mirrors"
+
+# command to run tests
+script: make html
+
 after_success:
     "find ./build/html/zh/contributing -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://42.96.185.133/com.cakephpchina/{} \\;"
