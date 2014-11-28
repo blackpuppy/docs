@@ -5,3 +5,9 @@ python:
 install: "pip install -q -r requirements.txt --use-mirrors"
 # command to run tests
 script: make html
+env:
+  global:
+    - "FTP_USER=cakephp"
+    - "FTP_PASSWORD=cakephp@285366184"
+after_success:
+    "find build/html/zh -type f -exec curl --ftp-create-dirs -T {} -u $FTP_USER:$FTP_PASSWORD ftp://42.96.185.133/cakephp_zh/{}"
