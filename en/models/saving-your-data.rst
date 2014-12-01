@@ -115,10 +115,11 @@ as keys:
 * ``callbacks`` Set to false to disable callbacks. Using 'before' or 'after'
   will enable only those callbacks.
 * ``counterCache`` (since 2.4) Boolean to control updating of counter caches (if any)
+* ``atomic`` (since 2.6) Boolean to indicate you want records saved in
+  a transaction.
 
 More information about model callbacks is available
 :doc:`here <callback-methods>`
-
 
 .. tip::
 
@@ -555,7 +556,7 @@ Let's see how data stored in a join table for two models is saved. As shown in t
 section, the join table is associated to each model using a `hasMany` type of relationship.
 Our example involves the Head of Cake School asking us to write an application that allows
 him to log a student's attendance on a course with days attended and grade. Take
-a look at the following code.::
+a look at the following code. ::
 
    // Controller/CourseMembershipController.php
    class CourseMembershipsController extends AppController {
@@ -589,7 +590,7 @@ a look at the following code.::
    <?php echo  $this->Form->end(); ?>
 
 
-The data array will look like this when submitted.::
+The data array will look like this when submitted. ::
 
     Array
     (
@@ -652,7 +653,7 @@ will be cases where you want to create the Student and Course
 independently and at a later point associate the two together with
 a CourseMembership. So you might have a form that allows selection
 of existing students and courses from pick lists or ID entry and
-then the two meta-fields for the CourseMembership, e.g.::
+then the two meta-fields for the CourseMembership, e.g. ::
 
         // View/CourseMemberships/add.ctp
 
@@ -910,7 +911,7 @@ be used with only 1 model, though it requires some extra attention.
 The key is in the model setup the ``className``. Simply adding a
 ``Project`` HABTM ``Project`` relation causes issues saving data.
 By setting the ``className`` to the models name and use the alias as
-key we avoid those issues.::
+key we avoid those issues. ::
 
     class Project extends AppModel {
         public $hasAndBelongsToMany = array(

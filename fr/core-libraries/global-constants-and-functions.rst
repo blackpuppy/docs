@@ -58,7 +58,7 @@ CakePHP, comme le débogage et la traduction de contenu.
     message.
 
     Utile pour internationaliser un plugin:
-     ``echo __d('PluginName', 'This is my plugin');``
+     ``echo __d('plugin_name', 'This is my plugin');``
 
 .. php:function:: __dc(string $domain, string $msg, integer $category, mixed $args = null)
 
@@ -136,6 +136,10 @@ CakePHP, comme le débogage et la traduction de contenu.
     Si ``$showFrom`` n'est pas défini à false, debug retournera en sortie
     la ligne depuis laquelle il a été appelé.
     Voir aussi  :doc:`/development/debugging`
+
+.. php:function:: stackTrace(array $options = array())
+
+    Imprine la stack trace si le niveau de DEBUG de l'application est supérieur à 0.
 
 .. php:function:: env(string $key)
 

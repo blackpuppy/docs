@@ -61,7 +61,7 @@ quelques-unes de ces règles pré-définies::
                     'message'  => 'Chiffres et lettres uniquement !'
                 ),
                 'between' => array(
-                    'rule'    => array('between', 5, 15),
+                    'rule'    => array('lengthBetween', 5, 15),
                     'message' => 'Entre 5 et 15 caractères'
                 )
             ),
@@ -502,7 +502,7 @@ souhaitez::
             'required' => 'create'
         ))
         ->add('password', 'size', array(
-            'rule' => array('between', 8, 20),
+            'rule' => array('lengthBetween', 8, 20),
             'message' => 'Password should be at least 8 chars long'
         ));
 
@@ -515,7 +515,7 @@ champ unique::
             'required' => 'create'
         ),
         'size' => array(
-            'rule' => array('between', 8, 20),
+            'rule' => array('lengthBetween', 8, 20),
             'message' => 'Password should be at least 8 chars long'
         )
     ));
@@ -654,7 +654,7 @@ complète de toutes les règles, illustrées par des exemples d'utilisation.
 
     Cette règle est utilisée pour vérifier que le champ est laissé vide ou que
     seulement des caractères blancs y sont présents. Les caractères blancs
-    incluent l'espace, la tabulation, le retour chariot et nouvelle ligne.::
+    incluent l'espace, la tabulation, le retour chariot et nouvelle ligne. ::
 
         public $validate = array(
             'id' => array(
@@ -667,7 +667,7 @@ complète de toutes les règles, illustrées par des exemples d'utilisation.
 
     Les données pour ce champ doivent être une valeur booléenne. Les valeurs
     possibles sont : true ou false, les entiers 0 ou 1, les chaînes '0' ou
-    '1'.::
+    '1'. ::
 
         public $validate = array(
             'maCaseACocher' => array(
@@ -1077,7 +1077,7 @@ complète de toutes les règles, illustrées par des exemples d'utilisation.
 
 .. php:staticmethod:: notEmpty(mixed $check)
 
-    La règle de base pour s'assurer qu'un champ n'est pas vide.::
+    La règle de base pour s'assurer qu'un champ n'est pas vide. ::
 
         public $validate = array(
             'titre' => array(
@@ -1091,7 +1091,7 @@ complète de toutes les règles, illustrées par des exemples d'utilisation.
 
 .. php:staticmethod:: numeric(string $check)
 
-    Vérifie si la donnée passée est un nombre valide.::
+    Vérifie si la donnée passée est un nombre valide. ::
 
         public $validate = array(
             'cars' => array(

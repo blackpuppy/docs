@@ -140,7 +140,7 @@ Supported options are:
   current page number wrapped in extra 'a' or 'span' tag.
 
 While this method allows a lot of customization for its output. It is
-also ok to just call the method without any params.::
+also ok to just call the method without any params. ::
 
     echo $this->Paginator->numbers();
 
@@ -548,7 +548,7 @@ Other Methods
     :param string $model: Which model to paginate on
 
     By default returns a full pagination URL string for use in non-standard
-    contexts (i.e. JavaScript).::
+    contexts (i.e. JavaScript). ::
 
         echo $this->Paginator->url(array('sort' => 'title'), true);
 
@@ -595,6 +595,24 @@ Other Methods
 
 .. versionadded:: 2.4
     The ``param()`` method was added in 2.4.
+
+.. php:method:: meta(array $options = array())
+
+    Outputs the meta-links for a paginated result set::
+
+        echo $this->Paginator->meta(); // Example output for page 5
+        /*
+        <link href="/?page=4" rel="prev" /><link href="/?page=6" rel="next" />
+        */
+
+    You can also append the output of the meta function to the named block::
+
+        $this->Paginator->meta(array('block' => true));
+
+    If true is passed, the "meta" block is used.
+
+.. versionadded:: 2.6
+    The ``meta()`` method was added in 2.6.
 
 .. meta::
     :title lang=en: PaginatorHelper
