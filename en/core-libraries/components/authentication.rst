@@ -115,6 +115,12 @@ keys.
 
   .. versionadded:: 2.4
 
+- ``userFields`` The list of fields to fetch from the ``userModel``. This option
+  is helpful when you have a wide user table and do not need all the columns in
+  the session. By default all fields are fetched.
+
+  .. versionadded:: 2.6
+
 To configure different fields for user in ``$components`` array::
 
     // Pass settings in $components array
@@ -127,6 +133,7 @@ To configure different fields for user in ``$components`` array::
             )
         )
     );
+
 
 Do not put other Auth configuration keys (like authError, loginAction etc)
 within the authenticate or Form element. They should be at the same level as
@@ -273,7 +280,7 @@ authentication for example uses ``$_SERVER['PHP_AUTH_USER']`` and
 request, these values are used to re-identify the user and ensure they are
 valid user. As with authentication object's ``authenticate()`` method the
 ``getUser()`` method should return an array of user information on success or
-``false`` on failure.::
+``false`` on failure. ::
 
     public function getUser($request) {
         $username = env('PHP_AUTH_USER');
@@ -313,7 +320,7 @@ Displaying auth related flash messages
 In order to display the session error messages that Auth generates, you
 need to add the following code to your layout. Add the following two
 lines to the ``app/View/Layouts/default.ctp`` file in the body section
-preferable before the content_for_layout line.::
+preferable before the content_for_layout line. ::
 
     echo $this->Session->flash();
     echo $this->Session->flash('auth');

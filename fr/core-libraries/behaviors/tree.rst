@@ -593,7 +593,7 @@ Utilisation avancée
 
     Réordonne les nœuds (et nœuds enfants) de l'arbre en fonction du champ et de la
     direction spécifiée dans les paramètres. Cette méthode ne changera pas le
-    parent d'un nœud.::
+    parent d'un nœud. ::
 
         $model->reorder(array(
             'id' => ,    //id de l\'enregistrement à utiliser comme noeud haut pour réordonner, default: $Model->id
@@ -704,27 +704,27 @@ Exemple de sortie::
         (
             [0] => Array
                 (
-                    [0] => node
+                    [0] => "node"
                     [1] => 3
-                    [2] => left and right values identical
+                    [2] => "left and right values identical"
                 )
             [1] => Array
                 (
-                    [0] => node
+                    [0] => "node"
                     [1] => 2
-                    [2] => The parent node 999 doesn't exist
+                    [2] => "The parent node 999 doesn't exist"
                 )
             [10] => Array
                 (
-                    [0] => index
+                    [0] => "index"
                     [1] => 123
-                    [2] => missing
+                    [2] => "missing"
                 )
             [99] => Array
                 (
-                    [0] => node
+                    [0] => "node"
                     [1] => 163
-                    [2] => left greater than right
+                    [2] => "left greater than right"
                 )
 
         )
@@ -732,4 +732,4 @@ Exemple de sortie::
 
 .. meta::
     :title lang=fr: Tree
-    :keywords lang=fr: auto increment,représentation littérale,parent id,table catégories,table base de données,données hiérarchisées,valeur null,système de menu,intricacies,contrôle accès,hiérarchie,logique,élements,trees, arbres
+    :keywords lang=fr: auto increment,représentation littérale,parent id,table catégories,table base de données,données hiérarchisées,valeur null,système de menu,intricacies,contrôle accès,hiérarchie,logique,éléments,trees, arbres
