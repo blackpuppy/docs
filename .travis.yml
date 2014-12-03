@@ -20,7 +20,7 @@ install: "pip install -q -r requirements.txt --use-mirrors"
 
 # command to build
 script:
-  # - "make html-en"
+  - "make html-en"
   - "make html-zh"
 
 after_success:
