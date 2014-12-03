@@ -1,15 +1,13 @@
 配置
 ####
 
-配置CakePHP应用程序简直是小餐一碟。在安装完CakePHP，创建一个基本的
-web应用只需进行数据库配置。
+配置 CakePHP 应用程序简直是小餐一碟。在安装完 CakePHP 后，创建一个基本的 web 应用只需设置数据库配置。
 
 Configuring a CakePHP application is a piece of cake. After you
 have installed CakePHP, creating a basic web application requires
 only that you setup a database configuration.
 
-当然，可以充分利用CakePHP灵活的结构进行其他可选的配置。可以容易的添加继承自
-CakePHP核心的功能，配置额外的/不同的URL映射(路由)以及定义额外/不同的inflections。
+当然，还有其它可选的配置步骤可以采用，来充分利用 CakePHP 的灵活架构。可以容易地对继承自 CakePHP 核心的功能添加(新的功能)，配置额外的/不同的网址(*URL*)映射(路由)，以及定义额外/不同的词形变化(*inflections*)。
 
 There are, however, other optional configuration steps you can take
 in order to take advantage of CakePHP flexible architecture. You
