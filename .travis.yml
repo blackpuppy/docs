@@ -24,6 +24,5 @@ script:
   - "make html-zh"
 
 after_success:
-  - "cd ./build/html/"
   - "tar -zcf cakephp-docs.tar.gz ./build/html"
-  - "curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD ftp://42.96.185.133/com.cakephpchina/"
+  - "curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T cakephp-docs.tar.gz ftp://42.96.185.133/com.cakephpchina/"
