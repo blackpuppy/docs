@@ -24,8 +24,7 @@ define additional/different inflections.
 Database Configuration
 ======================
 
-CakePHP的数据库配置信息存储在位于 ``app/Config/database.php`` 的文件中。
-示例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
+CakePHP 期待的数据库配置信息位于 ``app/Config/database.php`` 文件中。示例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
 看起来像这样::
 
 CakePHP expects database configuration details to be in a file at
@@ -45,10 +44,7 @@ configuration should look something like this::
         );
     }
 
-默认情况下使用名为$default数组，除非在模型中指定 ``$useDbConfig`` 。
-举个例子，如果一个应用程序除了默认的数据库配置信息还有一个额外遗留的
-数据库，应该创建一个结构类似于$default数组且名为$legacy的连接配置信息。
-然后在适当的模型中设置 ``public $useDbConfig = 'legacy';`` 。
+(默认情况下)会使用 $default 连接数组，除非用模型的 ``$useDbConfig`` 属性指定了另外一个连接。举个例子，如果一个应用程序除了默认的数据库配置信息还有一个额外的遗留数据库，应该创建一个结构类似于$default 数组的新的 $legacy 数据库连接数组，然后在适当的模型中设置 ``public $useDbConfig = 'legacy';``，就可以使用它(指遗留数据库)了。
 
 The $default connection array is used unless another connection is
 specified by the ``$useDbConfig`` property in a model. For example, if
@@ -57,15 +53,15 @@ default one, I could use it in my models by creating a new $legacy
 database connection array similar to the $default array, and by
 setting ``public $useDbConfig = 'legacy';`` in the appropriate models.
 
-填写配置数组中的键/值对以满足需求。
+填写配置数组中的键/值对以尽可能满足需求。
 
 Fill out the key/value pairs in the configuration array to best
 suit your needs.
 
 datasource
-	数据源的名字。
-	例如可填：Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite。
-	可以使用 :term:`plugin syntax` 指定插件数据源。
+    该配置数组的数据源名称。
+    例如：Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite。
+    可以使用 :term:`plugin syntax` 指定要使用的插件数据源。
     The name of the datasource this configuration array is for.
     Examples: Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite.
     You can use :term:`plugin syntax` to indicate plugin datasource to use.
@@ -73,69 +69,64 @@ persistent
     是否使用持久化连接数据库。
     Whether or not to use a persistent connection to the database.
 host
-    数据库的主机名(或IP地址)。
+    数据库服务器的主机名(或IP地址)。
     The database server's hostname (or IP address).
 login
-    用户名。
+    账号的用户名。
     The username for the account.
 password
-    密码。
+    账号的密码。
     The password for the account.
 database
-    连接的数据库名。
+    该连接要使用的数据库名称。
     The name of the database for this connection to use.
 prefix (*可选*)
-    数据库中每个表的前缀名。如果表没有前缀，设置为空字符串。
+    数据库中每个表的前缀字符串。如果表没有前缀，设置为空字符串。
     The string that prefixes every table name in the database. If your
     tables don't have prefixes, set this to an empty string.
 port (*可选*)
-	TCP或Unix套接字连接到服务器的端口。
+    用于连接服务器的 TCP 端口或 Unix 套接字(*socket*)。
     The TCP port or Unix socket used to connect to the server.
 encoding
-	指定了发送SQL语句到服务器的所用字符集。默认使用数据库的默认编码，
-	除了DB2数据库以外所有的数据库。如果想使用UTF-8编码
-	进行mysql/mysqli连接。必须使用'utf8'没有连字符。
+    指定了发送 SQL 语句到服务器使用的字符集。对除了 DB2 数据库以外的所有数据库，默认使用数据库的默认编码。如果对 mysql/mysqli 连接想使用 UTF-8 编码，必须使用不带连字符的'utf8'。
     Indicates the character set to use when sending SQL statements to
     the server. This defaults to the database's default encoding for
     all databases other than DB2. If you wish to use UTF-8 encoding
     with mysql/mysqli connections you must use 'utf8' without the
     hyphen.
 schema
-    当使用PostgreSQL数据库，设置指定使用哪个模式。
+    用于 PostgreSQL 数据库设置，指定使用哪个 schema。
     Used in PostgreSQL database setups to specify which schema to use.
 unix_socket
-	通过unix socket文件作为驱动程序。如果
-	使用postgres数据库想使用unix socket,需要将host参数留空。
+    用于支持通过 unix 套接字(*socket*)文件连接的驱动程序。如果使用 postgres 数据库想使用 unix 套接字，需要将 host 键留空。
     Used by drivers that support it to connect via unix socket files. If you are
     using postgres and want to use unix sockets, leave the host key blank.
 ssl_key
-    SSL密钥(SSL key)文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+    SSL 密钥(*SSL key*)文件的路径(仅为 MySQL 所支持，要求 PHP 5.3.7+)。
     The file path to the SSL key file. (Only supported by MySQL, requires PHP
     5.3.7+).
 ssl_cert
-	SSL证书(SSL certificate )文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+    SSL 证书(*SSL certificate*)文件的路径(仅为 MySQL 所支持，要求 PHP 5.3.7+)。
     The file path to the SSL certificate file. (Only supported by MySQL,
     requires PHP 5.3.7+).
 ssl_ca
-	SSL证书颁发机构(SSL certificate authority)文件的路径(仅支持MySQL,PHP版本5.3.7+)。
+    SSL 证书颁发机构(SSL certificate authority)文件的路径(仅为 MySQL 所支持，要求 PHP 5.3.7+)。
     The file path to the SSL certificate authority. (Only supported by MySQL,
     requires PHP 5.3.7+).
 settings
-    一个包含键值对的数组，发送到数据库服务器。
+    一个包含键值对的数组，在建立连接时应当作为 ``SET`` 命令发送到数据库服务器。该选项当前只被 MySQL、Postgres 和 SQLserver 所支持。
     An array of key/value pairs that should be sent to the database server as
     ``SET`` commands when the connection is created. This option is only
     supported by MySQL, Postgres, and SQLserver at this time.
 
 .. versionchanged:: 2.4
-    参数 ``settings``, ``ssl_key``, ``ssl_cert`` 和 ``ssl_ca`` 是在2.4新增的。
+    参数 ``settings`` 、 ``ssl_key`` 、 ``ssl_cert`` 和 ``ssl_ca`` 是在 2.4 版本中新增的。
     The ``settings``, ``ssl_key``, ``ssl_cert`` and ``ssl_ca`` keys
     was added in 2.4.
 
 .. note::
 
-	前缀设置作用于表，**并不是** 模型。举个例子，如果为Apple和Flavor模型创建了一个连接表，
-	应命名为prefix\_apples\_flavors(**而不是** prefix\_apples\_prefix\_flavors)，
-	前缀设置为'prefix\_'。
+    前缀设置作用于表，**而不是** 模型。举个例子，如果为 Apple 和 Flavor 模型创建了一个连接表，应当命名为 prefix\_apples\_flavors(**而不是** prefix\_apples\_prefix\_flavors)，前缀设置应设为 'prefix\_'。
 
     The prefix setting is for tables, **not** models. For example, if
     you create a join table for your Apple and Flavor models, you name
@@ -160,7 +151,7 @@ bakers, pastry\_stores, and savory\_cakes.
 
 .. todo::
 
-    为不同数据库的具体选项添加信息。比如SQLServer， Postgres 和 MySQL
+    为不同数据库的具体选项添加信息。比如 SQLServer， Postgres 和 MySQL
 
     Add information about specific options for different database
     vendors, such as SQLServer, Postgres and MySQL.
@@ -261,7 +252,7 @@ paths where CakePHP will look for classes::
 
 .. note::
 
-	所有额外的路径配置应该在程序的bootstrap.php顶部定义。这样会确保路径会适用于程序中其他地方。
+    所有额外的路径配置应该在程序的bootstrap.php顶部定义。这样会确保路径会适用于程序中其他地方。
 
     All additional path configuration should be done at the top of your application's
     bootstrap.php. This will ensure that the paths are available for the rest of your
@@ -316,8 +307,8 @@ debug
     add $this->element('sql\_dump') to your view or layout.]
 
 Error
-	配置错误处理。默认使用 :php:meth:`ErrorHandler::handleError()` 。
-	当debug > 0，会使用 :php:class:`Debugger` 显示错误。当debug = 0会将错误记录在日志中。
+    配置错误处理。默认使用 :php:meth:`ErrorHandler::handleError()` 。
+    当debug > 0，会使用 :php:class:`Debugger` 显示错误。当debug = 0会将错误记录在日志中。
     Configure the Error handler used to handle errors for your application.
     By default :php:meth:`ErrorHandler::handleError()` is used. It will display
     errors using :php:class:`Debugger`, when debug > 0
@@ -382,8 +373,8 @@ Routing.prefixes
     of prefix names of the routes you'd like to use. More on this
     later.
 Cache.disable
-	当设置为true，整个网站的持久化缓存会被禁用。会导致所有的
-	:php:class:`Cache` 读/写失败。
+    当设置为true，整个网站的持久化缓存会被禁用。会导致所有的
+    :php:class:`Cache` 读/写失败。
     When set to true, persistent caching is disabled site-wide.
     This will make all read/writes to :php:class:`Cache` fail.
 Cache.check
@@ -448,7 +439,7 @@ Acl.classname, Acl.database
     the Access Control Lists chapter for more information.
 
 .. note::
-	缓存配置在core.php中也能找到，稍后会讲解。
+    缓存配置在core.php中也能找到，稍后会讲解。
     Cache configuration is also found in core.php — We'll be covering
     that later on, so stay tuned.
 
