@@ -134,10 +134,7 @@ settings
     prefix\_apples\_prefix\_flavors), and set your prefix setting to
     'prefix\_'.
 
-关于这点，可以看下命名约束章节 :doc:`/getting-started/cakephp-conventions` 。
-正确的表或字段命名可以避免过多设置。举例，如果将表命名为big\_boxes，对应的模型名就是
-BigBox，控制器名是BigBoxesController。一切都自动关联起来了。按照约定，表名使用小写驼峰的
-复数形式。例如：bakers，pastry\_stores，and savory\_cakes。
+在这个时候，你也许可以看下 :doc:`/getting-started/cakephp-conventions` 。对表(以及某些字段)的正确命名让你自动获得一些功能，而且避免配置。例如，如果将表命名为 big\_boxes，模型命名为 BigBox，控制器命名为 BigBoxesController，那这一切就能够自动协作了。按照约定，数据库表名应当使用下划线分隔的小写复数形式 — 例如：bakers、pastry\_stores 和 savory\_cakes。
 
 At this point, you might want to take a look at the
 :doc:`/getting-started/cakephp-conventions`. The correct
@@ -151,13 +148,13 @@ bakers, pastry\_stores, and savory\_cakes.
 
 .. todo::
 
-    为不同数据库的具体选项添加信息。比如 SQLServer， Postgres 和 MySQL
+    为不同数据库供应商的特定选项增加信息，比如 SQLServer、Postgres 和 MySQL。
 
     Add information about specific options for different database
     vendors, such as SQLServer, Postgres and MySQL.
 
 额外的类路径
-====================================
+============
 
 Additional Class Paths
 ======================
