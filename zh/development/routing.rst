@@ -1,87 +1,68 @@
-Routing
-#######
+路由
+####
 
-Routing is a feature that maps URLs to controller actions. It was
-added to CakePHP to make pretty URLs more configurable and
-flexible. Using Apache’s mod\_rewrite is not required for using
-routes, but it will make your address bar look much more tidy.
+路由(*routing*)是把网址(*URL*)映射到控制器动作的功能。这个功能添加到 CakePHP 中，
+是为了使友好网址更容易配置和更加灵活。使用路由不要求一定要用 Apache 的 
+mod\_rewrite 模块，不过这会使地址栏看起来更加整洁。
 
-Routing in CakePHP also encompasses the idea of reverse routing,
-where an array of parameters can be reversed into a string url.
-By using reverse routing, you can easily re-factor your applications
-url structure without having to update all your code.
+CakePHP 的路由还包括反向路由的思想，即，参数数组可以逆转成字符串网址。使用反向路
+由，你就可以轻松地重构应用程序的网址结构，而无需更新所有的代码。
 
 .. index:: routes.php
 
 .. _routes-configuration:
 
-Routes Configuration
-====================
+路由的配置
+==========
 
-Routes in an application are configured in ``app/Config/routes.php``.
-This file is included by the :php:class:`Dispatcher` when handling routes
-and allows you to define application specific routes you want used. Routes
-declared in this file are processed top to bottom when incoming requests
-are matched.  This means that the order you place routes can affect how
-routes are parsed.  It's generally a good idea to place most frequently
-visited routes at the top of the routes file if possible.  This will
-save having to check a number of routes that won't match on each request.
+应用程序中的路由是在 ``app/Config/routes.php`` 中配置的。当处理路由被 
+:php:class:`Dispatcher` 引入，让你可以定义应用程序要使用的特定路由。在该文件中声
+明的路由从上而下处理，直到收到的请求匹配。这意味着放置路由的顺序会影响路由的解析。
+通常好的做法是，把最常访问的路由尽可能放在路由文件的最上面。这可以省去对每个请求
+不得不检查若干个不能匹配的路由。
 
-Routes are parsed and matched in the order they are connected in.
-If you define two similar routes, the first defined route will
-have higher priority over the one defined latter.  After connecting routes you
-can manipulate the order of routes using :php:meth:`Router::promote()`.
+路由以它们连入的顺序来解析和匹配。如果你定义两个类似的路由，定义的第一个路由比后
+定义的那个有更高的优先级。在连接路由之后，你可以使用 
+:php:meth:`Router::promote()` 来操纵路由的顺序。
 
-CakePHP also comes with a few default routes to get you started. These
-can be disabled later on once you are sure you don't need them.
-See :ref:`disabling-default-routes` on how to disable the default routing.
+CakePHP 也带有一些默认的路由帮你开始。以后如果你肯定不需要它们了，可以把它们关闭。
+欲知如何关闭默认的路由，请参见 :ref:`disabling-default-routes`。
 
 
-Default Routing
-===============
+默认的路由
+==========
 
-Before you learn about configuring your own routes, you should know
-that CakePHP comes configured with a default set of routes.
-CakePHP’s default routing will get you pretty far in any
-application. You can access an action directly via the URL by
-putting its name in the request. You can also pass parameters to
-your controller actions using the URL.::
+在了解如何配置自己的路由之前，你应当知道 CakePHP 带有一组默认的路由。CakePHP 的
+默认路由适用于任何应用程序的很多情况。把一个动作的名称放入请求中，就可以直接从网
+址访问该动作。也可以用网址传递参数到控制器动作。::
 
         URL pattern default routes:
         http://example.com/controller/action/param1/param2/param3
 
-The URL /posts/view maps to the view() action of the
-PostsController, and /products/view\_clearance maps to the
-view\_clearance() action of the ProductsController. If no action is
-specified in the URL, the index() method is assumed.
+网址 /posts/view 映射到 PostsController 的 view() 动作，而网址 
+/products/view\_clearance 映射到 ProductsController 的 view\_clearance() 动作。
 
-The default routing setup also allows you to pass parameters to
-your actions using the URL. A request for /posts/view/25 would be
-equivalent to calling view(25) on the PostsController, for
-example.  The default routing also provides routes for plugins,
-and prefix routes should you choose to use those features.
+默认的路由设置也让你可以用网址传递参数到动作。例如，对 /posts/view/25 的请求等于
+调用 PostsController 的 view(25)。默认的路由也提供插件的路由、前缀路由，如果你选
+择使用这些功能的话。
 
-The built-in routes live in ``Cake/Config/routes.php``.  You can
-disable the default routing by removing them from your application's
-:term:`routes.php` file.
+内置的路由位于 ``Cake/Config/routes.php``。你可以通过在应用程序的 
+:term:`routes.php` 文件中去掉默认路由来关闭它们。
 
 .. index:: :controller, :action, :plugin
 .. _connecting-routes:
 
-Connecting Routes
-=================
+连接路由
+========
 
-Defining your own routes allows you to define how your application
-will respond to a given URL. Define your own routes in the
-``app/Config/routes.php`` file using the :php:meth:`Router::connect()`
-method.
+定义你自己的路由让你可以定义应用程序如何对一个给定的网址作出反应。用 
+:php:meth:`Router::connect()` 方法在 ``app/Config/routes.php`` 文件中定义定义自
+己的路由。
 
-The ``connect()`` method takes up to three parameters: the URL you
-wish to match, the default values for your route elements, and
-regular expression rules to help the router match elements in the
-URL.
+``connect()`` 方法接受最多三个参数：希望匹配的网址、路由元素的默认值、和帮助路由
+匹配网址中的元素的正则表达式规则。
 
-The basic format for a route definition is::
+路由定义的基本格式为::
 
     Router::connect(
         'URL',
@@ -89,124 +70,92 @@ The basic format for a route definition is::
         array('option' => 'matchingRegex')
     );
 
-The first parameter is used to tell the router what sort of URL
-you're trying to control. The URL is a normal slash delimited
-string, but can also contain a wildcard (\*) or :ref:`route-elements`.
-Using a wildcard tells the router that you are willing to accept
-any additional arguments supplied. Routes without a \* only match
-the exact template pattern supplied.
+第一个参数用来告诉路由器你要控制哪种网址。网址是斜线分隔的普通字符串，但也可以包
+含通配符(\*)或者 :ref:`route-elements`。使用通配符告诉路由器，你愿意接受任何提供
+的额外参数。不含\*的路由只匹配提供的模板模式。
 
-Once you've specified a URL, you use the last two parameters of
-``connect()`` to tell CakePHP what to do with a request once it has
-been matched. The second parameter is an associative array. The
-keys of the array should be named after the route elements in the
-URL, or the default elements: ``:controller``, ``:action``, and ``:plugin``.
-The values in the array are the default values for those keys.
-Let's look at some basic examples before we start using the third
-parameter of connect()::
+一旦指定了网址，用 ``connect()`` 的最后两个参数来告诉 CakePHP，一旦一个请求匹配
+了，要如何处理它。第二个参数是一个关联数组。数组的键应当以网址中的路由元素来命名，
+或者是默认元素： ``:controller`` 、 ``:action`` 和 ``:plugin``。数组中的值是这些
+键的缺省值。让我们看一些基本的例子，再来看如何使用 connect() 的第三个参数::
 
     Router::connect(
         '/pages/*',
         array('controller' => 'pages', 'action' => 'display')
     );
 
-This route is found in the routes.php file distributed with CakePHP.
-This route matches any URL starting with ``/pages/`` and
-hands it to the ``display()`` action of the ``PagesController();``
-The request /pages/products would be mapped to
-``PagesController->display('products')``.
+以上这个路由在随 CakePHP 发布的 routes.php 文件中。该路由匹配任何以 ``/pages/`` 
+开始的网址，并把它交给 ``PagesController();`` 的 ``display()`` 动作。请求 
+/pages/products 会映射到 ``PagesController->display('products')``。
 
-In addition to the greedy star ``/*`` there is also the ``/**`` trailing star
-syntax.  Using a trailing double star, will capture the remainder of a URL as a
-single passed argument.  This is useful when you want to use an argument that
-included a ``/`` in it::
+除了贪婪的星号 ``/*``，还有 ``/**`` 后缀星号语法。使用后缀双星号，会捕获网址的其
+余部分为一个传入参数。当你要使用含有 ``/`` 的参数时就有用了::
 
     Router::connect(
         '/pages/**',
         array('controller' => 'pages', 'action' => 'show')
     );
 
-The incoming URL of ``/pages/the-example-/-and-proof`` would result in a single
-passed argument of ``the-example-/-and-proof``.
+传入的网址 ``/pages/the-example-/-and-proof`` 会导致单个传入参数 
+``the-example-/-and-proof``。
 
 .. versionadded:: 2.1
 
-    The trailing double star was added in 2.1.
+    在 2.1 版本中增加了后缀双星号。
 
-You can use the second parameter of :php:meth:`Router::connect()`
-to provide any routing parameters that are composed of the default values
-of the route::
+你可以使用 :php:meth:`Router::connect()` 的第二个参数来提供任何由路由的默认值组
+成的路由参数::
 
     Router::connect(
         '/government',
         array('controller' => 'pages', 'action' => 'display', 5)
     );
 
-This example shows how you can use the second parameter of
-``connect()`` to define default parameters. If you built a site
-that features products for different categories of customers, you
-might consider creating a route. This allows you link to
-``/government`` rather than ``/pages/display/5``.
+这个例子说明如何使用 ``connect()`` 方法的第二个参数来定义默认参数。如果你构建一
+个网站，有针对不同类别客户的产品，你也许会考虑创建一个路由。这让你可以链接 
+``/government``，而不是 ``/pages/display/5``。
 
 .. note::
 
-    Although you can connect alternate routes, the default routes
-    will continue to work.  This could create situations, where
-    content could end up with 2 urls. See :ref:`disabling-default-routes`
-    to disable default routes, and only provide the urls you define.
+    尽管你可以连接不同的路由，默认的路由还是会继续有效。这可能会造成某些情况下，
+    内容会有 2 个网址。欲知如何关闭默认路由，及只提供你定义的网址，请参看 
+    :ref:`disabling-default-routes`。
 
-Another common use for the Router is to define an "alias" for a
-controller. Let's say that instead of accessing our regular URL at
-``/users/some_action/5``, we'd like to be able to access it by
-``/cooks/some_action/5``. The following route easily takes care of
-that::
+另一个路由器的常见用法是为控制器定义"别名"。比方说，我们不要访问通常的网址 
+``/users/some_action/5``，希望能够通过 ``/cooks/some_action/5`` 来访问。下面的路
+由轻易地实现了::
 
     Router::connect(
         '/cooks/:action/*', array('controller' => 'users')
     );
 
-This is telling the Router that any url beginning with ``/cooks/``
-should be sent to the users controller.  The action called will
-depend on the value of the ``:action`` parameter.  By using
-:ref:`route-elements`, you can create variable routes, that accept
-user input or variables.  The above route also uses the greedy star.
-The greedy star indicates to :php:class:`Router` that this route
-should accept any additional positional arguments given.  These
-arguments will be made available in the :ref:`passed-arguments`
-array.
+这就是告诉路由器，任何以 ``/cooks/`` 开始的网址应当交给用户控制器。调用的动作取
+决于 ``:action`` 参数的值。使用 :ref:`route-elements`，就能够创造路由变量，接受
+用户输入或者变量。上面的路由也使用了贪婪的星号。贪婪的星号告诉 
+:php:class:`Router`，这个路由应当接受任何给定的额外位置参数。这些参数会被放入 
+:ref:`passed-arguments` 数组供访问。
 
-When generating urls, routes are used too. Using
-``array('controller' => 'users', 'action' => 'some_action', 5)`` as
-a url will output /cooks/some_action/5 if the above route is the
-first match found.
+当生成网址时，也使用路由。如果上述路由最先匹配，使用 
+``array('controller' => 'users', 'action' => 'some_action', 5)`` 作为网址，就会
+输出 /cooks/some_action/5。
 
-If you are planning to use custom named arguments with your route,
-you have to make the router aware of it using the
-:php:meth:`Router::connectNamed()` function. So if you want the above route
-to match urls like ``/cooks/some_action/type:chef`` we do::
-
-    Router::connectNamed(array('type'));
-    Router::connect(
-        '/cooks/:action/*', array('controller' => 'users')
-    );
+默认情况下，所有命名(*named*)和传入(*passed*)参数会从匹配贪婪模板的网址中提取。
+不过，如果需要，可以使用 :php:meth:`Router::connectNamed()` 来配置哪个命名参数如
+何解析。
 
 .. _route-elements:
 
-Route elements
---------------
+路由元素
+--------
 
-You can specify your own route elements and doing so gives you the
-power to define places in the URL where parameters for controller
-actions should lie. When a request is made, the values for these
-route elements are found in ``$this->request->params`` on the controller.
-This is different than how named parameters are handled, so note the
-difference: named parameters (/controller/action/name:value) are
-found in ``$this->request->params['named']``, whereas custom route
-element data is found in ``$this->request->params``. When you define
-a custom route element, you can optionally specify a regular
-expression - this tells CakePHP how to know if the URL is correctly formed or not.
-If you choose to not provide a regular expression, any non ``/`` will be
-treated as part of the parameter::
+你可以指定自己的路由元素，这么做让你有能力能够定义控制器动作的参数在网址中应当占
+据的位置。当发出一个请求时，这些路由元素的值就会在控制器的 
+``$this->request->params`` 中。这不同于命名参数(*named parameters*)处理的方式，
+所以请注意区别：命名参数(/controller/action/name:value)在 
+``$this->request->params['named']`` 中，而自定义路由元素数据在 
+``$this->request->params`` 中。当你定义自定义路由元素时，你可以指定可选的正则表
+达式 — 这告诉 CakePHP 如何判断网址的格式是否正确。如果你选择不提供正则表达式，任
+何非 ``/`` 字符就会被当做参数的一部分::
 
     Router::connect(
         '/:controller/:id',
@@ -214,35 +163,28 @@ treated as part of the parameter::
         array('id' => '[0-9]+')
     );
 
-This simple example illustrates how to create a quick way to view
-models from any controller by crafting a URL that looks like
-``/controllername/:id``. The URL provided to connect() specifies two
-route elements: ``:controller`` and ``:id``. The ``:controller`` element
-is a CakePHP default route element, so the router knows how to match and
-identify controller names in URLs. The ``:id`` element is a custom
-route element, and must be further clarified by specifying a
-matching regular expression in the third parameter of connect().
+这个简单的例子展示了如何通过构建一个看起来象 ``/controllername/:id`` 这样的网址，
+来创造一个快捷的方式从任何控制器来查看模型。提供给 connect() 方法的网址指定了两
+个路由元素： ``:controller`` 和 ``:id``。``:controller`` 元素是 CakePHP 的默认路
+由元素，所以路由器知道如何匹配和辨认网址中的控制器名称。``:id`` 元素是自定义路由
+元素，必须在 connect() 方法的第三个参数中用正则表达式进一步说明。
 
 .. note::
 
-    Patterns used for route elements must not contain any capturing
-    groups.  If they do, Router will not function correctly.
+    路由元素使用的模式必须不能含有任何捕获分组(*capturing group*)。如果含有捕获
+    分组，路由器就无法正常工作。
 
-Once this route has been defined, requesting ``/apples/5`` is the same
-as requesting ``/apples/view/5``. Both would call the view() method of
-the ApplesController. Inside the view() method, you would need to
-access the passed ID at ``$this->request->params['id']``.
+一旦定义了路由，请求 ``/apples/5`` 就等同于请求 ``/apples/view/5``。二者都会调用 
+ApplesController 控制器的 view() 方法。在 view() 方法内，需要用 
+``$this->request->params['id']`` 来访问传入的 ID。
 
-If you have a single controller in your application and you do not want
-the controller name to appear in the url, you can map all urls to actions
-in your controller.  For example, to map all urls to actions of the
-``home`` controller, e.g have urls like ``/demo`` instead of
-``/home/demo``, you can do the following::
+如果在应用程序中只有一个控制器，并且不想让控制器名称出现在网站中，你可以把所有网
+址映射到控制器的动作。例如，要把所有网址映射到 ``home`` 控制器的动作，例如，使用
+网址 ``/demo`` 而不是 ``/home/demo``，可以这样::
 
     Router::connect('/:action', array('controller' => 'home'));
 
-If you would like to provide a case insensitive url, you can use regular
-expression inline modifiers::
+如果想提供大小写无关的网址，可以使用正则表达式的内嵌修饰符(*inline modifier*)::
 
     Router::connect(
         '/:userShortcut',
@@ -250,7 +192,7 @@ expression inline modifiers::
         array('userShortcut' => '(?i:principal)')
     );
 
-One more example, and you'll be a routing pro::
+再看一个例子，你就是路由专家了::
 
     Router::connect(
         '/:controller/:year/:month/:day',
@@ -262,63 +204,54 @@ One more example, and you'll be a routing pro::
         )
     );
 
-This is rather involved, but shows how powerful routes can really
-become. The URL supplied has four route elements. The first is
-familiar to us: it's a default route element that tells CakePHP to
-expect a controller name.
+这个有些复杂，但是说明了路由可以多么强大。提供的网址有四个路由元素。第一个我们很
+熟悉：这是默认路由元素，告诉 CakePHP 这是控制器名称。
 
-Next, we specify some default values. Regardless of the controller,
-we want the index() action to be called.
+接着，我们指定一些缺省值。不管控制器是什么，我们都要调用 index() 动作。
 
-Finally, we specify some regular expressions that will match years,
-months and days in numerical form. Note that parenthesis (grouping)
-are not supported in the regular expressions. You can still specify
-alternates, as above, but not grouped with parenthesis.
+最后，我们指定一些正则表达式，匹配数字形式的年、月和日。注意，在这个正则表达式中
+是不支持括号(分组)的。你可以使用其它的，象上面那样，但是不能用括号分组。
 
-Once defined, this route will match ``/articles/2007/02/01``,
-``/posts/2004/11/16``, handing the requests to
-the index() actions of their respective controllers, with the date
-parameters in ``$this->request->params``.
+一旦定义好，路由就可以匹配 ``/articles/2007/02/01`` 、 ``/posts/2004/11/16``，把
+请求传递给相应控制器的 index() 动作，并把日期参数放入 ``$this->request->params`` 
+中。
 
-There are several route elements that have special meaning in
-CakePHP, and should not be used unless you want the special meaning
+有几个路由元素在 CakePHP 中有特殊意义，不应当使用，除非你需要这种特殊意义。
 
-* ``controller`` Used to name the controller for a route.
-* ``action`` Used to name the controller action for a route.
-* ``plugin`` Used to name the plugin a controller is located in.
-* ``prefix`` Used for :ref:`prefix-routing`
-* ``ext`` Used for :ref:`file-extensions` routing.
+* ``controller`` 用于命名路由的控制器。
+* ``action`` 用于命名路由的控制器动作。
+* ``plugin`` 用于命名控制器所在的插件(*plugin*)。
+* ``prefix`` 用于 :ref:`prefix-routing`。
+* ``ext`` 用于 :ref:`file-extensions` 路由。
 
-Passing parameters to action
-----------------------------
+传递参数给动作
+--------------
 
-When connecting routes using :ref:`route-elements` you may want
-to have routed elements be passed arguments instead.  By using the 3rd
-argument of :php:meth:`Router::connect()` you can define which route
-elements should also be made available as passed arguments::
+当使用 :ref:`route-elements` 连接路由时，你也许想要路由的元素转而作为传入参数
+(*passed arguments*)。使用 :php:meth:`Router::connect()` 方法的第三个参数，你可
+以定义哪个路由元素应当也被作为传入参数::
 
     // SomeController.php
     public function view($articleId = null, $slug = null) {
-        // some code here...
+        // 这里是一些代码...
     }
 
     // routes.php
     Router::connect(
-        '/blog/:id-:slug', // E.g. /blog/3-CakePHP_Rocks
+        '/blog/:id-:slug', // 例如 /blog/3-CakePHP_Rocks
         array('controller' => 'blog', 'action' => 'view'),
         array(
-            // order matters since this will simply map ":id" to $articleId in your action
+            // 顺序有关，因为这会简单地把 ":id" 映射到动作中的 $articleId 参数
             'pass' => array('id', 'slug'),
             'id' => '[0-9]+'
         )
     );
 
-And now, thanks to the reverse routing capabilities, you can pass
-in the url array like below and Cake will know how to form the URL
-as defined in the routes::
+那么现在，得益于反向路由的功能，你可以传入下面这样的网址，而 CakePHP 就能够知道
+如何构成路由中定义的网址::
 
     // view.ctp
-    // this will return a link to /blog/3-CakePHP_Rocks
+    // 这会返回链接 /blog/3-CakePHP_Rocks
     echo $this->Html->link('CakePHP Rocks', array(
         'controller' => 'blog',
         'action' => 'view',
@@ -326,12 +259,12 @@ as defined in the routes::
         'slug' => 'CakePHP_Rocks'
     ));
 
-Per-route named parameters
---------------------------
+每个路由的命名参数
+------------------
 
-While you can control named parameters on a global scale using
-:php:meth:`Router::connectNamed()` you can also control named parameter
-behavior at the route level using the 3rd argument of ``Router::connect()``::
+尽管你可以用 :php:meth:`Router::connectNamed()` 在全局范围控制命名参数
+(*named parameter*)，你也可以用 ``Router::connect()`` 的第三个参数控制在路由级别
+的命名参数::
 
     Router::connect(
         '/:controller/:action/*',
@@ -346,115 +279,124 @@ behavior at the route level using the 3rd argument of ``Router::connect()``::
         )
     );
 
-The above route definition uses the ``named`` key to define how several named
-parameters should be treated.  Lets go through each of the various rules
-one-by-one:
+以上路由定义使用 ``named`` 键来定义应当如何 处理几个命名参数。让我们仔细看看每个
+不同的规则：
 
-* 'wibble' has no additional information.  This means it will always parse if
-  found in a url matching this route.
-* 'fish' has an array of conditions, containing the 'action' key.  This means
-  that fish will only be parsed as a named parameter if the action is also index.
-* 'fizz' also has an array of conditions.  However, it contains two controllers,
-  this means that 'fizz' will only be parsed if the controller matches one of the
-  names in the array.
-* 'buzz' has a string condition.  String conditions are treated as
-  regular expression fragments.  Only values for buzz matching the pattern will
-  be parsed.
+* 'wibble' 没有额外信息。这意味着，如果在匹配该路由的网址中找到，总是会解析。
+* 'fish' 有条件数组，包含 'action' 键。这意味着，仅当动作也是索引时，fish 才会被
+  解析为命名参数。
+* 'fizz' 也有条件数组。不过，它含有两个控制器，这意味着，仅当控制器匹配数组中的
+  一个时，'fizz' 才会被解析。
+* 'buzz' 有字符串条件。字符串条件被作为正则表达式片段。只有符合模式的 buzz 值才
+  会被解析。
 
-If a named parameter is used and it does not match the provided criteria, it will
-be treated as a passed argument instead of a named parameter.
+如果使用了命名参数，但它不符合提供的条件，就会被当作传入参数(*passed argument*)，
+而非命名参数。
 
 .. index:: admin routing, prefix routing
 .. _prefix-routing:
 
-Prefix Routing
---------------
+前缀路由
+--------
 
-Many applications require an administration section where
-privileged users can make changes. This is often done through a
-special URL such as ``/admin/users/edit/5``. In CakePHP, prefix routing
-can be enabled from within the core configuration file by setting
-the prefixes with Routing.prefixes. Note that prefixes, although
-related to the router, are to be configured in
-``app/Config/core.php``::
+许多应用程序要求有一个管理区，特权用户可以进行改动。这经常是通过一个特殊的网址来
+完成的，比如 ``/admin/users/edit/5``。在 CakePHP 中，前缀路由(*prefix routing*)
+可以在核心配置文件中通过使用 Routing.prefixes 设置前缀来开启。注意，前缀虽然和路
+由器有关，却是在 ``app/Config/core.php`` 中配置的::
 
     Configure::write('Routing.prefixes', array('admin'));
 
-In your controller, any action with an ``admin_`` prefix will be
-called. Using our users example, accessing the url
-``/admin/users/edit/5`` would call the method ``admin_edit`` of our
-``UsersController`` passing 5 as the first parameter. The view file
-used would be ``app/View/Users/admin_edit.ctp``
+在控制器中，任何以 ``admin_`` 前缀开始的动作就可以被调用了。在用户的例子中，访问
+网址 ``/admin/users/edit/5`` 就会调用 ``UsersController`` 控制器的方法 
+``admin_edit``，传入 5 作为第一个参数。使用的视图文件为 
+``app/View/Users/admin_edit.ctp``。
 
-You can map the url /admin to your ``admin_index`` action of pages
-controller using following route::
+可以用下面的路由映射网址 /admin 到 pages 控制器的 ``admin_index`` 动作::
 
-    Router::connect('/admin', array('controller' => 'pages', 'action' => 'index', 'admin' => true));
+    Router::connect(
+        '/admin',
+        array('controller' => 'pages', 'action' => 'index', 'admin' => true)
+    );
 
-You can configure the Router to use multiple prefixes too. By
-adding additional values to ``Routing.prefixes``. If you set::
+也可以通过添加更多的值到 ``Routing.prefixes`` 来配置路由器使用多个前缀。如果设置::
 
     Configure::write('Routing.prefixes', array('admin', 'manager'));
 
-Cake will automatically generate routes for both the admin and
-manager prefixes. Each configured prefix will have the following
-routes generated for it::
+CakePHP 会自动生成 admin 和 manager 两个前缀的路由。每个配置的前缀会有如下生成的
+路由::
 
-    Router::connect("/{$prefix}/:plugin/:controller", array('action' => 'index', 'prefix' => $prefix, $prefix => true));
-    Router::connect("/{$prefix}/:plugin/:controller/:action/*", array('prefix' => $prefix, $prefix => true));
-    Router::connect("/{$prefix}/:controller", array('action' => 'index', 'prefix' => $prefix, $prefix => true));
-    Router::connect("/{$prefix}/:controller/:action/*", array('prefix' => $prefix, $prefix => true));
+    Router::connect(
+        "/{$prefix}/:plugin/:controller",
+        array('action' => 'index', 'prefix' => $prefix, $prefix => true)
+    );
+    Router::connect(
+        "/{$prefix}/:plugin/:controller/:action/*",
+        array('prefix' => $prefix, $prefix => true)
+    );
+    Router::connect(
+        "/{$prefix}/:controller",
+        array('action' => 'index', 'prefix' => $prefix, $prefix => true)
+    );
+    Router::connect(
+        "/{$prefix}/:controller/:action/*",
+        array('prefix' => $prefix, $prefix => true)
+    );
 
-Much like admin routing all prefix actions should be prefixed with
-the prefix name. So ``/manager/posts/add`` would map to
-``PostsController::manager_add()``.
+和 admin 路由很类似，所有的前缀动作应当加上前缀名称。所以 ``/manager/posts/add`` 
+就会映射到 ``PostsController::manager_add()``。
 
-Additionally, the current prefix will be available from the controller methods through ``$this->request->prefix``
+而且，当前前缀在控制器方法中可以通过 ``$this->request->prefix`` 得到。
 
-When using prefix routes it's important to remember, using the HTML
-helper to build your links will help maintain the prefix calls.
-Here's how to build this link using the HTML helper::
+当使用前缀路由时，重要的是要记住，使用 HTML 助件来构建链接会帮助维护前缀调用。下
+面是如何使用 HTML 助件来构建链接::
 
-    // Go into a prefixed route.
-    echo $this->Html->link('Manage posts', array('manager' => true, 'controller' => 'posts', 'action' => 'add'));
+    // 进入前缀路由。
+    echo $this->Html->link(
+        'Manage posts',
+        array('manager' => true, 'controller' => 'posts', 'action' => 'add')
+    );
 
-    // leave a prefix
-    echo $this->Html->link('View Post', array('manager' => false, 'controller' => 'posts', 'action' => 'view', 5));
+    // 离开前缀
+    echo $this->Html->link(
+        'View Post',
+        array('manager' => false, 'controller' => 'posts', 'action' => 'view', 5)
+    );
 
 .. index:: plugin routing
 
-Plugin routing
---------------
+插件路由
+--------
 
-Plugin routing uses the **plugin** key. You can create links that
-point to a plugin, but adding the plugin key to your url array::
+插件路由使用 **plugin** 键。你可以创建指向插件的链接，但需在网址数组中添加 
+plugin 键::
 
-    echo $this->Html->link('New todo', array('plugin' => 'todo', 'controller' => 'todo_items', 'action' => 'create'));
+    echo $this->Html->link(
+        'New todo',
+        array('plugin' => 'todo', 'controller' => 'todo_items', 'action' => 'create')
+    );
 
-Conversely if the active request is a plugin request and you want
-to create a link that has no plugin you can do the following::
+相反如果当前有效请求是对插件的请求，而你又要创建不带插件的链接，你可以这么做::
 
-    echo $this->Html->link('New todo', array('plugin' => null, 'controller' => 'users', 'action' => 'profile'));
+    echo $this->Html->link(
+        'New todo',
+        array('plugin' => null, 'controller' => 'users', 'action' => 'profile')
+    );
 
-By setting ``plugin => null`` you tell the Router that you want to
-create a link that is not part of a plugin.
+通过设置 ``plugin => null``，你告诉路由器你要创建的链接不是插件的一部分。
 
 .. index:: file extensions
 .. _file-extensions:
 
-File extensions
----------------
+文件扩展名
+----------
 
-To handle different file extensions with your routes, you need one
-extra line in your routes config file::
+要让你的路由处理不同的文件扩展名，你需要在路由配置文件中多加一行::
 
     Router::parseExtensions('html', 'rss');
 
-This will tell the router to remove any matching file extensions,
-and then parse what remains.
+这会告诉路由器去掉任何匹配的文件扩展名，解析剩余的部分。
 
-If you want to create a URL such as /page/title-of-page.html you
-would create your route as illustrated below::
+如果你要创建象 /page/title-of-page.html 这样的网址，你可以创建如下所示的路由::
 
     Router::connect(
         '/page/:title',
@@ -464,35 +406,38 @@ would create your route as illustrated below::
         )
     );
 
-Then to create links which map back to the routes simply use::
+然后，要创建映射回上述路由的链接，简单地使用::
 
     $this->Html->link(
         'Link title',
-        array('controller' => 'pages', 'action' => 'view', 'title' => 'super-article', 'ext' => 'html')
+        array(
+            'controller' => 'pages',
+            'action' => 'view',
+            'title' => 'super-article',
+            'ext' => 'html'
+        )
     );
 
-File extensions are used by :php:class:`RequestHandlerComponent` to do automatic
-view switching based on content types.  See the RequestHandlerComponent for
-more information.
+文件扩展名被 :php:class:`RequestHandlerComponent` 用来进行基于内容类型的自动视图
+切换。欲知详情，请参看 RequestHandlerComponent。
 
 .. _route-conditions:
 
-Using additional conditions when matching routes
-------------------------------------------------
+使用额外条件匹配路由
+--------------------
 
-When creating routes you might want to restrict certain URL's based on specific
-request/environment settings. A good example of this is :doc:`rest`
-routing. You can specify additional conditions in the ``$defaults`` argument for
-:php:meth:`Router::connect()`.  By default CakePHP exposes 3 environment
-conditions, but you can add more using :ref:`custom-route-classes`. The built-in
-options are:
+当创建路由时，你也许要基于特定的请求/环境设置来限制某些网址。一个很好的例子是 
+:doc:`rest` 路由。你可以在 :php:meth:`Router::connect()` 的 ``$defaults`` 参数指
+定额外的条件。默认情况下 CakePHP 提供3个环境条件，但是你可以用 
+:ref:`custom-route-classes` 添加更多(的条件)。内置的选项为：
 
-- ``[type]`` Only match requests for specific content types.
-- ``[method]`` Only match requests with specific HTTP verbs.
-- ``[server]`` Only match when $_SERVER['SERVER_NAME'] matches the given value.
+- ``[type]`` 只匹配特定内容类型的请求。
+- ``[method]`` 只匹配有特定 HTTP 动词的请求。
+- ``[server]`` 只有当 $_SERVER['SERVER_NAME'] 匹配给定值时才会匹配。
 
-We'll provide a simple example here of how you can use the ``[method]``
-option to create a custom RESTful route::
+我们在这里提供一个简单的例子，说明如何使用 ``[method]`` 选项来创建自定义 RESTful 
+路由::
+
 
     Router::connect(
         "/:controller/:id",
@@ -500,32 +445,27 @@ option to create a custom RESTful route::
         array("id" => "[0-9]+")
     );
 
-The above route will only match for ``PUT`` requests. Using these conditions,
-you can create custom REST routing, or other request data dependent information.
+以上路由只会匹配 ``PUT`` 请求。使用这些条件，你能够创建自定义 REST 路由，或者其
+它依赖于请求数据的信息。
 
 .. index:: passed arguments
 .. _passed-arguments:
 
-Passed arguments
-================
+传入参数
+========
 
-Passed arguments are additional arguments or path segments that are
-used when making a request. They are often used to pass parameters
-to your controller methods.::
+传入参数(*passed argument*)是发起请求时使用的其它参数或路径片段。它们经常用来给
+控制器方法传递参数。::
 
     http://localhost/calendars/view/recent/mark
 
-In the above example, both ``recent`` and ``mark`` are passed
-arguments to ``CalendarsController::view()``. Passed arguments are
-given to your controllers in three ways. First as arguments to the
-action method called, and secondly they are available in
-``$this->request->params['pass']`` as a numerically indexed array. Lastly
-there is ``$this->passedArgs`` available in the same way as the
-second one. When using custom routes you can force particular
-parameters to go into the passed arguments as well.
+在上面的例子中，``recent`` 和 ``mark`` 都是 ``CalendarsController::view()`` 的参
+数。传入参数以三种方式提供给控制器。首先可以作为被调用动作方法的参数，其次可以在
+``$this->request->params['pass']`` 中作为数字索引的数组访问。最后，可以在 
+``$this->passedArgs`` 中通过和第二种同样的方式访问。在使用自定义路由时，你也可以
+强制特定的参数作为传入参数。
 
-If you were to visit the previously mentioned url, and you
-had a controller action that looked like::
+如果你访问上面提到的网址，控制器动作如下::
 
     CalendarsController extends AppController {
         public function view($arg1, $arg2) {
@@ -533,7 +473,7 @@ had a controller action that looked like::
         }
     }
 
-You would get the following output::
+你就会得到如下输出::
 
     Array
     (
@@ -541,15 +481,14 @@ You would get the following output::
         [1] => mark
     )
 
-This same data is also available at ``$this->request->params['pass']``
-and ``$this->passedArgs`` in your controllers, views, and helpers.
-The values in the pass array are numerically indexed based on the
-order they appear in the called url::
+同样的数据也可以在控制器、视图和助件中通过 ``$this->request->params['pass']`` 和
+``$this->passedArgs`` 得到。在 pass 数组中的值以它们在调用的网址中出现的顺序作为
+数字索引::
 
     debug($this->request->params['pass']);
     debug($this->passedArgs);
 
-Either of the above would output::
+上面的任何一个都会输出::
 
     Array
     (
@@ -559,115 +498,102 @@ Either of the above would output::
 
 .. note::
 
-    $this->passedArgs may also contain named parameters as a named
-    array mixed with Passed arguments.
+    $this->passedArgs 也可能会包含命名参数(*named parameter*)，因为命名数组和传
+    入参数混杂在一起。
 
-When generating urls, using a :term:`routing array` you add passed
-arguments as values without string keys in the array::
+在生成网址时，使用 :term:`routing array`，你可以添加不带字符串索引的值作为传入参
+数::
 
     array('controller' => 'posts', 'action' => 'view', 5)
 
-Since ``5`` has a numeric key, it is treated as a passed argument.
+因为 ``5`` 有数字键，所以它会被当作传入参数。
 
 .. index:: named parameters
 
 .. _named-parameters:
 
-Named parameters
-================
+命名参数
+========
 
-You can name parameters and send their values using the URL. A
-request for ``/posts/view/title:first/category:general`` would result
-in a call to the view() action of the PostsController. In that
-action, you’d find the values of the title and category parameters
-inside ``$this->params['named']``.  They are also available inside
-``$this->passedArgs``. In both cases you can access named parameters using their
-name as an index.  If named parameters are omitted, they will not be set.
+你可以给参数命名并用网址传递它们的值。对 
+``/posts/view/title:first/category:general`` 的请求会导致对 PostsController 控制
+器的 view() 动作的调用。在这个动作中，你可以在 ``$this->params['named']`` 中得到
+title 和 category 参数的值。它们也可以在 ``$this->passedArgs`` 中得到。在这两种
+情况中，都可以用它们的名称作为索引来访问。如果省略了命名参数，它们就不会(在这两
+个数组中)被设置。
 
 
 .. note::
 
-    What is parsed as a named parameter is controlled by
-    :php:meth:`Router::connectNamed()`.  If your named parameters are not
-    reverse routing, or parsing correctly, you will need to inform
-    :php:class:`Router` about them.
+    什么会被解析为命名参数，是由 :php:meth:`Router::connectNamed()` 方法控制的。
+    如果你的命名参数不支持反向路由，或不能正确解析，你就需要让 
+    :php:class:`Router` 知道它们(的存在)。
 
-Some summarizing examples for default routes might prove helpful::
+一些默认路由的总结性例子也许有用::
 
-    URL to controller action mapping using default routes:
+    使用默认路由从网址到控制器动作的映射：
 
-    URL: /monkeys/jump
-    Mapping: MonkeysController->jump();
+    网址： URL: /monkeys/jump
+    映射： Mapping: MonkeysController->jump();
 
-    URL: /products
-    Mapping: ProductsController->index();
+    网址： URL: /products
+    映射： Mapping: ProductsController->index();
 
-    URL: /tasks/view/45
-    Mapping: TasksController->view(45);
+    网址： URL: /tasks/view/45
+    映射： Mapping: TasksController->view(45);
 
-    URL: /donations/view/recent/2001
-    Mapping: DonationsController->view('recent', '2001');
+    网址： URL: /donations/view/recent/2001
+    映射： Mapping: DonationsController->view('recent', '2001');
 
-    URL: /contents/view/chapter:models/section:associations
-    Mapping: ContentsController->view();
+    网址： URL: /contents/view/chapter:models/section:associations
+    映射： Mapping: ContentsController->view();
     $this->passedArgs['chapter'] = 'models';
     $this->passedArgs['section'] = 'associations';
     $this->params['named']['chapter'] = 'models';
     $this->params['named']['section'] = 'associations';
 
-When making custom routes, a common pitfall is that using named
-parameters will break your custom routes. In order to solve this
-you should inform the Router about which parameters are intended to
-be named parameters. Without this knowledge the Router is unable to
-determine whether named parameters are intended to actually be
-named parameters or routed parameters, and defaults to assuming you
-intended them to be routed parameters. To connect named parameters
-in the router use :php:meth:`Router::connectNamed()`::
+当制定自定义路由时，一个常见错误是，使用命名参数会破坏你的自定义路由。为了解决这
+个问题，你应当告诉路由器哪个参数要作为命名参数。不知道这个，路由器就无法决定命名
+的参数实际上是要作为命名参数还是路由参数，而会默认认为你要它们作为路由参数。要在
+路由器中使用命名参数，请使用 :php:meth:`Router::connectNamed()` 方法::
 
     Router::connectNamed(array('chapter', 'section'));
 
-Will ensure that your chapter and section parameters reverse route
-correctly.
+这会确保反向路由正确地处理你的 chapter 和 section 参数。
 
-When generating urls, using a :term:`routing array` you add named
-parameters as values with string keys matching the name::
+当生成网址时，使用 :term:`routing array` 就可以把和名称匹配的字符串键及其值添加
+为命名参数::
 
     array('controller' => 'posts', 'action' => 'view', 'chapter' => 'association')
 
-Since 'chapter' doesn't match any defined route elements, it's treated
-as a named parameter.
+因为 'chapter' 不匹配任何定义的路由元素，它就会被认为是命名参数。
 
 .. note::
 
-    Both named parameters and route elements share the same key-space.
-    It's best to avoid re-using a key for both a route element and a named
-    parameter.
+    命名参数和路由元素共享相同的键空间。最好避免对路由元素和命名参数重用同一个键。
 
-Named parameters also support using arrays to generate and parse
-urls.  The syntax works very similar to the array syntax used
-for GET parameters.  When generating urls you can use the following
-syntax::
+命名参数也支持使用数组来生成和解析网址。语法和 GET 参数的数组语法非常类似。当生
+成网址时可以使用以下语法::
 
     $url = Router::url(array(
         'controller' => 'posts',
         'action' => 'index',
         'filter' => array(
-            'published' => 1
+            'published' => 1,
             'frontpage' => 1
         )
     ));
 
-The above would generate the url ``/posts/index/filter[published]:1/filter[frontpage]:1``.
-The parameters are then parsed and stored in your controller's passedArgs variable
-as an array, just as you sent them to :php:meth:`Router::url`::
+以上代码会生成网址 ``/posts/index/filter[published]:1/filter[frontpage]:1``。然
+后参数会被解析，并作为数组存储在控制器的 passedArgs 变量中，就象你把它们发送给 
+:php:meth:`Router::url` 一样::
 
     $this->passedArgs['filter'] = array(
-        'published' => 1
+        'published' => 1,
         'frontpage' => 1
     );
 
-Arrays can be deeply nested as well, allowing you even more flexibility in
-passing arguments::
+数组也可以深度嵌套，让你在传递参数时有更多的灵活性::
 
     $url = Router::url(array(
         'controller' => 'posts',
@@ -689,15 +615,14 @@ passing arguments::
         'users' => array(1, 2, 3)
     ));
 
-You would end up with a pretty long url like this (wrapped for easy reading)::
+你就会得到象这样相当长的网址(折行是为了便于阅读)::
 
     posts/search
       /models[post][order]:asc/models[post][filter][published]:1
       /models[comment][order]:desc/models[comment][filter][spam]:0
       /users[]:1/users[]:2/users[]:3
 
-And the resulting array that would be passed to the controller would match that
-which you passed to the router::
+得到的要传递给控制器的数组，和传递给路由器的是一致的::
 
     $this->passedArgs['models'] = array(
         'post' => array(
@@ -716,38 +641,43 @@ which you passed to the router::
 
 .. _controlling-named-parameters:
 
-Controlling named parameters
-----------------------------
+控制命名参数
+------------
 
-You can control named parameter configuration at the per-route-level
-or control them globally.  Global control is done through ``Router::connectNamed()``
-The following gives some examples of how you can control named parameter parsing
-with connectNamed().
+你可以在路由级别或者在全局级别控制命名参数的配置。全局控制通过 
+``Router::connectNamed()`` 进行。下面是一些例子，说明如何使用 connectNamed() 方
+法来控制命名参数的解析。
 
-Do not parse any named parameters::
+不解析任何命名参数::
 
     Router::connectNamed(false);
 
-Parse only default parameters used for CakePHP's pagination::
+只解析 CakePHP 用于分页的默认参数::
 
     Router::connectNamed(false, array('default' => true));
 
-Parse only the page parameter if its value is a number::
+只有当 page 参数是数字时才只解析它::
 
-    Router::connectNamed(array('page' => '[\d]+'), array('default' => false, 'greedy' => false));
+    Router::connectNamed(
+        array('page' => '[\d]+'),
+        array('default' => false, 'greedy' => false)
+    );
 
-Parse only the page parameter no matter what::
+只解析 page 参数，不论它是什么::
 
-    Router::connectNamed(array('page'), array('default' => false, 'greedy' => false));
+    Router::connectNamed(
+        array('page'),
+        array('default' => false, 'greedy' => false)
+    );
 
-Parse only the page parameter if the current action is 'index'::
+如果当前动作是 'index'，只解析 page 参数::
 
     Router::connectNamed(
         array('page' => array('action' => 'index')),
         array('default' => false, 'greedy' => false)
     );
 
-Parse only the page parameter if the current action is 'index' and the controller is 'pages'::
+如果当前动作是 'index' 而且控制器是 'pages'，只解析 page 参数::
 
     Router::connectNamed(
         array('page' => array('action' => 'index', 'controller' => 'pages')),
@@ -755,42 +685,38 @@ Parse only the page parameter if the current action is 'index' and the controlle
     );
 
 
-connectNamed() supports a number of options:
+connectNamed() 方法支持一些选项：
 
-* ``greedy`` Setting this to true will make Router parse all named params.
-  Setting it to false will parse only the connected named params.
-* ``default`` Set this to true to merge in the default set of named parameters.
-* ``reset`` Set to true to clear existing rules and start fresh.
-* ``separator`` Change the string used to separate the key & value in a named
-  parameter. Defaults to `:`
+* ``greedy`` 设置为 true 会使路由器解析所有命名参数。设置为 false 则只会解析连接
+  的命名参数。
+* ``default`` 设置为 true 会合并入默认的一组命名参数。
+* ``reset`` 设置为 true 来清除现有的规则，从头开始。
+* ``separator`` 改变在命名参数中用来分隔键和值的字符串。默认为 `:`。
 
-Reverse routing
-===============
+反向路由
+========
 
-Reverse routing is a feature in CakePHP that is used to allow you to
-easily change your url structure without having to modify all your code.
-By using :term:`routing arrays <routing array>` to define your urls, you can
-later configure routes and the generated urls will automatically update.
+反向路由是 CakePHP 中的特性，用来让你容易地改变网址结构，而不必改动所有代码。使
+用 :term:`路由数组 <routing array>` 来定义网址，以后你就可以配置路由，而生成的网
+址就会自动更新。
 
-If you create urls using strings like::
+如果象下面这样用字符串创建网址::
 
     $this->Html->link('View', '/posts/view/' + $id);
 
-And then later decide that ``/posts`` should really be called
-'articles' instead, you would have to go through your entire
-application renaming urls.  However, if you defined your link like::
+而后来决定 ``/posts`` 实际上应该叫做 'articles'，你就不得不查看整个应用程序的代
+码，替换网址。然而，如果象下面这样定义链接::
 
     $this->Html->link(
         'View',
         array('controller' => 'posts', 'action' => 'view', $id)
     );
 
-Then when you decided to change your urls, you could do so by defining a
-route.  This would change both the incoming URL mapping, as well as the
-generated urls.
+那么当你决定改变网址时，你可以只定义一个路由就达到目的。这不但会改变接收网址的映
+射，也改变了生成的网址。
 
-When using array urls, you can define both query string parameters and
-document fragments using special keys::
+在使用数组网址时，你可以使用特殊的键来定义查询字符串(*query string*)参数和文档片
+段(*document fragment*)::
 
     Router::url(array(
         'controller' => 'posts',
@@ -799,68 +725,61 @@ document fragments using special keys::
         '#' => 'top'
     ));
 
-    // will generate a url like.
+    // 会生成类似这样的网址
     /posts/index?page=1#top
 
 .. _redirect-routing:
 
-Redirect routing
-================
+重定向路由
+==========
 
-Redirect routing allows you to issue HTTP status 30x redirects for
-incoming routes, and point them at different urls. This is useful
-when you want to inform client applications that a resource has moved
-and you don't want to expose two urls for the same content
+重定向路由让你可以对收到的路由发送 HTTP 状态 30x 重定向，把它们指向不同的网址。
+这可以用于当你想要通知客户端应用程序，一个资源被移动了，而你又不想为同一内容分配
+两个网址。
 
-Redirection routes are different from normal routes as they perform an actual
-header redirection if a match is found. The redirection can occur to
-a destination within your application or an outside location::
+重定向路由不同于普通路由，因为如果遇到匹配的网址，实际上会执行文件头重定向。重定
+向可以指向应用程序内的目标，也可以指向外部的地址::
 
     Router::redirect(
         '/home/*',
         array('controller' => 'posts', 'action' => 'view'),
-        array('persist' => true) // or array('persist'=>array('id')) for default routing where the view action expects $id as an argument
+        // 或者对视图动作等待 $id 作为参数的默认路由，使用
+        // array('persist'=>array('id'))
+        array('persist' => true)
     );
 
-Redirects ``/home/*`` to ``/posts/view`` and passes the parameters to
-``/posts/view``.  Using an array as the redirect destination allows
-you to use other routes to define where a url string should be
-redirected to.  You can redirect to external locations using
-string urls as the destination::
+重定向 ``/home/*`` 到 ``/posts/view``，并传递参数到 ``/posts/view``。使用数组作
+为重定向目标让你可以使用其它路由来定义字符串网址应该重定向到哪里。你可以使用字符
+串网址作为目标重定向到外部地址::
 
     Router::redirect('/posts/*', 'http://google.com', array('status' => 302));
 
-This would redirect ``/posts/*`` to ``http://google.com`` with a
-HTTP status of 302.
+这会以 HTTP 状态 302 重定向 ``/posts/*`` 到 ``http://google.com``。
 
 .. _disabling-default-routes:
 
-Disabling the default routes
-============================
+关闭默认路由
+============
 
-If you have fully customized all your routes, and want to avoid any
-possible duplicate content penalties from search engines, you can
-remove the default routes that CakePHP offers by deleting them from your
-application's routes.php file.
+如果你完全自定义了全部路由，并想要避免任何可能来自搜索引擎的重复内容惩罚，你可以
+从应用程序的 routes.php 文件删除 CakePHP 提供的默认路由来去掉它们。
 
-This will cause CakePHP to serve errors, when users try to visit
-urls that would normally be provided by CakePHP but have not
-been connected explicitly.
+当用户试图访问通常由 CakePHP 提供但没有显式连接的网址，就会引起 CakePHP 报错。
 
 .. _custom-route-classes:
 
-Custom Route classes
-====================
+自定义路由类
+============
 
-Custom route classes allow you to extend and change how individual
-routes parse requests and handle reverse routing. A route class
-should extend :php:class:`CakeRoute` and implement one or both of
-``match()`` and/or ``parse()``. ``parse()`` is used to parse requests and
-``match()`` is used to handle reverse routing.
+自定义路由类让你可以扩展并改变单个路由如何解析请求和处理反向路由。自定义路由应当
+在 ``app/Routing/Route`` 目录中创建，而且应当扩展 :php:class:`CakeRoute` 并实现 
+``match()`` 和 ``parse()`` 两个方法中的一个或全部。``parse()`` 方法用于解析请求，
+而 ``match()`` 方法用于处理反向路由。
 
-You can use a custom route class when making a route by using the
-``routeClass`` option, and loading the file containing your route
-before trying to use it::
+要使用自定义路由，你可以在指定路由时使用 ``routeClass`` 选项，并且在使用它之前加
+载包含路由(类)的文件::
+
+    App::uses('SlugRoute', 'Routing/Route');
 
     Router::connect(
          '/:slug',
@@ -868,46 +787,41 @@ before trying to use it::
          array('routeClass' => 'SlugRoute')
     );
 
-This route would create an instance of ``SlugRoute`` and allow you
-to implement custom parameter handling.
+这个路由会创建一个 ``SlugRoute`` 类的实例，让你可以实现自定义参数处理。
 
-Router API
+路由 API
 ==========
 
 .. php:class:: Router
 
-    Router manages generation of outgoing urls, and parsing of incoming
-    request uri's into parameter sets that CakePHP can dispatch.
+    路由器管理发出网址的生成、解析接收的请求网址为 CakePHP 可以调配的参数集。
 
 .. php:staticmethod:: connect($route, $defaults = array(), $options = array())
 
-    :param string $route: A string describing the template of the route
-    :param array $defaults: An array describing the default route parameters.
-        These parameters will be used by default
-        and can supply routing parameters that are not dynamic.
-    :param array $options: An array matching the named elements in the route
-        to regular expressions which that element should match.  Also contains
-        additional parameters such as which routed parameters should be
-        shifted into the passed arguments, supplying patterns for routing
-        parameters and supplying the name of a custom routing class.
+    :param string $route: 描述路由模板的字符串。
+    :param array $defaults: 描述默认路由参数的数组。这些参数默认会被使用，可以被
+        提供非动态的路由参数。
+    :param array $options: 路由中命名元素和对应的元素应当匹配的正则表达式构成的
+        数组。也包含额外的参数，比如哪个路由参数应当移入传入参数，提供路由参数的
+        模式，以及提供自定义路由类的名称。
 
-    Routes are a way of connecting request urls to objects in your application.
-    At their core routes are a set or regular expressions that are used to
-    match requests to destinations.
+    路由是一种连接请求网址和应用程序中的对象的方法。在其核心，路由是用于匹配请求
+    到目的地的一组正则表达式。
 
-    Examples::
+    例如::
 
         Router::connect('/:controller/:action/*');
 
-    The first parameter will be used as a controller name while the second is
-    used as the action name. The '/\*' syntax makes this route greedy in that
-    it will match requests like `/posts/index` as well as requests like
-    ``/posts/edit/1/foo/bar`` .::
+    第一个参数被当作控制器名称，而第二个参数被当作当作名称。'/\*' 语法使该路由贪
+    婪，这样它就会匹配象 `/posts/index` 以及象 ``/posts/edit/1/foo/bar`` 这样的
+    请求。::
 
-        Router::connect('/home-page', array('controller' => 'pages', 'action' => 'display', 'home'));
+        Router::connect(
+            '/home-page',
+            array('controller' => 'pages', 'action' => 'display', 'home')
+        );
 
-    The above shows the use of route parameter defaults. And providing routing
-    parameters for a static route.::
+    上面这个说明路由参数默认值的用法。而为静态路由提供路由参数。::
 
         Router::connect(
             '/:lang/:controller/:action/:id',
@@ -915,136 +829,131 @@ Router API
             array('id' => '[0-9]+', 'lang' => '[a-z]{3}')
         );
 
-    Shows connecting a route with custom route parameters as well as providing
-    patterns for those parameters. Patterns for routing parameters do not need
-    capturing groups, as one will be added for each route params.
+    说明连接路由和自定义路由参数，以及为这些参数提供模式。路由参数的模式不需要捕
+    获分组(*capturing group*)，因为每个路由参数都会(自动)添加一个(捕获分组)。
 
-    $options offers three 'special' keys. ``pass``, ``persist`` and ``routeClass``
-    have special meaning in the $options array.
+    $options 参数提供了三个'特殊的'键。``pass`` 、 ``persist`` 和 ``routeClass``
+    在 $options 数组中有特殊的含义。
 
-    * ``pass`` is used to define which of the routed parameters should be
-      shifted into the pass array.  Adding a parameter to pass will remove
-      it from the regular route array. Ex. ``'pass' => array('slug')``
+    * ``pass`` 用于定义那个路由参数应当移入 pass 数组。添加参数到 pass 数组会把
+      它从正常的路由数组中删除。例如 ``'pass' => array('slug')``。
 
-    * ``persist`` is used to define which route parameters should be automatically
-      included when generating new urls. You can override persistent parameters
-      by redefining them in a url or remove them by setting the parameter to
-      ``false``.  Ex. ``'persist' => array('lang')``
+    * ``persist`` 用于定义在生成新网址时哪个路由参数应当自动包括在内。你可以覆盖
+      持久参数，只需在网址中重新定义它们，或者通过设置该参数为 ``false``。例如 
+      ``'persist' => array('lang')``。
 
-    * ``routeClass`` is used to extend and change how individual routes parse
-      requests and handle reverse routing, via a custom routing class.
-      Ex. ``'routeClass' => 'SlugRoute'``
+    * ``routeClass`` 用于通过自定义路由类来扩展和改变单个路由如何解析请求及处理
+      反向路由。例如 ``'routeClass' => 'SlugRoute'``。
 
-    * ``named`` is used to configure named parameters at the route level.
-      This key uses the same options as :php:meth:`Router::connectNamed()`
+    * ``named`` 用于在路由级别配置命名参数。该键使用与 
+      :php:meth:`Router::connectNamed()` 相同的键。
 
 .. php:staticmethod:: redirect($route, $url, $options = array())
 
-    :param string $route: A route template that dictates which urls should
-        be redirected.
-    :param mixed $url: Either a :term:`routing array` or a string url
-        for the destination of the redirect.
-    :param array $options: An array of options for the redirect.
+    :param string $route: 路由模板，决定哪些网址要重定向。
+    :param mixed $url: 重定向目的地，或者是 :term:`routing array` 或者是字符串网
+        址。
+    :param array $options: 重定向选项数组。
 
-    Connects a new redirection Route in the router.
-    See :ref:`redirect-routing` for more information.
+    连接路由器中新的重定向路由。欲知详情，请参见 :ref:`redirect-routing`。
 
 .. php:staticmethod:: connectNamed($named, $options = array())
 
-    :param array $named: A list of named parameters. Key value pairs are accepted where
-        values are either regex strings to match, or arrays.
-    :param array $options: Allows control of all settings:
-        separator, greedy, reset, default
+    :param array $named: 命名参数列表。接受键值对，值为要匹配的正则表达式字符串、
+        或者数组。
+    :param array $options: 可以控制所有设置：
+        separator、greedy、reset、default。
 
-    Specifies what named parameters CakePHP should be parsing out of
-    incoming urls. By default CakePHP will parse every named parameter
-    out of incoming URLs. See :ref:`controlling-named-parameters` for
-    more information.
+    指定 CakePHP 应当从接收的网址中解析哪些命名参数。默认情况下，CakePHP 会从收
+    到的网址中解析所有命名参数。欲知详情，请参见 
+    :ref:`controlling-named-parameters`。
 
 .. php:staticmethod:: promote($which = null)
 
-    :param integer $which: A zero-based array index representing the route to move.
-        For example, if 3 routes have been added, the last route would be 2.
+    :param integer $which: 从零开始的数组索引，代表要移动的路由。例如，如果添加
+        了 3 个路由，最后一个路由就是 2。
 
-    Promote a route (by default, the last one added) to the beginning of the list.
+    把一个路由(默认情况下，是最后一个添加的)提前到列表的最开始。
 
 .. php:staticmethod:: url($url = null, $full = false)
 
-    :param mixed $url: Cake-relative URL, like "/products/edit/92" or
-        "/presidents/elect/4" or a :term:`routing array`
-    :param mixed $full: If (bool) true, the full base URL will be prepended
-        to the result. If an array accepts the following keys
+    :param mixed $url: CakePHP 的相对网址，比如 "/products/edit/92" 或者
+        "/presidents/elect/4" 或者 :term:`routing array`
+    :param mixed $full: 如果是 (boolean) true，完整的基准目录网址会加在结果前面。
+        如果是数组，则接受如下的键
 
-           * escape - used when making urls embedded in html escapes query
-             string '&'
-           * full - if true the full base URL will be prepended.
+           * escape — 用于当生成嵌入 HTML 的网址时，转义查询字符串'&'
+           * full — 如果为 true，完整的基准目录网址会加在前面。
 
-    Generate a URL for the specified action. Returns an URL pointing
-    to a combination of controller and action. $url can be:
+    生成指定动作的网址。返回网址指向控制器和动作组合的网址。$url 可以是：
 
-    * Empty - the method will find the address to the actual controller/action.
-    * '/' - the method will find the base URL of application.
-    * A combination of controller/action - the method will find the url for it.
+    * Empty — 该方法会寻找真正的控制器/动作的地址。
+    * '/' — 该方法会寻找应用程序的基准网址。
+    * 控制器/动作的组合 — 该方法会寻找其对应的网址。
 
-    There are a few 'special' parameters that can change the final URL string that is generated:
+    有一些'特殊'的参数会改变最终生成的网址字符串：
 
-    * ``base`` - Set to false to remove the base path from the generated URL.
-      If your application is not in the root directory, this can be used to
-      generate URLs that are 'cake relative'. Cake relative URLs are required
-      when using requestAction.
-    * ``?`` - Takes an array of query string parameters
-    * ``#`` - Allows you to set URL hash fragments.
-    * ``full_base`` - If true the :php:const:`FULL_BASE_URL` constant will
-      be prepended to generated URLs.
+    * ``base`` — 设置为 false 来去掉生成的网址中的基准路径。如果你的应用程序不在
+      根目录，这可以用来生成'CakePHP 的相对'网址。CakePHP 的相对网址在使用 
+      requestAction 是必须的。
+    * ``?`` — 接受查询字符串参数数组
+    * ``#`` — 让你可以设置网址哈希片段(*hash fragment*)。
+    * ``full_base`` — 如果是 true，:php:meth:`Router::fullBaseUrl()` 的值会附加
+      在生成的网址的前面。
 
 .. php:staticmethod:: mapResources($controller, $options = array())
 
-    Creates REST resource routes for the given controller(s).  See
-    the :doc:`/development/rest` section for more information.
+    创建给定控制器的 REST 资源路由。欲知详情，请参见 :doc:`/development/rest` 一
+    节。
 
 .. php:staticmethod:: parseExtensions($types)
 
-    Used in routes.php to declare which :ref:`file-extensions` your application
-    supports.  By providing no arguments, all file extensions will be supported.
+    用在 routes.php 文件中来声明应用程序支持哪个 :ref:`file-extensions`。不提供
+    参数，则支持所有的文件扩展名。
 
 .. php:staticmethod:: setExtensions($extensions, $merge = true)
 
     .. versionadded:: 2.2
 
-    Set or add valid extensions. To have the extensions parsed, you are still
-    required to call :php:meth:`Router::parseExtensions()`.
+    设置或添加合法的扩展名。要解析扩展名，你仍然必须调用 
+    :php:meth:`Router::parseExtensions()` 方法。
 
 .. php:staticmethod:: defaultRouteClass($classname)
 
     .. versionadded:: 2.1
 
-    Set the default route to be used when connecting routes in the future.
+    设置将来连接路由时使用的默认路由。
+
+.. php:staticmethod:: fullBaseUrl($url = null)
+
+    .. versionadded:: 2.4
+
+    获得或设置生成网址时使用的基准网址(*baseURL*)。设置该值时，应当确保引入包括
+    协议的完全合格域名(*fully qualified domain name*)。
+
+    用该方法设置值，也会更新 :php:class:`Configure` 中的 ``App.fullBaseUrl``。
 
 .. php:class:: CakeRoute
 
-    The base class for custom routes to be based on.
+    自定义路由基于的基类。
 
 .. php:method:: parse($url)
 
-    :param string $url: The string url to parse.
+    :param string $url: 要解析的字符串网址。
 
-    Parses an incoming url, and generates an array of request parameters
-    that Dispatcher can act upon. Extending this method allows you to customize
-    how incoming URLs are converted into an array.  Return ``false`` from
-    URL to indicate a match failure.
+    解析收到的网址，并生成请求参数数组，供调度器(*dispatcher*)处理。扩展这个方法
+    让你可以定制如何把收到的网址转换成数组。从网址返回 ``false`` 来表示不匹配。
 
 .. php:method:: match($url)
 
-    :param array $url: The routing array to convert into a string URL.
+    :param array $url: 要转换成字符串网址的路由数组。
 
-    Attempt to match a URL array.  If the URL matches the route parameters
-    and settings, then return a generated string URL.  If the URL doesn't
-    match the route parameters, false will be returned.  This method handles
-    the reverse routing or conversion of URL arrays into string URLs.
+    试图匹配网址数组。如果网址匹配路由参数和设置，就返回生成的字符串网址。如果网
+    址不匹配路由参数，返回 false。该方法处理网址数组的反向路由或转换为字符串网址。
 
 .. php:method:: compile()
 
-    Force a route to compile its regular expression.
+    强制路由编译它的正则表达式。
 
 
 .. meta::

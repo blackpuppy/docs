@@ -20,7 +20,7 @@ in sending emails. For example, you can create your own transports to send
 email instead of using the provided smtp and mail.
 
 基本用法 Basic usage
-===========
+====================
 
 首先,确保用 :php:meth:`App::uses()` 方法将类加载进来。
 
@@ -53,7 +53,7 @@ You can re-write the above code as::
         ->send('My message');
 
 选择发件人 Choosing the sender
--------------------
+------------------------------
 
 当代表其他人发送邮件最好使用Sender header去定义一个原始的发件人。也可以使用 ``sender()``::
 
@@ -72,7 +72,7 @@ original sender using the Sender header.  You can do so using ``sender()``::
     deliverability.
 
 配置 Configuration
-=============
+====================
 
 与数据库配置相似，也有一个集中包含邮件配置信息的类。
 
@@ -177,7 +177,8 @@ The above configuration would enable TLS communication for email messages.
 .. _email-configurations:
 
 配置 Configurations
---------------
+-------------------
+
 下面是配置数组的键名。
 The following configuration keys are used:
 
@@ -371,7 +372,7 @@ the Blog plugin.  The template file needs to be created in the following path:
 ``APP/View/Themed/TestTheme/Blog/Emails/text/new_comment.ctp``.
 
 发送附件 Sending attachments
--------------------
+-----------------------------
 
 .. php:method:: attachments($attachments = null)
 
@@ -499,7 +500,7 @@ Example::
 
 
 快速发送邮件 Sending messages quickly
-========================
+=====================================
 
 有时我们需要快速的发出去一封邮件，不需要先进行一系列的配置。
 :php:meth:`CakeEmail::deliver()` 可以满足这个目的。
@@ -549,7 +550,7 @@ Check the list of :ref:`configurations <email-configurations>` to see all accept
 
 
 从CLI发送邮件 Sending emails from CLI
-========================
+=====================================
 
 .. versionchanged:: 2.2
     The ``domain()`` method was added in 2.2

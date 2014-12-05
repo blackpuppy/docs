@@ -74,13 +74,18 @@ Attribute Matching Types
 .. versionchanged:: 2.5
     Matcher support was added to ``insert()`` and ``remove()``.
 
-.. php:staticmethod:: get(array $data, $path)
+.. php:staticmethod:: get(array $data, $path, $default = null)
 
     :rtype: mixed
 
     ``get()`` is a simplified version of ``extract()``, it only supports direct
     path expressions. Paths with ``{n}``, ``{s}`` or matchers are not
     supported. Use ``get()`` when you want exactly one value out of an array.
+    The optional third argument will be returned if the requested path is not
+    found in the array.
+
+    .. versionchanged:: 2.5
+        The optional third argument ``$default = null`` was added.
 
 .. php:staticmethod:: extract(array $data, $path)
 
@@ -135,7 +140,7 @@ Attribute Matching Types
 
     :rtype: array
 
-    Removes all elements from an array that match $path.::
+    Removes all elements from an array that match $path. ::
 
         $a = array(
             'pages' => array('name' => 'page'),
@@ -166,7 +171,7 @@ Attribute Matching Types
     and optionally $valuePath as path to get the values. If $valuePath is not
     specified, or doesn't match anything, values will be initialized to null.
     You can optionally group the values by what is obtained when following the
-    path specified in $groupPath.::
+    path specified in $groupPath. ::
 
         $a = array(
             array(

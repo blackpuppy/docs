@@ -20,7 +20,7 @@ smooth, but are also convenient ways to point to certain files or
 directories in your CakePHP application.
 
 全局函数 Global Functions
-================
+=========================
 
 下面是CakePHP的全局函数。大部分函数封装了CakePHP的常用功能，使其使用起来
 更加便利，比如调试和内容翻译。
@@ -221,7 +221,7 @@ such as debugging and translating content.
     the modified array.
 
 核心常量 Core Definition Constants
-=========================
+===================================
 
 下面的常量大部分涉及应用程序的路径
 Most of the following constants refer to paths in your application.
@@ -339,7 +339,7 @@ Most of the following constants refer to paths in your application.
 
 
 时间常量 Timing Definition Constants
-===========================
+======================================
 
 .. php:const:: TIME_START
 

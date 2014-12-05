@@ -1,5 +1,5 @@
 目录和文件 Folder & File
-#############
+########################
 
 目录及文件工具是帮助你读、写、追加文件、列出目录中的文件及其他目录相关任务的一个方便的类库。
 The Folder and File utilities are convenience classes to help you read, write,
@@ -7,7 +7,7 @@ and append to files; list files within a folder and other common directory
 related tasks.
 
 基本用法 Basic usage
-===========
+=====================
 
 先确保使用 :php:meth:`App::uses()` 将类库加载进来。 ::
 Ensure the classes are loaded using :php:meth:`App::uses()`::
@@ -43,7 +43,7 @@ simply delete the file::
     }
 
 目录API Folder API
-==========
+==================
 
 .. php:class:: Folder(string $path = false, boolean $create = false, mixed $mode = false)
 
@@ -389,7 +389,7 @@ simply delete the file::
 
 
 文件API File API
-========
+================
 
 .. php:class:: File(string $path, boolean $create = false, integer $mode = 493)
 

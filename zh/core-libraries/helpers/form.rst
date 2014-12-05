@@ -1368,11 +1368,11 @@ Datetime 选项
     echo $this->Form->input('username', array('label' => 'Username')); // 带有 label 及同样的缺省选项
 
 与 SecurityComponent 组件一起使用
-==============================
+==================================
 
 :php:meth:`SecurityComponent`组件提供了一些特性，使你的表单更加安全可靠。只需在控制器中引用``SecurityComponent``，你就自动获得(针对) CSRF 和表单篡改的特性。
 
-正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用:php:meth:`FormHelper::end()`关闭你的表单。这会保证生成特殊的``_Token``输入项。
+正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用 :php:meth:`FormHelper::end()` 关闭你的表单。这会保证生成特殊的``_Token``输入项。
 
 .. php:method:: unlockField($name)
 
