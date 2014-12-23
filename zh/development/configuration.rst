@@ -159,15 +159,15 @@ bakers, pastry\_stores, and savory\_cakes.
 Additional Class Paths
 ======================
 
-有时在同一个系统上的应用程序之间共享MVC类库是很有用的。
-。如果想要在两个应用程序间使用同一控制器,可以使用CakePHP的引导文件bootstrap.php
+偶尔，在同一个系统上的应用程序之间共享 MVC 类库是很有用的。如果想要在两个应用程序间使用同一个控制器，可以使用 CakePHP 的 bootstrap.php 把这些额外的类引入视图。
 
 It's occasionally useful to be able to share MVC classes between
 applications on the same system. If you want the same controller in
 both applications, you can use CakePHP's bootstrap.php to bring
 these additional classes into view.
 
-在bootstrap.php使用 :php:meth:`App::build()` 定义路径。CakePHP会搜寻这些额外的类::
+在 bootstrap.php 使用 :php:meth:`App::build()` 可以定义额外的路径，CakePHP 就会
+在这些路径中搜寻类::
 
 By using :php:meth:`App::build()` in bootstrap.php we can define additional
 paths where CakePHP will look for classes::
@@ -249,7 +249,7 @@ paths where CakePHP will look for classes::
 
 .. note::
 
-    所有额外的路径配置应该在程序的bootstrap.php顶部定义。这样会确保路径会适用于程序中其他地方。
+    所有额外路径的配置应该在程序的 bootstrap.php 最开始定义。这样会确保应用程序的其余部分可以使用这些路径。
 
     All additional path configuration should be done at the top of your application's
     bootstrap.php. This will ensure that the paths are available for the rest of your
@@ -259,32 +259,28 @@ paths where CakePHP will look for classes::
 .. index:: core.php, configuration
 
 核心配置
-==================
+========
 
 Core Configuration
 ==================
 
-每个CakePHP应用程序包含一个配置文件，决定CakePHP的内部行为。
-``app/Config/core.php`` 。 这个文件是配置的集合。包含变量和常量定义以此来决定
-应用程序的行为。在我们深入这些特殊的变量之前，应该熟悉 :php:class:`Configure`
-CakePHP的配置注册类。
+每个 CakePHP 应用程序包含一个配置文件，决定 CakePHP 的内部行为，``app/Config/core.php`` 。这个文件是一个 Configure 类变量和常量定义的集合，决定应用程序的行为。在我们深入这些特定的变量之前，你需要熟悉 :php:class:`Configure`，CakePHP的配置注册表类。
 
-Each application in CakePHP contains a configuration file to
-determine CakePHP's internal behavior.
-``app/Config/core.php``. This file is a collection of Configure class
+Each application in CakePHP contains a configuration file,
+``app/Config/core.php``, to determine CakePHP's internal behavior.
+This file is a collection of Configure class
 variable definitions and constant definitions that determine how
 your application behaves. Before we dive into those particular
 variables, you'll need to be familiar with :php:class:`Configure`, CakePHP's
 configuration registry class.
 
 CakePHP 核心配置
---------------------------
+----------------
 
 CakePHP Core Configuration
 --------------------------
 
-:php:class:`Configure` 类用来管理一系列CakePHP配置变量。这些变量位于 ``app/Config/core.php``。
-下面是每个变量的描述以及是怎样影响到程序的。
+:php:class:`Configure` 类用来管理一系列 CakePHP 配置变量。这些变量可在 ``app/Config/core.php`` 文件中找到。下面是每个变量的描述、以及如何影响到程序的。
 
 The :php:class:`Configure` class is used to manage a set of core CakePHP
 configuration variables. These variables can be found in
@@ -298,25 +294,27 @@ debug
     0 = Production mode. No output.
     1 = 显示错误和警告。
     1 = Show errors and warnings.
-    2 = 显示错误，警告和SQL。 [只有在视图或布局文件中添加 $this->element('sql\_dump')
-    才会显示SQL日志。]
+    2 = 显示错误，警告和 SQL 语句。 [只有在视图或布局中添加 
+    $this->element('sql\_dump') 才会显示 SQL 日志。]
     2 = Show errors, warnings, and SQL. [SQL log is only shown when you
     add $this->element('sql\_dump') to your view or layout.]
 
 Error
-    配置错误处理。默认使用 :php:meth:`ErrorHandler::handleError()` 。
-    当debug > 0，会使用 :php:class:`Debugger` 显示错误。当debug = 0会将错误记录在日志中。
+    配置处理应用程序错误的错误处理器。默认使用 
+    :php:meth:`ErrorHandler::handleError()`。当 debug > 0 时，使用 
+    :php:class:`Debugger` 显示错误，而当 debug = 0 时，使用 :php:class:`CakeLog`
+    将错误记录在日志中。
     Configure the Error handler used to handle errors for your application.
     By default :php:meth:`ErrorHandler::handleError()` is used. It will display
     errors using :php:class:`Debugger`, when debug > 0
     and log errors with :php:class:`CakeLog` when debug = 0.
 
-    子键名:
+    子键:
     Sub-keys:
 
-    * ``handler`` - callback -处理错误的回调方法。可设置为任何回调类型，包含匿名方法。
+    * ``handler`` - callback - 处理错误的回调方法。可设置为任何回调类型，包括匿名函数。
     * ``level`` - int - 要捕获的错误等级。
-    * ``trace`` - boolean - 是否在日志文件记录堆栈跟踪信息。
+    * ``trace`` - boolean - 是否在日志文件中记录错误的堆栈跟踪(*stack trace*)信息。
 
     * ``handler`` - callback - The callback to handle errors. You can set this to any
       callback type, including anonymous functions.
@@ -324,10 +322,10 @@ Error
     * ``trace`` - boolean - Include stack traces for errors in log files.
 
 Exception
-    配置异常处理程序用于未捕获的异常。默认下，会使用ErrorHandler::handleException()。
-    专门为异常显示一个HTML页面。当debug > 0，像Missing Controller也会显示错误。
-    当debug = 0，框架错误将强迫输出到HTTP错误。
-    想了解跟过异常处理，参见 :doc:`exceptions` 章节。
+    配置异常处理程序用于未捕获的异常。默认情况下，会使用 ErrorHandler::handleException()。
+    对异常会显示一个 HTML 页面。当 debug > 0 时，像 Missing Controller 这样的框架错误会显示出来。
+    而当 debug = 0 时，框架错误被强制转换为通常的 HTTP 错误。
+    欲知更多异常处理的信息，请参见 :doc:`exceptions` 一节。
     Configure the Exception handler used for uncaught exceptions. By default,
     ErrorHandler::handleException() is used. It will display a HTML page for
     the exception, and while debug > 0, framework errors like
@@ -339,6 +337,7 @@ Exception
 .. _core-configuration-baseurl:
 
 App.baseUrl
+    如果你不想或者无法在你的服务器上运行 mod\_rewrite (或者一些其它兼容模块），你就要使用 CakePHP 的内置美观网址了。在 ``/app/ConfigScore.php`` 中，对下面这行去掉注释::
     If you don't want or can't get mod\_rewrite (or some other
     compatible module) up and running on your server, you'll need to
     use CakePHP's built-in pretty URLs. In ``/app/Config/core.php``,
@@ -346,6 +345,7 @@ App.baseUrl
 
         Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 
+    也要删除这些 .htaccess 文件::
     Also remove these .htaccess files::
 
         /.htaccess
@@ -353,111 +353,141 @@ App.baseUrl
         /app/webroot/.htaccess
 
 
+    这会让网址看起来象
     This will make your URLs look like
     www.example.com/index.php/controllername/actionname/param rather
-    than www.example.com/controllername/actionname/param.
+    而不是 than www.example.com/controllername/actionname/param.
 
+    如果你把 CakePHP 安装到不是 Apache 的 web 服务器上，你可以从 :doc:`/installation/url-rewriting` 一节找到在其它服务器上使网址重写运行的指示方法。
     If you are installing CakePHP on a webserver besides Apache, you
     can find instructions for getting URL rewriting working for other
     servers under the :doc:`/installation/url-rewriting` section.
 App.encoding
+    定义应用程序使用的编码。该编码用来生成布局(*layout*)中的字符集，和编码实体。这应当符合为数据库指定的编码值。
     Define what encoding your application uses. This encoding
     is used to generate the charset in the layout, and encode entities.
     It should match the encoding values specified for your database.
 Routing.prefixes
+    如果想要使用象 admin 这样的 CakePHP 前缀路由(*prefixed routes*)，去掉对该定义的注释。设置该变量为你想要使用的路由的前缀名称数组。对此后面有更多的描述。
     Un-comment this definition if you'd like to take advantage of
     CakePHP prefixed routes like admin. Set this variable with an array
     of prefix names of the routes you'd like to use. More on this
     later.
 Cache.disable
-    当设置为true，整个网站的持久化缓存会被禁用。会导致所有的
+    当设置为 true 时，整个网站的持久化缓存会被禁用。这会导致所有的
     :php:class:`Cache` 读/写失败。
     When set to true, persistent caching is disabled site-wide.
     This will make all read/writes to :php:class:`Cache` fail.
 Cache.check
+    如果设置为 true，启用视图缓存。仍然需要在控制器中启用，但是该变量开启了这些设置的检测。
     If set to true, enables view caching. Enabling is still needed in
     the controllers, but this variable enables the detection of those
     settings.
 Session
+    包含设置数组，用于会话(*session*)配置。defaults 键用于定义会话的默认预设，这里声明的任何设置会覆盖默认配置的设置。
     Contains an array of settings to use for session configuration. The defaults key is
     used to define a default preset to use for sessions, any settings declared here will override
     the settings of the default config.
 
+    子键
     Sub-keys
 
-    * ``name`` - The name of the cookie to use. Defaults to 'CAKEPHP'
-    * ``timeout`` - The number of minutes you want sessions to live for.
+    * ``name`` - 要使用的，cookie 的名字。默认为'CAKEPHP' The name of the cookie to use. Defaults to 'CAKEPHP'
+    * ``timeout`` - 要会话存在的分钟数。 The number of minutes you want sessions to live for.
       This timeout is handled by CakePHP
-    * ``cookieTimeout`` - The number of minutes you want session cookies to live for.
-    * ``checkAgent`` - Do you want the user agent to be checked when starting sessions?
+    * ``cookieTimeout`` - 要会话 coookie 存在的分钟数。 The number of minutes you want session cookies to live for.
+    * ``checkAgent`` - 在启动会话时，要检查用户代理吗？ Do you want the user agent to be checked when starting sessions?
+      在处理旧版 IE、Chrome Frame 或者某些网络浏览设备以及 AJAX 时，你或许想要设置该值为 false。
       You might want to set the value to false, when dealing with older versions of
       IE, Chrome Frame or certain web-browsing devices and AJAX
-    * ``defaults`` - The default configuration set to use as a basis for your session.
-      There are four builtins: php, cake, cache, database.
-    * ``handler`` - Can be used to enable a custom session handler.
+    * ``defaults`` - 会话使用的默认配置集。The default configuration set to use as a basis for your session.
+ +      有四种内置(默认配置集): php、cake、cache、database。
+ +      There are four builtins: php, cake, cache, database.
+    * ``handler`` - 可以用来启用自定义会话处理器。Can be used to enable a custom session handler.
+      期待可用于 `session_save_handler` 的回调数组。使用该选项会自动添加 `session.save_handler` 到 ini 数组。
       Expects an array of callables, that can be used with `session_save_handler`.
       Using this option will automatically add `session.save_handler` to the ini array.
-    * ``autoRegenerate`` - Enabling this setting, turns on automatic renewal
+    * ``autoRegenerate`` - 启用该设置，就打开了会话的自动延续，频繁变化的 sessionid。参看 :php:attr:`CakeSession::$requestCountdown`。
+      Enabling this setting, turns on automatic renewal
       of sessions, and sessionids that change frequently.
       See :php:attr:`CakeSession::$requestCountdown`.
-    * ``ini`` - An associative array of additional ini values to set.
+    * ``ini`` - 要设置的额外 ini 值的关联数组。 An associative array of additional ini values to set.
 
+    内置默认值为：
     The built-in defaults are:
 
-    * 'php' - Uses settings defined in your php.ini.
-    * 'cake' - Saves session files in CakePHP's /tmp directory.
-    * 'database' - Uses CakePHP's database sessions.
-    * 'cache' - Use the Cache class to save sessions.
+    * 'php' - 使用在 php.ini 中定义的设置。Uses settings defined in your php.ini.
+    * 'cake' - 在 CakePHP 的 /tmp 目录中保存会话文件。 Saves session files in CakePHP's /tmp directory.
+    * 'database' - 使用 CakePHP 的数据库会话。 Uses CakePHP's database sessions.
+    * 'cache' - 使用 Cache 类保存会话。Use the Cache class to save sessions.
 
+    要定义自定义会话处理器，把它保存在 ``app/ModelSDatasource/Session/<name>.php``。确保这个类实现了 :php:interface:`CakeSessionHandlerInterface`，并设置 Session.handler 为 <name>。
     To define a custom session handler, save it at ``app/Model/Datasource/Session/<name>.php``.
     Make sure the class implements :php:interface:`CakeSessionHandlerInterface`
     and set Session.handler to <name>
 
+    要使用数据库会话，用 cake 控制台命令运行 ``app/ConfigSSchema/sessions.php`` 数据结构： ``cake schema create Sessions``
     To use database sessions, run the ``app/Config/Schema/sessions.php`` schema using
     the cake shell command: ``cake schema create Sessions``
 
 Security.salt
-    用在security hashing的一个随机字符串。
+    用于 安全哈希(*security hashing*)的一个随机字符串。
     A random string used in security hashing.
 Security.cipherSeed
     随机数字字符串(只允许数字)，用来加密/解密字符串。
     A random numeric string (digits only) used to encrypt/decrypt
     strings.
 Asset.timestamp
+    在使用正确的助件时，在资源文件网址(CSS、JavaScript、Image)末尾附加特定文件最后修改的时间戳。
     Appends a timestamp which is last modified time of the particular
     file at the end of asset files URLs (CSS, JavaScript, Image) when
     using proper helpers.
+    合法值：
     Valid values:
-    (boolean) false - Doesn't do anything (default)
-    (boolean) true - Appends the timestamp when debug > 0
-    (string) 'force' - Appends the timestamp when debug >= 0
+    (boolean) false - 什么也不做(默认) Doesn't do anything (default)
+    (boolean) true - 当 debug > 0 时附加时间戳 Appends the timestamp when debug > 0
+    (string) 'force' - 当 debug >= 0 时附加时间戳 Appends the timestamp when debug >= 0
 Acl.classname, Acl.database
+    用于 CakePHP 的访问控制列表(Access Control Access)功能的常数。欲知详情，参见访问控制列表一章。
     Constants used for CakePHP's Access Control List functionality. See
     the Access Control Lists chapter for more information.
 
 .. note::
-    缓存配置在core.php中也能找到，稍后会讲解。
+    在 core.php 中也有缓存配置 — 稍安勿躁，后面会讲到。
     Cache configuration is also found in core.php — We'll be covering
     that later on, so stay tuned.
 
+:php:class:`Configure` 类可以随时用来读写核心配置设置。这很方便，例如，在应用程序中要对有限的一部分逻辑启用 debug 设置。
 The :php:class:`Configure` class can be used to read and write core
 configuration settings on the fly. This can be especially handy if
 you want to turn the debug setting on for a limited section of
 logic in your application, for instance.
 
+配置常量
+--------
+
 Configuration Constants
 -----------------------
+
+尽管大部分配置选项由 Configure 处理，还是有一部分 CakePHP 在运行时使用的常量。
 
 While most configuration options are handled by Configure, there
 are a few constants that CakePHP uses during runtime.
 
 .. php:const:: LOG_ERROR
 
+    错误常量。用于区分错误日志和出错。当前 PHP'支持 LOG\_DEBUG。
+
     Error constant. Used for differentiating error logging and
     debugging. Currently PHP supports LOG\_DEBUG.
 
+核心缓存配置
+------------
+
 Core Cache Configuration
 ------------------------
+
+CakePHP 在内部使用两个缓存配置，``_cake_model_`` 和 ``_cake_core_``。``_cake_core_`` 用于保存文件路径和对象位置。``_cakeMmodel_`` 用于保存数据结构描述和数据源的源列表。建议对这些配置使用象 APC 或 Memcached 这样的告诉缓存存储，因为它们会在每次请求时读取。默认情况下，当 debug 大于 0 时这两个配置都是每 10 秒就过期。
 
 CakePHP uses two cache configurations internally. ``_cake_model_`` and ``_cake_core_``.
 ``_cake_core_`` is used to store file paths, and object locations. ``_cake_model_`` is
@@ -466,14 +496,20 @@ cache storage like APC or Memcached is recommended for these configurations, as
 they are read on every request. By default both of these configurations expire every
 10 seconds when debug is greater than 0.
 
+就象所有缓存在 :php:class:`Class` 中的缓存数据一样，可以使用 :phpCmeth:`Cache::clear()` 清除数据。
+
 As with all cached data stored in :php:class:`Cache` you can clear data using
 :php:meth:`Cache::clear()`.
 
+Configure 类
+============
 
 Configure Class
 ===============
 
 .. php:class:: Configure
+
+尽管很少的东西需要在 CakePHP 中配置，有时对应用程序有自己的配置规则还是有用的。过去你也许在某个文件中定义变量或常量来定义自定义配置值。这么做迫使你在每次需要这些值时必须引入那个配置文件。
 
 Despite few things needing to be configured in CakePHP, it's
 sometimes useful to have your own configuration rules for your
@@ -481,6 +517,8 @@ application. In the past you may have defined custom configuration
 values by defining variable or constants in some files. Doing so
 forces you to include that configuration file every time you needed
 to use those values.
+
+CakePHP 的 Configure 类可以用来保存和读取应用程序或运行时相关的值。当心，这个类允许在其中保存任何东西，然后在代码的任何部分使用它：明显诱使人打破作为 CakePHP 的设计目的的 MVC 模式。Configure 类的主要目标是保持集中的变量，可在许多对象之间共享。记得尽量保持“约定重于配置”，你就不会打破我们设定好的 MVC 结构了。
 
 CakePHP's Configure class can be used to store and retrieve
 application or runtime specific values. Be careful, this class
@@ -491,6 +529,8 @@ centralized variables that can be shared between many objects.
 Remember to try to live by "convention over configuration" and you
 won't end up breaking the MVC structure we've set in place.
 
+这个类可以在应用程序的任何地方以静态方式调用::
+
 This class can be called from
 anywhere within your application, in a static context::
 
@@ -498,9 +538,10 @@ anywhere within your application, in a static context::
 
 .. php:staticmethod:: write($key, $value)
 
-    :param string $key: The key to write, can use be a :term:`dot notation` value.
-    :param mixed $value: The value to store.
+    :param string $key: 写入的键，可以是 :termC`dot notation` 值。The key to write, can use be a :term:`dot notation` value.
+    :param mixed $value: 要存储的值。The value to store.
 
+    用 ``write()`` 在应用程序的配置中存储数据::
     Use ``write()`` to store data in the application's configuration::
 
         Configure::write('Company.name','Pizza, Inc.');
@@ -508,8 +549,12 @@ anywhere within your application, in a static context::
 
     .. note::
 
+        ``$key`` 参数中使用的 :term:`dot notation` 可以用来把配置设置组织成符合逻辑的分组。
+
         The :term:`dot notation` used in the ``$key`` parameter can be used to
         organize your configuration settings into logical groups.
+
+    上面的例子也可以写成一个调用::
 
     The above example could also be written in a single call::
 
@@ -521,6 +566,8 @@ anywhere within your application, in a static context::
             )
         );
 
+    可以使用 ``Configure:Cwrite('debug', $int)`` 来动态切换调试和生成模式。这对与 AMF 或 SOAP 的交互尤其方便，因为调试信息回引起解析的问题。
+
     You can use ``Configure::write('debug', $int)`` to switch between
     debug and production modes on the fly. This is especially handy for
     AMF or SOAP interactions where debugging information can cause
@@ -528,50 +575,46 @@ anywhere within your application, in a static context::
 
 .. php:staticmethod:: read($key = null)
 
-    :param string $key: 读取的键名, can use be a :term:`dot notation` value
+    :param string $key: 读取的键名，可以是 :term:`dot notation` 值。 The key to read, can be a :term:`dot notation` value
 
-    :param string $key: The key to read, can use be a :term:`dot notation` value
-
-    用来从应用程序中读取配置数据。默认是CakePHP的重要调试值。如果提供key，将
-    返回数据。使用上面的 write() 写值，使用它来读值。
+    用来从应用程序中读取配置数据。默认是 CakePHP 重要的 debug 值。如果提供键，则
+    返回数据。使用上面的 write() 的例子，可以读取那个数据::
 
     Used to read configuration data from the application. Defaults to
     CakePHP's important debug value. If a key is supplied, the data is
     returned. Using our examples from write() above, we can read that
     data back::
 
-        Configure::read('Company.name');    //yields: 'Pizza, Inc.'
-        Configure::read('Company.slogan');  //yields: 'Pizza for your body
+        Configure::read('Company.name');    //得到：yields: 'Pizza, Inc.'
+        Configure::read('Company.slogan');  //得到：yields: 'Pizza for your body
                                             //and soul'
 
         Configure::read('Company');
 
-        //yields:
+        //得到：yields:
         array('name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul');
 
-    如果 $key 为null，返回所有的值。
+    如果 $key 为 null，返回 Configure 中所有的值。
 
     If $key is left null, all values in Configure will be returned.
 
 .. php:staticmethod:: check($key)
 
-    :param string $key: 检测key。
+    :param string $key: 要检测的键。The key to check.
 
-    :param string $key: The key to check.
-
-    检测key是否存在且不为null。
+    检测键/路径是否存在，且有非 null 值。
 
     Used to check if a key/path exists and has not-null value.
 
     .. versionadded:: 2.3
-        ``Configure::check()`` 2.3中新增
+        ``Configure::check()`` 是在 2.3 版本中新增的
         ``Configure::check()`` was added in 2.3
 
 .. php:staticmethod:: delete($key)
 
-    :param string $key: The key to delete, can use be a :term:`dot notation` value
+    :param string $key: 要删除的键，可以是 :term:`dot notation` 值。The key to delete, can use be a :term:`dot notation` value
 
-    用来删除应用程序中的配置信息。
+    用来从应用程序中的配置中删除信息::
 
     Used to delete information from the application's configuration::
 
@@ -579,16 +622,16 @@ anywhere within your application, in a static context::
 
 .. php:staticmethod:: version()
 
-    返回当前CakePHP版本。
+    返回当前应用程序的 CakePHP 版本。
 
     Returns the CakePHP version for the current application.
 
 .. php:staticmethod:: config($name, $reader)
 
-    :param string $name: The name of the reader being attached.
-    :param ConfigReaderInterface $reader: The reader instance being attached.
+    :param string $name: 附加的读取器(*reader*)的名称。The name of the reader being attached.
+    :param ConfigReaderInterface $reader:  附加的读取器实例。The reader instance being attached.
 
-    附加读取一个配置reader。附加的reader可以是一个配置文件。参见 :ref:`loading-configuration-files`
+    在 Configure 类上附加一个配置读取器。然后附加的读取器就可以加载配置文件。欲知如何读取配置文件，请参见 :ref:`loading-configuration-files`。
 
     Attach a configuration reader to Configure. Attached readers can
     then be used to load configuration files. See :ref:`loading-configuration-files`
@@ -596,13 +639,17 @@ anywhere within your application, in a static context::
 
 .. php:staticmethod:: configured($name = null)
 
-    :param string $name: The name of the reader to check, if null
+    :param string $name: 要检查的读取器的名称，如果为 null，则返回所有附加的读取器的列表。The name of the reader to check, if null
         a list of all attached readers will be returned.
+
+    或者检查指定名称的读取器是否附加了，或者得到附加的读取器列表。
 
     Either check that a reader with a given name is attached, or get
     the list of attached readers.
 
 .. php:staticmethod:: drop($name)
+
+    去掉一个连接的读取器对象。
 
     Drops a connected reader object.
 
