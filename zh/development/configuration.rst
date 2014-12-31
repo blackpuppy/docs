@@ -654,15 +654,13 @@ anywhere within your application, in a static context::
     Drops a connected reader object.
 
 
+读写配置文件
+============
+
 Reading and writing configuration files
 =======================================
 
-CakePHP附带两种配置文件readers。
-:php:class:`PhpReader` 读PHP配置文件，in the same
-format that Configure has historically read. :php:class:`IniReader` 可以
-读取ini配置文件。参见 `PHP documentation <http://php.net/parse_ini_file>`_
-获得更多ini文件的细节。
-为了使用核心配置reader，需要使用 :php:meth:`Configure::config()`::
+CakePHP 附带两种内置的配置文件读取器。:php:class:`PhpReader` 能够读取 PHP 配置文件，与 Configure 类之前读取的格式相同。:php:class:`IniReader` 能够读取 ini 配置文件。欲知 ini 文件的更多细节，请参见 `PHP documentation <http://php.net/parse_ini_file>`_。为了使用核心配置读取器，需要使用 :php:meth:`Configure::config()` 把它附加到 Configure 类上::
 
 CakePHP comes with two built-in configuration file readers.
 :php:class:`PhpReader` is able to read PHP config files, in the same
@@ -673,7 +671,7 @@ To use a core config reader, you'll need to attach it to Configure
 using :php:meth:`Configure::config()`::
 
     App::uses('PhpReader', 'Configure');
-    // 从app/Config读取配置文件
+    // 从 app/Config 读取配置文件
     // Read config files from app/Config
     Configure::config('default', new PhpReader());
 
@@ -681,19 +679,23 @@ using :php:meth:`Configure::config()`::
     // Read config files from another path.
     Configure::config('default', new PhpReader('/path/to/your/config/files/'));
 
+可以有多个附加到 Configure 类的读取器，每个读取不同的配置文件，或者从不同的来源读取。可以用 Configure 类的一些其它方法与附加的读取器交互。要查看附加了哪些读取器别名，可以使用 :php:meth:`Configure::configured()` 方法::
+
 You can have multiple readers attached to Configure, each reading
 different kinds of configuration files, or reading from
 different types of sources. You can interact with attached readers
 using a few other methods on Configure. To see check which reader
 aliases are attached you can use :php:meth:`Configure::configured()`::
 
+    // 得到附加的读取器的别名数组。
     // Get the array of aliases for attached readers.
     Configure::configured();
 
+    // 检查是否附加了某个特定的读取器
     // Check if a specific reader is attached
     Configure::configured('default');
 
-使用 ``Configure::drop('default')`` 移除附加的readers。
+也可以移除附加的读取器。``Configure::drop('default')`` 方法默认的读取器别名。以后任何使用该读取器加载配置文件的企图都会失败。
 
 You can also remove attached readers. ``Configure::drop('default')``
 would remove the default reader alias. Any future attempts to load configuration
@@ -702,35 +704,48 @@ files with that reader would fail.
 
 .. _loading-configuration-files:
 
+加载配置文件
+------------
+
 Loading configuration files
 ---------------------------
 
 .. php:staticmethod:: load($key, $config = 'default', $merge = true)
 
-    :param string $key: The identifier of the configuration file to load.
-    :param string $config: The alias of the configured reader.
-    :param boolean $merge: Whether or not the contents of the read file
+    :param string $key: 要加载的配置文件的识别符。The identifier of the configuration file to load.
+    :param string $config: 配置的读取器的别名。The alias of the configured reader.
+    :param boolean $merge: 是否要合并读取的文件内容，或者覆盖现有的值。Whether or not the contents of the read file
         should be merged, or overwrite the existing values.
+
+一旦在 Configure 类上附加了配置读取器，就可以加载配置文件::
 
 Once you've attached a config reader to Configure you can load configuration files::
 
+    // 使用 'default' 读取器对象加载 my_file.php
     // Load my_file.php using the 'default' reader object.
     Configure::load('my_file', 'default');
+
+加载的配置文件把它们的数据与 Configure 类中的已有的运行时配置合并。这允许对现有的运行时配置进行覆盖和增加新值。设置 ``$merge`` 为 true，值就不会覆盖已有的配置了。
 
 Loaded configuration files merge their data with the existing runtime configuration
 in Configure. This allows you to overwrite and add new values
 into the existing runtime configuration. By setting ``$merge`` to true, values
 will not ever overwrite the existing configuration.
 
+创建或者修改配置文件
+--------------------
+
 Creating or modifying configuration files
 -----------------------------------------
 
 .. php:staticmethod:: dump($key, $config = 'default', $keys = array())
 
-    :param string $key: The name of the file/stored configuration to be created.
-    :param string $config: The name of the reader to store the data with.
-    :param array $keys: The list of top-level keys to save. Defaults to all
+    :param string $key: 要创建的文件/保存的配置的名称。The name of the file/stored configuration to be created.
+    :param string $config: 要保存数据的读取器的名称。The name of the reader to store the data with.
+    :param array $keys: 要保存的顶层键的列表。默认为所有键。The list of top-level keys to save. Defaults to all
         keys.
+
+把 Configure 类中的所有或部分数据保存到配置读取器支持的文件或存储系统中。例如，如果 'default' 适配器为  :php:class:`PhpReader` 类，生成的文件将会是一个 PHP 配置文件，可由 :php:class:`PhpReader` 类加载。
 
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config reader. The serialization format
@@ -738,63 +753,91 @@ is decided by the config reader attached as $config. For example, if the
 'default' adapter is a :php:class:`PhpReader`, the generated file will be a PHP
 configuration file loadable by the :php:class:`PhpReader`
 
+假定 'default' 读取器是一个 PhpReader 的实例。保存 Configure 类中的所有数据到文件 `my_config.php` 中::
+
 Given that the 'default' reader is an instance of PhpReader.
 Save all data in Configure to the file `my_config.php`::
 
     Configure::dump('my_config.php', 'default');
 
+仅保存错误处理配置::
+
 Save only the error handling configuration::
 
     Configure::dump('error.php', 'default', array('Error', 'Exception'));
+
+``Configure::dump()`` 方法可以用来修改或覆盖可以用 :php:meth:`Configure::load()` 方法读取的配置文件。
 
 ``Configure::dump()`` can be used to either modify or overwrite
 configuration files that are readable with :php:meth:`Configure::load()`
 
 .. versionadded:: 2.2
+    在 2.2 版本中增加了 ``Configure::dump()`` 方法。
     ``Configure::dump()`` was added in 2.2.
+
+存储运行时配置
+--------------
 
 Storing runtime configuration
 -----------------------------
 
 .. php:staticmethod:: store($name, $cacheConfig = 'default', $data = null)
 
-    :param string $name: The storage key for the cache file.
-    :param string $cacheConfig: The name of the cache configuration to store the
+    :param string $name: 缓存文件的存储键。The storage key for the cache file.
+    :param string $cacheConfig: 用来存储配置数据的缓存配置的名称。The name of the cache configuration to store the
         configuration data with.
-    :param mixed $data: Either the data to store, or leave null to store all data
+    :param mixed $data: 或者为要保存的数据，或者为 null 来保存 Configure 类中的所有数据。Either the data to store, or leave null to store all data
         in Configure.
+
+也可以保存运行时配置的值，在以后的请求使用。由于配置只记得当前请求的值，如果想要在以后的请求中使用，需要保存任何修改过的配置信息::
 
 You can also store runtime configuration values for use in a future request.
 Since configure only remembers values for the current request, you will
 need to store any modified configuration information if you want to
 use it in subsequent requests::
 
+    // 保存当前配置在 'default' 缓存的 'user_1234' 键中。
     // Store the current configuration in the 'user_1234' key in the 'default' cache.
     Configure::store('user_1234', 'default');
 
+保存的配置数据持久化在 :php:class:`Cache` 类中。这让你可以把配置信息保存在任何可以与 :php:class:`Cache` 类交互的存储引擎中。
+
 Stored configuration data is persisted in the :php:class:`Cache` class. This allows
 you to store Configuration information in any storage engine that :php:class:`Cache` can talk to.
+
+恢复运行时配置
+--------------
 
 Restoring runtime configuration
 -------------------------------
 
 .. php:staticmethod:: restore($name, $cacheConfig = 'default')
 
-    :param string $name: The storage key to load.
-    :param string $cacheConfig: The cache configuration to load the data from.
+    :param string $name: 要加载的存储键。The storage key to load.
+    :param string $cacheConfig: 要加载数据的源的缓存配置。The cache configuration to load the data from.
+
+一旦保存了运行时配置，很可能需要恢复它，从而可以再次访问。``Configure::restore()`` 方法就是做这件事情的::
 
 Once you've stored runtime configuration, you'll probably need to restore it
 so you can access it again. ``Configure::restore()`` does exactly that::
 
+    // 从缓存恢复运行时配置。
     // restore runtime configuration from the cache.
     Configure::restore('user_1234', 'default');
+
+在恢复配置信息时，重要的是要使用保存时使用的相同的键和缓存配置来恢复。恢复的信息会合并到现有运行时配置上。
 
 When restoring configuration information it's important to restore it with
 the same key, and cache configuration as was used to store it. Restored
 information is merged on top of the existing runtime configuration.
 
+创建自己的配置读取器
+====================
+
 Creating your own Configuration readers
 =======================================
+
+既然配置读取器是 CakePHP 可以扩展的部分，就可以在应用程序和插件中创建配置读取器。配置读取器需要实现 :php:interface:`ConfigReaderInterface` 接口。该接口定义了 read 方法为唯一必需的方法。如果你真的喜欢 XML 文件，你可以为应用程序创建一个简单的 Xml 配置读取器::
 
 Since configuration readers are an extensible part of CakePHP,
 you can create configuration readers in your application and plugins.
@@ -803,6 +846,7 @@ This interface defines a read method, as the only required method.
 If you really like XML files, you could create a simple Xml config
 reader for you application::
 
+    // 在 app/Lib/Configure/MyXmlReader.php 中
     // in app/Lib/Configure/MyXmlReader.php
     App::uses('Xml', 'Utility');
     class MyXmlReader implements ConfigReaderInterface {
@@ -818,11 +862,15 @@ reader for you application::
             return Xml::toArray($xml);
         }
 
+        // 在 2.3 版本中，还要求 dump() 方法
         // As of 2.3 a dump() method is also required
         public function dump($key, $data) {
+            // 保存数据到文件的代码
             // code to dump data to file
         }
     }
+
+在 ``app/Config/bootstrap.php`` 中可以附加这个读取器并使用它::
 
 In your ``app/Config/bootstrap.php`` you could attach this reader and use it::
 
@@ -834,14 +882,21 @@ In your ``app/Config/bootstrap.php`` you could attach this reader and use it::
 
 .. warning::
 
+        把自定义配置类叫做 ``XmlReader``，可不是个好主意，因为这个类名已经是 PHP 内部的一个类了：
+        `XMLReader <http://php.net/manual/en/book.xmlreader.php>`_
+
         It is not a good idea to call your custom configure class ``XmlReader`` because that
         class name is an internal PHP one already:
         `XMLReader <http://php.net/manual/en/book.xmlreader.php>`_
+
+配置读取器的 ``read()`` 方法必需返回一个名为 ``$key`` 的资源包含的配置信息数组。
 
 The ``read()`` method of a config reader, must return an array of the configuration information
 that the resource named ``$key`` contains.
 
 .. php:interface:: ConfigReaderInterface
+
+    定义读取配置数据和在 :php:class:`Configure` 类中保存配置数据的类使用的接口。
 
     Defines the interface used by classes that read configuration data and
     store it in :php:class:`Configure`
@@ -855,24 +910,34 @@ that the resource named ``$key`` contains.
 
 .. php:method:: dump($key)
 
-    :param string $key: The identifier to write to.
-    :param array $data: The data to dump.
+    :param string $key: 要写入的标识符。The identifier to write to.
+    :param array $data: 要保存的数据。The data to dump.
+
+    这个方法把提供的配置数据保存到 ``$key`` 所指定的键中。
 
     This method should dump/store the provided configuration data to a key identified by ``$key``.
 
 .. versionadded:: 2.3
+    在 2.3 版本中增加了 ``ConfigReaderInterface::dump()`` 方法。
     ``ConfigReaderInterface::dump()`` was added in 2.3.
 
 .. php:exception:: ConfigureException
+
+    在加载/保存/恢复配置数据时，当发生错误时抛出。:php:interface:`ConfigReaderInterface` 接口的实现在遇到错误时应当抛出这个异常。
 
     Thrown when errors occur when loading/storing/restoring configuration data.
     :php:interface:`ConfigReaderInterface` implementations should throw this
     error when they encounter an error.
 
+内置配置读取器
+--------------
+
 Built-in Configuration readers
 ------------------------------
 
 .. php:class:: PhpReader
+
+    让你可以读取配保存为普通 PHP 文件的配置文件。你可以从 ``app/Config`` 目录中读取，也可以用 :term:`plugin syntax` 从插件配置目录中读取。文件 **必须** 包含 ``$config`` 变量。下面是一个配置文件示例::
 
     Allows you to read configuration files that are stored as plain PHP files.
     You can read either files from your ``app/Config`` or from plugin configs
@@ -891,7 +956,11 @@ Built-in Configuration readers
             )
         );
 
+    没有 ``$config`` 将会导致 :php:exc:`ConfigureException`。
+
     Files without ``$config`` will cause an :php:exc:`ConfigureException`
+
+    在 app/Config/bootstrap.php 中插入如下代码来加载自定义配置文件：
 
     Load your custom configuration file by inserting the following in app/Config/bootstrap.php:
 
@@ -899,12 +968,19 @@ Built-in Configuration readers
 
 .. php:class:: IniReader
 
+    让你可以读取配保存为普通 .ini 文件的配置文件。ini 文件必须与 PHP 的 ``parse_ini_file`` 函数兼容，并且可以受益于如下改进
+
+    * 点分隔的值会扩展为数组。
+    * 象 'on' 和 'off' 这样的类似布尔类型的值会转化为布尔值。
+
     Allows you to read configuration files that are stored as plain .ini files.
     The ini files must be compatible with php's ``parse_ini_file`` function, and
     benefit from the following improvements
 
     * dot separated values are expanded into arrays.
     * boolean-ish values like 'on' and 'off' are converted to booleans.
+
+    下面是一个 ini 文件示例::
 
     An example ini file would look like::
 
@@ -917,6 +993,8 @@ Built-in Configuration readers
         renderer = ExceptionRenderer
         log = true
 
+    上述 ini 文件会得到与之前的 PHP 示例相同的最终配置数据。数组结构可以通过点分隔的值或者小节创建。小节可以包含点分隔的值来实现更深的嵌套。
+
     The above ini file, would result in the same end configuration data
     as the PHP example above. Array structures can be created either
     through dot separated values, or sections. Sections can contain
@@ -924,14 +1002,21 @@ Built-in Configuration readers
 
 .. _inflection-configuration:
 
+词形变化配置
+============
+
 Inflection Configuration
 ========================
+
+CakePHP 的命名约定真的很好 —— 你可以把数据库表命名为 big\_boxes，把模型命名为 BigBox，把控制器命名为 BigBoxesController，所有这一切就可以自动在一起运作。CakePHP 知道如何把这些联结在一起，是通过单词的单数和复数形式之间的词形变化。
 
 CakePHP's naming conventions can be really nice - you can name your
 database table big\_boxes, your model BigBox, your controller
 BigBoxesController, and everything just works together
 automatically. The way CakePHP knows how to tie things together is
 by *inflecting* the words between their singular and plural forms.
+
+偶尔(特别是对我们操非英语的朋友们)，你会遇到 CakePHP 的 :php:class:`Inflector` 类(把单词变成复数形式、单数形式、驼峰命名形式和下划线分隔形式的类)不像你希望的那样进行词形变化。如果 CakePHP 认不出你的 Foci 或者 Fish，你可以告诉 CakePHP 这些特殊情形。
 
 There are occasions (especially for our non-English speaking
 friends) where you may run into situations where CakePHP's
@@ -940,8 +1025,13 @@ under\_scores) might not work as you'd like. If CakePHP won't
 recognize your Foci or Fish, you can tell CakePHP about your
 special cases.
 
+加载自定义词形变化
+------------------
+
 Loading custom inflections
 --------------------------
+
+你可以在 ``app/Config/bootstrap.php`` 文件中用 :php:meth:`Inflector::rules()` 方法加载自定义词形变化::
 
 You can use :php:meth:`Inflector::rules()` in the file
 ``app/Config/bootstrap.php`` to load custom inflections::
@@ -955,36 +1045,39 @@ You can use :php:meth:`Inflector::rules()` in the file
         'irregular' => array('spins' => 'spinor')
     ));
 
+或者::
+
 or::
 
     Inflector::rules('plural', array('irregular' => array('phylum' => 'phyla')));
+
+会把提供的规则合并到 lib/Cake/Utility/Inflector.php 中定义的词形变化集合中，新增的规则具有比核心规则更高的优先级。
 
 Will merge the supplied rules into the inflection sets defined in
 lib/Cake/Utility/Inflector.php, with the added rules taking precedence
 over the core rules.
 
-引导启动CakePHP Bootstrapping CakePHP
-=====================================
+引导启动 CakePHP
+================
 
 Bootstrapping CakePHP
 =====================
 
-如果有任何额外的配置需求，可以使用CakePHP的bootstrap文件，位于app/Config/bootstrap.php。
-这个文件会在CakePHP的核心启动后执行。
+如果有任何额外的配置需求，可以使用 CakePHP 位于 app/Config/bootstrap.php 的引导文件。这个文件会在 CakePHP 的核心启动引导后执行。
 
 If you have any additional configuration needs, use CakePHP's
 bootstrap file, found in app/Config/bootstrap.php. This file is
 executed just after CakePHP's core bootstrapping.
 
-此文件非常适合作为公共的启动任务：
+此文件非常适合用于一些常见的启动任务：
 
 This file is ideal for a number of common bootstrapping tasks:
 
 - 定义方便的函数。
 - 注册全局常量。
-- 定义额外的模型，视图和控制器路径。
+- 定义额外的模型、视图和控制器路径。
 - 创建缓存配置。
-- 配置映射。
+- 配置词形变化。
 - 加载配置文件。
 
 - Defining convenience functions.
@@ -994,20 +1087,19 @@ This file is ideal for a number of common bootstrapping tasks:
 - Configuring inflections.
 - Loading configuration files.
 
-当向bootstrap文件添加内容时请注意保持MVC软件的设计模式。
-可能是一个格式化内容的函数,为了在你的控制器中使用它们。
+当向引导文件添加内容时请注意保持 MVC 的软件设计模式：也许会忍不住想把格式化函数放在那里，从而可以在控制器中使用。
 
 Be careful to maintain the MVC software design pattern when you add
 things to the bootstrap file: it might be tempting to place
 formatting functions there in order to use them in your
 controllers.
 
-请抵住这种冲动。下面的解释会使你满意。
+请忍住这种想法。以后你会庆幸你在程序后面的部分这么做的。
 
 Resist the urge. You'll be glad you did later on down the line.
 
-你可能考虑到也可以将此函数放到 :php:class:`AppController` 类。这个类是所有控制器的
-父类。:php:class:`AppController` 是一个使用控制器回调和定义方法的好地方。
+你可能考虑到也可以将代码放到 :php:class:`AppController` 类中。这个类是应用程序中所有控制器的
+父类。:php:class:`AppController` 是一个方便的地方，来使用控制器回调，以及定义供所有控制器使用的方法。
 
 You might also consider placing things in the :php:class:`AppController` class.
 This class is a parent class to all of the controllers in your
