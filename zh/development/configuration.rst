@@ -1,13 +1,16 @@
 配置
 ####
 
-配置 CakePHP 应用程序简直是小餐一碟。在安装完 CakePHP 后，创建一个基本的 web 应用只需设置数据库配置。
+配置 CakePHP 应用程序简直是小餐一碟。在安装完 CakePHP 后，创建一个基本的 web 
+应用只需设置数据库配置。
 
 Configuring a CakePHP application is a piece of cake. After you
 have installed CakePHP, creating a basic web application requires
 only that you setup a database configuration.
 
-当然，还有其它可选的配置步骤可以采用，来充分利用 CakePHP 的灵活架构。可以容易地对继承自 CakePHP 核心的功能添加(新的功能)，配置额外的/不同的网址(*URL*)映射(路由)，以及定义额外/不同的词形变化(*inflections*)。
+当然，还有其它可选的配置步骤可以采用，来充分利用 CakePHP 的灵活架构。可以容易地
+对继承自 CakePHP 核心的功能添加(新的功能)，配置额外的/不同的网址(*URL*)映射(路由
+)，以及定义额外/不同的词形变化(*inflections*)。
 
 There are, however, other optional configuration steps you can take
 in order to take advantage of CakePHP flexible architecture. You
@@ -24,8 +27,8 @@ define additional/different inflections.
 Database Configuration
 ======================
 
-CakePHP 期待的数据库配置信息位于 ``app/Config/database.php`` 文件中。示例数据库配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该
-看起来像这样::
+CakePHP 期待的数据库配置信息位于 ``app/Config/database.php`` 文件中。示例数据库
+配置文件在 ``app/Config/database.php.default`` 。一个完成的配置应该看起来像这样::
 
 CakePHP expects database configuration details to be in a file at
 ``app/Config/database.php``. An example database configuration file can
@@ -44,7 +47,10 @@ configuration should look something like this::
         );
     }
 
-(默认情况下)会使用 $default 连接数组，除非用模型的 ``$useDbConfig`` 属性指定了另外一个连接。举个例子，如果一个应用程序除了默认的数据库配置信息还有一个额外的遗留数据库，应该创建一个结构类似于$default 数组的新的 $legacy 数据库连接数组，然后在适当的模型中设置 ``public $useDbConfig = 'legacy';``，就可以使用它(指遗留数据库)了。
+(默认情况下)会使用 $default 连接数组，除非用模型的 ``$useDbConfig`` 属性指定了另
+外一个连接。例如，如果应用程序除了默认的数据库还有一个额外的遗留数据库，可以创建
+一个结构类似于 $default 数组的新的 $legacy 数据库连接数组，然后在适当的模型中设
+置 ``public $useDbConfig = 'legacy';``，就可以使用遗留数据库了。
 
 The $default connection array is used unless another connection is
 specified by the ``$useDbConfig`` property in a model. For example, if
@@ -59,14 +65,12 @@ Fill out the key/value pairs in the configuration array to best
 suit your needs.
 
 datasource
-    该配置数组的数据源名称。
-    例如：Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite。
-    可以使用 :term:`plugin syntax` 指定要使用的插件数据源。
+    该配置数组的数据源名称。例如：Database/Mysql、Database/Sqlserver、Database/Postgres、Database/Sqlite。可以使用 :term:`plugin syntax` 指定要使用的插件数据源。
     The name of the datasource this configuration array is for.
     Examples: Database/Mysql, Database/Sqlserver, Database/Postgres, Database/Sqlite.
     You can use :term:`plugin syntax` to indicate plugin datasource to use.
 persistent
-    是否使用持久化连接数据库。
+    是否使用连接数据库的持久化连接。
     Whether or not to use a persistent connection to the database.
 host
     数据库服务器的主机名(或IP地址)。
@@ -81,7 +85,7 @@ database
     该连接要使用的数据库名称。
     The name of the database for this connection to use.
 prefix (*可选*)
-    数据库中每个表的前缀字符串。如果表没有前缀，设置为空字符串。
+    数据库中每个表名的前缀字符串。如果表没有前缀，设置为空字符串。
     The string that prefixes every table name in the database. If your
     tables don't have prefixes, set this to an empty string.
 port (*可选*)
@@ -98,7 +102,7 @@ schema
     用于 PostgreSQL 数据库设置，指定使用哪个 schema。
     Used in PostgreSQL database setups to specify which schema to use.
 unix_socket
-    用于支持通过 unix 套接字(*socket*)文件连接的驱动程序。如果使用 postgres 数据库想使用 unix 套接字，需要将 host 键留空。
+    用于支持通过 unix 套接字(*socket*)文件连接的驱动程序。如果使用 postgres 数据库，并且想使用 unix 套接字，需要将 host 键留空。
     Used by drivers that support it to connect via unix socket files. If you are
     using postgres and want to use unix sockets, leave the host key blank.
 ssl_key
@@ -401,8 +405,8 @@ Session
       You might want to set the value to false, when dealing with older versions of
       IE, Chrome Frame or certain web-browsing devices and AJAX
     * ``defaults`` - 会话使用的默认配置集。The default configuration set to use as a basis for your session.
- +      有四种内置(默认配置集): php、cake、cache、database。
- +      There are four builtins: php, cake, cache, database.
+      有四种内置(默认配置集): php、cake、cache、database。
+      There are four builtins: php, cake, cache, database.
     * ``handler`` - 可以用来启用自定义会话处理器。Can be used to enable a custom session handler.
       期待可用于 `session_save_handler` 的回调数组。使用该选项会自动添加 `session.save_handler` 到 ini 数组。
       Expects an array of callables, that can be used with `session_save_handler`.
@@ -496,7 +500,7 @@ cache storage like APC or Memcached is recommended for these configurations, as
 they are read on every request. By default both of these configurations expire every
 10 seconds when debug is greater than 0.
 
-就象所有缓存在 :php:class:`Class` 中的缓存数据一样，可以使用 :phpCmeth:`Cache::clear()` 清除数据。
+就象所有缓存在 :php:class:`Class` 中的缓存数据一样，可以使用 :php:meth:`Cache::clear()` 清除数据。
 
 As with all cached data stored in :php:class:`Cache` you can clear data using
 :php:meth:`Cache::clear()`.
