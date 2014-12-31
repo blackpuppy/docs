@@ -44,6 +44,9 @@ AuthComponent
 -------------
 
 - ``AuthComponent`` had the ``userFields`` option added.
+- AuthComponent now triggers an ``Auth.afterIdentify`` event after a user has
+  been identified and logged in. The event will contain the logged in user as
+  data.
 
 Behavior
 ========
@@ -93,6 +96,13 @@ HttpSocket
 - ``HttpSocket::head()`` was added.
 - You can now use the ``protocol`` option to override the specific protocol to
   use when making a request.
+
+
+I18n
+====
+
+- Configure value ``I18n.preferApp`` can now be used to control the order of translations.
+  If set to true it will prefer the app translations over any plugins' ones.
 
 
 Utility
