@@ -150,6 +150,18 @@ et avec des underscores, pour le comparer avec le domaine de traduction et va
 regarder dans le plugin si il y a une correspondance pour le fichier de
 traduction donné.
 
+Controller l'Ordre de Traduction
+================================
+
+La valeur de configuration ``I18n.preferApp`` peut maintenant être utilisée
+pour controller l'ordre des traductions. Si défini à true, les traductions
+de l'application seront préférées à celles des plugins::
+    Configure::write('I18n.preferApp', true);
+
+Défini à ``false`` par défaut.
+
+.. versionadded:: 2.6
+
 Localisation dans CakePHP
 =========================
 
@@ -161,7 +173,7 @@ vous avez à faire est dans la partie suivante::
 Ceci signale à CakePHP quelle locale utiliser (si vous utilisez une locale
 régionale, comme fr\_FR, la locale
 `ISO 639-2 <http://www.loc.gov/standards/iso639-2/php/code_list.php>`_) sera
-utilisée au cas ou cela n'existerait pas), vous pouvez changer la langue
+utilisée au cas où cela n'existerait pas), vous pouvez changer la langue
 à n'importe quel moment pendant une requête. Ex: dans votre bootstrap
 si vous avez défini les paramètres de langue par défaut, dans la partie
 beforefilter de votre (app) controller si c'est spécifique à la requête ou
