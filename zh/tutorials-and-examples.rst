@@ -5,7 +5,7 @@
 
 或者，对现有的应用程序和组件您可以参考非官方 CakePHP 插件代码库
 `CakePackages <http://plugins.cakephp.org/>`_ 和
-Bakery <http://bakery.cakephp.org/>`_。
+`Bakery <http://bakery.cakephp.org/>`_。
 
 .. toctree::
     :glob:
