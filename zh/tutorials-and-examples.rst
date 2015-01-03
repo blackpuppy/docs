@@ -1,11 +1,11 @@
 教程 & 实例
 ####################
 
-在本章节，通过一个典型的CakePHP应用程序来了解各个部分是怎么组合在一起的。
+在本章，您可以通过一个典型的 CakePHP 应用程序来了解各个部分是怎么组合在一起的。
 
-或者,您可以引用非官方CakePHP插件库
+或者，对现有的应用程序和组件您可以参考非官方 CakePHP 插件代码库
 `CakePackages <http://plugins.cakephp.org/>`_ 和
-`Bakery <http://bakery.cakephp.org/>`_ 为现有的应用程序和组件。
+`Bakery <http://bakery.cakephp.org/>`_。
 
 .. toctree::
     :glob:
