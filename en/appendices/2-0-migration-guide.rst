@@ -92,7 +92,8 @@ lowercased Folders:
 * webroot
 
 htaccess (URL Rewriting)
-===============================================
+========================
+
 In your ``app/webroot/.htaccess`` replace line ``RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]`` with ``RewriteRule ^(.*)$ index.php [QSA,L]``
 
 AppController / AppModel / AppHelper / AppShell
@@ -1020,7 +1021,7 @@ supports all the command line options supported by PHPUnit.
 ``cake testsuite help`` will show you a list of all possible modifiers.
 
 Model
-======
+=====
 
 Model relationships are now lazy loaded. You can run into a situation where
 assigning a value to a nonexistent model property will throw errors::
