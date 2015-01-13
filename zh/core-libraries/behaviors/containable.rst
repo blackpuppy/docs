@@ -421,7 +421,7 @@ By including the 'contain' parameter in the ``$paginate`` property
 it will apply to both the find('count') and the find('all') done on
 the model.
 
-参见 :ref:`using-containable`章节获得更多细节。
+参见 :ref:`using-containable` 章节获得更多细节。
 See the section :ref:`using-containable` for further details.
 
 下面是一个分页时使用contain关联的例子::
