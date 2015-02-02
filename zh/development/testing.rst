@@ -210,7 +210,7 @@ we'll start with the following::
         }
     }
 
-我们很快就会填充这个骨架。我们增加了两个方法。第一个是 ``setUp()``。这个方法会在测试用例类中的每个 *测试* 方法之前调用。setup 方法应当初始化测试需要的对象，做任何需要的配置。在我们的 setup 方法中，我们添加如下代码::
+我们很快就会填充这个骨架。我们增加了两个方法。第一个是 ``setUp()``。这个方法会在测试用例类中的每个 *测试* 方法被调用之前调用。setup 方法应当初始化测试需要的对象，做任何需要的配置。在我们的 setup 方法中，我们添加如下代码::
 
 We'll flesh out this skeleton in a minute. We've added two methods to start
 with. First is ``setUp()``. This method is called before every *test* method
@@ -245,7 +245,7 @@ our code creates the output we expect::
         $this->assertContains('width: 33%', $result);
     }
 
-上述测试很简单，但展示了使用测试用例的潜在好处。我们用 ``assertContains()`` 来确保助件返回的字符串包含我们期望的内容。如果结构不包含期望的内容，测试就会失败，我们就知道我们的代码不对了。
+上述测试很简单，但展示了使用测试用例的潜在好处。我们用 ``assertContains()`` 来确保助件返回的字符串包含我们期望的内容。如果结果不包含期望的内容，测试就会失败，我们就知道我们的代码不对了。
 
 The above test is a simple one but shows the potential benefit of using test
 cases. We use ``assertContains()`` to ensure that our helper is returning a
@@ -253,7 +253,7 @@ string that contains the content we expect. If the result did not contain the
 expected content the test would fail, and we would know that our code is
 incorrect.
 
-使用测试用例，可以容易地描述一组已知输入和它们期望的输出之间的关系。这帮助你对正在编写的代码更有信心，因为你可以容易地检查你写的代码满足期望和测试所做的断言。而且，因为测试是代码，无论何时你做了一处改动，它们都很容易再次运行。这帮助防止了新错误(*bug*)的出现。
+使用测试用例，可以轻易地描述一组已知输入和它们期望的输出之间的关系。这可以帮助你对正在编写的代码更有信心，因为你可以容易地检查你写的代码满足测试所做的期望和断言。而且，因为测试是代码，无论何时你做了一处改动，它们都很容易再次运行。这帮助防止了新错误(*bug*)的出现。
 
 By using test cases you can easily describe the relationship between a set of
 known inputs and their expected output. This helps you be more confident of the
@@ -270,7 +270,7 @@ the creation of new bugs.
 Running Tests
 =============
 
-一旦安装了 PHPUnit，写了一些测试，你就应当很频繁地运行测试用例。在提交任何改动之前运行测试比较好，可以帮助确保你没有破坏任何东西。
+一旦安装了 PHPUnit，写了一些测试用例，你就应当很频繁地运行测试用例。在提交任何改动之前运行测试比较好，可以帮助确保你没有破坏任何东西。
 
 Once you have PHPUnit installed and some test cases written, you'll want to run
 the test cases very frequently. It's a good idea to run tests before committing
@@ -282,7 +282,7 @@ any changes to help ensure you haven't broken anything.
 Running tests from a browser
 ----------------------------
 
-CakePHP 通过了运行测试的 web 界面，这样，如果你觉得这个环境更舒服，你可以通过浏览器运行测试。你可以通过访问 ``http://localhost/your_app/test.php`` 来访问 web 运行器。test.php 的确切位置根据你的设置而变化。不过该文件和 ``index.php`` 在同一级。
+CakePHP 提供了运行测试的 web 界面，这样，如果你觉得这个环境更舒服，你可以通过浏览器运行测试。你可以通过访问 ``http://localhost/your_app/test.php`` 来访问 web 运行器。test.php 的确切位置根据你的设置而变化。不过该文件和 ``index.php`` 在同一级。
 
 CakePHP provides a web interface for running tests, so you can execute your
 tests through a browser if you're more comfortable in that environment. You can
@@ -290,7 +290,7 @@ access the web runner by going to ``http://localhost/your_app/test.php``. The
 exact location of test.php will change depending on your setup. But the file is
 at the same level as ``index.php``.
 
-一旦加载了测试运行器，就可以在 App、Core 和 Plugin 测试套件之间切换。点击单个测试用例就会运行该测试，显示结果。
+一旦加载了测试运行器，就可以在 App、Core 和 Plugin 测试套件之间切换。点击单个测试用例就会运行该测试，并显示结果。
 
 Once you've loaded up the test runner, you can navigate App, Core and Plugin test
 suites. Clicking an individual test case will run that test and display the
@@ -302,7 +302,7 @@ results.
 Viewing code coverage
 ~~~~~~~~~~~~~~~~~~~~~
 
-如果你安装了 `XDebug <http://xdebug.org>`_，就可以查看代码覆盖率。代码覆盖可以告诉你代码的哪部分你的测试没有触及。覆盖率用于决定今后是否应当再添加测试，并给你一个度量来监测你测试的进展。
+如果你安装了 `XDebug <http://xdebug.org>`_，就可以查看代码覆盖的结果。代码覆盖可以告诉你，你的测试没有触及代码的哪部分。覆盖率用于决定在哪里今后还应当添加测试，并给你一个度量来监测你测试的进展。
 
 If you have `XDebug <http://xdebug.org>`_ installed, you can view code coverage
 results. Code coverage is useful for telling you what parts of your code your
@@ -314,7 +314,7 @@ progress with.
 
 |Code Coverage|
 
-内嵌的代码覆盖适应绿色行来表示运行过的行。如果把鼠标悬停在一个绿色的行上，会有提示说明哪些测试覆盖了该行。红色的行没有运行，即没有被测试运行。灰色的行被 xdebug 认为无法运行。
+内嵌的代码覆盖使用绿色行来表示运行过的行。如果把鼠标悬停在一个绿色的行上，会有提示说明哪些测试覆盖了该行。红色的行没有运行，即没有被测试检验。灰色的行被 XDebug 认为无法运行。
 
 The inline code coverage uses green lines to indicate lines that have been run.
 If you hover over a green line a tooltip will indicate which tests covered the
@@ -329,7 +329,7 @@ lines are considered unexecutable code by xdebug.
 Running tests from command line
 -------------------------------
 
-CakePHP 通过 ``test`` 外壳(*shell*)来运行测试。你可以用 test 外壳容易地运行 app、core 和 plugin 的测试。它也接受期望的通常 PHPUnit 命令行的所有参数。从 app 目录，可以运行下面的命令来运行测试::
+CakePHP 提供 ``test`` 外壳(*shell*)来运行测试。你可以用 test 外壳容易地运行 app、core 和 plugin 的测试。它也接受通常 PHPUnit 命令行期望的的所有参数。从 app 目录，可以用下面的命令来运行测试::
 
 CakePHP provides a ``test`` shell for running tests. You can run app, core
 and plugin tests easily using the test shell. It accepts all the arguments
@@ -350,7 +350,7 @@ your app directory you can do the following to run tests::
 
 .. note::
 
-    如果你运行与会话(*session*)交互的测试，通常要使用 ``--stderr`` 选项。这可以修正由于 headers_sent 警告引起的测试失败的问题。
+    如果你运行与会话(*session*)交互的测试，通常最好使用 ``--stderr`` 选项。这可以修正由于 headers_sent 警告引起的测试失败的问题。
 
     If you are running tests that interact with the session it's generally a good
     idea to use the ``--stderr`` option. This will fix issues with tests
@@ -361,7 +361,7 @@ your app directory you can do the following to run tests::
     The ``test`` shell was added in 2.1. The 2.0 ``testsuite`` shell is still
     available but the new syntax is preferred.
 
-也可以在项目根目录下运行 ``test`` 外壳。这会显示你的所有测试的列表。你可以自由地选择要运行的测试::
+也可以在项目根目录下运行 ``test`` 外壳。这会显示你现有全部测试的列表。你可以自由地选择要运行的一个或多个测试::
 
 You can also run ``test`` shell in the project root directory. This shows
 you a full list of all the tests that you currently have. You can then freely
@@ -400,7 +400,7 @@ which test methods to run.
 Generating code coverage
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-你可以从命令行使用 PHPUnit 的内置代码覆盖率工具来生成代码覆盖率报告。PHPUnit 会生成一组包含覆盖率结果的静态 HTML 文件。你可以照下面这样来生成一个测试用例的覆盖率::
+你可以从命令行使用 PHPUnit 内置的代码覆盖工具来生成代码覆盖报告。PHPUnit 会生成一组包含覆盖结果的静态 HTML 文件。你可以像下面这样来生成一个测试用例的覆盖报告::
 
 You can generate code coverage reports from the command line using PHPUnit's
 built-in code coverage tools. PHPUnit will generate a set of static HTML files
@@ -409,7 +409,7 @@ doing the following::
 
     ./Console/cake test app Model/Article --coverage-html webroot/coverage
 
-这会把覆盖率结果放在应用程序的 webroot 目录中。你应当能够在 ``http://localhost/your_app/coverage`` 看到结果。
+这会把覆盖结果放在应用程序的 webroot 目录中。你应当能够在 ``http://localhost/your_app/coverage`` 看到结果。
 
 This will put the coverage results in your application's webroot directory. You
 should be able to view the results by going to
@@ -421,7 +421,7 @@ should be able to view the results by going to
 Running tests that use sessions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在命令行运行使用会话的测试时，需要加上 ``--stderr`` 标志。不这么做会导致会话无法工作。PHPUnit 默认会输出测试结果到标准输出(*stdout*)，这会引起 PHP 以为头部信息已经发送，从而阻止会话启动。切换 PHPUnit 输出到 stderr，避免了这个问题。
+在命令行运行使用会话的测试时，需要加上 ``--stderr`` 标志。不这么做会导致会话无法工作。PHPUnit 默认会输出测试进程到标准输出(*stdout*)，这会引起 PHP 以为头部信息已经发送，从而阻止会话启动。切换 PHPUnit 输出到 stderr，避免了这个问题。
 
 When running tests on the command line that use sessions you'll need to include
 the ``--stderr`` flag. Failing to do so will cause sessions to not work.
