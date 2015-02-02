@@ -473,7 +473,7 @@ could do the following::
 Using AppController::appError();
 ================================
 
-实现该方法是实现自定义异常处理器的另一种方法。
+实现该方法是实现自定义异常处理器的另一种方法。这主要是为向后兼容而提供的，新的应用程序不建议使用。会调用这个控制器方法，而不会调用默认的异常渲染过程。这只接受抛出的异常作为其唯一的参数。应当在这个方法中实现错误处理。
 
 Implementing this method is an alternative to implementing a custom exception
 handler. It's primarily provided for backwards compatibility, and is not
@@ -487,8 +487,14 @@ argument. You should implement your error handling in that method::
         }
     }
 
+在 Exception.renderer 使用自定义渲染器来处理应用程序异常
+================================================================================
+
 Using a custom renderer with Exception.renderer to handle application exceptions
 ================================================================================
+
+如果你不想控制异常处理，但要改变如何渲染异常，你可以用 ``Configure::write('Exception.renderer',
+'AppExceptionRenderer');`` 选择一个类来渲染异常页面。默认情况下会使用 :php:class`ExceptionRenderer`。你的自定义异常渲染类应当放在 ``app/Lib/Error`` 目录中，或者在一个启动加载的 Lib 路径内的 ``Error``` 路径。在自定义异常渲染类中，你可以为应用程序相关的错误提供特殊的处理::
 
 If you don't want to take control of the exception handling, but want to change
 how exceptions are rendered you can use ``Configure::write('Exception.renderer',
@@ -508,6 +514,8 @@ you can provide specialized handling for application specific errors::
     }
 
 
+上述代码会处理任何 ``MissingWidgetException`` 类型的异常，让你可以为这些应用程序异常提供自定义的显示/处理逻辑。异常处理方法接受被处理的异常为它们的测试。
+
 The above would handle any exceptions of the type ``MissingWidgetException``,
 and allow you to provide custom display/handling logic for those application
 exceptions. Exception handling methods get the exception being handled as
@@ -515,16 +523,25 @@ their argument.
 
 .. note::
 
+    你的自定义渲染器在构造函数中期待一个异常，并要实现 render 方法。不这么做会引起更多的错误。
+
     Your custom renderer should expect an exception in its constructor, and
     implement a render method. Failing to do so will cause additional errors.
 
 .. note::
 
+    如果你使用自定义 ``Exception.handler``，该设置就会无效，除非在实现中引用它。
+
     If you are using a custom ``Exception.handler`` this setting will have
     no effect. Unless you reference it inside your implementation.
 
+创建自定义控制器来处理异常
+-------------------------------------------------
+
 Creating a custom controller to handle exceptions
 -------------------------------------------------
+
+在你的 ExceptionRenderer 子类中，你可以用 ``_getController`` 方法来返回自定义控制器来处理错误。默认情况下，CakePHP 使用 ``CakeErrorController``，这会省略一些正常的回调，以帮助确保总能显示错误。不过，你可能在应用程序中需要一个更多定制的错误处理控制器。在你的 ``AppExceptionRenderer`` 类中实现 ``_getController`` 方法，你就能使用任何你想用的控制器::
 
 In your ExceptionRenderer sub-class, you can use the ``_getController``
 method to allow you to return a custom controller to handle your errors.
@@ -541,6 +558,8 @@ controller you want::
         }
     }
 
+或者，你可以在 ``app/Controller`` 目录中引入核心的 CakeErrorController，来重载它。如果你使用自定义控制器来进行错误处理，确保在构造函数中进行了所有需要的设置。因为这些是内置的 ``ErrorHandler`` 类唯一直接调用的方法。
+
 Alternatively, you could just override the core CakeErrorController,
 by including one in ``app/Controller``. If you are using a custom
 controller for error handling, make sure you do all the setup you need
@@ -548,8 +567,13 @@ in your constructor, or the render method. As those are the only methods
 that the built-in ``ErrorHandler`` class directly call.
 
 
+在日志中记录异常
+------------------
+
 Logging exceptions
 ------------------
+
+用内置的异常处理，你只要在 core.php 中设置 ``Exception.log`` 为 true，就可以在日志中记录所有由 ErrorHandler 处理的异常。启用之后，就会把每个异常记录到 :php:class:`CakeLog` 和配置的日志中。
 
 Using the built-in exception handling, you can log all the exceptions
 that are dealt with by ErrorHandler by setting ``Exception.log`` to true
