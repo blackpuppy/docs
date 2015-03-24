@@ -30,7 +30,7 @@ There are a few keys available for configuring exceptions::
     ));
 
 * ``handler`` - callback - 处理异常的回调函数。可以设置它为任何回调类型，包括匿名函数。
-* ``renderer`` - string - 负责渲染未捕获异常的类。如果选择自定义类，应当把这个类的文件放入 app/Lib/Error 目录中。这个类要实现 ``render()`` 方法。
+* ``renderer`` - string - 负责渲染未捕获异常的类。如果选择自定义类，应当把这个类的文件放入 app/Lib/Error 目录中。这个类需要实现 ``render()`` 方法。
 * ``log`` - boolean - 为 true 时，异常 + 它们的堆栈跟踪会被记录到 CakeLog 中。
 * ``consoleHandler`` - callback - 在控制台的环境中，用来处理异常的回调函数。如果没有定义，就会使用 CakePHP 默认的处理器。
 
@@ -87,40 +87,40 @@ exceptions for HTTP methods
 
 .. php:exception:: BadRequestException
 
-    用于处理 400 Bad Request 错误。
+    用于处理 400 错误的请求(*Bad Request*)错误。
     Used for doing 400 Bad Request error.
 
 .. php:exception::UnauthorizedException
 
-    用于处理 401 Not found 错误。
-    Used for doing a 401 Not found error.
+    用于处理 401 未授权(*Unauthorized*)错误。
+    Used for doing a 401 Unauthorized error.
 
 .. php:exception:: ForbiddenException
 
-    用于处理 403 Forbidden 错误。
+    用于处理 403 禁止访问(*Forbidden*)错误。
     Used for doing a 403 Forbidden error.
 
 .. php:exception:: NotFoundException
 
-    用于处理 404 Not found 错误。
+    用于处理 404 未找到(*Not found*)错误。
     Used for doing a 404 Not found error.
 
 .. php:exception:: MethodNotAllowedException
 
-    用于处理 405 Method Not Allowed 错误。
+    用于处理 405 方法不被允许(*Method Not Allowed*)错误。
     Used for doing a 405 Method Not Allowed error.
 
 .. php:exception:: InternalErrorException
 
-    用于处理 500 Internal Server 错误。
+    用于处理 500 内部服务器错误(*Internal Server Error*)。
     Used for doing a 500 Internal Server Error.
 
 .. php:exception:: NotImplementedException
 
-    用于处理 501 Not Implemented 错误。
-    Used for doing a 501 Not Implemented Errors.
+    用于处理 501 未实现(*Not Implemented*)错误。
+    Used for doing a 501 Not Implemented Error.
 
-你可以从控制器抛出这些异常，表示错误状态或 HTTP 错误。使用 HTTP 异常的一个例子是，可以对未找到的数据渲染 404 页面::
+你可以从控制器抛出这些异常，表示错误状态或 HTTP 错误。使用 HTTP 异常的一个例子可以是，对未找到的数据渲染 404 页面::
 
 You can throw these exceptions from you controllers to indicate failure states,
 or HTTP errors. An example use of the HTTP exceptions could be rendering 404
@@ -134,7 +134,7 @@ pages for items that have not been found::
         $this->set('post', $post);
     }
 
-对 HTTP 错误使用异常，你可以在保持代码整洁的同时，对客户端应用程序和用户提供 RESTful 响应。
+通过对 HTTP 错误使用异常，你可以在保持代码整洁的同时，对客户端应用程序和用户提供 RESTful 响应。
 
 By using exceptions for HTTP errors, you can keep your code both clean, and give
 RESTful responses to client applications and users.
@@ -221,11 +221,11 @@ be thrown from a number of CakePHP core components:
 
 .. php:exception:: CakeException
 
-    CakePHP 的异常基类。CakePHP 抛出的所有框架层基类要扩展这个类。
+    CakePHP 的异常基类。CakePHP 抛出的所有框架层基类都要扩展这个类。
     Base exception class in CakePHP. All framework layer exceptions thrown by
     CakePHP will extend this class.
 
-这些异常类都扩展 :php:exc:`CakeException`。通过扩展 CakeException，你可以创建自己的'框架'错误。CakePHP 抛出的所有标准异常都扩展了 CakeException。
+这些异常类都扩展 :php:exc:`CakeException`。通过扩展 CakeException，你可以创建自己的'框架'错误。CakePHP 会抛出的所有标准异常都扩展了 CakeException。
 
 These exception classes all extend :php:exc:`CakeException`.
 By extending CakeException, you can create your own 'framework' errors.
@@ -303,7 +303,7 @@ for error pages too. If for eg. you want to use another layout ``app/Layouts/my_
 for your error pages, then simply edit the error views and add the statement
 ``$this->layout = 'my_error';`` to the ``error400.ctp`` and ``error500.ctp``.
 
-每个框架层异常都有自己位于核心模板中的视图文件，但你真的不必定制它们，因为它们只是用在开发过程中。在关闭调试后，所有框架层异常都会转变为 ``InternalErrorException``。
+每个框架层异常都有自己位于核心模板中的视图文件，但你真的不必定制它们，因为它们只在开发过程中使用。在关闭调试后，所有框架层异常都会转变为 ``InternalErrorException``。
 
 Each framework layer exception has its own view file located in the core templates but
 you really don't need to bother customizing them as they are used only during development.
@@ -318,7 +318,7 @@ Creating your own application exceptions
 ========================================
 
 你可以使用任何内置的 `SPL exceptions <http://php.net/manual/en/spl.exceptions.php>`_ 、 ``Exception``
-本身或 :php:exc:`CakeException` 来创建你自己的应用程序的异常。扩展 Exception 类或者 SPL 异常的应用程序异常在生产模式下会被当作 500 错误对待。:php:exc:`CakeException` 比较特别，所有 :php:exc:`CakeException`  对象会根据它们使用的编码被强制转换为 500 或 404 错误。在开发模式下，:php:exc:`CakeException` 对象只需一个匹配类名的模板就能提供有用的信息。如果应用程序包含如下异常::
+本身或 :php:exc:`CakeException` 来创建你自己的应用程序的异常。扩展 Exception 类或者 SPL 异常的应用程序异常在生产模式下会被当作 500 错误对待。:php:exc:`CakeException` 比较特别，所有 :php:exc:`CakeException`  对象会根据它们使用的编码被强制转换为 500 或 404 错误。在开发模式下，:php:exc:`CakeException` 对象只需新增一个匹配类名的新模板就能提供有用的信息。如果应用程序包含如下异常::
 
 You can create your own application exceptions using any of the built
 in `SPL exceptions <http://php.net/manual/en/spl.exceptions.php>`_, ``Exception``
@@ -351,7 +351,7 @@ template which allows the native ``__toString()`` methods to work as normal::
     throw new MissingWidgetException(array('widget' => 'Pointy'));
 
 
-当被内置的异常处理器捕获时，在错误视图模板中会得到一个 ``$widget`` 变量。而且，如果把异常转换(*cast*)为字符串，或者调用它的 ``getMessage()`` 方法，就会得到 ``Seems that Pointy is missing.``。'这让你可以轻松快速地创建你自己富含(信息)的开发错误，就像 CakePHP 内部使用的一样。
+当被内置的异常处理器捕获时，在错误视图模板中会得到一个 ``$widget`` 变量。而且，如果把异常转换(*cast*)为字符串，或者调用它的 ``getMessage()`` 方法，就会得到 ``Seems that Pointy is missing.``。这让你可以轻松快速地创建你自己富含(信息)的开发错误，就像 CakePHP 内部使用的一样。
 
 When caught by the built-in exception handler, you would get a ``$widget``
 variable in your error view template. In addition if you cast the exception
@@ -495,7 +495,7 @@ Using a custom renderer with Exception.renderer to handle application exceptions
 ================================================================================
 
 如果你不想控制异常处理，但要改变如何渲染异常，你可以用 ``Configure::write('Exception.renderer',
-'AppExceptionRenderer');`` 选择一个类来渲染异常页面。默认情况下会使用 :php:class`ExceptionRenderer`。你的自定义异常渲染类应当放在 ``app/Lib/Error`` 目录中，或者在一个启动加载的 Lib 路径内的 ``Error`` 路径。在自定义异常渲染类中，你可以为应用程序相关的错误提供特殊的处理::
+'AppExceptionRenderer');`` 选择一个类来渲染异常页面。默认情况下会使用 :php:class`ExceptionRenderer`。你的自定义异常渲染类应当放在 ``app/Lib/Error`` 目录中，或者在一个启动加载的 Lib 路径内的 ``Error`` 目录内。在自定义异常渲染类中，你可以为应用程序相关的错误提供特殊的处理::
 
 If you don't want to take control of the exception handling, but want to change
 how exceptions are rendered you can use ``Configure::write('Exception.renderer',
@@ -559,7 +559,7 @@ controller you want::
         }
     }
 
-或者，你可以在 ``app/Controller`` 目录中引入核心的 CakeErrorController，来重载它。如果你使用自定义控制器来进行错误处理，确保在构造函数或 render 方法中进行了所有需要的设置。因为这些是内置的 ``ErrorHandler`` 类唯一直接调用的方法。
+或者，你可以在 ``app/Controller`` 目录中引入核心的 CakeErrorController，来重载它。如果你使用自定义控制器来进行错误处理，确保在构造函数或 render 方法中进行了所有需要的设置，因为这些是内置的 ``ErrorHandler`` 类唯一直接调用的方法。
 
 Alternatively, you could just override the core CakeErrorController,
 by including one in ``app/Controller``. If you are using a custom
