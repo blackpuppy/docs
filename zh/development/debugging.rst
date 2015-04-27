@@ -1,4 +1,4 @@
-调试 Debugging
+调试
 ###############
 
 调试在任何开发流程中都是不可避免和必要的组成部分。尽管 CakePHP 没有提供任何工具直接连接到任何 IDE 或者编辑器，但还是提供了一些工具来协助调试和暴露在应用程序中运行的部分。
@@ -26,7 +26,7 @@ Basic Debugging
         by default in 2.0 when serving web requests.
     :param boolean $showFrom: Show the line and file the debug() occurred on.
 
-debug() 函数是一个全局函数，和 PHP 的 print_r() 函数类似。debug() 函数让你可以用不同的格式显示变量的内容。首先，如果要数据以适用于 HTML 的方式输出，可以设置第二个参数为 true。默认情况下会输出调用该函数的行号和文件。
+debug() 函数是一个全局函数，工作方式和 PHP 的 print_r() 函数类似。debug() 函数让你可以用不同的方式显示变量的内容。首先，如果要让数据以适用于 HTML 的方式输出，可以设置第二个参数为 true。默认情况下会输出调用该函数的行号和文件。
 
 The debug() function is a globally available function that works
 similarly to the PHP function print\_r(). The debug() function
@@ -132,8 +132,7 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::log($var, $level = 7, $depth = 3)
 
-    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump() 方法相似，
-    但是它不是写入输出缓冲，而是写入 debug.log 日志中。注意要使 web 服务器对 app/tmp 目录及其内容可以写入，log() 方法才能正确运作。
+    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump() 方法相似，但是它不是写入输出缓冲，而是写入 debug.log 日志中。注意要使 web 服务器对 app/tmp 目录(及其内容)可以写入，log() 方法才能正确运作。
 
     Creates a detailed stack trace log at the time of invocation. The
     log() method prints out data similar to that done by
@@ -147,7 +146,7 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::trace($options)
 
-    返回当前的堆栈追踪记录，每行显示调用的方法，包含文件及调用所在的行号。
+    返回当前的堆栈追踪记录，每行显示调用的方法，包含调用所在的文件及行号。
 
     Returns the current stack trace. Each line of the trace includes
     the calling method, including which file and line the call
@@ -184,7 +183,7 @@ set to a value greater than 0.
 
         pr(Debugger::excerpt(ROOT . DS . LIBS . 'debugger.php', 321, 2));
 
-        //因为$context参数为2，会返回debugger.php文件中第219-323行之间的内容
+        //因为 $context 参数为 2，会输出 debugger.php 文件中第 319-323 行的内容
         //will output the following.
         Array
         (
@@ -245,7 +244,7 @@ to log messages::
 
     $this->log('Got here', 'debug');
 
-上面的代码会把 ``Got here`` 写入调试日志中，你可以使用日志来帮助调试涉及重定向和复杂循环的方法。也可以使用 :php:meth:`CakeLog::write()` 来写入日志信息。这个方法可以在程序中任何加载了 CakeLog 类的地方以静态方式调用。
+上面的代码会把 ``Got here`` 写入 debug 日志中，你可以使用日志来帮助调试涉及重定向或复杂循环的方法。也可以使用 :php:meth:`CakeLog::write()` 来写入日志信息。这个方法可以在程序中任何加载了 CakeLog 类的地方以静态方式调用。
 
 The above would write ``Got here`` into the debug log. You can use log entries
 to help debug methods that involve redirects or complicated loops. You can also
@@ -255,13 +254,14 @@ statically anywhere in your application anywhere CakeLog has been loaded::
     // In app/Config/bootstrap.php
     App::uses('CakeLog', 'Log');
 
+    // 应用程序的任何地方
     // Anywhere in your application
     CakeLog::write('debug', 'Got here');
 
 Debug Kit
 =========
 
-DebugKit 是一个提供了一些很好调试工具的插件。它主要在渲染的 HTML 中提供了一个工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载 `DebugKit <https://github.com/cakephp/debug_kit>`_ 。
+DebugKit 是一个插件，提供了一些很好的调试工具。它主要在渲染的 HTML 中提供了一个工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载 `DebugKit <https://github.com/cakephp/debug_kit>`_ 。
 
 DebugKit is a plugin that provides a number of good debugging tools. It
 primarily provides a toolbar in the rendered HTML, that provides a plethora of
