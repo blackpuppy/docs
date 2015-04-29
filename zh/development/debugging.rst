@@ -1,7 +1,8 @@
 调试
-###############
+####
 
-调试在任何开发流程中都是不可避免和必要的组成部分。尽管 CakePHP 没有提供任何工具直接连接到任何 IDE 或者编辑器，但还是提供了一些工具来协助调试和暴露在应用程序中运行的部分。
+调试在任何开发流程中都是不可避免和必要的组成部分。尽管 CakePHP 没有提供任何工具直接
+连接到任何 IDE 或者编辑器，但还是提供了一些工具来协助调试和暴露在应用程序中运行的部分。
 
 Debugging is an inevitable and necessary part of any development
 cycle. While CakePHP doesn't offer any tools that directly connect
@@ -10,7 +11,7 @@ assist in debugging and exposing what is running under the hood of
 your application.
 
 基本的调试
-==========================
+==========
 
 Basic Debugging
 ===============
@@ -18,7 +19,8 @@ Basic Debugging
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
 
     :param mixed $var: 要打印的内容，可以是数组或对象类型。
-    :param boolean $showHTML: 设置为 true 来启用转义。在 2.0 版本中，在提供对 web 请求的服务时，默认会启用转义。
+    :param boolean $showHTML: 设置为 true 来启用转义。在 2.0 版本中，在提供对 web 
+        请求的服务时，默认会启用转义。
     :param boolean $showFrom: 显示执行 debug() 的行号和文件。
 
     :param mixed $var: The contents to print out. Arrays and objects work well.
@@ -26,7 +28,9 @@ Basic Debugging
         by default in 2.0 when serving web requests.
     :param boolean $showFrom: Show the line and file the debug() occurred on.
 
-debug() 函数是一个全局函数，工作方式和 PHP 的 print_r() 函数类似。debug() 函数让你可以用不同的方式显示变量的内容。首先，如果要让数据以适用于 HTML 的方式输出，可以设置第二个参数为 true。默认情况下会输出调用该函数的行号和文件。
+debug() 函数是一个全局函数，工作方式和 PHP 的 print_r() 函数类似。debug() 函数让你
+可以用不同的方式显示变量的内容。首先，如果要让数据以适用于 HTML 的方式输出，可以设置
+第二个参数为 true。默认情况下会输出调用该函数的行号和文件。
 
 The debug() function is a globally available function that works
 similarly to the PHP function print\_r(). The debug() function
@@ -42,31 +46,37 @@ Output from this function is only shown if the core debug variable
 has been set to a value greater than 0.
 
 .. versionchanged:: 2.1
-    ``debug()`` 的输出内容和 ``var_dump()`` 很相似，在内部使用 :php:class:`Debugger` 类。
+    ``debug()`` 的输出内容和 ``var_dump()`` 很相似，在内部使用 :php:class:`Debugger` 
+    类。
     The output of ``debug()`` more resembles ``var_dump()``, and uses
     :php:class:`Debugger` internally.
 
 Debugger 类
-==============
+===========
 
 Debugger Class
 ==============
 
-Debugger 类是在 CakePHP 1.2 中引入的，提供了更多获得调试信息的手段。其中包含了一些静态调用的、提供输出内容、日志和错误处理的函数。
+Debugger 类是在 CakePHP 1.2 中引入的，提供了更多获得调试信息的手段。其中包含了一些
+静态调用的、提供输出内容、日志和错误处理的函数。
 
 The debugger class was introduced with CakePHP 1.2 and offers even
 more options for obtaining debugging information. It has several
 functions which are invoked statically, and provide dumping,
 logging, and error handling functions.
 
-Debugger 类重载了 PHP 默认的错误处理，替换为更加实用的错误报告功能。在 CakePHP 中，默认使用 Debugger 类的错误处理。对所有的调试函数来说，``Configure::debug`` 的值必须设置为大于 0 的值才会生效。
+Debugger 类重载了 PHP 默认的错误处理，替换为更加实用的错误报告功能。在 CakePHP 中，
+默认使用 Debugger 类的错误处理。对所有的调试函数来说，``Configure::debug`` 的值必须
+设置为大于 0 的值才会生效。
 
 The Debugger Class overrides PHP's default error handling,
 replacing it with far more useful error reports. The Debugger's
 error handling is used by default in CakePHP. As with all debugging
 functions, ``Configure::debug`` must be set to a value higher than 0.
 
-当一个错误发生，Debugger 既会在页面上输出信息，并且也会将信息写入 error.log 错误日志中。生成的错误报告会包含堆栈追踪记录和发生错误之处的代码摘要。点击 "Error" 链接，显示堆栈跟踪，点击 "Code" 链接显示引起错误的代码行。
+当一个错误发生，Debugger 既会在页面上输出信息，并且也会将信息写入 error.log 错误日志
+中。生成的错误报告会包含堆栈追踪记录和发生错误之处的代码摘要。点击 "Error" 链接，显示
+堆栈跟踪，点击 "Code" 链接显示引起错误的代码行。
 
 When an error is raised, Debugger both outputs information to the
 page and makes an entry in the error.log file. The error report
@@ -76,7 +86,7 @@ reveal the stack trace, and on the "Code" link to reveal the
 error-causing lines.
 
 使用 Debugger 调试类
-========================
+====================
 
 Using the Debugger Class
 ========================
@@ -122,7 +132,8 @@ set to a value greater than 0.
         Car::stop()
 
     .. versionchanged:: 2.1
-        在 2.1 及以后版本中，为提高内容的可读性，输出进行了改变，详见 :php:func:`Debugger::exportVar()`。
+        在 2.1 及以后版本中，为提高内容的可读性，输出进行了改变，详见 
+        :php:func:`Debugger::exportVar()`。
         In 2.1 forward the output was updated for readability. See
         :php:func:`Debugger::exportVar()`
 
@@ -132,7 +143,9 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::log($var, $level = 7, $depth = 3)
 
-    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump() 方法相似，但是它不是写入输出缓冲，而是写入 debug.log 日志中。注意要使 web 服务器对 app/tmp 目录(及其内容)可以写入，log() 方法才能正确运作。
+    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump() 
+    方法相似，但是它不是写入输出缓冲，而是写入 debug.log 日志中。注意要使 web 服务器
+    对 app/tmp 目录(及其内容)可以写入，log() 方法才能正确运作。
 
     Creates a detailed stack trace log at the time of invocation. The
     log() method prints out data similar to that done by
@@ -162,7 +175,11 @@ set to a value greater than 0.
         Dispatcher::dispatch() - CORE/lib/Cake/Routing/Dispatcher.php, line 237
         [main] - APP/webroot/index.php, line 84
 
-    上面的堆栈追踪记录是在控制器的动作中调用 Debugger::trace() 产生的。从下向上阅读堆栈追踪记录，就可以知道当前运行的函数的执行顺序。在上面的例子中，index.php 调用了 Dispatcher::dispatch()，它又依次调用了Dispatcher::\_invoke()，\_invoke() 方法又调用了 PostsController::index() 方法。这样的信息在处理递归操作或者深层堆栈的情况下很有用，因为这能够确定在调用 trace() 时有哪些函数正在运行。
+    上面的堆栈追踪记录是在控制器的动作中调用 Debugger::trace() 产生的。从下向上阅读
+    堆栈追踪记录，就可以知道当前运行的函数的执行顺序。在上面的例子中，index.php 调用
+    了 Dispatcher::dispatch()，它又依次调用了Dispatcher::\_invoke()，\_invoke() 
+    方法又调用了 PostsController::index() 方法。这样的信息在处理递归操作或者深层
+    堆栈的情况下很有用，因为这能够确定在调用 trace() 时有哪些函数正在运行。
 
     Above is the stack trace generated by calling Debugger::trace() in
     a controller action. Reading the stack trace bottom to top shows
@@ -175,7 +192,8 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::excerpt($file, $line, $context)
 
-    获得 $path (绝对路径)所指向的文件的摘要，并高亮凸显位于第 $line 行前后 $context 行的内容。
+    获得 $path (绝对路径)所指向的文件的摘要，并高亮凸显位于第 $line 行前后 $context 
+    行的内容。
 
     Grab an excerpt from the file at $path (which is an absolute
     filepath), highlights line number $line with $context number of
@@ -203,8 +221,8 @@ set to a value greater than 0.
 
 .. php:staticmethod:: Debugger::exportVar($var, $recursion = 0)
 
-    将任何类型的变量转换成字符串，用于调试输出。这个方法同样也主要被调试器用于内部的变量转换，
-    也可以在你自己的调试器中使用。
+    将任何类型的变量转换成字符串，用于调试输出。这个方法同样也主要被调试器用于内部的
+    变量转换，也可以在你自己的调试器中使用。
 
     Converts a variable of any type to a string for use in debug
     output. This method is also used by most of Debugger for internal
@@ -230,12 +248,14 @@ set to a value greater than 0.
     .. versionadded:: 2.1
 
 使用日志进行调试
-======================
+================
 
 Using Logging to debug
 ======================
 
-日志消息是另一个调试应用程序的好方法，你可以使用 :php:class:`CakeLog` 在应用程序中记录日志。所有扩展 :php:class:`Object` 的对象都有一个实例方法 `log()`，可以用来记录日志消息::
+日志消息是另一个调试应用程序的好方法，你可以使用 :php:class:`CakeLog` 在应用程序中
+记录日志。所有扩展 :php:class:`Object` 的对象都有一个实例方法 `log()`，可以用来记录
+日志消息::
 
 Logging messages is another good way to debug applications, and you can use
 :php:class:`CakeLog` to do logging in your application. All objects that
@@ -244,7 +264,9 @@ to log messages::
 
     $this->log('Got here', 'debug');
 
-上面的代码会把 ``Got here`` 写入 debug 日志中，你可以使用日志来帮助调试涉及重定向或复杂循环的方法。也可以使用 :php:meth:`CakeLog::write()` 来写入日志信息。这个方法可以在程序中任何加载了 CakeLog 类的地方以静态方式调用。
+上面的代码会把 ``Got here`` 写入 debug 日志中，你可以使用日志来帮助调试涉及重定向或
+复杂循环的方法。也可以使用 :php:meth:`CakeLog::write()` 来写入日志信息。这个方法
+可以在程序中任何加载了 CakeLog 类的地方以静态方式调用。
 
 The above would write ``Got here`` into the debug log. You can use log entries
 to help debug methods that involve redirects or complicated loops. You can also
@@ -261,7 +283,9 @@ statically anywhere in your application anywhere CakeLog has been loaded::
 Debug Kit
 =========
 
-DebugKit 是一个插件，提供了一些很好的调试工具。它主要在渲染的 HTML 中提供了一个工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载 `DebugKit <https://github.com/cakephp/debug_kit>`_ 。
+DebugKit 是一个插件，提供了一些很好的调试工具。它主要在渲染的 HTML 中提供了一个
+工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载 
+`DebugKit <https://github.com/cakephp/debug_kit>`_ 。
 
 DebugKit is a plugin that provides a number of good debugging tools. It
 primarily provides a toolbar in the rendered HTML, that provides a plethora of
@@ -271,7 +295,8 @@ information about your application and the current request. You can download
 Xdebug
 ======
 
-如果你的环境提供了 Xdebug PHP 扩展，严重错误(*fatal error*)就会显示额外的 Xdebug 堆栈追踪明细。关于 Xdebug 的详情可见 `Xdebug <http://xdebug.org>`_ 。
+如果你的环境提供了 Xdebug PHP 扩展，严重错误(*fatal error*)就会显示额外的 Xdebug 
+堆栈追踪明细。关于 Xdebug 的详情可见 `Xdebug <http://xdebug.org>`_ 。
 
 If your environment supplies the Xdebug PHP extension, fatal errors will show
 additional Xdebug stack trace details. Details about
