@@ -13,7 +13,7 @@ request dispatching cycle would take.
 CakePHP provides for such cases a clean and extensible interface for attaching
 filters to this dispatching cycle, similar to a middleware layer thought to
 provide stackable services or routines for every request. We call them
-`Dispatcher Filters`
+`Dispatcher Filters`.
 
 Configuring Filters
 ===================
@@ -71,7 +71,7 @@ The ``on`` key only takes ``before`` and ``after`` as valid values, and evidentl
 means whether the filter should run before or after any controller code is
 executed. Additionally to defining filters with the ``callable`` key, you also
 get the chance to define a priority for your filters, if none is specified then
-a default of ``10`` is selected for you
+a default of ``10`` is selected for you.
 
 As all filters will have default priority ``10``, should you want to run a filter before
 any other in the list, select lower priority numbers as needed::
@@ -190,7 +190,7 @@ page, in our case it would be anything served from the ``PagesController``::
         }
     }
 
-This filter will send a expiration header to 1 day in the future for
+This filter will send an expiration header to 1 day in the future for
 all responses produced by the pages controller. You could of course do the same
 in the controller, this is just an example of what could be done with filters.
 For instance, instead of altering the response you could cache it using the
