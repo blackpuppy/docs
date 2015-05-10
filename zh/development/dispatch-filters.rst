@@ -3,7 +3,7 @@
 
 .. versionadded:: 2.2
 
-有若干原因，要在任何控制器代码执行之前或者在响应即将被发送往客户端之前运行一段代码，例如响应缓存、标头(*header*)调整、特殊的用户验证，或者只是要在比完整请求调度周期更短的时间内提供对关键任务 API 响应的访问。
+要一段代码在任何控制器代码执行之前或者在响应即将被发送往客户端之前运行，有若干原因，例如响应缓存、标头(*header*)调整、特殊的用户验证，或者只是要在比完整请求调度周期更短的时间内提供对关键任务 API 响应的访问。
 
 There are several reasons to want a piece of code to be run before any
 controller code is executed or right before the response is sent to the client,
@@ -12,12 +12,12 @@ provide access to a mission-critical
 API response in lesser time than a complete
 request dispatching cycle would take.
 
-CakePHP 为这些情况提供了清晰和可扩展的接口，在调度周期中附加过滤器，类似于为每个请求提供可堆叠的服务或者例程的中间件层。我们把这些叫做 `调度器过滤器(*Dispatcher Filters*)`。
+CakePHP 为这些情况提供了清晰和可扩展的接口，在调度周期中附加过滤器，类似于为每个请求提供可堆叠的服务或者例程的中间件层。我们把这些叫做 `调度器过滤器(Dispatcher Filters)`。
 
 CakePHP provides for such cases a clean and extensible interface for attaching
 filters to this dispatching cycle, similar to a middleware layer thought to
 provide stackable services or routines for every request. We call them
-`Dispatcher Filters`
+`Dispatcher Filters`.
 
 配置过滤器
 ===================
@@ -70,7 +70,7 @@ attaching filters that do not involve the special ``DispatcherFilter`` classes::
         )
     ));
 
-如上所述，你可以传入任何合法的 PHP  `回调(*callback*) <http://php.net/callback>`_ 类型，允许你还记得，`回调`是任何 PHP 可以用 ``call_user_func`` 函数执行的东西。我们有一个小的例外，如果提供了字符串，这将被作为类名对待，而不是可能的函数名。这当然让 PHP 5.3 的用户可以附加匿名函数作为过滤器::
+如上所述，你可以传入任何合法的 PHP `回调(*callback*) <http://php.net/callback>`_ 类型，也许你还记得，`回调` 是任何 PHP 可以用 ``call_user_func`` 函数执行的东西。我们有一个小的例外，如果提供了字符串，这将被作为类名对待，而不是可能的函数名。这当然让 PHP 5.3 的用户可以附加匿名函数作为过滤器::
 
 As shown above, you can pass any valid PHP `callback <http://php.net/callback>`_
 type, as you may remember, a `callback` is anything that PHP can execute with
@@ -91,7 +91,7 @@ The ``on`` key only takes ``before`` and ``after`` as valid values, and evidentl
 means whether the filter should run before or after any controller code is
 executed. Additionally to defining filters with the ``callable`` key, you also
 get the chance to define a priority for your filters, if none is specified then
-a default of ``10`` is selected for you
+a default of ``10`` is selected for you.
 
 既然所有过滤器都具有优先级 ``10``，如果你要某个过滤器在列表中的任何其它过滤器之前运行，根据需要选择较低的优先级::
 
@@ -181,7 +181,7 @@ text::
         }
     }
 
-该类应当保存于文件 ``app/Routing/Filter/HelloWorldFilter.php`` 中，并在启动引导(*bootstrap*)文件中按照前一节中说明的进行配置。这里有很多需要解释，让我们先从 ``$priority`` 的值开始。
+该类应当保存于文件 ``app/Routing/Filter/HelloWorldFilter.php`` 中，并在启动引导(*bootstrap*)文件中按照前一节中的说明进行配置。这里有很多需要解释，让我们先从 ``$priority`` 的值开始。
 
 This class should be saved in a file in ``app/Routing/Filter/HelloWorldFilter.php``
 and configured in the bootstrap file according to how it was explained in the
@@ -207,7 +207,7 @@ object containing the ``request`` and ``response`` objects
 ``additionalParams`` array inside the ``data`` property. The latter contains
 information used for internal dispatching when calling ``requestAction``.
 
-在我们的例子中，我们有条件地返回 ``$response`` 对象作为结果，这会告诉调度器不要实例化任何控制器，并立即返回该对象给客户端。我们也添加了 ``$event->stopPropagation()`` 来防止在该过滤器之后运行其它过滤器。
+在我们的例子中，我们有条件地返回 ``$response`` 对象作为结果，这会告诉调度器不要实例化任何控制器，并立即把该对象作为响应返回给客户端。我们也添加了 ``$event->stopPropagation()`` 来防止在该过滤器之后运行其它过滤器。
 
 In our example we conditionally returned the ``$response`` object as a result,
 this will tell the Dispatcher to not instantiate any controller and return such
@@ -237,9 +237,9 @@ page, in our case it would be anything served from the ``PagesController``::
         }
     }
 
-该过滤器会为 pages 控制器生成的所有相应发送一个将来 1 天的过期标头(*expiration header*)。你当然可以在控制器中这么做，这只是过滤器能够做什么的一个例子，例如，除了改变响应，你可以用 :php:class:`Cache` 类缓存响应，并在 ``beforeDispatch`` 回调中提供该响应。
+该过滤器会为 pages 控制器生成的所有相应发送一个将来 1 天的过期标头(*expiration header*)。你当然可以在控制器中这么做，这只是过滤器能够做什么的一个例子。例如，除了改变响应，你可以用 :php:class:`Cache` 类缓存响应，并在 ``beforeDispatch`` 回调中提供该响应。
 
-This filter will send a expiration header to 1 day in the future for
+This filter will send an expiration header to 1 day in the future for
 all responses produced by the pages controller. You could of course do the same
 in the controller, this is just an example of what could be done with filters.
 For instance, instead of altering the response you could cache it using the
@@ -287,7 +287,7 @@ any other logic either placed in custom or core filters such as CakePHP internal
 routing system. Although it is not required, it shows how to make your important
 code run first in case you need to trim as much fat as possible from some requests.
 
-基于很明显的原因，这可能让你的应用程序很难维护。如果明智地运用，过滤器是极其强大的工具，为应用程序中的每个网址添加响应处理并非是对它很好的运用。但是如果你有合理的原因这么做，那么你就手握一个清晰的解决方案。请牢记，并非所有的东西都要是过滤器，`Controllers` 和 `Components` 通常是为应用程序添加请求处理更准确的选择。
+基于很明显的原因，这可能让你的应用程序很难维护。如果明智地运用，过滤器是极其强大的工具，为应用程序中的每个网址添加响应处理并非是对它很好的运用。但是如果你有合理的原因这么做，那么你就手握一个清晰的解决方案。请牢记，并非所有的东西都要是过滤器，`Controllers` 和 `Components` 通常是为应用程序添加请求处理更恰当的选择。
 
 For obvious reasons this has the potential of making your app very difficult
 to maintain. Filters are an extremely powerful tool when used wisely, adding
