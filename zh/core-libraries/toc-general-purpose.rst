@@ -1,5 +1,5 @@
-通用 General Purpose
-####################
+通用
+####
 
 .. toctree::
     :maxdepth: 2
