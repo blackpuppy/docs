@@ -1,11 +1,8 @@
 组件
-##########
+####
 
-CakePHP 有一组组件(*component*)，帮助处理控制器中的基本任务。欲知如何配置和使用组件，请看 :doc:`/controllers/components` 一节。
-
-CakePHP has a selection of components to help take care of basic tasks in your
-controllers. See the section on :doc:`/controllers/components` for how to
-configure and use components.
+CakePHP 有一组组件(*component*)，帮助处理控制器中的基本任务。欲知如何配置和使用组件，
+请看 :doc:`/controllers/components` 一节。
 
 .. toctree::
     :maxdepth: 1
