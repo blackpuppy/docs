@@ -1,12 +1,19 @@
 核心库
 ##############
 
+CakePHP 自带丰富的内置函数和类。这些类和函数尽力涵盖网络应用程序必需的一些最基本的功能。
+
 CakePHP comes with a plethora of built-in functions and classes. These classes
 and functions try to cover some of the most common features required in web
 applications.
 
+通用目的的
+===============
+
 General Purpose
 ===============
+
+有通用目的的库，在 CakePHP 的很多地方重用。
 
 General purpose libraries are available and reused in many places across
 CakePHP.
@@ -18,15 +25,12 @@ CakePHP.
 
 .. _core-behaviors:
 
-Behaviors
+行为
 =========
 
-Behaviors add extra functionality to your models. CakePHP comes
-with a number of built-in behaviors such as :php:class:`TreeBehavior`
-and :php:class:`ContainableBehavior`.
-
-To learn about creating and using behaviors, read the section
-on :doc:`/models/behaviors`.
+.. include:: /core-libraries/toc-behaviors.rst
+    :start-line: 3
+    :end-before: toctree
 
 .. toctree::
     :maxdepth: 2
@@ -35,38 +39,36 @@ on :doc:`/models/behaviors`.
 
 .. _core-components:
 
-Components
+组件
 ==========
 
-CakePHP has a selection of components to help take care of basic tasks in your
-controllers.  See the section on :doc:`/controllers/components` for how to
-configure and use components.
+.. include:: /core-libraries/toc-components.rst
+    :start-line: 3
+    :end-before: toctree
 
 .. toctree::
     :maxdepth: 2
 
-    core-libraries/toc-components
+    /core-libraries/toc-components
 
 .. _core-helpers:
 
-Helpers
+助件
 =======
 
-CakePHP features a number of helpers that aid in view creation. They assist in
-creating well-formed markup (including forms), aid in formatting text, times and
-numbers, and can even integrate with popular javascript libraries. Here is a
-summary of the built-in helpers.
-
-Read :doc:`/views/helpers` to learn more about helpers, their api, and how you
-can create and use your own helpers.
+.. include:: /core-libraries/toc-helpers.rst
+    :start-line: 3
+    :end-before: toctree
 
 .. toctree::
     :maxdepth: 2
 
-    core-libraries/toc-helpers
+    /core-libraries/toc-helpers
 
-Utilities
+工具 Utilities
 =========
+
+除了核心的 MVC 组件，CakePHP 包括一组很棒的工具类，帮助你做各种事情，象网络服务请求、缓存、日志、国际化，等等。
 
 Beyond the core MVC components, CakePHP includes a great selection of utility
 classes that help you do everything from webservice requests, to caching, to
@@ -76,6 +78,7 @@ logging, internationalization and more.
     :maxdepth: 2
 
     core-libraries/toc-utilities
+
 
 .. meta::
     :title lang=zh_CN: Core Libraries
