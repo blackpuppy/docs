@@ -6,16 +6,32 @@ HtmlHelper助件
 HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、更快，更能够适应变
 化。使用这个助件会让你的应用程序本身更轻巧，在所处领域中相对于核心功能更灵活。
 
+The role of the HtmlHelper in CakePHP is to make HTML-related
+options easier, faster, and more resilient to change. Using this
+helper will enable your application to be more light on its feet,
+and more flexible on where it is placed in relation to the root of
+a domain.
+
 许多 HtmlHelper 的方法包括一个``$htmlAttributes``参数，这让你可以采用标签的任何额
 外属性。下面是一些如何使用 $htmlAttributes 参数的例子:
 
+Many HtmlHelper methods include a ``$htmlAttributes`` parameter,
+that allow you to tack on any extra attributes on your tags. Here
+are a few examples of how to use the $htmlAttributes parameter:
+
 .. code-block:: html
 
-    要得到的属性: <tag class="someClass" />      
+    需要的属性: <tag class="someClass" />      
     数组参数: array('class' => 'someClass')
      
-    要得到的属性: <tag name="foo" value="bar" />  
+    需要的属性: <tag name="foo" value="bar" />  
     数组参数: array('name' => 'foo', 'value' => 'bar')
+
+    Desired attributes: <tag class="someClass" />
+    Array parameter: array('class' => 'someClass')
+
+    Desired attributes: <tag name="foo" value="bar" />
+    Array parameter:  array('name' => 'foo', 'value' => 'bar')
 
 
 .. note::
@@ -24,27 +40,50 @@ HtmlHelper 助件在 CakePHP 中的作用是使 HTML 相关的工作更容易、
     息，告诉你它(HtmlHelper 助件)不存在，通常这是因为它的名字在一个手工配置的
     $helpers 控制器(controller)变量中被落掉了。
 
+    The HtmlHelper is available in all views by default. If you're
+    getting an error informing you that it isn't there, it's usually
+    due to its name being missing from a manually configured $helpers
+    controller variable.
+
 插入完好格式的(HTML)元素
+=================================
+
+Inserting Well-Formatted elements
 =================================
 
 HtmlHelper 助件完成的最重要的任务是创建完好格式的(HTML)标记。别怕经常使用它——你
 可以在 CakePHP 中缓存视图，从而在视图渲染和发送时节约一些 CPU 时间。这一节介绍 
 HtmlHelper 助件的一些方法及如何使用它们。
 
+The most important task the HtmlHelper accomplishes is creating
+well formed markup. Don't be afraid to use it often - you can cache
+views in CakePHP in order to save some CPU cycles when views are
+being rendered and delivered. This section will cover some of the
+methods of the HtmlHelper and how to use them.
+
 .. php:method:: charset($charset=null)
  
     :param string $charset: 想要的字符集。如果是 null，就会使用``App.encoding``
     的值。
 
+    :param string $charset: Desired character set. If null, the value of
+        ``App.encoding`` will be used.
+
     用来创建一个 meta 标签，指明页面的字符集。
     缺省值为 UTF-8。
 
+    Used to create a meta tag specifying the document's character.
+    Defaults to UTF-8
 
     用法示例::
- 
+
+    Example use::
+
         echo $this->Html->charset();
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -52,15 +91,21 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     或者， ::
 
+    Alternatively, ::
+
         echo $this->Html->charset('ISO-8859-1');
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 
-.. php:method:: css(mixed $path, string $rel = null, array $options = array())
+.. php:method:: css(mixed $path, array $options = array())
+
+    .. versionchanged:: 2.4
 
     :param mixed $path: 或者是一个字符串，指向要连接的 css 文件，或者是数组，包含
     多个文件。
@@ -68,17 +113,35 @@ HtmlHelper 助件的一些方法及如何使用它们。
     'stylesheet'。.
     :param array $options: :term:`html attributes`数组。
 
+    :param mixed $path: Either a string of the CSS file to link, or an array with multiple files
+    :param array $options: An array of options or :term:`html attributes`.
+
     创建 CSS 样式的链接。如果``$options``参数中的键'inline'设置为 false，link 标
     签就会被加到``css``代码块，你可以把这个代码块在 document 的 head 标签内输出。
+
+    Creates a link(s) to a CSS style-sheet. If key 'inline' is set to
+    false in ``$options`` parameter, the link tags are added to the
+    ``css`` block which you can print inside the head
+    tag of the document.
 
     你可以用``block``选项来控制把 link 元素加到哪个代码块中。缺省情况下，这会加到
     ``css``代码块。
 
+    You can use the ``block`` option to control which block the link element
+    will be appended to. By default it will append to the ``css`` block.
+
+    If key 'rel' in ``$options`` array is set to 'import' the stylesheet will be imported.
+
     这种引入 CSS 的方法假定给出的 CSS 文件位于 /app/webroot/css 目录内。::
+
+    This method of CSS inclusion assumes that the CSS file specified
+    resides inside the /app/webroot/css directory if path doesn't start with a '/'. ::
 
         echo $this->Html->css('forms');
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -86,9 +149,13 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     第一个参数可以是数组，从而引入多个文件。::
 
+    The first parameter can be an array to include multiple files. ::
+
         echo $this->Html->css(array('forms', 'tables', 'menu'));
 
     将会输出: Will output:
+
+    Will output:
 
     .. code-block:: html
 
@@ -99,16 +166,28 @@ HtmlHelper 助件的一些方法及如何使用它们。
     你可以用:term:`plugin syntax`来引入任何已经加载的插件中的 css 文件。要引入
     ``app/Plugin/DebugKit/webroot/css/toolbar.css``，你可以用下面的代码::
 
+    You can include CSS files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/css/toolbar.css``
+    You could use the following::
+
         echo $this->Html->css('DebugKit.toolbar.css');
 
     如果你要引入与一个加载的插件同名的 css 文件，你可以像下面这样做。例如，如果你
     有一个``Blog``插件，又要引入``app/webroot/css/Blog.common.css``，你可以::
 
-        echo $this->Html->css('Blog.common.css', null, array('plugin' => false));
+    If you want to include a CSS file which shares a name with a loaded
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
+    and also wanted to include ``app/webroot/css/Blog.common.css``, you would::
+
+    .. versionchanged:: 2.4
+
+        echo $this->Html->css('Blog.common.css', array('plugin' => false));
 
     .. versionchanged:: 2.1
         增加了``block``选项。
+        The ``block`` option was added.
         增加了对:term:`plugin syntax`的支持。
+        Support for :term:`plugin syntax` was added.
 
 .. php:method:: meta(string $type, string $url = null, array $options = array())
 
@@ -117,16 +196,29 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :term:`routing array`。
     :param array $options: :term:`html attributes`的数组。
 
+    :param string $type: The type meta tag you want.
+    :param mixed $url: The URL for the meta tag, either a string or a :term:`routing array`.
+    :param array $options: An array of :term:`html attributes`.
+
     要链接到象 RSS/Atom 推送(*feed*)和 favicon 这样的外部资源，该方法很方便。与 
     css() 类似，你可以指定你是否要让它以 inline 的方式输出，还是要通过设置 
     $attributes 参数(译注：指 $options 参数)中的 'inline' 键为 false，即 
     ``array('inline' => false)``，来附加在``meta``代码块的最后。
 
+    This method is handy for linking to external resources like RSS/Atom feeds
+    and favicons. Like css(), you can specify whether or not you'd like this tag
+    to appear inline or appended to the ``meta`` block by setting the 'inline'
+    key in the $attributes parameter to false, ie - ``array('inline' => false)``.
+
     如果你使用 $attributes 参数(译注：应该是指 $options 参数)来设置"type"属性，
     CakePHP 有一些快捷方式:
 
+    If you set the "type" attribute using the $attributes parameter,
+    CakePHP contains a few shortcuts:
+
     ======== ======================
      类型     转译得到的值
+     type     translated value
     ======== ======================
     html     text/html
     rss      application/rss+xml
@@ -145,6 +237,7 @@ HtmlHelper 助件的一些方法及如何使用它们。
         );
         ?>
         // 输出(增加了换行)
+        // Output (line breaks added)
         <link
             href="http://example.com/favicon.ico"
             title="favicon.ico" type="image/x-icon"
@@ -158,6 +251,7 @@ HtmlHelper 助件的一些方法及如何使用它们。
         );
         ?>
         // 输出(增加了换行)
+        // Output (line breaks added)
         <link
             href="http://example.com/comments/index.rss"
             title="Comments"
@@ -167,44 +261,59 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     该方法也可以用来添加 meta 关键字和描述。例如:
 
+    This method can also be used to add the meta keywords and
+    descriptions. Example:
+
     .. code-block:: php
 
         <?php
         echo $this->Html->meta(
             'keywords',
-            '在这里输入任意 meta 关键字'
+            '在这里输入任意 meta 关键字 enter any meta keyword here'
         );
         ?>
         // 输出
-        <meta name="keywords" content="在这里输入任意 meta 关键字" />
+        // Output
+        <meta name="keywords" content="在这里输入任意 meta 关键字 enter any meta keyword here" />
 
         <?php
         echo $this->Html->meta(
             'description',
-            '在这里输入任意 meta 描述'
+            '在这里输入任意 meta 描述 enter any meta description here'
         );
         ?>
-        // 输出
-        <meta name="description" content="在这里输入任意 meta 描述" />
+        // Output
+        <meta name="description" content="在这里输入任意 meta 描述 enter any meta description here" />
 
     如果你要添加定制的 meta 标签，那么第一个参数应当设置为数组。要输出防止漫游器
     将网页编入索引(*robots noindex*)的标签(译注：可参考`noindex 
     <http://baike.baidu.com/link?url=wZMV3V5BOO9BrKxVaSp2jEUO2ICTI-cFhFOkcOkQ5FzxcTa0_1s9yQFib06vigYuC1RHYETpkwLHPnVS4qqd5_>`_
     )，使用下面的代码::
 
-        echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex')); 
+    If you want to add a custom meta tag then the first parameter
+    should be set to an array. To output a robots noindex tag use the
+    following code::
+
+        echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));
 
     .. versionchanged:: 2.1
         添加了``block``选项。
+        The ``block`` option was added.
 
 .. php:method:: docType(string $type = 'xhtml-strict')
 
     :param string $type: 生成的 doctype 的类型。
 
+    :param string $type: The type of doctype being made.
+
     返回 (X)HTML doctype 标签。可依据下表提供 doctype。
+
+    Returns a (X)HTML doctype tag. Supply the doctype according to the
+    following table:
 
     +--------------------------+----------------------------------+
     | 类型                     | 转换所得的值                     |
+    | type                     | translated value                 |
     +==========================+==================================+
     | html4-strict             | HTML4 Strict                     |
     +--------------------------+----------------------------------+
@@ -226,32 +335,46 @@ HtmlHelper 助件的一些方法及如何使用它们。
     ::
 
         echo $this->Html->docType();
-        // 输出: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        // 输出 Outputs:
+        // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        //    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
         echo $this->Html->docType('html5');
-        // 输出: <!DOCTYPE html>
+        // 输出 Outputs: <!DOCTYPE html>
 
         echo $this->Html->docType('html4-trans');
-        // 输出: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+        // 输出 Outputs:
+        // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        //    "http://www.w3.org/TR/html4/loose.dtd">
 
     .. versionchanged:: 2.1
         在2.1版本中默认的 doctype 是html5。
+        The default doctype is html5 in 2.1.
 
 .. php:method:: style(array $data, boolean $oneline = true)
 
     :param array $data: 一组代表 CSS 属性的键 => 值对。
     :param boolean $oneline: 内容是否要在一行上。
 
+    :param array $data: A set of key => values with CSS properties.
+    :param boolean $oneline: Should the contents be on one line.
+
     基于传入该方法的键和值来构建 CSS 样式。如果你的 CSS 文件是动态的，这将特别方
     便。::
+
+    Builds CSS style definitions based on the keys and values of the
+    array passed to the method. Especially handy if your CSS file is
+    dynamic. ::
 
         echo $this->Html->style(array(
             'background' => '#633',
             'border-bottom' => '1px solid #000',
             'padding' => '10px'
-        )); 
+        ));
 
     将会输出::
+
+    Will output::
 
         background:#633; border-bottom:1px solid #000; padding:10px;
 
@@ -260,19 +383,29 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param string $path: 图像的路径。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $path: Path to the image.
+    :param array $options: An array of :term:`html attributes`.
+
     创建一个完整格式的 image 标签。提供的路径(path)应当是相对于 /app/webroot/img/。::
+
+    Creates a formatted image tag. The path supplied should be relative
+    to /app/webroot/img/. ::
 
         echo $this->Html->image('cake_logo.png', array('alt' => 'CakePHP'));
 
     将会输出:
 
+    Will output:
+
     .. code-block:: html
 
-        <img src="/img/cake_logo.png" alt="CakePHP" /> 
+        <img src="/img/cake_logo.png" alt="CakePHP" />
 
     要创建图像链接，用``$htmlAttributes``(译注: 指$options 参数)中的``url``选项
     指定链接目标。::
 
+    To create an image link specify the link destination using the
+    ``url`` option in ``$htmlAttributes``. ::
 
         echo $this->Html->image("recipes/6.jpg", array(
             "alt" => "Brownies",
@@ -280,6 +413,8 @@ HtmlHelper 助件的一些方法及如何使用它们。
         ));
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -290,9 +425,14 @@ HtmlHelper 助件的一些方法及如何使用它们。
     如果你要创建电子邮件中的图像，或者需要图像的绝对路径，你可以使用``fullBase``
     选项::
 
+    If you are creating images in emails, or want absolute paths to images you
+    can use the ``fullBase`` option::
+
         echo $this->Html->image("logo.png", array('fullBase' => true));
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -301,30 +441,54 @@ HtmlHelper 助件的一些方法及如何使用它们。
     你可以使用:term:`plugin syntax`来引入任何加载的插件中的图像。要引入
     ``app/Plugin/DebugKit/webroot/img/icon.png``，你可以使用下面的代码::
 
+    You can include image files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/img/icon.png``
+    You could use the following::
+
         echo $this->Html->image('DebugKit.icon.png');
 
     如果你要引入与加载的插件重名的图像文件，你可以采用下面的做法。例如，你有一个
     ``Blog``插件，又要引入``app/webroot/js/Blog.icon.png``(译注: 应当是指
     ``app/webroot/img/Blog.icon.png``)，你可以::
 
+    If you want to include a image file which shares a name with a loaded
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
+    and also wanted to include ``app/webroot/js/Blog.icon.png``, you would::
+
         echo $this->Html->image('Blog.icon.png', array('plugin' => false));
 
     .. versionchanged:: 2.1
         增加了``fullBase``选项。
+        The ``fullBase`` option was added.
         增加了对:term:`plugin syntax`的支持。
+        Support for :term:`plugin syntax` was added.
 
-.. php:method:: link(string $title, mixed $url = null, array $options = array(), string $confirmMessage = false)
+.. php:method:: link(string $title, mixed $url = null, array $options = array())
 
     :param string $title: 作为链接主体显示的文字。
     :param mixed $url: 或者是字符串表示的位置，或者是:term:`routing array`。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $title: The text to display as the body of the link.
+    :param mixed $url: Either the string location, or a :term:`routing array`.
+    :param array $options: An array of :term:`html attributes`.
+
     创建 HTML 链接的通用方法。用``$options``来指定元素的属性，及是否要转义
     ``$title``。::
 
-        echo $this->Html->link('Enter', '/pages/home', array('class' => 'button', 'target' => '_blank'));
+    General purpose method for creating HTML links. Use ``$options`` to
+    specify attributes for the element and whether or not the
+    ``$title`` should be escaped. ::
+
+        echo $this->Html->link(
+            'Enter',
+            '/pages/home',
+            array('class' => 'button', 'target' => '_blank')
+        );
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -332,12 +496,20 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     用``'full_base'=>true``选项来指定使用绝对网址(URL)::
 
+    Use ``'full_base'=>true`` option for absolute URLs::
+
         echo $this->Html->link(
             'Dashboard',
-            array('controller' => 'dashboards', 'action' => 'index', 'full_base' => true)
+            array(
+                'controller' => 'dashboards',
+                'action' => 'index',
+                'full_base' => true
+            )
         );
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -346,20 +518,31 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     用``$confirmMessage``来显示 javascript ``confirm()``对话框::
 
+    Specify ``confirm`` key in options to display a JavaScript ``confirm()``
+    dialog::
+
         echo $this->Html->link(
             'Delete',
             array('controller' => 'recipes', 'action' => 'delete', 6),
-            array(),
-            "Are you sure you wish to delete this recipe?"
+            array('confirm' => 'Are you sure you wish to delete this recipe?'),
         );
 
     将会输出:
 
+    Will output:
+
     .. code-block:: html
 
-        <a href="/recipes/delete/6" onclick="return confirm('Are you sure you wish to delete this recipe?');">Delete</a>
+        <a href="/recipes/delete/6"
+            onclick="return confirm(
+                'Are you sure you wish to delete this recipe?'
+            );">
+            Delete
+        </a>
 
     用``link()``也可以添加查询字符串(Query string)。::
+
+    Query strings can also be created with ``link()``. ::
 
         echo $this->Html->link('View image', array(
             'controller' => 'images',
@@ -369,13 +552,46 @@ HtmlHelper 助件的一些方法及如何使用它们。
         );
 
     将会输出:
-  
+
+    Will output:
+
     .. code-block:: html
 
         <a href="/images/view/1?height=400&width=500">View image</a>
 
     ``$title``中的 HTML 特殊字符会被转换成 HTML 字符实体(HTML Entities)。要禁用这
     种转换，在``$options``数组中设置 escape 选项为 false。::
+
+    When using named parameters, use the array syntax and include
+    names for ALL parameters in the URL. Using the string syntax for
+    paramters (i.e. "recipes/view/6/comments:false" will result in
+    the colon characters being HTML escaped and the link will not work
+    as desired. ::
+
+        <?php
+        echo $this->Html->link(
+            $this->Html->image("recipes/6.jpg", array("alt" => "Brownies")),
+            array(
+                'controller' => 'recipes',
+                'action' => 'view',
+                'id' => 6,
+                'comments' => false
+            )
+        );
+
+    将会输出:
+
+    Will output:
+
+    .. code-block:: html
+
+        <a href="/recipes/view/id:6/comments:false">
+            <img src="/img/recipes/6.jpg" alt="Brownies" />
+        </a>
+
+    HTML special characters in ``$title`` will be converted to HTML
+    entities. To disable this conversion, set the escape option to
+    false in the ``$options`` array. ::
 
         <?php
         echo $this->Html->link(
@@ -384,7 +600,7 @@ HtmlHelper 助件的一些方法及如何使用它们。
             array('escape' => false)
         );
 
-    将会输出:
+    Will output:
 
     .. code-block:: html
 
@@ -392,7 +608,36 @@ HtmlHelper 助件的一些方法及如何使用它们。
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
+    Setting ``escape`` to false will also disable escaping of attributes of the
+    link. As of 2.4 you can use the option ``escapeTitle`` to disable just
+    escaping of title and not the attributes. ::
+
+        <?php
+        echo $this->Html->link(
+            $this->Html->image('recipes/6.jpg', array('alt' => 'Brownies')),
+            'recipes/view/6',
+            array('escapeTitle' => false, 'title' => 'hi "howdy"')
+        );
+
+    Will output:
+
+    .. code-block:: html
+
+        <a href="/recipes/view/6" title="hi &quot;howdy&quot;">
+            <img src="/img/recipes/6.jpg" alt="Brownies" />
+        </a>
+
+    .. versionchanged:: 2.4
+        The ``escapeTitle`` option was added.
+
+    .. versionchanged:: 2.6
+        The argument ``$confirmMessage`` was deprecated. Use ``confirm`` key
+        in ``$options`` instead.
+
     不同类型网址(url)的更多例子，也请查看:php:meth:`HtmlHelper::url`方法。
+
+    Also check :php:meth:`HtmlHelper::url` method
+    for more examples of different types of URLs.
 
 .. php:method:: media(string|array $path, array $options)
 
@@ -400,6 +645,12 @@ HtmlHelper 助件的一些方法及如何使用它们。
     `webroot/{$options['pathPrefix']}`目录。或者是数组，每项本身可以是路径字符串
     或包含键`src`和`type`的关联数组。
     :param array $options: HTML 属性数组，以及特殊选项。
+
+    :param string|array $path: Path to the video file, relative to the
+        `webroot/{$options['pathPrefix']}` directory. Or an array where each
+        item itself can be a path string or an associate array containing keys
+        `src` and `type`.
+    :param array $options: Array of HTML attributes, and special options.
 
         选项:
 
@@ -410,15 +661,29 @@ HtmlHelper 助件的一些方法及如何使用它们。
         - `fullBase` 如果提供(译注：应当指当其值为true)，src 属性就会是包括域名
           的完整网址。
 
+        Options:
+
+        - `type` Type of media element to generate, valid values are "audio"
+          or "video". If type is not provided media type is guessed based on
+          file's mime type.
+        - `text` Text to include inside the video tag
+        - `pathPrefix` Path prefix to use for relative URLs, defaults to
+          'files/'
+        - `fullBase` If provided the src attribute will get a full address
+          including domain name
+
     .. versionadded:: 2.1
 
     返回格式完整的 audio/video 标签:
+
+    Returns a formatted audio/video tag:
 
     .. code-block:: php
 
         <?php echo $this->Html->media('audio.mp3'); ?>
 
         // 输出
+        // Output
         <audio src="/files/audio.mp3"></audio>
 
         <?php echo $this->Html->media('video.mp4', array(
@@ -427,17 +692,26 @@ HtmlHelper 助件的一些方法及如何使用它们。
         )); ?>
 
         // 输出
+        // Output
         <video src="http://www.somehost.com/files/video.mp4">Fallback text</video>
 
        <?php echo $this->Html->media(
-            array('video.mp4', array('src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'")),
+            array(
+                'video.mp4',
+                array(
+                    'src' => 'video.ogg',
+                    'type' => "video/ogg; codecs='theora, vorbis'"
+                )
+            ),
             array('autoplay')
         ); ?>
 
         // 输出
+        // Output
         <video autoplay="autoplay">
             <source src="/files/video.mp4" type="video/mp4"/>
-            <source src="/files/video.ogg" type="video/ogg; codecs='theora, vorbis'"/>
+            <source src="/files/video.ogg" type="video/ogg;
+                codecs='theora, vorbis'"/>
         </video>
 
 .. php:method:: tag(string $tag, string $text, array $htmlAttributes)
@@ -446,23 +720,33 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param string $text: 标签的内容。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $tag: The tag name being generated.
+    :param string $text: The contents for the tag.
+    :param array $options: An array of :term:`html attributes`.
+
     返回由指定标签包裹的文字。如果没有给出文字，则只返回开始的标签。:
+
+    Returns text wrapped in a specified tag. If no text is specified
+    then only the opening <tag> is returned.:
 
     .. code-block:: php
 
         <?php
         echo $this->Html->tag('span', 'Hello World.', array('class' => 'welcome'));
         ?>
-         
+
         // 输出
+        // Output
         <span class="welcome">Hello World</span>
-         
+
         // 未给出文字。
+        // No text specified.
         <?php
         echo $this->Html->tag('span', null, array('class' => 'welcome'));
         ?>
-         
+
         // 输出
+        // Output
         <span class="welcome">
 
     .. note::
@@ -470,25 +754,42 @@ HtmlHelper 助件的一些方法及如何使用它们。
         缺省情况下文字没有转义，但你可以用``$htmlOptions['escape'] = true``来转义
         文字。这代替了之前版本里的第四个参数``boolean $escape = false``。
 
+        Text is not escaped by default but you may use
+        ``$htmlOptions['escape'] = true`` to escape your text. This
+        replaces a fourth parameter ``boolean $escape = false`` that was
+        available in previous versions.
+
 .. php:method:: div(string $class, string $text, array $options)
 
     :param string $class: div 的(样式)类名。
     :param string $text: div 内的内容。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $class: The class name for the div.
+    :param string $text: The content inside the div.
+    :param array $options: An array of :term:`html attributes`.
+
     用来创建 div 包裹的标记片段。第一个参数指定 CSS 类，第二个参数用来提供要被 div 
     标签包裹的文字。如果最后一个参数设置为 true (译注：应当是指设置
     ``$htmlOptions['escape'] = true``)，$text 将被 HTML 转义后再输出。
 
+    Used for creating div-wrapped sections of markup. The first
+    parameter specifies a CSS class, and the second is used to supply
+    the text to be wrapped by div tags. If the last parameter has been
+    set to true, $text will be printed HTML-escaped.
+
     如果没有给出文字，只返回开始 div 标签。:
- 
+
+    If no text is specified, only an opening div tag is returned.:
+
     .. code-block:: php
 
         <?php
         echo $this->Html->div('error', 'Please enter your credit card number.');
         ?>
-        
+
         // 输出
+        // Output
         <div class="error">Please enter your credit card number.</div>
 
 .. php:method::  para(string $class, string $text, array $options)
@@ -497,16 +798,24 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param string $text: 段落内的内容。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $class: The class name for the paragraph.
+    :param string $text: The content inside the paragraph.
+    :param array $options: An array of :term:`html attributes`.
+
     返回由 CSS 类修饰的 <p> 标签包裹的文字。如果没有提供文字，则只返回开始 <p> 标
     签。:
+
+    Returns a text wrapped in a CSS-classed <p> tag. If no text is
+    supplied, only a starting <p> tag is returned.:
 
     .. code-block:: php
 
         <?php
         echo $this->Html->para(null, 'Hello World.');
         ?>
-        
+
         // 输出
+        // Output
         <p>Hello World.</p>
 
 .. php:method:: script(mixed $url, mixed $options)
@@ -515,25 +824,51 @@ HtmlHelper 助件的一些方法及如何使用它们。
     件的数组。
     :param array $options: :term:`html attributes`数组。
 
+    :param mixed $url: Either a string to a single JavaScript file, or an
+       array of strings for multiple files.
+    :param array $options: An array of :term:`html attributes`.
+
     引入一个或多个脚本文件，存在于本地或是远程地址(url)。
+
+    Include a script file(s), contained either locally or as a remote URL.
 
     缺省情况下，脚本标签会以 inline 的方式添加到文档中。如果你设置
     ``$options['inline']``为 false，脚本(script)标签就会被添加到``script``代码块，
     这样你就可以把它输出到文档的其它地方。
     如果你想要改变所使用的代码块名称，你可以通过设置``$options['block']``来实现。
 
+    By default, script tags are added to the document inline. If you override
+    this by setting ``$options['inline']`` to false, the script tags will instead
+    be added to the ``script`` block which you can print elsewhere in the document.
+    If you wish to override which block name is used, you can do so by setting
+    ``$options['block']``.
+
     ``$options['once']``控制你是否要在一次请求中只引入该脚本一次，或者多次。缺省
     值为 true。
+
+    ``$options['once']`` controls whether or
+    not you want to include this script once per request or more than
+    once. This defaults to true.
 
     你可以用 $options 参数来为生成的脚本标签设置额外的属性。如果用的是脚本标签数
     组，属性就会应用于所有生成的脚本标签。
 
+    You can use $options to set additional properties to the
+    generated script tag. If an array of script tags is used, the
+    attributes will be applied to all of the generated script tags.
+
     这个引入 javascript 文件的方法假定给出的 javascript 文件位于
     ``/app/webroot/js``目录内::
+
+    This method of JavaScript file inclusion assumes that the
+    JavaScript file specified resides inside the ``/app/webroot/js``
+    directory::
 
         echo $this->Html->script('scripts');
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -541,23 +876,35 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     你也可以用绝对路径链接不在``app/webroot/js``目录之内的文件::
 
+    You can link to files with absolute paths as well to link files
+    that are not in ``app/webroot/js``::
+
         echo $this->Html->script('/otherdir/script_file');
 
     你也可以链接到远程地址(URL)::
+
+    You can also link to a remote URL::
 
         echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 
     将会输出:
 
+    Will output:
+
     .. code-block:: html
 
-        <script type="text/javascript" href="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" href="http://code.jquery.com/jquery.min.js">
+            </script>
 
     第一个参数可以是数组，来引入多个文件。::
+
+    The first parameter can be an array to include multiple files. ::
 
         echo $this->Html->script(array('jquery', 'wysiwyg', 'scripts'));
 
     将会输出:
+
+    Will output:
 
     .. code-block:: html
 
@@ -567,49 +914,87 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     你可以用``block``选项将脚本标签添加到一个特定的代码块::
 
+    You can append the script tag to a specific block using the ``block``
+    option::
+
         echo $this->Html->script('wysiwyg', array('block' => 'scriptBottom'));
 
     在你的布局中你可以输出所有添加到'scriptBottom'的脚本标签::
+
+    In your layout you can output all the script tags added to 'scriptBottom'::
 
         echo $this->fetch('scriptBottom');
 
     你可以使用:term:`plugin syntax`引入任何加载的插件中的脚本文件。要引入
     ``app/Plugin/DebugKit/webroot/js/toolbar.js``，你可以使用下面的代码::
 
+    You can include script files from any loaded plugin using
+    :term:`plugin syntax`. To include ``app/Plugin/DebugKit/webroot/js/toolbar.js``
+    You could use the following::
+
         echo $this->Html->script('DebugKit.toolbar.js');
 
     如果你要引入与加载的插件重名的脚本文件，你可以采用下面的做法。例如，如果你有
     一个``Blog``插件，而又想引入``app/webroot/js/Blog.plugins.js``，你可以::
 
+    If you want to include a script file which shares a name with a loaded
+    plugin you can do the following. For example if you had a ``Blog`` plugin,
+    and also wanted to include ``app/webroot/js/Blog.plugins.js``, you would::
+
         echo $this->Html->script('Blog.plugins.js', array('plugin' => false));
 
     .. versionchanged:: 2.1
         添加了``block``选项。
+        The ``block`` option was added.
         添加了对:term:`plugin syntax`的支持。
+        Support for :term:`plugin syntax` was added.
 
 .. php:method::  scriptBlock($code, $options = array())
 
     :param string $code: 要放入脚本标签的代码。
     :param array $options: :term:`html attributes`数组。
 
+    :param string $code: The code to go in the script tag.
+    :param array $options: An array of :term:`html attributes`.
+
     生成包含``$code``的代码块。设置 ``$options['inline']``为 false，使代码块出现
     在``script``视图代码块中。定义的其它选项会被作为脚本标签的属性。
     ``$this->Html->scriptBlock('stuff', array('defer' => true));``会创建带有
     ``defer="defer"``的脚本标签。
 
+    Generate a code block containing ``$code`` set
+    ``$options['inline']`` to false to have the script block appear in
+    the ``script`` view block. Other options defined will be added as attributes
+    to script tags.
+    ``$this->Html->scriptBlock('stuff', array('defer' => true));`` will
+    create a script tag with ``defer="defer"`` attribute.
+
 .. php:method:: scriptStart($options = array())
 
     :param array $options: 当 scriptEnd 调用时使用的:term:`html attributes`数组。
 
+    :param array $options: An array of :term:`html attributes` to be used when
+        scriptEnd is called.
+
     开始一个缓冲代码块。该代码块会捕获所有在``scriptStart()``和``scriptEnd()``之
     间的输出，并创建脚本标签。选项和``scriptBlock()``一样。
+
+    Begin a buffering code block. This code block will capture all
+    output between ``scriptStart()`` and ``scriptEnd()`` and create an
+    script tag. Options are the same as ``scriptBlock()``
 
 .. php:method:: scriptEnd()
 
     结束缓冲脚本代码块，返回生成的脚本元素，或者如果脚本代码块用 inline = false 
     开始则返回 null。
 
+    End a buffering script block, returns the generated script element
+    or null if the script block was opened with inline = false.
+
     一个使用``scriptStart()``和``scriptEnd()``的例子会是这样::
+
+    An example of using ``scriptStart()`` and ``scriptEnd()`` would
+    be::
 
         $this->Html->scriptStart(array('inline' => false));
 
@@ -625,7 +1010,16 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param array $itemOptions: 列表元素(LI)标签的额外 HTML 属性。
     :param string $tag: 要使用的列表标签(ol/ul)。
 
+    :param array $list: Set of elements to list.
+    :param array $options: Additional HTML attributes of the list (ol/ul) tag
+        or if ul/ol use that as tag.
+    :param array $itemOptions: Additional HTML attributes of the list item (LI)
+        tag.
+    :param string $tag: Type of list tag to use (ol/ul).
+
     从关联数组构建嵌套列表(UL/OL)::
+
+    Build a nested list (UL/OL) out of an associative array::
 
         $list = array(
             'Languages' => array(
@@ -642,9 +1036,11 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     输出:
 
+    Output:
+
     .. code-block:: html
 
-        // 输出(去除空格)
+        // Output (minus the whitespace)
         <ul>
             <li>Languages
                 <ul>
@@ -667,11 +1063,20 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param array $trOptions: <tr>的:term:`html attributes`数组
     :param array $thOptions: <th>元素的:term:`html attributes`数组
 
+    :param array $names: An array of strings to create table headings.
+    :param array $trOptions: An array of :term:`html attributes` for the <tr>
+    :param array $thOptions: An array of :term:`html attributes` for the <th> elements
+
     创建一行表格标题格子，可放入<table>标签。::
+
+    Creates a row of table header cells to be placed inside of <table>
+    tags. ::
 
         echo $this->Html->tableHeaders(array('Date', 'Title', 'Active'));
 
     输出:
+
+    Output:
 
     .. code-block:: html
 
@@ -691,6 +1096,8 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     输出:
 
+    Output:
+
     .. code-block:: html
 
         <tr class="status">
@@ -701,8 +1108,12 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     .. versionchanged:: 2.2
         ``tableHeaders()``现在接受各个格子的属性，见下。
+        ``tableHeaders()`` now accepts attributes per cell, see below.
 
     在2.2版本，你可以设置各列的属性，这些会代替``$thOptions``中提供的缺省值::
+
+    As of 2.2 you can set attributes per column, these are used instead of the
+    defaults provided in the ``$thOptions``::
 
         echo $this->Html->tableHeaders(array(
             'id',
@@ -711,6 +1122,8 @@ HtmlHelper 助件的一些方法及如何使用它们。
         ));
 
     输出:
+
+    Output:
 
     .. code-block:: html
 
@@ -727,17 +1140,28 @@ HtmlHelper 助件的一些方法及如何使用它们。
     :param array $evenTrOptions: 偶数<tr>的:term:`html attributes`数组。
     :param boolean $useCount: 添加(样式)类"column-$i"。
     :param boolean $continueOddEven: 如果是 false，就会使用非静态 $count 变量，
-    从而对该调用的奇偶计数重置为零。
+        从而对该调用的奇偶计数重置为零。
+
+    :param array $data: A two dimensional array with data for the rows.
+    :param array $oddTrOptions: An array of :term:`html attributes` for the odd <tr>'s.
+    :param array $evenTrOptions: An array of :term:`html attributes` for the even <tr>'s.
+    :param boolean $useCount: Adds class "column-$i".
+    :param boolean $continueOddEven: If false, will use a non-static $count variable,
+        so that the odd/even count is reset to zero just for that call.
 
     成行地创建表格格子，给奇数行和偶数行<tr>设置不同的属性。对一个特定的<td>属性
     (译注：指不一样的属性，参看下面的例子)，将该表格格子包裹在数组中。::
+
+    Creates table cells, in rows, assigning <tr> attributes differently
+    for odd- and even-numbered rows. Wrap a single table cell within an
+    array() for specific <td>-attributes. ::
 
         echo $this->Html->tableCells(array(
             array('Jul 7th, 2007', 'Best Brownies', 'Yes'),
             array('Jun 21st, 2007', 'Smart Cookies', 'Yes'),
             array('Aug 1st, 2006', 'Anti-Java Cake', 'No'),
         ));
-         
+
     输出:
 
     .. code-block:: html
@@ -749,18 +1173,60 @@ HtmlHelper 助件的一些方法及如何使用它们。
     ::
 
         echo $this->Html->tableCells(array(
-            array('Jul 7th, 2007', array('Best Brownies', array('class' => 'highlight')) , 'Yes'),
+            array(
+                'Jul 7th, 2007',
+                array(
+                    'Best Brownies',
+                    array('class' => 'highlight')
+                ),
+                'Yes'),
             array('Jun 21st, 2007', 'Smart Cookies', 'Yes'),
-            array('Aug 1st, 2006', 'Anti-Java Cake', array('No', array('id' => 'special'))),
+            array(
+                'Aug 1st, 2006',
+                'Anti-Java Cake',
+                array('No', array('id' => 'special'))
+            ),
         ));
 
     输出:
 
+    Output:
+
     .. code-block:: html
 
-        <tr><td>Jul 7th, 2007</td><td class="highlight">Best Brownies</td><td>Yes</td></tr>
-        <tr><td>Jun 21st, 2007</td><td>Smart Cookies</td><td>Yes</td></tr>
-        <tr><td>Aug 1st, 2006</td><td>Anti-Java Cake</td><td id="special">No</td></tr>
+        <tr>
+            <td>
+                Jul 7th, 2007
+            </td>
+            <td class="highlight">
+                Best Brownies
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Jun 21st, 2007
+            </td>
+            <td>
+                Smart Cookies
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Aug 1st, 2006
+            </td>
+            <td>
+                Anti-Java Cake
+            </td>
+            <td id="special">
+                No
+            </td>
+        </tr>
 
     ::
 
@@ -772,8 +1238,10 @@ HtmlHelper 助件的一些方法及如何使用它们。
             ),
             array('class' => 'darker')
         );
-        
+
     输出:
+
+    Output:
 
     .. code-block:: html
 
@@ -785,53 +1253,76 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     :param mixed $url: 一个:term:`routing array`数组。
     :param mixed $full: 或者是布尔值，说明是否包含根路径，或者是
-    :php:meth:`Router::url()`的选项数组。
+        :php:meth:`Router::url()`的选项数组。
+
+    :param mixed $url: A :term:`routing array`.
+    :param mixed $full: Either a boolean to indicate whether or not the base path should
+        be included on an array of options for :php:meth:`Router::url()`
 
     返回控制器和动作组合形成的网址(URL)。如果 $url为空，它会返回REQUEST\_URI，否
     则它生成控制器和动作组合而成的网址。如果参数 full 为 true，结果就会前缀以完整
     的根路径::
+
+    Returns a URL pointing to a combination of controller and action.
+    If $url is empty, it returns the REQUEST\_URI, otherwise it
+    generates the URL for the controller and action combo. If full is
+    true, the full base URL will be prepended to the result::
 
         echo $this->Html->url(array(
             "controller" => "posts",
             "action" => "view",
             "bar"
         ));
-         
+
         // 输出
+        // Output
         /posts/view/bar
 
     下面有更多用法示例:
 
+    Here are a few more usage examples:
+
     带命名参数的网址(URL)::
+
+    URL with named parameters::
 
         echo $this->Html->url(array(
             "controller" => "posts",
             "action" => "view",
             "foo" => "bar"
         ));
-         
+
         // 输出
+        // Output
         /posts/view/foo:bar
 
     有扩展名的网址(URL)::
+
+    URL with extension::
 
         echo $this->Html->url(array(
             "controller" => "posts",
             "action" => "list",
             "ext" => "rss"
         ));
-         
+
         // 输出
+        // Output
         /posts/list.rss
 
     带完整根路径的网址(以'/'开头)::
 
+    URL (starting with '/') with the full base URL prepended::
+
         echo $this->Html->url('/posts', true);
 
         // 输出
+        // Output
         http://somedomain.com/posts
 
     带 GET 参数和命名锚点的网址::
+
+    URL with GET params and named anchor::
 
         echo $this->Html->url(array(
             "controller" => "posts",
@@ -839,16 +1330,23 @@ HtmlHelper 助件的一些方法及如何使用它们。
             "?" => array("foo" => "bar"),
             "#" => "first"
         ));
-        
+
         // 输出
+        // Output
         /posts/search?foo=bar#first
 
     更详细的信息，请查看 API 中的
     `Router::url <http://api20.cakephp.org/class/router#method-Routerurl>`_。
 
+    For further information check
+    `Router::url <http://api.cakephp.org/2.4/class-Router.html#_url>`_
+    in the API.
+
 .. php:method:: useTag(string $tag)
 
     返回完整格式的现存``$tag``代码块::
+
+    Returns a formatted existent block of ``$tag``::
 
         $this->Html->useTag(
             'form',
@@ -858,6 +1356,8 @@ HtmlHelper 助件的一些方法及如何使用它们。
 
     输出:
 
+    Output:
+
     .. code-block:: html
 
         <form action="http://example.com" method="post" class="myform">
@@ -865,11 +1365,20 @@ HtmlHelper 助件的一些方法及如何使用它们。
 改变 HtmlHelper 助件输出的标签
 ======================================
 
+Changing the tags output by HtmlHelper
+======================================
+
 .. php:method:: loadConfig(mixed $configFile, string $path = null)
 
     :php:class:`HtmlHelper`内置的标签集是兼容于 XHTML 的，不过如果你要生成 HTML5 
     的 HTML，你需要创建并加载新的标签配置文件，该文件应当包含你要使用的标签。要改
     变使用的标签，创建文件``app/Config/html5_tags.php``，包含(如下内容)::
+
+    The built-in tag sets for :php:class:`HtmlHelper` are XHTML compliant,
+    however if you need to generate HTML for HTML5 you will need to
+    create and load a new tags config file containing the tags you'd
+    like to use. To change the tags used create ``app/Config/html5_tags.php``
+    containing::
 
         $config = array('tags' => array(
             'css' => '<link rel="%s" href="%s" %s>',
@@ -884,18 +1393,31 @@ HtmlHelper 助件的一些方法及如何使用它们。
     然后你就可以通过调用``$this->Html->loadConfig('html5_tags');``来加载这个标签
     集。
 
+    You can then load this tag set by calling
+    ``$this->Html->loadConfig('html5_tags');``
+
 用 HtmlHelper 助件来创建 breadcrumb 路径
 ==========================================
 
-.. php:method:: getCrumbs(string $separator = '&raquo;', string $startText = false)
+Creating breadcrumb trails with HtmlHelper
+==========================================
+
+.. php:method:: getCrumbs(string $separator = '&raquo;', string|array|bool $startText = false)
 
     CakePHP 有内置的功能在应用程序中自动创建 breadcrumb 路径。要为此做设置，首先
     在布局模板中加入象下面这样的代码::
+
+    CakePHP has the built-in ability to automatically create a
+    breadcrumb trail in your app. To set this up, first add something
+    similar to the following in your layout template::
 
         echo $this->Html->getCrumbs(' > ', 'Home');
 
     ``$startText``参数也可以接受一个数组。这为控制生成的第一个链接提供了更多的控
     制::
+
+    The ``$startText`` option can also accept an array. This gives more control
+    over the generated first link::
 
         echo $this->Html->getCrumbs(' > ', array(
             'text' => $this->Html->image('home.png'),
@@ -906,25 +1428,42 @@ HtmlHelper 助件的一些方法及如何使用它们。
     任何不是``text``或者``url``的键，会被作为``$options``参数传递给
     :php:meth:`~HtmlHelper::link()`方法。
 
+    Any keys that are not ``text`` or ``url`` will be passed to
+    :php:meth:`~HtmlHelper::link()` as the ``$options`` parameter.
+
     .. versionchanged:: 2.1
         现在``$startText``参数能够接受数组了。
+        The ``$startText`` parameter now accepts an array.
 
 .. php:method:: addCrumb(string $name, string $link = null, mixed $options = null)
 
     现在，在视图中你可以添加下面的代码，来在每个页面开始 breadcrumb 路径。
 
+    Now, in your view you'll want to add the following to start the
+    breadcrumb trails on each of the pages::
+
         $this->Html->addCrumb('Users', '/users');
-        $this->Html->addCrumb('Add User', '/users/add');
+        $this->Html->addCrumb('Add User', array('controller' => 'users', 'action' => 'add'));
 
     这会在调用 getCrumbs 所在的布局中添加"**Home > Users > Add User**"的输出。
+
+    This will add the output of "**Home > Users > Add User**" in your
+    layout where getCrumbs was added.
 
 .. php:method:: getCrumbList(array $options = array(), mixed $startText)
 
     :param array $options: 包裹的``<ul>``元素的:term:`html attributes`数组。也可
-    以包含'separator'、'firstClass'和'lastClass'选项。
+        以包含'separator'、'firstClass'和'lastClass'选项。
     :param string|array $startText: 在 ul 之前的文字或元素。
 
+    :param array $options: An array of :term:`html attributes` for the
+        containing ``<ul>`` element. Can also contain the 'separator',
+        'firstClass', 'lastClass' and 'escape' options.
+    :param string|array $startText: The text or element that precedes the ul.
+
     返回 (x)html 列表形式的 breadcrumbs。
+
+    Returns breadcrumbs as a (x)html list.
 
     该方法使用:php:meth:`HtmlHelper::tag()`来生成列表及其元素。与
     :php:meth:`~HtmlHelper::getCrumbs()`的工作方式类似，所以它使用添加每个 crumb 
@@ -932,11 +1471,23 @@ HtmlHelper 助件的一些方法及如何使用它们。
     这可以用于当你总是要包括一个根链接时。这个选项和
     :php:meth:`~HtmlHelper::getCrumbs()`的``$startText``选项是一样的。
 
+    This method uses :php:meth:`HtmlHelper::tag()` to generate list and its
+    elements. Works similar to :php:meth:`~HtmlHelper::getCrumbs()`, so it uses
+    options which every crumb was added with. You can use the ``$startText``
+    parameter to provide the first breadcrumb link/text. This is useful when
+    you always want to include a root link. This option works the same as the
+    ``$startText`` option for :php:meth:`~HtmlHelper::getCrumbs()`.
+
     .. versionchanged:: 2.1
         添加了``$startText``参数。
+        The ``$startText`` parameter was added.
 
     .. versionchanged:: 2.3
         添加了'separator'，'firstClass'和'lastClass'选项。
+        The 'separator', 'firstClass' and 'lastClass' options were added.
+
+    .. versionchanged:: 2.5
+        The 'escape' option was added.
 
 
 .. meta::
