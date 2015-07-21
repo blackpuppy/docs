@@ -1,3 +1,5 @@
+sudo: false
+
 language: python
 python:
   - "2.7"
@@ -18,7 +20,13 @@ branches:
     - oschina
 
 # Use this to prepare the system to install prerequisites or dependencies
-before_install: "sudo apt-get update"
+# before_install: "sudo apt-get update"
+
+# use addons.apt.packages to install package instead of using sudo
+# addons:
+#   apt:
+#     packages:
+#     - cmake
 
 # command to install dependencies
 install: "pip install -q -r requirements.txt --use-mirrors"
