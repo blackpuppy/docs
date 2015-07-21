@@ -851,7 +851,7 @@ Datetime 选项
 
     **选项**
 
-    除了:ref:`general-input-options`，textarea()支持一些特定的选项:
+    除了 :ref:`general-input-options`，textarea()支持一些特定的选项:
 
     * ``$options['rows'], $options['cols']`` 这两个键指定行和列的数目::
 
