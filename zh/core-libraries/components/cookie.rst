@@ -97,7 +97,8 @@ The CookieComponent offers a number of methods for working with Cookies.
 
 .. php:method:: write(mixed $key, mixed $value = null, boolean $encrypt = true, mixed $expires = null)
 
-	write()方法是cookie组件的核心，$keycookie的变量名，$value是要存储的信息::
+    write()方法是cookie组件的核心，$key是cookie的变量名，$value是要存储的信息::
+
     The write() method is the heart of cookie component, $key is the
     cookie variable name you want, and the $value is the information to
     be stored::
@@ -180,7 +181,8 @@ The CookieComponent offers a number of methods for working with Cookies.
 
 .. php:method:: delete(mixed $key)
 
-	//删除指定$key的cookie变量。可用点记法表示::
+    删除指定$key的cookie变量。可用点记法表示::
+
     Deletes a cookie variable of the name in $key. Works with dot
     notation::
 
@@ -194,12 +196,14 @@ The CookieComponent offers a number of methods for working with Cookies.
 
 .. php:method:: destroy()
 
-	销毁当前cookie
+    销毁当前cookie
+
     Destroys the current cookie.
 
 .. php:method:: type($type)
 
-	改变加密模式。默认使用'cipher'模式。可以使用'rijndael'模式来提高安全性。
+    改变加密模式。默认使用'cipher'模式。可以使用'rijndael'模式来提高安全性。
+
     Allows you to change the encryption scheme.  By default the 'cipher' scheme
     is used. However, you should use the 'rijndael' scheme for improved
     security.
