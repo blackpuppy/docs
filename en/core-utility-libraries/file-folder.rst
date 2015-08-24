@@ -60,7 +60,7 @@ Folder API
 .. php:attr:: mode
 
     Mode to be used when creating folders. Defaults to ``0755``. Does nothing on
-    windows machines.
+    Windows machines.
 
 .. php:staticmethod:: addPathElement(string $path, string $element)
 
@@ -122,7 +122,7 @@ Folder API
             'from' => '/path/to/copy/from', // will cause a cd() to occur
             'mode' => 0755,
             'skip' => array('skip-me.php', '.git'),
-            'scheme' => Folder::SKIP,  // Skip directories/files that already exist.
+            'scheme' => Folder::SKIP, // Skip directories/files that already exist.
             'recursive' => true //set false to disable recursive copy
         ));
 
