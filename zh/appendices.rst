@@ -1,8 +1,51 @@
-附录
+Appendices
 ##########
 
+.. note::
+    The documentation is not currently supported in zh language for this page.
+
+    Please feel free to send us a pull request on
+    `Github <https://github.com/cakephp/docs>`_ or use the **Improve This Doc**
+    button to directly propose your changes.
+
+    You can referer to the english version in the select top menu to have
+    information about this page's topic.
+
 Appendices contain information regarding the new features
-introduced in 2.0, and the migration path from 1.3 to 2.0.
+introduced in 2.x, and the migration path from 1.3 to 2.0.
+
+2.7 Migration Guide
+===================
+
+.. toctree::
+    :maxdepth: 1
+
+    appendices/2-7-migration-guide
+
+2.6 Migration Guide
+===================
+
+.. toctree::
+    :maxdepth: 1
+
+    appendices/2-6-migration-guide
+
+2.5 Migration Guide
+===================
+
+.. toctree::
+    :maxdepth: 1
+
+    appendices/2-5-migration-guide
+
+
+2.4 Migration Guide
+===================
+
+.. toctree::
+    :maxdepth: 1
+
+    appendices/2-4-migration-guide
 
 2.3 Migration Guide
 ===================
@@ -54,10 +97,9 @@ General Information
 .. toctree::
     :maxdepth: 1
 
-    appendices/cakephp-development-process
     appendices/glossary
 
 
 .. meta::
-    :title lang=zh_CN: Appendices
-    :keywords lang=zh_CN: migration guide,migration path,new features,glossary
+    :title lang=zh: Appendices
+    :keywords lang=zh: migration guide,migration path,new features,glossary
