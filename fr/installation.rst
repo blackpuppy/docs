@@ -12,7 +12,8 @@ Conditions requises
 
 -  HTTP Server. Par exemple: Apache. mod\_rewrite est préférable, mais en
    aucun cas nécessaire.
--  PHP 5.2.8 ou plus.
+-  PHP 5.3.0 ou plus (CakePHP version 2.6 et les versions inférieures supportent
+   PHP 5.2.8 ou plus)..
 
 Techniquement, un moteur de base de données n'est pas nécessaire, mais nous
 imaginons que la plupart des applications vont en utiliser un. CakePHP
@@ -159,7 +160,7 @@ dans ``phpinfo()``.
 
 .. note::
 
-    Si vous êtes sur windows, les chemins d'inclusion sont séparés par des
+    Si vous êtes sur Windows, les chemins d'inclusion sont séparés par des
     ; au lieu de :
 
 Une fois que vous avez configuré votre ``include_path``, vos applications

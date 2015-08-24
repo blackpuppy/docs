@@ -198,7 +198,8 @@ de ligne de commande. Dans notre méthode ``hey_there``, nous utilisons aussi
 ``$this->args``, cette propriété contient un tableau de tous les arguments
 de position fournis à une commande. Vous pouvez aussi utiliser des switches
 ou des options sur les shells des applications, ils sont disponibles dans la
-variable ``$this->params``, mais nous verrons ça bientôt.
+variable ``$this->params`` et avec la méthode ``param()``, mais nous verrons
+ça bientôt.
 
 Lorsque vous utilisez la méthode ``main()``, vous n'êtes pas capable d'utiliser
 les arguments de position ou les paramètres. Cela parce que le premier argument
@@ -427,7 +428,7 @@ que vous pouvez utiliser:
 * ``ConsoleOutput::COLOR`` - La sortie avec couleur enlève les codes en place.
 
 Par défaut sur les systèmes \*nix, les objets ConsoleOutput ont par défaut
-de la couleur. Sur les systèmes windows, la sortie simple est mise par défaut
+de la couleur. Sur les systèmes Windows, la sortie simple est mise par défaut
 sauf si la variable d'environnement ``ANSICON`` est présente.
 
 Configurer les options et générer de l'aide
@@ -676,6 +677,11 @@ pour vérifier les flags de boléens::
         // faire quelque chose
     }
 
+    // Depuis 2.7
+    if ($this->param('verbose')) {
+        // faire quelque chose
+    }
+
 Puisque les options boléennes sont toujours définies à ``true`` ou à
 ``false``, vous pouvez omettre les méthodes de vérification supplémentaires.
 
@@ -902,6 +908,13 @@ API de Shell
 
     Efface la sortie courante étant affichée.
 
+.. php:method:: param($name)
+
+    Récupère la valeur d'une option/paramètre. Va retourner null si le
+    paramètre n'existe pas.
+
+    .. versionadded:: 2.7
+
 .. php:method:: createFile($path, $contents)
 
     :param string $path: Le chemin absolu du fichier que vous voulez créer.
@@ -1021,7 +1034,7 @@ API de Shell
 
     Par défaut sur les systèmes \*nix, les objets ConsoleOutput ont par défaut
     une sortie colorée.
-    Sur les systèmes windows, la sortie brute est la sortie par défaut sauf si
+    Sur les systèmes Windows, la sortie brute est la sortie par défaut sauf si
     la variable d'environnement ``ANSICON`` est présente.
 
 .. php:method:: overwrite($message = null, $newlines = 1, $size = null)

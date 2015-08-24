@@ -12,7 +12,7 @@ Requirements
 
 -  HTTP Server. For example: Apache. mod\_rewrite is preferred, but
    by no means required.
--  PHP 5.2.8 or greater.
+-  PHP 5.3.0 or greater (CakePHP version 2.6 and below support PHP 5.2.8 and above).
 
 Technically a database engine isn't required, but we imagine that
 most applications will utilize one. CakePHP supports a variety of
@@ -151,7 +151,7 @@ After restarting your webserver, you should see the changes reflected in
 
 .. note::
 
-    If you are on windows, separate include paths with ; instead of :
+    If you are on Windows, separate include paths with ; instead of :
 
 Having finished setting up your ``include_path`` your applications should be able to
 find CakePHP automatically.
