@@ -29,14 +29,14 @@ branches:
 #     - cmake
 
 # command to install dependencies
-install: "pip install -q -r requirements.txt --use-mirrors"
+install: pip install -q -r requirements.txt --use-mirrors
 
 # command to build
 script:
-  - "make html-en"
-  - "make html-zh"
+  - make html-en
+  - make html-zh
 
-# after_success:
+after_success:
   # for aliyun server
   # - "cd ./build"
   # - "tar -zcf cakephp-docs.tar.gz ./html"
@@ -46,14 +46,14 @@ script:
   # - "cd ./build/html"
   # - "find ./ -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://ftp.wengyuli.com/{} \\;"
 
-deploy:
-  - 'git clone git@github.com:blackpuppy/cakephpchina.git'
-  - 'cd cakephpchina'
-  - 'git config user.email "mingzhu.z+github@gmail.com"'
-  - 'git config user.name "Zhu Ming"'
-  - 'rm -rf en zh'
-  - 'cp -r /docs/build/html/en .'
-  - 'cp -r /docs/build/html/zh .'
-  - 'git add .'
-  - 'git commit -m "deployment"'
-  - 'git push origin gh-pages'
+  # deploy to GitHub Pages
+  - git clone git@github.com:blackpuppy/cakephpchina.git
+  - cd cakephpchina
+  - git config user.email "mingzhu.z+github@gmail.com"
+  - git config user.name "Zhu Ming"
+  - rm -rf en zh
+  - cp -r /docs/build/html/en .
+  - cp -r /docs/build/html/zh .
+  - git add .
+  - git commit -m "deployment"
+  - git push origin gh-pages
