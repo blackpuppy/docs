@@ -9,10 +9,10 @@ env:
     # aliyun server ftp account
     # - secure: "LHcJox+t+cqGLdNXK8kHegyNjPYn/zfj4lL2vH8r2pT0oC6wujPmOE5XlyyufYm67rYvySES4ds/mCTFtEduu33Am9uNlHrlKqoIk9SeAPJ2nNtVxppH/+F50C7RGB4hGc658RPXO7CDhHr0HtmkyibgFxXJDSxa4ULKsv7dU9Y="
     # - secure: "LXM56uqDPtqdBdnZFTN+QMayz3eBX+BJNugMSMiVvGpxA34FMQxOPhRG6KMTx6WYglrS47upqfIatIVyOXw8pic7D+gDbdtHFfcuOeMq471VN1VD57UgIIjikSQcER1YRlANKw8LvkLh+YoVuCoPJ/xvSLTGrXC0z8XQMIn2KCM="
-    #
+
     # blue host ftp account
-    - secure: "g6l8QOueYUZLZH1FJuKB/LO+jKlhrKCPwkMfERGFY4SG6uTtHCm0M+YJYyb92YHJiSuQvLw6/oBLFtgbwy84EPmkOhGn/F1j/McgDCWZVGX2e4phkYeAFMtIkVkEpUc0sMBgeIPBIz8YgawUuM22N3x8/VHywk5CILx7hpa3oEY="
-    - secure: "X/yNqcublNpGEFKZWWlCEvTAcQx2TgT/K+Obv0k6zqvoF2D+bF28BPAPbZO/u3yMxYJtA4P6ZMEvxKLXggpKCmy9wDkbyUYEqZ4MtapxYa7JfVE+iMq5mCH3WLnpa8aIWA1w7ONQByZvUTqz7Ava3Rl47Gt6VVtBPUFNoKhk6Rw="
+    # - secure: "g6l8QOueYUZLZH1FJuKB/LO+jKlhrKCPwkMfERGFY4SG6uTtHCm0M+YJYyb92YHJiSuQvLw6/oBLFtgbwy84EPmkOhGn/F1j/McgDCWZVGX2e4phkYeAFMtIkVkEpUc0sMBgeIPBIz8YgawUuM22N3x8/VHywk5CILx7hpa3oEY="
+    # - secure: "X/yNqcublNpGEFKZWWlCEvTAcQx2TgT/K+Obv0k6zqvoF2D+bF28BPAPbZO/u3yMxYJtA4P6ZMEvxKLXggpKCmy9wDkbyUYEqZ4MtapxYa7JfVE+iMq5mCH3WLnpa8aIWA1w7ONQByZvUTqz7Ava3Rl47Gt6VVtBPUFNoKhk6Rw="
 
 # whitelist
 branches:
@@ -29,19 +29,31 @@ branches:
 #     - cmake
 
 # command to install dependencies
-install: "pip install -q -r requirements.txt --use-mirrors"
+install: pip install -q -r requirements.txt --use-mirrors
 
 # command to build
 script:
-  - "make html-en"
-  - "make html-zh"
+  - make html-en
+  - make html-zh
 
 after_success:
   # for aliyun server
   # - "cd ./build"
   # - "tar -zcf cakephp-docs.tar.gz ./html"
   # - "curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T cakephp-docs.tar.gz ftp://42.96.185.133/com.cakephpchina/"
-  # 
+
   # directly upload individual files
-  - "cd ./build/html"
-  - "find ./ -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://ftp.wengyuli.com/{} \\;"
+  # - "cd ./build/html"
+  # - "find ./ -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://ftp.wengyuli.com/{} \\;"
+
+deploy:
+  - git clone git@github.com:blackpuppy/cakephpchina.git
+  - cd cakephpchina
+  - git config user.email "mingzhu.z+github@gmail.com"
+  - git config user.name "Zhu Ming"
+  - rm -rf en zh
+  - cp -r /docs/build/html/en .
+  - cp -r /docs/build/html/zh .
+  - git add .
+  - git commit -m "deployment"
+  - git push origin gh-pages
