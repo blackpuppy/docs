@@ -29,6 +29,7 @@ branches:
 #     - cmake
 
 before_install:
+  # decrypt private key in /home/travis/build/blackpuppy/docs/
   - openssl aes-256-cbc -K $encrypted_3e936d71521e_key -iv $encrypted_3e936d71521e_iv -in cakephpchina.deploy@github.com.enc -out cakephpchina.deploy@github.com -d
   - chmod 0600 cakephpchina.deploy@github.com
 
@@ -51,10 +52,11 @@ after_success:
   # - "find ./ -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://ftp.wengyuli.com/{} \\;"
 
   # deploy to GitHub Pages
-  # - pwd  # /home/travis/build/blackpuppy/docs
   - cd ..
+  # now in /home/travis/build/blackpuppy/
   - ssh-agent bash -c 'ssh-add ./docs/cakephpchina.deploy@github.com; git clone git@github.com:blackpuppy/cakephpchina.git'
   - cd cakephpchina
+  # now in /home/travis/build/blackpuppy/cakephpchina/
   - git config user.email "mingzhu.z+github@gmail.com"
   - git config user.name "Zhu Ming"
   - rm -rf en zh
