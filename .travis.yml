@@ -56,7 +56,7 @@ after_success:
   - rm -rf en zh
   - cp -r ../docs/build/html/{en,zh} .
   - git add .
-  - git commit -m "deployment"
+  - git commit -m "auto deployment to GitHub Pages by Travis CI"
   - ssh-agent bash -c 'ssh-add ../docs/cakephpchina.deploy@github.com; git push origin gh-pages'
 
 dd:
