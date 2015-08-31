@@ -55,7 +55,8 @@ after_success:
   # deploy to GitHub Pages
   # - pwd  # /home/travis/build/blackpuppy/docs
   - cd ..
-  - ssh-agent bash -c 'ssh-add ../docs/cakephpchina.deploy@github.com; git clone git@github.com:blackpuppy/cakephpchina.git'
+  - pwd
+  - ssh-agent bash -c 'ssh-add ./docs/cakephpchina.deploy@github.com; git clone git@github.com:blackpuppy/cakephpchina.git'
   - cd cakephpchina
   - git config user.email "mingzhu.z+github@gmail.com"
   - git config user.name "Zhu Ming"
