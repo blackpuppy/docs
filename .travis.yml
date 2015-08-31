@@ -64,3 +64,7 @@ after_success:
   - git add .
   - git commit -m "auto deployment to GitHub Pages by Travis CI"
   - ssh-agent bash -c 'ssh-add ../docs/cakephpchina.deploy@github.com; git push origin gh-pages'
+
+notifications:
+  slack:
+    secure: YUbhw9PyaAHFW+QODHU4VtD9GnhfsAe3lRFdpm/c85mDdKhUhbvRTMVpc92AR2JAmTDJigB1xqTDIAUmEx80yJferk5uqTwymvRyPzBSizp9DU/qPmyIfICL2iUuv3WSDRX6kxVzKnx6g1rlAy950XfJATjf6BTnCo8sb/OrnaE=
