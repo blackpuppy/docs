@@ -7,3 +7,4 @@ zh_cakephp.sublime-project
 zh_cakephp.sublime-workspace
 .vagrant
 output*.txt
+node_modules

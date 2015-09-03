@@ -1,0 +1,23 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "description": "CakePHP Documentation",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blackpuppy/docs.git"
+  },
+  "author": "Zhu Ming",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/blackpuppy/docs/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-shell": "~1.1.2"
+  }
+}
