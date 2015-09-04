@@ -51,6 +51,9 @@ export LC_ALL=en_US.UTF-8\
 export LANG=en_US.UTF-8\
 \
 cd ~/docs\
+\
+grunt watch:zh  > build/build.log 2>&1 &\
+grunt watch:en  > build/build.log 2>&1 &\
 ' /home/vagrant/.profile
 
 
