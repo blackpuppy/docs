@@ -4,6 +4,15 @@
 # solution: http://stackoverflow.com/questions/10921430/fresh-installation-of-sphinx-quickstart-fails
 
 
+echo "Setting timezone to Asia/Shanghai ..."
+echo Asia/Shanghai > /etc/timezone
+dpkg-reconfigure --frontend noninteractive tzdata
+
+echo "Setting locale to UTF-8 ..."
+locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+
 echo "**** export locale environment variables for root..."
 sed -i '$a \
 \
@@ -46,30 +55,30 @@ cd ~/docs\
 
 
 echo "**** update apt repository..."
-apt-get update >/dev/null 2>&1
+apt-get update
 
 echo "**** Installing vim..."
-apt-get -y install vim >/dev/null 2>&1
+apt-get -y install vim
 
 echo "**** Installing python-setuptools..."
-apt-get install -y python-setuptools >/dev/null 2>&1
+apt-get install -y python-setuptools
 
 # echo "**** Installing easy_install..."
-# apt-get install -y easy_install >/dev/null 2>&1
+# apt-get install -y easy_install
 
 echo "**** Installing sphinx..."
-easy_install sphinx==1.2.3 >/dev/null 2>&1
+easy_install sphinx==1.2.3
 
 echo "**** Installing sphinxcontrib-phpdomain..."
-easy_install sphinxcontrib-phpdomain >/dev/null 2>&1
+easy_install sphinxcontrib-phpdomain
 
 echo "**** Installing Travis CI Command Line Client..."
-# apt-get install -y python-software-properties software-properties-common
-# apt-add-repository -y ppa:brightbox/ruby-ng
-# apt-get update
-# apt-get install -y ruby2.1 ruby-switch ruby2.1-dev
-# ruby-switch --set ruby2.1
-# gem update --system
-
 apt-get install -y ruby-full gem
 gem install travis
+
+echo "**** Installing Node.js, npm & Grunt..."
+apt-get install -y nodejs npm
+ln -s /usr/bin/nodejs /usr/bin/node
+npm install -g grunt-cli
+cd /home/vagrant/docs
+npm install
