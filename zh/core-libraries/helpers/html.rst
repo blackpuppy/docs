@@ -108,13 +108,13 @@ methods of the HtmlHelper and how to use them.
 
     :param mixed $path: 或者是一个字符串，指向要连接的CSS文件，或者是数组，包含
         多个文件。
-    :param array $options: 一个选项数组或者 :term:`html attributes` 数组。
+    :param array $options: 一个选项或者 :term:`html attributes` 数组。
 
     :param mixed $path: Either a string of the CSS file to link, or an array with multiple files
     :param array $options: An array of options or :term:`html attributes`.
 
     创建CSS样式的链接。如果 ``$options`` 参数中的键'inline'设置为false，link标签
-    就会被加到 ``css`` 代码块，你可以把这个代码块在document的head标签内输出。
+    就会被加到 ``css`` 代码块，你可以把这个代码块在页面的head标签内输出。
 
     Creates a link(s) to a CSS style-sheet. If key 'inline' is set to
     false in ``$options`` parameter, the link tags are added to the
@@ -196,7 +196,7 @@ methods of the HtmlHelper and how to use them.
     :param string $type: 你需要的type meta 标签。
     :param mixed $url: meta 标签的网址（URL），可以是字符串，或者是
         :term:`routing array`。
-    :param array $options: :term:`html attributes`的数组。
+    :param array $options: :term:`html attributes` 数组。
 
     :param string $type: The type meta tag you want.
     :param mixed $url: The URL for the meta tag, either a string or a
@@ -204,8 +204,8 @@ methods of the HtmlHelper and how to use them.
     :param array $options: An array of :term:`html attributes`.
 
     要链接到象RSS/Atom推送（*feed*）和favicon这样的外部资源，该方法很方便。就象
-    css()方法一样，你可以指定你是否要让这个标签以内嵌（*inline*）的方式输出，还是
-    要通过设置$options参数中的'inline'键为false，即``array('inline' => false)``，
+    css()方法一样，可以指定是否要让这个标签以内嵌（*inline*）的方式输出，还是要
+    通过设置$options参数中的'inline'键为false，即 ``array('inline' => false)``，
     来附加在 ``meta`` 代码块的最后。
 
     This method is handy for linking to external resources like RSS/Atom feeds
@@ -238,7 +238,7 @@ methods of the HtmlHelper and how to use them.
             array('type' => 'icon')
         );
         ?>
-        // 输出(增加了换行)
+        // 输出（增加了换行）
         // Output (line breaks added)
         <link
             href="http://example.com/favicon.ico"
@@ -252,7 +252,7 @@ methods of the HtmlHelper and how to use them.
             array('type' => 'rss')
         );
         ?>
-        // 输出(增加了换行)
+        // 输出（增加了换行）
         // Output (line breaks added)
         <link
             href="http://example.com/comments/index.rss"
@@ -290,7 +290,7 @@ methods of the HtmlHelper and how to use them.
     如果你要添加自定义的meta标签，那么第一个参数应当设置为数组。要输出robots 
     noindex标签（译注：防止漫游器将网页编入索引，可参考 `noindex 
     <http://baike.baidu.com/link?url=wZMV3V5BOO9BrKxVaSp2jEUO2ICTI-cFhFOkcOkQ5FzxcTa0_1s9yQFib06vigYuC1RHYETpkwLHPnVS4qqd5_>`_
-    ），使用下面的代码::
+    ），可以使用下面的代码::
 
     If you want to add a custom meta tag then the first parameter
     should be set to an array. To output a robots noindex tag use the
@@ -299,7 +299,7 @@ methods of the HtmlHelper and how to use them.
         echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));
 
     .. versionchanged:: 2.1
-        添加了``block``选项。
+        添加了 ``block`` 选项。
         The ``block`` option was added.
 
 .. php:method:: docType(string $type = 'xhtml-strict')
@@ -451,7 +451,7 @@ methods of the HtmlHelper and how to use them.
     如果你要引入与加载的插件重名的图像文件，你可以采用下面的做法。例如，你有一个
     ``Blog`` 插件，又要引入 ``app/webroot/img/Blog.icon.png``，你可以::
 
-    If you want to include a image file which shares a name with a loaded
+    If you want to include an image file which shares a name with a loaded
     plugin you can do the following. For example if you had a ``Blog`` plugin,
     and also wanted to include ``app/webroot/img/Blog.icon.png``, you would::
 
@@ -466,7 +466,7 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: link(string $title, mixed $url = null, array $options = array())
 
     :param string $title: 作为链接主体显示的文字。
-    :param mixed $url: 或者是字符串表示的位置，或者是 :term:`routing array`。
+    :param mixed $url: 或者是字符串表示的网址，或者是 :term:`routing array`。
     :param array $options: :term:`html attributes` 数组。
 
     :param string $title: The text to display as the body of the link.
@@ -494,9 +494,9 @@ methods of the HtmlHelper and how to use them.
 
         <a href="/pages/home" class="button" target="_blank">Enter</a>
 
-    用 ``'full_base'=>true`` 选项来指定使用绝对网址(URL)::
+    用 ``'full_base' => true`` 选项来指定使用绝对网址（*URL*）::
 
-    Use ``'full_base'=>true`` option for absolute URLs::
+    Use ``'full_base' => true`` option for absolute URLs::
 
         echo $this->Html->link(
             'Dashboard',
@@ -516,9 +516,9 @@ methods of the HtmlHelper and how to use them.
         <a href="http://www.yourdomain.com/dashboards/index">Dashboard</a>
 
 
-    用 ``$confirmMessage`` 来显示 javascript ``confirm()`` 对话框::
+    用$options参数中的 ``confirm`` 键来显示 JavaScript ``confirm()`` 对话框::
 
-    Specify ``confirm`` key in options to display a JavaScript ``confirm()``
+    Specify ``confirm`` key in $options to display a JavaScript ``confirm()``
     dialog::
 
         echo $this->Html->link(
@@ -540,7 +540,7 @@ methods of the HtmlHelper and how to use them.
             Delete
         </a>
 
-    用 ``link()`` 也可以添加查询字符串(Query string)。 ::
+    用 ``link()`` 也可以添加查询字符串（Query string）。 ::
 
     Query strings can also be created with ``link()``. ::
 
@@ -588,8 +588,8 @@ methods of the HtmlHelper and how to use them.
             <img src="/img/recipes/6.jpg" alt="Brownies" />
         </a>
 
-    ``$title`` 中的HTML特殊字符会被转换成HTML字符实体（HTML Entities）。要禁用这
-    种转换，在 ``$options`` 数组中设置escape选项为false。 ::
+    ``$title`` 中的HTML特殊字符会被转换成HTML字符实体（*HTML Entities*）。要禁用
+    这种转换，在 ``$options`` 数组中设置escape选项为false。 ::
 
     HTML special characters in ``$title`` will be converted to HTML
     entities. To disable this conversion, set the escape option to
@@ -650,8 +650,8 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: media(string|array $path, array $options)
 
     :param string|array $path: 媒体文件的路径，相对于
-        `webroot/{$options['pathPrefix']}` 目录。或者是数组，每项本身可以是路径
-        字符串或包含键 `src` 和 `type` 的关联数组。
+        `webroot/{$options['pathPrefix']}` 目录。或者是数组，数组的每项本身可以
+        是路径字符串或包含键 `src` 和 `type` 的关联数组。
     :param array $options: HTML 属性数组，以及特殊选项。
 
     :param string|array $path: Path to the media file, relative to the
@@ -663,7 +663,7 @@ methods of the HtmlHelper and how to use them.
         选项:
 
         - `type` 要生成的媒体元素的类型，合法值为"audio"或"video"。如果没有提供类
-          型，媒体类型将基于文件的mime类型来推测。
+          型，媒体类型将根据文件的mime类型来推测。
         - `text` 在audio/video标签内使用的文字
         - `pathPrefix` 相对路径所使用的路径前缀，默认为'files/'
         - `fullBase` 如果设置为true，生成的src属性就会是包括域名的完整网址。
@@ -721,7 +721,7 @@ methods of the HtmlHelper and how to use them.
                 codecs='theora, vorbis'"/>
         </video>
 
-.. php:method:: tag(string $tag, string $text, array $htmlAttributes)
+.. php:method:: tag(string $tag, string $text, array $options)
 
     :param string $tag: 生成的标签的名称。
     :param string $text: 标签的内容。
@@ -768,9 +768,9 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: div(string $class, string $text, array $options)
 
-    :param string $class: div 的(样式)类名。
-    :param string $text: div 内的内容。
-    :param array $options: :term:`html attributes`数组。
+    :param string $class: div的(样式)类名。
+    :param string $text: div中的内容。
+    :param array $options: :term:`html attributes` 数组。
 
     :param string $class: The class name for the div.
     :param string $text: The content inside the div.
@@ -827,21 +827,21 @@ methods of the HtmlHelper and how to use them.
 .. php:method:: script(mixed $url, mixed $options)
 
     :param mixed $url: 或者是指向单一Javascript文件的字符串，或者(指向)多个文
-        件的数组。
+        件的字符串数组。
     :param array $options: :term:`html attributes` 数组。
 
     :param mixed $url: Either a string to a single JavaScript file, or an
        array of strings for multiple files.
     :param array $options: An array of :term:`html attributes`.
 
-    引入一个或多个脚本文件，存在于本地或是远程地址。
+    引入存在于本地或是远程地址的一个或多个脚本文件。
 
     Include a script file(s), contained either locally or as a remote URL.
 
-    默认情况下，脚本标签会以inline的方式添加到文档中。如果你设置
+    默认情况下，script标签会以内嵌（*inline*）的方式添加到文档中。如果设置
     ``$options['inline']`` 为false，script标签就转而会被添加到 ``script`` 代码块，
-    这样你就可以把它输出到文档的其它地方。如果你想要改变所使用的代码块名称，你
-    可以通过设置 ``$options['block']`` 来实现。
+    这样就可以把它输出到文档的其它地方。如果想要改变所使用的代码块名称，可以通过
+    设置 ``$options['block']`` 来实现。
 
     By default, script tags are added to the document inline. If you override
     this by setting ``$options['inline']`` to false, the script tags will instead
@@ -855,8 +855,8 @@ methods of the HtmlHelper and how to use them.
     ``$options['once']`` controls whether or not you want to include this
     script once per request or more than once. This defaults to true.
 
-    你可以用$options参数来为生成的脚本标签设置额外的属性。如果用的是多个脚本标签，
-    属性就会应用于所有生成的脚本标签。
+    你可以用$options参数来为生成的script标签设置额外的属性。如果用的是多个脚本
+    标签，属性就会应用于所有生成的script标签。
 
     You can use $options to set additional properties to the
     generated script tag. If an array of script tags is used, the
@@ -917,14 +917,14 @@ methods of the HtmlHelper and how to use them.
         <script type="text/javascript" href="/js/wysiwyg.js"></script>
         <script type="text/javascript" href="/js/scripts.js"></script>
 
-    你可以用 ``block`` 选项将脚本标签添加到一个特定的代码块::
+    你可以用 ``block`` 选项将script标签添加到一个特定的代码块::
 
     You can append the script tag to a specific block using the ``block``
     option::
 
         echo $this->Html->script('wysiwyg', array('block' => 'scriptBottom'));
 
-    在布局中你可以输出所有添加到'scriptBottom'的脚本标签::
+    在布局中你可以输出所有添加到'scriptBottom'代码块的script标签::
 
     In your layout you can output all the script tags added to 'scriptBottom'::
 
@@ -963,7 +963,7 @@ methods of the HtmlHelper and how to use them.
     :param array $options: An array of :term:`html attributes`.
 
     生成包含 ``$code`` 的代码块。设置 ``$options['inline']`` 为false，使代码块
-    出现在 ``script`` 视图代码块中。定义的其它选项会被作为脚本标签的属性。
+    出现在 ``script`` 视图代码块中。定义的其它选项会被作为script标签的属性。
     ``$this->Html->scriptBlock('stuff', array('defer' => true));`` 会创建带有
     ``defer="defer"`` 的script标签。
 
@@ -975,13 +975,13 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: scriptStart($options = array())
 
-    :param array $options: 当scriptEnd调用时使用的 :term:`html attributes` 数组。
+    :param array $options: 当调用scriptEnd时使用的 :term:`html attributes` 数组。
 
     :param array $options: An array of :term:`html attributes` to be used when
         scriptEnd is called.
 
     开始一个缓冲代码块。该代码块会捕获所有在 ``scriptStart()`` 和 ``scriptEnd()``
-    之间的输出，并创建script标签。选项和 ``scriptBlock()`` 一样。
+    之间的输出，并创建script标签。选项和 ``scriptBlock()`` 方法一样。
 
     Begin a buffering code block. This code block will capture all
     output between ``scriptStart()`` and ``scriptEnd()`` and create an
@@ -1065,13 +1065,13 @@ methods of the HtmlHelper and how to use them.
 
     :param array $names: 字符串数组，用来创建表格的表头。
     :param array $trOptions: <tr>的 :term:`html attributes` 数组
-    :param array $thOptions: <th>元素的 :term:`html attributes` 数组
+    :param array $thOptions: 所有<th>元素的 :term:`html attributes` 数组
 
     :param array $names: An array of strings to create table headings.
     :param array $trOptions: An array of :term:`html attributes` for the <tr>
     :param array $thOptions: An array of :term:`html attributes` for the <th> elements
 
-    创建一行表格的表头的格子，可放入<table>标签。 ::
+    创建表格的一行表头格子，可放在<table>标签内。 ::
 
     Creates a row of table header cells to be placed inside of <table>
     tags. ::
@@ -1139,12 +1139,12 @@ methods of the HtmlHelper and how to use them.
 
 .. php:method:: tableCells(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)
 
-    :param array $data: 给各行提供数据的二维数组。
+    :param array $data: 含有各行数据的二维数组。
     :param array $oddTrOptions: 奇数行<tr>的 :term:`html attributes` 数组。
     :param array $evenTrOptions: 偶数行<tr>的 :term:`html attributes` 数组。
-    :param boolean $useCount: 添加（样式）类"column-$i"。
+    :param boolean $useCount: 是否添加（样式）类"column-$i"。
     :param boolean $continueOddEven: 如果是false，就会使用非静态$count变量，从而
-        对该调用的奇偶计数重置为零。
+        对该格子调用的奇偶计数重置为零。
 
     :param array $data: A two dimensional array with data for the rows.
     :param array $oddTrOptions: An array of :term:`html attributes` for the odd <tr>'s.
@@ -1153,7 +1153,7 @@ methods of the HtmlHelper and how to use them.
     :param boolean $continueOddEven: If false, will use a non-static $count variable,
         so that the odd/even count is reset to zero just for that call.
 
-    成行地创建表格格子，给奇数行和偶数行<tr>设置不同的属性。为实现特定的<td>属性
+    创建多行表格格子，给奇数行和偶数行设置不同的<tr>属性。为实现特定的<td>属性
     （译注：指各格子有不同的属性，参看下面的第二个例子），可将该表格格子包裹在
     数组中。 ::
 
@@ -1264,9 +1264,9 @@ methods of the HtmlHelper and how to use them.
     :param mixed $full: Either a boolean to indicate whether or not the base path should
         be included or an array of options for :php:meth:`Router::url()`
 
-    返回控制器和动作组合形成的网址(URL)。如果$url参数为空，它会返回REQUEST\_URI，
-    否则它生成控制器和动作组合而成的网址。如果参数full为true，结果就会前缀以完整
-    的根路径::
+    返回控制器和动作组合形成的网址（*URL*）。如果$url参数为空，它会返回REQUEST\_URI，
+    否则它生成所指定的控制器和动作组合而成的网址。如果参数full为true，结果就会前缀
+    以完整的根路径::
 
     Returns a URL pointing to a combination of controller and action.
     If $url is empty, it returns the REQUEST\_URI, otherwise it
@@ -1283,7 +1283,7 @@ methods of the HtmlHelper and how to use them.
         // Output
         /posts/view/bar
 
-    下面有更多用法示例:
+    下面为更多的用法示例:
 
     Here are a few more usage examples:
 
@@ -1315,7 +1315,7 @@ methods of the HtmlHelper and how to use them.
         // Output
         /posts/list.rss
 
-    带完整根路径的网址（以'/'开头）::
+    前缀以完整根路径的网址（以'/'开头）::
 
     URL (starting with '/') with the full base URL prepended::
 
@@ -1375,9 +1375,9 @@ Changing the tags output by HtmlHelper
 
 .. php:method:: loadConfig(mixed $configFile, string $path = null)
 
-    :php:class:`HtmlHelper` 内置的标签集是兼容于XHTML的，不过如果你要生成HTML5的
-    HTML，你需要创建并加载新的标签配置文件，该文件应当包含你要使用的标签。要改变
-    使用的标签，创建文件 ``app/Config/html5_tags.php``，包含（如下内容）::
+    :php:class:`HtmlHelper` 内置的标签集是兼容于XHTML的，不过，如果你要生成HTML5
+    的HTML，你需要创建并加载新的标签配置文件，该文件应当包含你要使用的标签。要
+    改变使用的标签，创建文件 ``app/Config/html5_tags.php``，包含（如下内容）::
 
     The built-in tag sets for :php:class:`HtmlHelper` are XHTML compliant,
     however if you need to generate HTML for HTML5 you will need to
@@ -1401,7 +1401,7 @@ Changing the tags output by HtmlHelper
     You can then load this tag set by calling
     ``$this->Html->loadConfig('html5_tags');``
 
-用HtmlHelper助件来创建 breadcrumb 路径
+用HtmlHelper助件来创建breadcrumb路径
 ==========================================
 
 Creating breadcrumb trails with HtmlHelper
@@ -1418,8 +1418,7 @@ Creating breadcrumb trails with HtmlHelper
 
         echo $this->Html->getCrumbs(' > ', 'Home');
 
-    ``$startText`` 参数也可以接受一个数组。这为控制生成的第一个链接提供了更多的
-    控制::
+    ``$startText`` 参数也可以接受一个数组。这为生成的第一个链接提供了更多的控制::
 
     The ``$startText`` option can also accept an array. This gives more control
     over the generated first link::
@@ -1458,7 +1457,7 @@ Creating breadcrumb trails with HtmlHelper
 .. php:method:: getCrumbList(array $options = array(), mixed $startText)
 
     :param array $options: 包裹的 ``<ul>`` 元素的 :term:`html attributes` 数组。
-        也可以包含'separator'、'firstClass'、'lastClass'和'lastClass'选项。
+        也可以包含'separator'、'firstClass'、'lastClass'和'escape'选项。
     :param string|array $startText: 在ul之前的文字或元素。
 
     :param array $options: An array of :term:`html attributes` for the
