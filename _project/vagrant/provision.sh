@@ -85,3 +85,25 @@ ln -s /usr/bin/nodejs /usr/bin/node
 npm install -g grunt-cli
 cd /home/vagrant/docs
 npm install
+
+
+echo "**** Run Grunt watch as a service..."
+# apt-get install -y daemon
+
+echo '
+#!/usr/bin/env bash
+
+cd /home/vagrant/docs
+grunt watch:zh > /home/vagrant/docs/watch.log
+' > /etc/init.d/watchZh
+chmod +x /etc/init.d/watchZh
+update-rc.d watchZh defaults 80
+
+echo '
+#!/usr/bin/env bash
+
+cd /home/vagrant/docs
+grunt watch:en > /home/vagrant/docs/watch.log
+' > /etc/init.d/watchEn
+chmod +x /etc/init.d/watchEn
+update-rc.d watchEn defaults 80
