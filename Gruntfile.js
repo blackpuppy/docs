@@ -33,7 +33,7 @@ module.exports = function (grunt) {
                 files: ["zh/**/*.rst"],
                 tasks: ["shell:zh"],
                 options: {
-                    livereload: true,
+                    livereload: 35730,
                     spawn: false
                 }
             }
