@@ -60,8 +60,8 @@ cd ~/docs\
 echo "**** update apt repository..."
 apt-get update
 
-echo "**** Installing vim..."
-apt-get -y install vim
+echo "**** Installing vim & htop..."
+apt-get -y install vim htop
 
 echo "**** Installing python-setuptools..."
 apt-get install -y python-setuptools
@@ -109,16 +109,19 @@ stop on runlevel [016]
 respawn
 
 # Essentially lets upstart know the process will detach itself to the background
-expect fork
+#expect fork  	# wrong, PID not exists
+#expect daemon 	# wrong, PID not exists
 
 # Run before process
-pre-start script
-end script
+#pre-start script
+#end script
 
 # Start the process
 script
-	grunt watch:zh > /home/vagrant/docs/watch.log
-	grunt watch:en > /home/vagrant/docs/watch.log
+	#echo "start watching..." >> /home/vagrant/docs/watch.log
+	#cd /home/vagrant/docs
+	grunt watch:zh >> /home/vagrant/docs/watch.log
+	#grunt watch:en >> /home/vagrant/docs/watch.log
 end script
 ' > /etc/init/gruntwatch.conf
 chmod g-w /etc/init/gruntwatch.conf
