@@ -52,8 +52,8 @@ export LANG=en_US.UTF-8\
 \
 cd ~/docs\
 \
-# grunt watch:zh  > build/build.log 2>&1 &\
-# grunt watch:en  > build/build.log 2>&1 &\
+# grunt watch:zh >> watch.log 2>&1 &\
+# grunt watch:en >> watch.log 2>&1 &\
 ' /home/vagrant/.profile
 
 
@@ -87,41 +87,44 @@ cd /home/vagrant/docs
 npm install
 
 
-echo "**** Run Grunt watch as a service..."
-echo '# gruntwatch - gruntwatch job file
+# echo "**** Run Grunt watch as a service..."
+# echo '# gruntwatch - gruntwatch job file
 
-description "watch for CakePHP Cookbook en/zh *.rst"
-author "Zhu Ming <mingzhu.z@gmail.com>"
-chdir /home/vagrant/docs
+# description "watch for CakePHP Cookbook en/zh *.rst"
+# author "Zhu Ming <mingzhu.z@gmail.com>"
+# chdir /home/vagrant/docs
 
-# Stanzas
-#
-# Stanzas control when and how a process is started and stopped
-# See a list of stanzas here: http://upstart.ubuntu.com/wiki/Stanzas#respawn
+# # Stanzas
+# #
+# # Stanzas control when and how a process is started and stopped
+# # See a list of stanzas here: http://upstart.ubuntu.com/wiki/Stanzas#respawn
 
-# When to start the service
-start on runlevel [2345]
+# # When to start the service
+# start on runlevel [2345]
 
-# When to stop the service
-stop on runlevel [016]
+# # When to stop the service
+# stop on runlevel [016]
 
-# Automatically restart process if crashed
-respawn
+# # Automatically restart process if crashed
+# respawn
 
-# Essentially lets upstart know the process will detach itself to the background
-#expect fork  	# wrong, PID not exists
-#expect daemon 	# wrong, PID not exists
+# # Essentially lets upstart know the process will detach itself to the background
+# #expect fork  	# wrong, PID not exists
+# #expect daemon 	# wrong, PID not exists
 
-# Run before process
-#pre-start script
-#end script
+# # Run before process
+# #pre-start script
+# #end script
 
-# Start the process
-script
-	#echo "start watching..." >> /home/vagrant/docs/watch.log
-	#cd /home/vagrant/docs
-	grunt watch:zh >> /home/vagrant/docs/watch.log
-	#grunt watch:en >> /home/vagrant/docs/watch.log
-end script
-' > /etc/init/gruntwatch.conf
-chmod g-w /etc/init/gruntwatch.conf
+# # Start the process
+# script
+# 	#echo "start watching..." >> /home/vagrant/docs/watch.log
+# 	#cd /home/vagrant/docs
+# 	grunt watch:zh >> /home/vagrant/docs/watch.log
+# 	#grunt watch:en >> /home/vagrant/docs/watch.log
+# end script
+# ' > /etc/init/gruntwatch.conf
+# chmod g-w /etc/init/gruntwatch.conf
+
+echo "**** Run install tmux..."
+apt-get install -y tmux

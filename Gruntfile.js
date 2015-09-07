@@ -6,20 +6,20 @@ module.exports = function (grunt) {
                 command: 'make html-en > build/build.log 2>&1'
             },
             zh: {
-                command: 'make html-zh > build/build.log 2>&1'
+                command: 'make html-zh >> build/build.log 2>&1'
             }
         },
-        bgShell: {
-            _defaults: {
-                bg: true
-            },
-            en: {
-                cmd: 'grunt watch:en'
-            },
-            zh: {
-                cmd: 'grunt watch:zh'
-            }
-        },
+        // bgShell: {
+        //     _defaults: {
+        //         bg: true
+        //     },
+        //     en: {
+        //         cmd: 'grunt watch:en'
+        //     },
+        //     zh: {
+        //         cmd: 'grunt watch:zh'
+        //     }
+        // },
         watch: {
             en: {
                 files: ["en/**/*.rst"],
@@ -36,6 +36,14 @@ module.exports = function (grunt) {
                     livereload: 35730,
                     spawn: false
                 }
+            },
+            rst: {
+                files: ["en/**/*.rst","zh/**/*.rst"],
+                tasks: ["shell:en","shell:zh"],
+                options: {
+                    livereload: true,
+                    spawn: false
+                }
             }
         }
     });
@@ -43,7 +51,7 @@ module.exports = function (grunt) {
     // Load plugins
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks('grunt-bg-shell');
+    // grunt.loadNpmTasks('grunt-bg-shell');
 
-    grunt.registerTask('default', ['bgShell:en', 'bgShell:zh']);
+    // grunt.registerTask('default', ['bgShell:en', 'bgShell:zh']);
 };
