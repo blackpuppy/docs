@@ -408,7 +408,7 @@ Closing the Form
 Creating form elements
 ======================
 
-使用FormHelper助件，有多种方法可以创建表单输入元素。我们从 ``input()`` 方法开始说起。这个方法会自动检查提供给它的模型字段，从而为那个字段创建适当的输入项元素。在内部 ``input()`` 方法调用FormHelper助件的其它方法。
+使用FormHelper助件，有多种方法可以创建表单输入元素。我们从 ``input()`` 方法开始说起。这个方法会自动检查提供给它的模型字段，从而为那个字段创建适当的输入项元素。在内部 ``input()`` 方法调用FormHelper助件的其他方法。
 
 There are a few ways to create form inputs with the FormHelper. We'll start by
 looking at ``input()``. This method will automatically inspect the model field it
@@ -423,7 +423,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
 
     * 包裹的div元素。
     * Label元素
-    * （一个或多个）Input元素
+    * （一个或多个）input元素
     * 如果适用，错误消息元素
 
     * Wrapping div.
@@ -494,7 +494,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
 
     .. _html5-required:
 
-    自2.3版本起，HTML5的 ``required`` 属性也会根据验证规则被添加到input标签上。你可以对字段在options数组中显式地设置 ``required`` 键，来改变这一点。要对整个表单省略浏览器验证的触发，你可以对使用 :php:meth:`FormHelper::submit()` 方法生成的input按键设置选项 ``'formnovalidate' => true``，或者在 :php:meth:`FormHelper::create()` 的选项中设置 ``'novalidate' => true``。
+    自2.3版本起，HTML5的 ``required`` 属性也会根据验证规则被添加到input标签上。你可以对某一字段在options数组中显式地设置 ``required`` 键，来改变这一点。要对整个表单省略浏览器验证的触发，你可以对使用 :php:meth:`FormHelper::submit()` 方法生成的input按键设置选项 ``'formnovalidate' => true``，或者在 :php:meth:`FormHelper::create()` 的选项中设置 ``'novalidate' => true``。
 
     Since 2.3 the HTML5 ``required`` attribute will also be added to the input
     based on validation rules. You can explicitly set ``required`` key in
@@ -520,7 +520,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
 
         echo $this->Form->end('Add');
 
-    （下面是）一个详细的例子，说明日期字段的一些选项::
+    （下面是）说明日期字段的一些选项的一个更详细的例子::
 
     A more extensive example showing some options for a date field::
 
@@ -591,14 +591,14 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
 
 .. php:method:: inputs(mixed $fields = null, array $blacklist = null, $options = array())
 
-    为 ``$fields`` 生成一组input标签。如果$fields是null，就会使用当前模型。
+    为 ``$fields`` 生成一组input标签。如果$fields是null，就会使用当前模型中除了在 ``$blacklist`` 参数中指定的字段的所有字段。
 
     Generate a set of inputs for ``$fields``. If ``$fields`` is null all fields,
     except of those defined in ``$blacklist``, of the current model will be used.
 
-    除了控制器字段输出，可以用 ``$fields`` 参数通过 ``fieldset`` 及 ``legend`` 键来控制legend和fieldset的渲染。``$this->Form->inputs(array('legend' => 'My legend'));`` 会输出一个带有自定义的legend的input集合。你也可以通过 ``$fields`` 参数定制单个的input。::
+    除了控制字段输出，还可以用 ``$fields`` 参数通过 ``fieldset`` 及 ``legend`` 键来控制legend和fieldset的渲染。``$this->Form->inputs(array('legend' => 'My legend'));`` 会输出一个带有自定义的legend的输入项集合。你也可以通过 ``$fields`` 参数定制单个的input。::
 
-    In addition to controller fields output, ``$fields`` can be used to control
+    In addition to controlling fields output, ``$fields`` can be used to control
     legend and fieldset rendering with the ``fieldset`` and ``legend`` keys.
     ``$this->Form->inputs(array('legend' => 'My legend'));``
     Would generate an input set with a custom legend. You can customize
@@ -608,7 +608,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
             'name' => array('label' => 'custom label')
         ));
 
-    除了对字段的控制，inputs()方法还允许你使用一些其它的选项。
+    除了对字段的控制，inputs()方法还允许你使用一些额外的选项。
 
     In addition to fields control, inputs() allows you to use a few additional
     options.
@@ -627,7 +627,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
 Field naming conventions
 ------------------------
 
-表单助件相当聪明。只要你用表单助件的方法指定一个字段名称，它就会自动使用当前模型名以下面这样的格式来构建一个输入项（*input*）:
+表单助件相当聪明。只要你用表单助件的方法指定一个字段名称，它就会自动使用当前模型名以下面这样的格式来构建一个输入项:
 
 The Form helper is pretty smart. Whenever you specify a field name
 with the form helper methods, it'll automatically use the current
@@ -637,7 +637,7 @@ model name to build an input with a format like the following:
 
     <input type="text" id="ModelnameFieldname" name="data[Modelname][fieldname]">
 
-在针对一个模型创建的表单中，为该模型生成输入项时，你可以省略模型名称。你可以为关联模型或任意模型创建输入项，只需把Modelname.fieldname作为第一个参数传入即可::
+在针对一个模型创建的表单中，为该模型生成输入项时，可以省略模型名称。你可以为关联模型或任意模型创建输入项，只需把Modelname.fieldname作为第一个参数传入即可::
 
 This allows you to omit the model name when generating inputs for the model that
 the form was created for. You can create inputs for associated models, or
@@ -645,7 +645,7 @@ arbitrary models by passing in Modelname.fieldname as the first parameter::
 
     echo $this->Form->input('Modelname.fieldname');
 
-如果你要使用同样的字段名称来创建多个输入字段，从而生成一个可以用saveAll()方法一起保存的数组，就用下面的约定::
+如果你要使用同样的字段名称来创建多个输入字段，从而生成一个可以用saveAll()方法一起保存的数组，请使用下面的约定::
 
 If you need to specify multiple fields using the same field name,
 thus creating an array that can be saved in one shot with
@@ -782,7 +782,7 @@ HTML attributes. The following will cover the options specific to
     <label for="UserName">Name</label>
     <input name="data[User][name]" type="text" value="" id="UserName" />
 
-* ``$options['label']`` 把这个键设置为你要显示在通常伴随input输入项的label标签内的字符串::
+* ``$options['label']`` 把这个键设置为你要显示在通常伴随输入项的label标签内的字符串::
 
 * ``$options['label']`` Set this key to the string you would like to be
   displayed within the label that usually accompanies the input::
@@ -844,7 +844,7 @@ HTML attributes. The following will cover the options specific to
     </div>
 
 
-* ``$options['error']`` 使用这个键让你可以改变默认的模型错误消息，以及用于，例如，设置i18n消息。它有一些子选项，用来控制包裹的元素，包裹元素的（样式）类名，以及错误信息中的HTML是否要转义。
+* ``$options['error']`` 使用这个键让你可以改变默认的模型错误消息，以及用于，例如，设置i18n消息。它有一些子选项，用来控制包裹的元素，包裹元素的（样式）类名，以及错误消息中的HTML是否要转义。
 
 * ``$options['error']`` Using this key allows you to override the default model
   error messages and can be used, for example, to set i18n messages. It has a
@@ -895,7 +895,7 @@ HTML attributes. The following will cover the options specific to
         'error' => array('tooShort' => __('This is not long enough'))
     ));
 
-  如上所示，你可以为模型中的每个验证规则设置错误信息。而且，你可以为表单提供国际化（*i18n*）的消息。
+  如上所示，你可以为模型中的每个验证规则设置错误消息。而且，你可以为表单提供国际化（*i18n*）的消息。
 
   As seen above you can set the error message for each validation
   rule you have in your models. In addition you can provide i18n
@@ -911,7 +911,7 @@ HTML attributes. The following will cover the options specific to
 * ``$options['before']``, ``$options['between']``, ``$options['separator']``,
   and ``$options['after']``
 
-  如果你要在input()方法的输出中插入一些标记代码，就可以使用这些键::
+  如果你要在input()方法的输出中插入一些代码，就可以使用这些键::
 
   Use these keys if you need to inject some markup inside the output
   of the input() method::
@@ -936,7 +936,7 @@ HTML attributes. The following will cover the options specific to
       --after--
       </div>
 
-  对radio输入项，'separator'属性可用来插入标记，来分隔每对input/label::
+  对radio输入项，'separator'属性可用来插入代码，来分隔每对input/label::
 
   For radio inputs the 'separator' attribute can be used to
   inject markup to separate each input/label pair::
@@ -972,16 +972,16 @@ HTML attributes. The following will cover the options specific to
   attribute can be used to change the string between select elements.
   Defaults to '-'.
 
-* ``$options['format']`` FormHelper助件生成的html的顺序也是可以控制的。'format'选项支持字符串数组，指明上述元素遵从的模板。支持的数组的键为 ``array('before', 'input', 'between', 'label', 'after','error')``。
+* ``$options['format']`` FormHelper助件生成的html的顺序也是可以控制的。'format'选项支持字符串数组，指明上述元素遵从的模板。支持的数组的键为 ``array('before', 'input', 'between', 'label', 'after', 'error')``。
 
 * ``$options['format']`` The ordering of the HTML generated by FormHelper is
   controllable as well. The 'format' options supports an array of strings
   describing the template you would like said element to follow. The supported
   array keys are:
-  ``array('before', 'input', 'between', 'label', 'after','error')``.
+  ``array('before', 'input', 'between', 'label', 'after', 'error')``.
 
 
-* ``$options['inputDefaults']`` 如果你发现在对input()的多个调用在重复相同的选项，你可以使用 ``inputDefaults`` 来保持你的代码dry（译注: `Don't Repeat Yourself <http://tech.it168.com/a2009/0622/593/000000593268.shtml>`_ ，指不要重复代码。）
+* ``$options['inputDefaults']`` 如果你发现在对input()的多个调用中重复相同的选项，你可以使用 ``inputDefaults`` 来保持你的代码dry（译注: `Don't Repeat Yourself <http://tech.it168.com/a2009/0622/593/000000593268.shtml>`_ ，不要重复代码。）
 
 * ``$options['inputDefaults']`` If you find yourself repeating the same options
   in multiple input() calls, you can use `inputDefaults`` to keep your code dry::
@@ -993,11 +993,11 @@ HTML attributes. The following will cover the options specific to
         )
     ));
 
-  以下创建的所有输入项就都会继承inputDefaults之中声明的选项。你可以在input()调用中声明选项来取代默认的选项::
+  这之后创建的所有输入项就都会继承inputDefaults之中声明的选项。你可以在input()调用中声明选项来改变默认的选项::
 
   All inputs created from that point forward would inherit the
   options declared in inputDefaults. You can override the
-  defaultOptions by declaring the option in the input() call::
+  default options by declaring the option in the input() call::
 
     // 没有div，没有label
     // No div, no label
@@ -1018,7 +1018,7 @@ HTML attributes. The following will cover the options specific to
 Generating specific types of inputs
 ===================================
 
-除了通用的``input()``方法，``FormHelper``助件有特定的方法来生成一系列不同类型的输入项（*input*）。这些方法可以用来只是生成输入项部件本身，也可以和其它象:php:meth:`~FormHelper::label()`和:php:meth:`~FormHelper::error()`这样的方法来生成完全定制的表单布局。
+除了通用的 ``input()`` 方法，``FormHelper`` 助件有特定的方法来生成一系列不同类型的输入项。这些方法可以用来只是生成输入项部件本身，也可以和其他象 :php:meth:`~FormHelper::label()` 和 :php:meth:`~FormHelper::error()` 这样的方法来生成完全定制的表单布局。
 
 In addition to the generic ``input()`` method, ``FormHelper`` has specific
 methods for generating a number of different types of inputs. These can be used
@@ -1034,7 +1034,7 @@ generate fully custom form layouts.
 Common options
 --------------
 
-许多不同的输入项（*input*）元素方法支持一组通用的选项。``input()``方法也支持所有这些选项 。为避免重复，所有输入项方法共用的通用选项如下:
+许多不同的输入项元素方法支持一组通用的选项。``input()`` 方法也支持所有这些选项 。为避免重复，所有输入项方法共用的通用选项如下:
 
 Many of the various input element methods support a common set of options. All
 of these options are also supported by ``input()``. To reduce repetition the
@@ -1075,7 +1075,7 @@ common options shared by all input methods are as follows:
 
   .. note::
 
-    你无法使用``default``来勾选 checkbox —— 你可以在控制器中设置``$this->request->data``的值，或者把输入项的选项``checked``设为 true。
+    你无法使用 ``default`` 来勾选 checkbox —— 你可以在控制器中设置 ``$this->request->data`` 的值，或者把输入项的选项 ``checked`` 设为 true。
 
     You cannot use ``default`` to check a checkbox - instead you might
     set the value in ``$this->request->data`` in your controller,
@@ -1086,7 +1086,7 @@ common options shared by all input methods are as follows:
     Date and datetime fields' default values can be set by using the
     'selected' key.
 
-    当心使用 false 来设置默认值。false 值用来禁用/排除输入项的选项，所以``'default' => false``完全不会设置任何值。而是(应当)使用``'default' => 0``。
+    当心使用 false 来设置默认值。false 值用来禁用/排除输入项的选项，所以 ``'default' => false`` 完全不会设置任何值。而是(应当)使用 ``'default' => 0``。
 
     Beware of using false to assign a default value. A false value is used to
     disable/exclude options of an input field, so ``'default' => false`` would
@@ -1347,7 +1347,7 @@ Ex: name=data[User][username], id=UserUsername
 
 .. php:method:: text(string $name, array $options)
 
-    FormHelper助件的其它方法是用来创建特定的表单元素的。这些方法中的许多也用到特殊的 $options 参数。不过，在这种情况下，$options 主要是用来指定 HTML 标签的属性(比如表单中的元素的值或者 DOM id)::
+    FormHelper助件的其他方法是用来创建特定的表单元素的。这些方法中的许多也用到特殊的 $options 参数。不过，在这种情况下，$options 主要是用来指定 HTML 标签的属性(比如表单中的元素的值或者 DOM id)::
 
     The rest of the methods available in the FormHelper are for
     creating specific form elements. Many of these methods also make
