@@ -212,7 +212,7 @@ There are a number of options for create():
 
   All inputs created from that point forward would inherit the
   options declared in inputDefaults. You can override the
-  defaultOptions by declaring the option in the input() call::
+  default options by declaring the option in the input() call::
 
     echo $this->Form->input('password'); // No div, no label
     // has a label element
@@ -420,7 +420,7 @@ field. Internally ``input()`` delegates to other methods in FormHelper.
     Generate a set of inputs for ``$fields``. If ``$fields`` is null all fields,
     except of those defined in ``$blacklist``, of the current model will be used.
 
-    In addition to controller fields output, ``$fields`` can be used to control
+    In addition to controlling fields output, ``$fields`` can be used to control
     legend and fieldset rendering with the ``fieldset`` and ``legend`` keys.
     ``$this->Form->inputs(array('legend' => 'My legend'));``
     Would generate an input set with a custom legend. You can customize
@@ -717,11 +717,11 @@ HTML attributes. The following will cover the options specific to
   controllable as well. The 'format' options supports an array of strings
   describing the template you would like said element to follow. The supported
   array keys are:
-  ``array('before', 'input', 'between', 'label', 'after','error')``.
+  ``array('before', 'input', 'between', 'label', 'after', 'error')``.
 
 
 * ``$options['inputDefaults']`` If you find yourself repeating the same options
-  in multiple input() calls, you can use `inputDefaults`` to keep your code dry::
+  in multiple input() calls, you can use ``inputDefaults`` to keep your code dry::
 
     echo $this->Form->create('User', array(
         'inputDefaults' => array(
@@ -732,7 +732,7 @@ HTML attributes. The following will cover the options specific to
 
   All inputs created from that point forward would inherit the
   options declared in inputDefaults. You can override the
-  defaultOptions by declaring the option in the input() call::
+  default options by declaring the option in the input() call::
 
     // No div, no label
     echo $this->Form->input('password');
