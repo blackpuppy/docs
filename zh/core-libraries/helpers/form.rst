@@ -1181,7 +1181,7 @@ Options for select, checkbox and  radio inputs
     <input type="checkbox" name="data[Post][Published]" value="1"
         id="PostPublished" />
 
-  这可以通过设置``$options['hiddenField'] = false``来禁用::
+  这可以通过设置 ``$options['hiddenField'] = false`` 来禁用::
 
   This can be disabled by setting the ``$options['hiddenField'] = false``::
 
@@ -1234,7 +1234,7 @@ Options for select, checkbox and  radio inputs
         id="ColorsOrange" />
     <label for="ColorsOrange">Orange</label>
 
-  对第二组输入项禁用``'hiddenField'``，就可以阻止这种行为。
+  对第二组输入项禁用 ``'hiddenField'``，就可以阻止这种行为。
 
   Disabling the ``'hiddenField'`` on the second input group would
   prevent this behavior.
@@ -1259,7 +1259,7 @@ Datetime options
 * ``$options['timeFormat']`` Used to specify the format of the select inputs for
   a time-related set of inputs. Valid values include ``12``, ``24``, and ``null``.
 
-* ``$options['dateFormat']`` 用于指定一组与日期相关的选择输入项(select input)的格式。合法的格式包括'D'，'M'和'Y'的任意组合或者``null``。输入项会以 dateFormat 选项定义的顺序来放置。
+* ``$options['dateFormat']`` 用于指定一组与日期相关的选择输入项(select input)的格式。合法的格式包括'D'，'M'和'Y'的任意组合或者 ``null``。输入项会以 dateFormat 选项定义的顺序来放置。
 
 * ``$options['dateFormat']`` Used to specify the format of the select inputs for
   a date-related set of inputs. Valid values include any combination of 'D',
@@ -1310,7 +1310,7 @@ Ex: name=data[User][username], id=UserUsername
 
 .. php:method:: label(string $fieldName, string $text, array $options)
 
-    创建一个 label 元素。``$fieldName``用于生成 DOM id。如果``$text``未定义，``$fieldName``会被用来转换(inflect)生成 label 元素的文字::
+    创建一个 label 元素。``$fieldName`` 用于生成 DOM id。如果 ``$text`` 未定义，``$fieldName`` 会被用来转换(inflect)生成 label 元素的文字::
 
     Create a label element. ``$fieldName`` is used for generating the
     DOM id. If ``$text`` is undefined, ``$fieldName`` will be used to inflect
@@ -1328,7 +1328,7 @@ Ex: name=data[User][username], id=UserUsername
         <label for="UserName">Name</label>
         <label for="UserName">Your username</label>
 
-    ``$options``可以是一个 html 属性的数组，或者是一个会被用作样式类名的字符串::
+    ``$options`` 可以是一个 html 属性的数组，或者是一个会被用作样式类名的字符串::
 
     ``$options`` can either be an array of HTML attributes, or a string that
     will be used as a class name::
@@ -1443,7 +1443,7 @@ Ex: name=data[User][username], id=UserUsername
 
     .. note::
 
-        ``textarea``输入项类型允许``$options``属性``'escape'``，这决定 textarea 的内容是否要被转义。默认值为``true``。
+        ``textarea`` 输入项类型允许 ``$options`` 属性 ``'escape'``，这决定 textarea 的内容是否要被转义。默认值为 ``true``。
 
         The ``textarea`` input type allows for the ``$options`` attribute
         of ``'escape'`` which determines whether or not the contents of the
@@ -1562,12 +1562,12 @@ Ex: name=data[User][username], id=UserUsername
     * ``$attributes['between']`` specify some content to be inserted between the
       legend and first element.
 
-    * ``$attributes['disabled']`` 设置这个属性为``true``或``'disabled'``会禁用所有生成的 radio 按钮。
+    * ``$attributes['disabled']`` 设置这个属性为 ``true`` 或 ``'disabled'`` 会禁用所有生成的 radio 按钮。
 
     * ``$attributes['disabled']`` Setting this to ``true`` or ``'disabled'``
       will disable all of the generated radio buttons.
 
-    * ``$attributes['legend']`` 默认情况下 Radio 元素会包裹在 label 和 fieldset 之中。设置``$attributes['legend']``为 false 来去掉这些。::
+    * ``$attributes['legend']`` 默认情况下 Radio 元素会包裹在 label 和 fieldset 之中。设置 ``$attributes['legend']`` 为 false 来去掉这些。::
 
     * ``$attributes['legend']`` Radio elements are wrapped with a legend and
       fieldset by default. Set ``$attributes['legend']`` to false to remove
@@ -1592,20 +1592,20 @@ Ex: name=data[User][username], id=UserUsername
             type="radio" />
         <label for="UserGenderF">Female</label>
 
-    如果出于某些原因你不想要隐藏输入项，设置``$attributes['value']``为选中的值或布尔值 false 就可以了。
+    如果出于某些原因你不想要隐藏输入项，设置 ``$attributes['value']`` 为选中的值或布尔值 false 就可以了。
 
     If for some reason you don't want the hidden input, setting
     ``$attributes['value']`` to a selected value or boolean false will
     do just that.
 
     .. versionchanged:: 2.1
-        ``$attributes['disabled']``选项是在2.1版本中增加的。
+        ``$attributes['disabled']`` 选项是在2.1版本中增加的。
         The ``$attributes['disabled']`` option was added in 2.1.
 
 
 .. php:method:: select(string $fieldName, array $options, array $attributes)
 
-    创建一个 select 元素，以``$options``中的项目填充，默认选中以``$attributes['value']``指定的选项。设置``$attributes``变量中的'empty'键为 false，就可以去掉默认的空选项::
+    创建一个 select 元素，以 ``$options`` 中的项目填充，默认选中以 ``$attributes['value']`` 指定的选项。设置 ``$attributes`` 变量中的'empty'键为 false，就可以去掉默认的空选项::
 
     Creates a select element, populated with the items in ``$options``,
     with the option specified by ``$attributes['value']`` shown as selected by
@@ -1627,7 +1627,7 @@ Ex: name=data[User][username], id=UserUsername
         <option value="F">Female</option>
         </select>
 
-    ``select``输入类型可以有一个特殊的``$option``属性，叫做``'escape'``，它接受布尔值，决定是否对 select 选项的内容进行 HTML 实体编码(HTML entity encode)。默认为 true::
+    ``select`` 输入类型可以有一个特殊的 ``$option`` 属性，叫做 ``'escape'``，它接受布尔值，决定是否对 select 选项的内容进行 HTML 实体编码(HTML entity encode)。默认为 true::
 
     The ``select`` input type allows for a special ``$option``
     attribute called ``'escape'`` which accepts a bool and determines
@@ -1760,7 +1760,7 @@ Ex: name=data[User][username], id=UserUsername
            </div>
         </div>
 
-    * ``$attributes['disabled']`` 当创建 checkbox 时，可以设置这个选项为``true``来禁用全部或者一些 checkbox。要禁用全部 checkbox，设置 disabled 为``true``::
+    * ``$attributes['disabled']`` 当创建 checkbox 时，可以设置这个选项为 ``true`` 来禁用全部或者一些 checkbox。要禁用全部 checkbox，设置 disabled 为 ``true``::
 
     * ``$attributes['disabled']`` When creating checkboxes, this option can be set
       to disable all or some checkboxes. To disable all checkboxes set disabled
@@ -1798,7 +1798,7 @@ Ex: name=data[User][username], id=UserUsername
         </div>
 
     .. versionchanged:: 2.3
-        ``$attributes['disabled']``对数组的支持是在2.3版本中增加的。
+        ``$attributes['disabled']`` 对数组的支持是在2.3版本中增加的。
         Support for arrays in ``$attributes['disabled']`` was added in 2.3.
 
 .. php:method:: file(string $fieldName, array $options)
@@ -1901,7 +1901,7 @@ Will output:
 
 .. note::
 
-    当使用``$this->Form->file()``方法时，记得通过在``$this->Form->create()``中设置类型选项为'file'来设置表单的编码类型。
+    当使用 ``$this->Form->file()`` 方法时，记得通过在 ``$this->Form->create()`` 中设置类型选项为'file'来设置表单的编码类型。
 
     When using ``$this->Form->file()``, remember to set the form
     encoding-type, by setting the type option to 'file' in
@@ -1916,13 +1916,13 @@ Creating buttons and submit elements
 
 .. php:method:: submit(string $caption, array $options)
 
-    创建带有标题``$caption``的提交按键。如果给出的``$caption``是一个图像的网址(含有‘.’字符)，提交按键就会渲染为图像。
+    创建带有标题 ``$caption`` 的提交按键。如果给出的 ``$caption`` 是一个图像的网址(含有‘.’字符)，提交按键就会渲染为图像。
 
     Creates a submit button with caption ``$caption``. If the supplied
     ``$caption`` is a URL to an image (it contains a '.' character),
     the submit button will be rendered as an image.
 
-    默认情况下它会被包括在``div``标签之间；你可以提供声明``$options['div'] = false``来避免这样::
+    默认情况下它会被包括在 ``div`` 标签之间；你可以提供声明 ``$options['div'] = false`` 来避免这样::
 
     It is enclosed between ``div`` tags by default; you can avoid this
     by declaring ``$options['div'] = false``::
@@ -1954,7 +1954,7 @@ Creating buttons and submit elements
 
 .. php:method:: button(string $title, array $options = array())
 
-    创建 HTML 按键，带有指定的标题和默认的类型"button"。设置``$options['type']``可以输出三种可能的按键类型中的一种:
+    创建 HTML 按键，带有指定的标题和默认的类型"button"。设置 ``$options['type']`` 可以输出三种可能的按键类型中的一种:
 
     Creates an HTML button with the specified title and a default type
     of "button". Setting ``$options['type']`` will output one of the
@@ -1988,7 +1988,7 @@ Creating buttons and submit elements
         <button type="submit">Submit Form</button>
 
 
-    ``button``输入项类型支持``escape``选项，该选项接受布尔值，决定是否 HTML 实体编码 (HTML entity encode)按键的 $title。
+    ``button`` 输入项类型支持 ``escape`` 选项，该选项接受布尔值，决定是否 HTML 实体编码 (HTML entity encode)按键的 $title。
     默认值为 false::
 
     The ``button`` input type supports the ``escape`` option, which accepts a
@@ -2002,12 +2002,12 @@ Creating buttons and submit elements
 
 .. php:method:: postButton(string $title, mixed $url, array $options = array ())
 
-    创建一个``<button>``标签及包裹的通过 POST 提交的``<form>``标签。
+    创建一个 ``<button>`` 标签及包裹的通过 POST 提交的 ``<form>`` 标签。
 
     Create a ``<button>`` tag with a surrounding ``<form>`` that submits via
     POST.
 
-    这个方法创建``<form>``元素。所以不要在开放的表单中使用这个方法，而是应当使用:php:meth:`FormHelper::submit()`或者:php:meth:`FormHelper::button()`。
+    这个方法创建 ``<form>`` 元素。所以不要在开放的表单中使用这个方法，而是应当使用 :php:meth:`FormHelper::submit()` 或者 :php:meth:`FormHelper::button()`。
 
     This method creates a ``<form>`` element. So do not use this method in some
     opened form. Instead use :php:meth:`FormHelper::submit()` or
@@ -2020,7 +2020,7 @@ Creating buttons and submit elements
     Creates an HTML link, but access the URL using method POST. Requires
     JavaScript to be enabled in browser.
 
-    该方法创建一个``<form>``元素，故此不要在一个表单中使用该方法，而是应当用:php:meth:`FormHelper::submit()`方法来添加提交按键。
+    该方法创建一个 ``<form>`` 元素，故此不要在一个表单中使用该方法，而是应当用 :php:meth:`FormHelper::submit()` 方法来添加提交按键。
 
     This method creates a ``<form>`` element. So do not use this method inside
     an existing form. Instead you should add a submit button using
@@ -2028,7 +2028,7 @@ Creating buttons and submit elements
 
 
     .. versionchanged:: 2.3
-        增加了``method``选项。
+        增加了 ``method`` 选项。
         The ``method`` option was added.
 
     .. versionchanged:: 2.5
@@ -2064,7 +2064,7 @@ Creating date and time inputs
 
 .. php:method:: year(string $fieldName, int $minYear, int $maxYear, array $attributes)
 
-    创建一个 select 元素，填充以从``$minYear``到``$maxYear``的年份。HTML 属性可以在 $attributes 参数中提供。如果``$attributes['empty']``为 false，select 元素就不会包括空选项::
+    创建一个 select 元素，填充以从 ``$minYear`` 到 ``$maxYear`` 的年份。HTML 属性可以在 $attributes 参数中提供。如果 ``$attributes['empty']`` 为 false，select 元素就不会包括空选项::
 
     Creates a select element populated with the years from ``$minYear``
     to ``$maxYear``. HTML attributes may be supplied in $attributes. If
@@ -2221,7 +2221,7 @@ Displaying and checking errors
 
     .. note::
 
-        当使用:php:meth:`FormHelper::input()`方法时，默认情况下错误会被渲染。
+        当使用 :php:meth:`FormHelper::input()` 方法时，默认情况下错误会被渲染。
 
         When using :php:meth:`FormHelper::input()`, errors are rendered by default.
 
@@ -2241,7 +2241,7 @@ Setting Defaults for all fields
 
 .. versionadded:: 2.2
 
-你可以使用:php:meth:`FormHelper::inputDefaults()`为``input()``声明一组默认值。改变默认选项允许你把重复的选项合并为一个方法调用::
+你可以使用 :php:meth:`FormHelper::inputDefaults()` 为 ``input()`` 声明一组默认值。改变默认选项允许你把重复的选项合并为一个方法调用::
 
 You can declare a set of default options for ``input()`` using
 :php:meth:`FormHelper::inputDefaults()`. Changing the default options allows
@@ -2274,13 +2274,13 @@ input() call::
 Working with SecurityComponent
 ==============================
 
-:php:meth:`SecurityComponent`组件提供了一些特性，使你的表单更加安全可靠。只需在控制器中引用``SecurityComponent``，你就自动获得(针对) CSRF 和表单篡改的特性。
+:php:meth:`SecurityComponent` 组件提供了一些特性，使你的表单更加安全可靠。只需在控制器中引用 ``SecurityComponent``，你就自动获得(针对) CSRF 和表单篡改的特性。
 
 :php:meth:`SecurityComponent` offers several features that make your forms safer
 and more secure. By simply including the ``SecurityComponent`` in your
 controller, you'll automatically benefit from CSRF and form tampering features.
 
-正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用 :php:meth:`FormHelper::end()` 关闭你的表单。这会保证生成特殊的``_Token``输入项。
+正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用 :php:meth:`FormHelper::end()` 关闭你的表单。这会保证生成特殊的 ``_Token`` 输入项。
 
 As mentioned previously when using SecurityComponent, you should always close
 your forms using :php:meth:`FormHelper::end()`. This will ensure that the
@@ -2288,7 +2288,7 @@ special ``_Token`` inputs are generated.
 
 .. php:method:: unlockField($name)
 
-    对一个字段解锁，使得该字段免于``SecurityComponent``的字段哈希(编码)。这也允许这样的字段被 Javascript 操纵。``$name``参数应当是输入项的名称::
+    对一个字段解锁，使得该字段免于 ``SecurityComponent`` 的字段哈希(编码)。这也允许这样的字段被 Javascript 操纵。``$name`` 参数应当是输入项的名称::
 
     Unlocks a field making it exempt from the ``SecurityComponent`` field
     hashing. This also allows the fields to be manipulated by JavaScript.
@@ -2312,7 +2312,7 @@ special ``_Token`` inputs are generated.
 
 **$selected parameter removed**
 
-``$selected`` 参数从FormHelper助件的几个方法中去掉了。所有的方法现在支持``$attributes['value']``键，应当用它来代替``$selected``。这个改变简化了FormHelper助件的方法，减少了参数的数量，并减轻了``$selected``导致的重复。受此影响的方法有:
+``$selected`` 参数从FormHelper助件的几个方法中去掉了。所有的方法现在支持 ``$attributes['value']`` 键，应当用它来代替 ``$selected``。这个改变简化了FormHelper助件的方法，减少了参数的数量，并减轻了 ``$selected`` 导致的重复。受此影响的方法有:
 
 The ``$selected`` parameter was removed from several methods in
 FormHelper. All methods now support a ``$attributes['value']`` key
@@ -2334,7 +2334,7 @@ The effected methods are:
 
 **Default URLs on forms is the current action**
 
-所有表单的默认地址，现在就是当前地址。包括传入(passed)、命名(named)和查询字符串(querystring)参数。你可以通过在``$this->Form->create()``方法的第二个参数中提供``$options['url']``来覆盖默认值。
+所有表单的默认地址，现在就是当前地址。包括传入(passed)、命名(named)和查询字符串(querystring)参数。你可以通过在 ``$this->Form->create()`` 方法的第二个参数中提供 ``$options['url']`` 来覆盖默认值。
 
 The default URL for all forms, is now the current URL including
 passed, named, and querystring parameters. You can override
