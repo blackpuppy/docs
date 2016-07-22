@@ -2051,7 +2051,7 @@ Creating buttons and submit elements
         in ``$options`` instead.
 
 创建日期和时间类型的 input 元素
-=============================
+================================
 
 Creating date and time inputs
 =============================
