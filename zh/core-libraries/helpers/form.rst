@@ -2010,12 +2010,12 @@ Creating buttons and submit elements
 
 .. php:method:: postButton(string $title, mixed $url, array $options = array ())
 
-    创建一个 ``<button>`` 标签及包裹的通过 POST 提交的 ``<form>`` 标签。
+    创建一个 ``<button>`` 标签，包裹在用 POST 方式提交的 ``<form>`` 标签内。
 
     Create a ``<button>`` tag with a surrounding ``<form>`` that submits via
     POST.
 
-    这个方法创建 ``<form>`` 元素。所以不要在开放的表单中使用这个方法，而是应当使用 :php:meth:`FormHelper::submit()` 或者 :php:meth:`FormHelper::button()`。
+    这个方法创建 ``<form>`` 元素。所以不要在表单内使用这个方法，而是应当使用 :php:meth:`FormHelper::submit()` 或者 :php:meth:`FormHelper::button()` 在表单内创建按键。
 
     This method creates a ``<form>`` element. So do not use this method in some
     opened form. Instead use :php:meth:`FormHelper::submit()` or
@@ -2028,7 +2028,7 @@ Creating buttons and submit elements
     Creates an HTML link, but access the URL using method POST. Requires
     JavaScript to be enabled in browser.
 
-    该方法创建一个 ``<form>`` 元素，故此不要在一个表单中使用该方法，而是应当用 :php:meth:`FormHelper::submit()` 方法来添加提交按键。
+    该方法创建一个 ``<form>`` 元素，故此不要在表单内使用该方法，而是应当用 :php:meth:`FormHelper::submit()` 方法来添加提交按键。
 
     This method creates a ``<form>`` element. So do not use this method inside
     an existing form. Instead you should add a submit button using
@@ -2040,6 +2040,7 @@ Creating buttons and submit elements
         The ``method`` option was added.
 
     .. versionchanged:: 2.5
+        增加了 ``inline`` 和 ``block`` 选项。这允许缓存生成的 form 标签，而不是直接返回。这有助于避免嵌套的 form 标签。设置 ``'inline' => true`` 会把 form 标签加到 ``postLink`` 代码块，或者用 ``block`` 选项指定自定义代码块。
         The ``inline`` and ``block`` options were added. They allow buffering
         the generated form tag, instead of returning with the link. This helps
         avoiding nested form tags. Setting ``'inline' => true`` will add
@@ -2047,6 +2048,7 @@ Creating buttons and submit elements
         to specify a custom block.
 
     .. versionchanged:: 2.6
+        参数 ``$confirmMessage`` 已经作废。请使用 ``$options`` 中的 ``confirm`` 键。
         The argument ``$confirmMessage`` was deprecated. Use ``confirm`` key
         in ``$options`` instead.
 
@@ -2058,7 +2060,7 @@ Creating date and time inputs
 
 .. php:method:: dateTime($fieldName, $dateFormat = 'DMY', $timeFormat = '12', $attributes = array())
 
-    为日期和时间创建一组 select 输入项。$dateformat 的合法值为‘DMY’，‘MDY’，‘YMD’或者‘NONE’。$timeFormat的合法值为‘12’，‘24’和 null。
+    为日期和时间创建一组 select 类型的标签。$dateFormat 的合法值为'DMY'，'MDY'，'YMD'或者'NONE'。$timeFormat的合法值为'12'，'24'和 null。
 
     Creates a set of select inputs for date and time. Valid values for
     $dateformat are 'DMY', 'MDY', 'YMD' or 'NONE'. Valid values for
@@ -2131,7 +2133,7 @@ Creating date and time inputs
         <option value="12">December</option>
         </select>
 
-    你可以通过设置'monthNames'属性来传入自己要使用的月份数组，或者传入 false 来让月份显示为数字。(注意: 默认的月份是国际化的，而且可以用本地化来翻译。)::
+    你可以通过设置'monthNames'属性来传入自己要使用的月份数组，或者传入 false 来让月份显示为数字。（注意: 默认的月份是国际化的，而且可以用本地化来翻译。）::
 
     You can pass in your own array of months to be used by setting the
     'monthNames' attribute, or have months displayed as numbers by
@@ -2184,7 +2186,7 @@ Creating date and time inputs
 
 .. php:method:: meridian(string $fieldName, array $attributes)
 
-    创建一个 select 元素，填充以‘am’和‘pm’。
+    创建一个 select 元素，填充以 'am' 和 'pm'。
 
     Creates a select element populated with 'am' and 'pm'.
 
@@ -2218,7 +2220,7 @@ Displaying and checking errors
 
 .. php:method:: isFieldError(string $fieldName)
 
-    如果提供的 $fieldName 字段有有效的验证错误，返回 true。::
+    如果提供的 $fieldName 字段有验证错误，返回 true。::
 
     Returns true if the supplied $fieldName has an active validation
     error. ::
@@ -2229,7 +2231,7 @@ Displaying and checking errors
 
     .. note::
 
-        当使用 :php:meth:`FormHelper::input()` 方法时，默认情况下错误会被渲染。
+        当使用 :php:meth:`FormHelper::input()` 方法时，默认情况下错误会显示。
 
         When using :php:meth:`FormHelper::input()`, errors are rendered by default.
 
@@ -2249,7 +2251,7 @@ Setting Defaults for all fields
 
 .. versionadded:: 2.2
 
-你可以使用 :php:meth:`FormHelper::inputDefaults()` 为 ``input()`` 声明一组默认值。改变默认选项允许你把重复的选项合并为一个方法调用::
+你可以使用 :php:meth:`FormHelper::inputDefaults()` 为 ``input()`` 方法声明一组默认值。改变默认选项允许你把重复的选项合并为一个方法调用::
 
 You can declare a set of default options for ``input()`` using
 :php:meth:`FormHelper::inputDefaults()`. Changing the default options allows
@@ -2262,7 +2264,7 @@ you to consolidate repeated options into a single method call::
         )
     );
 
-从此所有创建的输入项会继承在 inputDefaults 选项中声明的选项。你可以在 input() 调用中声明选项来覆盖默认的选项::
+从此所有创建的 input 元素会继承在 inputDefaults 选项中声明的选项。你可以在 input() 的调用中声明选项来改变默认的选项::
 
 All inputs created from that point forward will inherit the options declared in
 inputDefaults. You can override the default options by declaring the option in the
@@ -2282,13 +2284,13 @@ input() call::
 Working with SecurityComponent
 ==============================
 
-:php:meth:`SecurityComponent` 组件提供了一些特性，使你的表单更加安全可靠。只需在控制器中引用 ``SecurityComponent``，你就自动获得(针对) CSRF 和表单篡改的特性。
+:php:meth:`SecurityComponent` 组件提供了一些特性，使你的表单更加安全可靠。只需在控制器中引用 ``SecurityComponent``，你就自动获得（针对） CSRF 和表单篡改（*form tampering*）的特性。
 
 :php:meth:`SecurityComponent` offers several features that make your forms safer
 and more secure. By simply including the ``SecurityComponent`` in your
 controller, you'll automatically benefit from CSRF and form tampering features.
 
-正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用 :php:meth:`FormHelper::end()` 关闭你的表单。这会保证生成特殊的 ``_Token`` 输入项。
+正如之前所说，当使用 SecurityComponent 组件时，你应当总是使用 :php:meth:`FormHelper::end()` 结束你的表单。这会保证生成特殊的 ``_Token`` input 元素。
 
 As mentioned previously when using SecurityComponent, you should always close
 your forms using :php:meth:`FormHelper::end()`. This will ensure that the
@@ -2296,7 +2298,7 @@ special ``_Token`` inputs are generated.
 
 .. php:method:: unlockField($name)
 
-    对一个字段解锁，使得该字段免于 ``SecurityComponent`` 的字段哈希(编码)。这也允许这样的字段被 Javascript 操纵。``$name`` 参数应当是输入项的名称::
+    对一个字段解锁，使得该字段免于 ``SecurityComponent`` 的字段散列化（*hashing*）。这样可以让字段用 Javascript 操纵。``$name`` 参数应当是 input 元素的字段名称::
 
     Unlocks a field making it exempt from the ``SecurityComponent`` field
     hashing. This also allows the fields to be manipulated by JavaScript.
@@ -2306,7 +2308,7 @@ special ``_Token`` inputs are generated.
 
 .. php:method:: secure(array $fields = array())
 
-    基于表单中使用的字段，生成带有安全哈希的隐藏字段。
+    基于表单中使用的多个字段，生成带有安全散列值的隐藏字段。
 
     Generates a hidden field with a security hash based on the fields used
     in the form.
@@ -2320,7 +2322,7 @@ special ``_Token`` inputs are generated.
 
 **$selected parameter removed**
 
-``$selected`` 参数从FormHelper助件的几个方法中去掉了。所有的方法现在支持 ``$attributes['value']`` 键，应当用它来代替 ``$selected``。这个改变简化了FormHelper助件的方法，减少了参数的数量，并减轻了 ``$selected`` 导致的重复。受此影响的方法有:
+``$selected`` 参数从 FormHelper 助件的几个方法中去掉了。所有的方法现在支持 ``$attributes['value']`` 键，应当用它来代替 ``$selected``。这个改变简化了 FormHelper 助件的方法，减少了参数的数量，并减轻了 ``$selected`` 导致的重复。受此影响的方法有:
 
 The ``$selected`` parameter was removed from several methods in
 FormHelper. All methods now support a ``$attributes['value']`` key
@@ -2342,7 +2344,7 @@ The effected methods are:
 
 **Default URLs on forms is the current action**
 
-所有表单的默认地址，现在就是当前地址。包括传入(passed)、命名(named)和查询字符串(querystring)参数。你可以通过在 ``$this->Form->create()`` 方法的第二个参数中提供 ``$options['url']`` 来覆盖默认值。
+所有表单的默认地址，现在就是当前地址。包括传入（*passed*）、命名（*named*）和查询字符串g*querystring*）参数。你可以通过在 ``$this->Form->create()`` 方法的第二个参数中提供 ``$options['url']`` 来改变默认值。
 
 The default URL for all forms, is now the current URL including
 passed, named, and querystring parameters. You can override
@@ -2352,7 +2354,7 @@ parameter of ``$this->Form->create()``
 
 **FormHelper::hidden()**
 
-隐藏字段不再去掉 class 属性。这意味着如果隐藏字段有验证错误，错误字段的（样式）类名就会被使用。
+隐藏字段不再去掉 class 属性。这意味着如果隐藏字段有验证错误，错误字段的（样式）类名就会起作用。
 
 Hidden fields no longer remove the class attribute. This means
 that if there are validation errors on hidden fields,
