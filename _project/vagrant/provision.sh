@@ -70,7 +70,7 @@ apt-get install -y python-setuptools
 # apt-get install -y easy_install
 
 echo "**** Installing sphinx..."
-easy_install sphinx==1.2.3
+easy_install sphinx==1.4.5
 
 echo "**** Installing sphinxcontrib-phpdomain..."
 easy_install sphinxcontrib-phpdomain
