@@ -3,9 +3,9 @@ FormHelper
 
 .. php:class:: FormHelper(View $view, array $settings = array())
 
-FormHelper助件在创建表单的过程中承担了大部分繁重的工作。FormHelper助件注重快速创建表单，简化
-验证、重新填充和布局。FormHelper助件同时也是灵活的——它几乎做任何
-事情都使用约定，当然你也可以用特定的方法获得你需要的结果。
+FormHelper 助件在创建表单的过程中承担了大部分繁重的工作。FormHelper 助件注重快速创建表单，简化
+验证、重新填充和布局。FormHelper 助件也是灵活的——它几乎做任何
+事情都使用约定，当然你也可以用特定的方法获得你需要的（不同）效果。
 
 The FormHelper does most of the heavy lifting in form creation.
 The FormHelper focuses on creating forms quickly, in a way that
@@ -20,8 +20,8 @@ only what you need.
 Creating Forms
 ==============
 
-为了利用FormHelper助件你要使用的第一个方法是 ``create()`` 方法。这个特别的方法
-输出一个开始的form标签。
+为了利用 FormHelper 助件，首先要使用的一个方法是 ``create()`` 方法。这个特别的方法
+输出一个开始的 form 标签。
 
 The first method you'll need to use in order to take advantage of
 the FormHelper is ``create()``. This special method outputs an
@@ -31,8 +31,8 @@ opening form tag.
 
     所有的参数都是可选的。如果调用 ``create()`` 方法时没有提供参数，就会认为构建
     的表单是通过当前的网址（*URL*）提交给当前的控制器。提交表单的默认方法是
-    POST。返回的form元素带有一个DOM ID。这个ID是用模型的名称和控制器动作的名称，
-    按照驼峰命名方式（*CamelCased*）生成的。如果在UsersController的视图中调用
+    POST。返回的 form 元素带有一个 DOM ID。这个 ID 是用模型的名称和控制器动作的名称，
+    按照驼峰命名方式（*CamelCased*）生成的。例如在 UsersController 的视图中调用
     ``create()`` 方法，在渲染得到的视图中会看到下面的输出:
 
     All parameters are optional. If ``create()`` is called with no
@@ -86,11 +86,11 @@ opening form tag.
 
         <form id="RecipeAddForm" method="post" action="/recipes/add">
 
-    这会把表单数据以POST方式提交给RecipesController控制器的 ``add()`` 动作。当然，
+    这会把表单数据以 POST 方式提交给 RecipesController 控制器的 ``add()`` 动作。当然，
     你也可以用同样的逻辑创建编辑（*edit*）表单。FormHelper助件用
-    ``$this->request->data`` 属性来自动探知是否创建新增（*add*）或编辑（*edit*）表单。如果
+    ``$this->request->data`` 属性来自动探知是创建新增（*add*）还是编辑（*edit*）表单。如果
     ``$this->request->data`` 包含一个以表单的模型命名的数组元素，而且该数组包含
-    模型主键的非空值，那么FormHelper助件就会为该记录创建一个编辑表单。例如，如果
+    模型主键的非空值，那么 FormHelper 助件就会为该记录创建一个编辑表单。例如，如果
     我们浏览 http://site.com/recipes/edit/5 页面，我们会得到下面的输出::
 
     This will POST the form data to the ``add()`` action of
@@ -113,7 +113,8 @@ opening form tag.
         }
 
         // View/Recipes/edit.ctp:
-        // 因为 $this->request->data['Recipe']['id'] = 5，我们会得到编辑表单
+        // 因为 $this->request->data['Recipe']['id'] = 5，
+        // 我们会得到编辑表单
         // Since $this->request->data['Recipe']['id'] = 5,
         // we will get an edit form
         <?php echo $this->Form->create('Recipe'); ?>
@@ -129,7 +130,7 @@ opening form tag.
 
     .. note::
 
-        因为这是一个编辑表单，生成了一个隐藏输入字段来取代默认的HTTP方法。
+        因为这是一个编辑表单，生成了一个 hidden 类型的 input 字段来取代默认的 HTTP 方法。
 
         Since this is an edit form, a hidden input field is generated to
         override the default HTTP method.
@@ -152,7 +153,7 @@ opening form tag.
 
     .. versionchanged:: 2.0
         所有表单的默认网址，现在是当前的网址，包括传入（*passed*）、命名（*named*
-        ）和查询字符串（*query string*）参数。你可以通过给
+        ）和查询字符串（*querystring*）参数。你可以通过给
         ``$this->Form->create()`` 方法的第二个参数中提供 ``$options['url']`` 来
         改变这个默认值。
         The default URL for all forms, is now the current URL including
@@ -160,13 +161,13 @@ opening form tag.
         default by supplying ``$options['url']`` in the second parameter of
         ``$this->Form->create()``.
 
-create()方法的选项
+create() 方法的选项
 --------------------
 
 Options for create()
 --------------------
 
-create()方法有一些选项:
+create() 方法有一些选项:
 
 There are a number of options for create():
 
@@ -192,8 +193,8 @@ There are a number of options for create():
      <form id="UserAddForm" method="get" action="/users/add">
 
   指定'file'会把表单提交方法改为'post'，并且在表单标签中包括一个值为
-  "multipart/form-data"的enctype属性。如果表单中有任何file元素，就应该使用这个（
-  属性）。如果没有正确的enctype属性，文件上传就无法工作::
+  "multipart/form-data"的 enctype 属性。如果表单中有任何 file 元素，就应该使用这个（
+  属性）。如果没有正确的 enctype 属性，文件上传就无法工作::
 
   Specifying 'file' changes the form submission method to 'post', and
   includes an enctype of "multipart/form-data" on the form tag. This
@@ -213,8 +214,8 @@ There are a number of options for create():
         method="post" action="/users/add">
 
   当使用'put'或者'delete'时，表单功能上等同于'post'表单，但在提交时，HTTP请求
-  方法会被相应地改变为'PUT'或'DELETE'。这让CakePHP可以在网络浏览器中模拟正确的
-  REST支持。
+  方法会被相应地改变为'PUT'或'DELETE'。这让 CakePHP 可以在网络浏览器中模拟正确的
+  REST 支持。
 
   When using 'put' or 'delete', your form will be functionally
   equivalent to a 'post' form, but when submitted, the HTTP request
