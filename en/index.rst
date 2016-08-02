@@ -6,6 +6,10 @@
 Welcome
 #######
 
+.. warning::
+    This version of the documentation is for CakePHP 2.x. Go `here for the
+    CakePHP 3.x documentation <http://book.cakephp.org/3.0/>`_.
+
 The CakePHP cookbook is an openly developed and community editable documentation
 project. We hope to maintain a high level of quality, validity and accuracy for
 the documentation. Notice the "Improve this Doc" button in the upper right-hand
@@ -16,6 +20,8 @@ the documentation.
 .. container:: offline-download
 
     **Read the Book Anywhere**
+
+    .. image:: /_static/img/read-the-book.jpg
 
     Enjoy the CakePHP cookbook almost anywhere. Available as both a PDF and
     EPUB, you can now read it on more devices, as well as offline.
@@ -64,6 +70,7 @@ Getting Help
 
 If you're stuck, there are a number of places :doc:`you can get help
 </cakephp-overview/where-to-get-help>`.
+
 
 
 .. meta::

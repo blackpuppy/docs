@@ -542,6 +542,6 @@ Other Methods
 
 
 .. meta::
-    :title lang=zh_CN: PaginatorHelper
-    :description lang=zh_CN: The Pagination helper is used to output pagination controls such as page numbers and next/previous links.
-    :keywords lang=zh_CN: paginator helper,pagination,sort,page number links,pagination in views,prev link,next link,last link,first link,page counter
+    :title lang=zh: PaginatorHelper
+    :description lang=zh: The Pagination helper is used to output pagination controls such as page numbers and next/previous links.
+    :keywords lang=zh: paginator helper,pagination,sort,page number links,pagination in views,prev link,next link,last link,first link,page counter

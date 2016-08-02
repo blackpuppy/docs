@@ -8,9 +8,10 @@
 ==========
 
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
+    :noindex:
 
     :param mixed $var: 要打印的内容，可以是数组或对象类型。
-    :param boolean $showHTML: 设置为 true 来启用转义。在 2.0 版本中，在提供对 web 
+    :param boolean $showHTML: 设置为 true 来启用转义。在 2.0 版本中，在提供对 web
         请求的服务时，默认会启用转义。
     :param boolean $showFrom: 显示执行 debug() 的行号和文件。
 
@@ -21,7 +22,7 @@ debug() 函数是一个全局函数，工作方式和 PHP 的 print_r() 函数�
 只有(在配置文件中)把核心的 debug 变量设置为大于 0 的值，该函数的输出才会显示。
 
 .. versionchanged:: 2.1
-    ``debug()`` 的输出内容和 ``var_dump()`` 很相似，在内部使用 :php:class:`Debugger` 
+    ``debug()`` 的输出内容和 ``var_dump()`` 很相似，在内部使用 :php:class:`Debugger`
     类。
 
 Debugger 类
@@ -76,7 +77,7 @@ Debugger 类重载了 PHP 默认的错误处理，替换为更加实用的错误
         Car::stop()
 
     .. versionchanged:: 2.1
-        在 2.1 及以后版本中，为提高内容的可读性，输出进行了改变，详见 
+        在 2.1 及以后版本中，为提高内容的可读性，输出进行了改变，详见
         :php:func:`Debugger::exportVar()`。
 
     .. versionchanged:: 2.5.0
@@ -84,7 +85,7 @@ Debugger 类重载了 PHP 默认的错误处理，替换为更加实用的错误
 
 .. php:staticmethod:: Debugger::log($var, $level = 7, $depth = 3)
 
-    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump() 
+    创建调用时的详细堆栈追踪记录的日志。log() 方法的输出内容和 Debugger::dump()
     方法相似，但是它不是写入输出缓冲，而是写入 debug.log 日志中。注意要使 web 服务器
     对 app/tmp 目录(及其内容)可以写入，log() 方法才能正确运作。
 
@@ -106,13 +107,13 @@ Debugger 类重载了 PHP 默认的错误处理，替换为更加实用的错误
 
     上面的堆栈追踪记录是在控制器的动作中调用 Debugger::trace() 产生的。从下向上阅读
     堆栈追踪记录，就可以知道当前运行的函数的执行顺序。在上面的例子中，index.php 调用
-    了 Dispatcher::dispatch()，它又依次调用了Dispatcher::\_invoke()，然后 
+    了 Dispatcher::dispatch()，它又依次调用了Dispatcher::\_invoke()，然后
     \_invoke() 方法又调用了 PostsController::index() 方法。这样的信息在处理递归操作
     或者深层堆栈的情况下很有用，因为这能够确定在调用 trace() 时有哪些函数正在运行。
 
 .. php:staticmethod:: Debugger::excerpt($file, $line, $context)
 
-    获得 $path (绝对路径)所指向的文件的摘要，并高亮凸显位于第 $line 行前后 $context 
+    获得 $path (绝对路径)所指向的文件的摘要，并高亮凸显位于第 $line 行前后 $context
     行的内容。 ::
 
         pr(Debugger::excerpt(ROOT . DS . LIBS . 'debugger.php', 321, 2));
@@ -171,17 +172,17 @@ Debug Kit
 =========
 
 DebugKit 是一个插件，提供了一些很好的调试工具。它主要在渲染的 HTML 中提供了一个
-工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载 
+工具栏，用来显示应用程序和当前请求的大量信息。你可以从 Github 下载
 `DebugKit <https://github.com/cakephp/debug_kit>`_ 。
 
 Xdebug
 ======
 
-如果你的环境提供了 Xdebug PHP 扩展，严重错误(*fatal error*)就会显示额外的 Xdebug 
+如果你的环境提供了 Xdebug PHP 扩展，严重错误(*fatal error*)就会显示额外的 Xdebug
 堆栈追踪明细。关于 Xdebug 的详情可见 `Xdebug <http://xdebug.org>`_ 。
 
 
 .. meta::
-    :title lang=zh_CN: Debugging
-    :description lang=zh_CN: Debugging CakePHP with the Debugger class, logging, basic debugging and using the DebugKit plugin.
-    :keywords lang=zh_CN: code excerpt,stack trace,default output,error link,default error,web requests,error report,debugger,arrays,different ways,excerpt from,cakephp,ide,options
+    :title lang=zh: Debugging
+    :description lang=zh: Debugging CakePHP with the Debugger class, logging, basic debugging and using the DebugKit plugin.
+    :keywords lang=zh: code excerpt,stack trace,default output,error link,default error,web requests,error report,debugger,arrays,different ways,excerpt from,cakephp,ide,options

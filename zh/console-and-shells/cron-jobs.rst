@@ -10,7 +10,7 @@
     export TERM
     cmd="cake"
     while [ $# -ne 0 ]; do
-        if [ "$1" = "-cli" ] || [ "$1" = "-console" ]; then 
+        if [ "$1" = "-cli" ] || [ "$1" = "-console" ]; then
             PATH=$PATH:$2
             shift
         else
@@ -38,5 +38,5 @@
 
 
 .. meta::
-    :title lang=zh_CN: Running Shells as cronjobs
-    :keywords lang=zh_CN: cronjob,bash script,path path,crontab,logfile,cakes,shells,dow,shell,cakephp,fi,running
+    :title lang=zh: Running Shells as cronjobs
+    :keywords lang=zh: cronjob,bash script,path path,crontab,logfile,cakes,shells,dow,shell,cakephp,fi,running

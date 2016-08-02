@@ -567,7 +567,7 @@ elements you can use attribute matching with methods like ``extract()``.
 
     :rtype: integer
 
-    Counts the dimensions of an array. This method will only 
+    Counts the dimensions of an array. This method will only
     consider the dimension of the first element in the array::
 
         $data = array('one', '2', 'three');
@@ -863,5 +863,5 @@ elements you can use attribute matching with methods like ``extract()``.
 
 
 .. meta::
-    :title lang=zh_CN: Hash
-    :keywords lang=zh_CN: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path
+    :title lang=zh: Hash
+    :keywords lang=zh: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path

@@ -1,4 +1,4 @@
-構成管理
+構成設定
 ########
 
 CakePHP アプリケーションの設定は非常に簡単です。CakePHP の
@@ -51,7 +51,8 @@ datasource
     プラグインに含まれるデータソースを使う場合は :term:`プラグイン記法`
     という書式で指定します。
 persistent
-    データベースへの永続的接続を使うかどうか
+    データベースへの永続的接続を使うかどうか。SQLServer を使用している場合、
+    永続的接続を有効にすべきではありません。クラッシュの診断が困難になります。
 host
     データソースサーバのホスト名（またはIPアドレス）
 login
@@ -849,5 +850,5 @@ CakePHP のコアな起動処理の直後に実行されます。
 メソッドを定義するための便利な場所です。
 
 .. meta::
-    :title lang=en: Configuration
-    :keywords lang=en: finished configuration,legacy database,database configuration,value pairs,default connection,optional configuration,example database,php class,configuration database,default database,configuration steps,index database,configuration details,class database,host localhost,inflections,key value,database connection,piece of cake,basic web
+    :title lang=ja: Configuration
+    :keywords lang=ja: finished configuration,legacy database,database configuration,value pairs,default connection,optional configuration,example database,php class,configuration database,default database,configuration steps,index database,configuration details,class database,host localhost,inflections,key value,database connection,piece of cake,basic web

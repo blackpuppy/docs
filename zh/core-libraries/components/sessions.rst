@@ -198,5 +198,5 @@ Creating notification messages
         $this->Session->setFlash('Message!', 'flash_no_spam', array('plugin' => 'Comment'));
 
 .. meta::
-    :title lang=zh_CN: Sessions
-    :keywords lang=zh_CN: php array,dailyplanet com,configuration documentation,dot notation,feedback messages,reading data,session data,page requests,clark kent,dots,existence,sessions,convenience,cakephp
+    :title lang=zh: Sessions
+    :keywords lang=zh: php array,dailyplanet com,configuration documentation,dot notation,feedback messages,reading data,session data,page requests,clark kent,dots,existence,sessions,convenience,cakephp

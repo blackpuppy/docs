@@ -130,6 +130,7 @@ such as debugging and translating content.
     Also see :doc:`/development/debugging`
 
 .. php:function:: stackTrace(array $options = array())
+    :noindex:
 
     If the application's DEBUG level is non-zero, the stack trace is printed out.
 
@@ -234,7 +235,7 @@ Most of the following constants refer to paths in your application.
     Full URL prefix. Such as ``https://example.com``
 
     .. deprecated:: 2.4
-        This constant is deprecated, you should use :php:meth:`Router::fullbaseUrl()` instead.
+        This constant is deprecated, you should use :php:meth:`Router::fullBaseUrl()` instead.
 
 .. php:const:: IMAGES
 

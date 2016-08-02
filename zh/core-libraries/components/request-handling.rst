@@ -331,5 +331,5 @@ You can also set this automatically by using the ``viewClassMap`` setting::
     ));
 
 .. meta::
-    :title lang=zh_CN: Request Handling
-    :keywords lang=zh_CN: handler component,javascript libraries,public components,null returns,model data,request data,content types,file extensions,ajax,meth,content type,array,conjunction,cakephp,insight,php
+    :title lang=zh: Request Handling
+    :keywords lang=zh: handler component,javascript libraries,public components,null returns,model data,request data,content types,file extensions,ajax,meth,content type,array,conjunction,cakephp,insight,php

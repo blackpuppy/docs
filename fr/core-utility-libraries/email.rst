@@ -45,7 +45,7 @@ Choisir l'émetteur
 
 Quand on envoie des emails de la part d'autre personne, c'est souvent une
 bonne idée de définir l'émetteur original en utilisant le header Sender.
-Vous pouvez faire ceci en utilisant ``sender()`` ::
+Vous pouvez faire ceci en utilisant ``sender()``::
 
     $Email = new CakeEmail();
     $Email->sender('app@example.com', 'MyApp emailer');
@@ -101,6 +101,13 @@ Plutôt que de passer une chaîne qui correspond au nom de la configuration dans
     //ou dans un constructeur::
     $Email = new CakeEmail(array('from' => 'me@example.org', 'transport' => 'MyCustom'));
 
+.. note::
+
+    Utilisez ``$Email->config()`` ou le constructeur pour définir le niveau de
+    log pour enregistrer l'en-tête d'email et le message dans les logs.
+    Utilisez ``$Email->config(array('log' => true));`` va utiliser LOG_DEBUG.
+    Regardez aussi ``CakeLog::write()``
+
 Vous pouvez configurer les serveurs SSL SMTP, comme Gmail. Pour faire ceci,
 mettez ``'ssl://'`` en préfixe dans le host et configurez la valeur du port
 selon. Exemple::
@@ -117,6 +124,12 @@ selon. Exemple::
 
 Vous pouvez également utiliser ``tls://`` pour spécifier TLS pour le chiffrement
 au niveau de la connexion.
+
+.. warning::
+    Vous devrez avoir l'accès aux applications moins sécurisées activé dans votre
+    compte Google pour que cela fonctionne:
+    `Autoriser les applications moins sécurisées à accéder à votre
+    compte <https://support.google.com/accounts/answer/6010255>`__.
 
 .. note::
 
@@ -187,8 +200,7 @@ La clés de configuration suivantes sont utilisées:
 - ``'emailFormat'``: Format de l'email (html, text ou both). Regardez
   ``CakeEmail::emailFormat()``.
 - ``'transport'``: Nom du Transport. Regardez ``CakeEmail::transport()``.
-- ``'log'``: Niveau de Log pour connecter les headers del'email headers et le
-  message. ``true`` va utiliser LOG_DEBUG. Regardez aussi ``CakeLog::write()``
+- ``'helpers'``: Tableau de helpers utilisé dans le template d'email.
 
 Toutes ces configurations sont optionnelles, excepté ``'from'``. Si vous mettez
 plus de configurations dans ce tableau, les configurations seront utilisées

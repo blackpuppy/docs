@@ -240,6 +240,7 @@ servira l'asset
     chemin de l'asset. Et la magie opére!
 
 .. versionchanged:: 2.1
+
     Utilisez la :term:`syntaxe de plugin` pour accéder aux assets. Par exemple
     dans votre View::
 
@@ -309,7 +310,7 @@ Une fois qu'un plugin a été installé dans /app/Plugin/, vous pouvez y accéde
 ContactManager, nous accédons à notre ContactsController à l'adresse
 /contact_manager/contacts.
 
-Quelques astuces de fin lorque vous travaillez avec les plugins dans vos
+Quelques astuces de fin lorsque vous travaillez avec les plugins dans vos
 applications CakePHP:
 
 -  Si vous n'avez pas un [Plugin]AppController et
@@ -324,14 +325,18 @@ applications CakePHP:
 -  Si vous utilisez requestAction, assurez-vous que les noms des controllers
    et des models sont aussi uniques que possibles. Sinon, vous aurez des
    erreurs PHP de type "redefined class ...".
+-  Quand vous ajoutez des routes avec des extensions à votre plugin,
+   assurez-vous d'utilisez ``Router::setExtensions()`` pour ne pas devoir
+   surcharger le routing de l'application.
 
 Publiez votre Plugin
 ====================
 
 Vous pouvez ajouter votre plugin sur
-`plugins.cakephp.org <http://plugins.cakephp.org>`_.
+`plugins.cakephp.org <http://plugins.cakephp.org>`_ ou le proposer à la
+`liste awesome-cakephp <https://github.com/FriendsOfCake/awesome-cakephp>`_.
 
-Aussi, vous pouvez creér un fichier composer.json et publier votre plugin
+Aussi, vous pouvez créer un fichier composer.json et publier votre plugin
 sur `packagist.org <https://packagist.org/>`_.
 De cette façon, il peut être facilement utilisé avec Composer.
 

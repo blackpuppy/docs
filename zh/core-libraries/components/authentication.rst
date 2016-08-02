@@ -962,5 +962,5 @@ and authentication mechanics in CakePHP.
 
 
 .. meta::
-    :title lang=zh_CN: Authentication
-    :keywords lang=zh_CN: authentication handlers,array php,basic authentication,web application,different ways,credentials,exceptions,cakephp,logging
+    :title lang=zh: Authentication
+    :keywords lang=zh: authentication handlers,array php,basic authentication,web application,different ways,credentials,exceptions,cakephp,logging

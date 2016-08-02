@@ -7,7 +7,7 @@
 分类，多级菜单系统的数据，或者层级的文字表示，比如在访问控制列表中用于保存访问控
 制对象。
 
-对于小的数据树，或者只有几层深度的数据，只需在你的数据库表中增加一个 parent\_id 
+对于小的数据树，或者只有几层深度的数据，只需在你的数据库表中增加一个 parent\_id
 字段，用来记录谁是谁的父节点。而和 cake 捆绑在一起的，是一个强大的行为，允许你使
 用`MPTT logic <http://www.sitepoint.com/hierarchical-data-database-2/>`_的好处，
 而不用操心该技术的细节——除非你想要这么做 ;)。
@@ -169,7 +169,7 @@
 修改数据
 --------------
 
-修改数据，和添加新数据一样，是透明的。如果你改了一些东西，但是没有改 parent\_id 
+修改数据，和添加新数据一样，是透明的。如果你改了一些东西，但是没有改 parent\_id
 字段——数据的结构就会保持不变。例如::
 
     // 控制器伪代码
@@ -609,8 +609,8 @@
 
     缺省情况下，重新排序影响树中的所有节点。不过，下面的选项可以影响这个过程:
 
-    -  ``'id'`` - 只把该节点之下的节点重新排序。 
-    -  ``'field``' - 用于排序的字段，缺省为模型的``displayField``。 
+    -  ``'id'`` - 只把该节点之下的节点重新排序。
+    -  ``'field``' - 用于排序的字段，缺省为模型的``displayField``。
     -  ``'order'`` - 升序用``'ASC'``，降序用``'DESC'``。
     -  ``'verify'`` - 在重新排序前是否核实树。
 
@@ -674,5 +674,5 @@
 
 
 .. meta::
-    :title lang=zh_CN: Tree
-    :keywords lang=zh_CN: auto increment,literal representation,parent id,table categories,database table,hierarchical data,null value,menu system,intricacies,access control,hierarchy,logic,elements,trees
+    :title lang=zh: Tree
+    :keywords lang=zh: auto increment,literal representation,parent id,table categories,database table,hierarchical data,null value,menu system,intricacies,access control,hierarchy,logic,elements,trees

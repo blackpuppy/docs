@@ -42,7 +42,7 @@ AclShell在管理和监督你的Acl数据库记录上很有用。它比每次都
 节点，如果有的话）将被允许访问指定的 ACO 动作（包括其子
 节点，如果有的话） ::
 
-    ./Console/cake acl grant Group.1 controllers/Posts 
+    ./Console/cake acl grant Group.1 controllers/Posts
 
 上面的命令将会授予任何权限。你可以执行如下命令只允许读权限 ::
 
@@ -68,5 +68,5 @@ view 命令会返回 ARO 或者 ACO 树。可选的节点参数可以只返回�
     ./Console/cake acl view
 
 .. meta::
-    :title lang=zh_CN: ACL Shell
-    :keywords lang=zh_CN: record style,style reference,acl,database tables,group id,notations,alias,privilege,node,privileges,shell,databases
+    :title lang=zh: ACL Shell
+    :keywords lang=zh: record style,style reference,acl,database tables,group id,notations,alias,privilege,node,privileges,shell,databases

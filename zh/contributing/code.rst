@@ -11,7 +11,7 @@
 
 * Git
 * PHP 5.2.8 或更高版本
-* PHPUnit 3.5.10 或更高版本
+* PHPUnit 3.5.10 或更高版本 (3.7.38 recommended)
 
 设置你的用户信息，包括你的名字/账号和电子邮件::
 
@@ -124,5 +124,5 @@ CakePHP 仓库的改动，保持与 CakePHP 仓库一致::
 
 
 .. meta::
-    :title lang=zh_CN: Code
-    :keywords lang=zh_CN: cakephp source code,code patches,test ref,descriptive name,bob barker,initial setup,global user,database connection,clone,repository,user information,enhancement,back patches,checkout
+    :title lang=zh: Code
+    :keywords lang=zh: cakephp source code,code patches,test ref,descriptive name,bob barker,initial setup,global user,database connection,clone,repository,user information,enhancement,back patches,checkout

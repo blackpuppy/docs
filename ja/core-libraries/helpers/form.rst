@@ -157,13 +157,18 @@ create() には多くのオプションがあります:
 
      <form id="UserLoginForm" method="post" action="/users/login">
 
+  .. deprecated:: 2.8.0
+    ``$options['action']`` オプションは、 2.8.0 で非推奨になりました。
+    代わりに ``$options['url']`` と ``$options['id']`` オプションを使用してください。
+
 * ``$options['url']`` 現在のコントローラー以外にフォームデータを渡したい
   場合、$options 配列の 'url' キーを使ってフォームアクションの URL
   を指定します。指定された URL は作成中の CakePHP アプリケーションに
   対する相対値を指定できます::
 
-    echo $this->Form->create(null, array(
-        'url' => array('controller' => 'recipes', 'action' => 'add')
+    echo $this->Form->create(false, array(
+        'url' => array('controller' => 'recipes', 'action' => 'add'),
+        'id' => 'RecipesAdd'
     ));
 
   出力結果:
@@ -174,7 +179,7 @@ create() には多くのオプションがあります:
 
   もしくは、外部ドメインも指定可能です::
 
-    echo $this->Form->create(null, array(
+    echo $this->Form->create(false, array(
         'url' => 'http://www.google.com/search',
         'type' => 'get'
     ));
@@ -187,6 +192,11 @@ create() には多くのオプションがあります:
 
   さらにいろいろなタイプの URL を指定する例は、:php:meth:`HtmlHelper::url()`
   メソッドを参照してみてください。
+
+  .. versionchanged:: 2.8.0
+
+    form action として URL を出力させたくない場合、
+    ``'url' => false`` を使用してください。
 
 * ``$options['default']``  'default' がブール値の false に設定されている場合、
   フォームの submit アクションが変更され、submit ボタンを押してもフォームが
@@ -267,7 +277,7 @@ create() には多くのオプションがあります:
         </div>
 
     詳細は
-    `Form Helper API <http://api.cakephp.org/2.7/class-FormHelper.html>`_
+    `Form Helper API <http://api.cakephp.org/2.8/class-FormHelper.html>`_
     を参照してください。
 
     .. note::
@@ -695,7 +705,8 @@ HTML 属性などもオプションとして設定可能です。ここでは
           'after' => '--after--',
           'between' => '--between---',
           'separator' => '--separator--',
-          'options' => array('1', '2')
+          'options' => array('1', '2'),
+          'type' => 'radio'
       ));
 
   出力結果:
@@ -746,6 +757,28 @@ HTML 属性などもオプションとして設定可能です。ここでは
 
   ここより先のデフォルトを変更するには
   :php:meth:`FormHelper::inputDefaults()` が使えます。
+
+* ``$opsions['maxlength']`` ``input`` フィールドの ``maxlength`` 属性に指定した値をセットするために
+  使用します。このキーを省略して、 input タイプが ``text``, ``textarea``, ``email``, ``tel``, ``url``,
+  または ``search`` で、データベースのフィールドの定義が ``decimal``, ``time`` または ``datetime``
+  以外の場合、フィールドの length オプションが使用されます。
+
+GET フォーム入力
+----------------
+
+``GET`` フォーム入力を生成するために ``FormHelper`` を使用した時、
+人が読みやすくするために入力名は、自動的に短くなります。例::
+
+    //  <input name="email" type="text" /> になります
+    echo $this->Form->input('User.email');
+
+    // <select name="Tags" multiple="multiple"> になります
+    echo $this->Form->input('Tags.Tags', array('multiple' => true));
+
+もし、生成された name 属性を上書きしたい場合、 ``name`` オプションが使えます。 ::
+
+    // より典型的な <input name="data[User][email]" type="text" /> になります
+    echo $this->Form->input('User.email', array('name' => 'data[User][email]'));
 
 特殊なタイプの入力を生成する
 ============================
@@ -857,14 +890,58 @@ select, checkbox, radio に関するオプション
 
   .. note::
 
-      パスワードフィールドのデフォルト値を空値にしたい場合は、
-      'value' => '' の方を使ってください。
+    パスワードフィールドのデフォルト値を空値にしたい場合は、
+    'value' => '' の方を使ってください。
 
-  オプションはキー・バリューの組み合わせでも指定できます。
+    date や datetime フィールドのために、 empty にキー・バリューペアの配列を指定できます。 ::
 
-* ``$options['hiddenField']`` 一部の input タイプ（チェックボックス、
-  ラジオボタン）では hidden フィールドが生成されるため、
-  $this->request->data の中のキーは値を伴わない形式でも存在します:
+        echo $this->Form->dateTime('Contact.date', 'DMY', '12',
+        	array(
+        		'empty' => array(
+        			'day' => 'DAY', 'month' => 'MONTH', 'year' => 'YEAR',
+        			'hour' => 'HOUR', 'minute' => 'MINUTE', 'meridian' => false
+        		)
+        	)
+            )
+        );
+
+  出力結果:
+
+  .. code-block:: html
+
+    <select name="data[Contact][date][day]" id="ContactDateDay">
+        <option value="">DAY</option>
+        <option value="01">1</option>
+        // ...
+        <option value="31">31</option>
+    </select> - <select name="data[Contact][date][month]" id="ContactDateMonth">
+        <option value="">MONTH</option>
+        <option value="01">January</option>
+        // ...
+        <option value="12">December</option>
+    </select> - <select name="data[Contact][date][year]" id="ContactDateYear">
+        <option value="">YEAR</option>
+        <option value="2036">2036</option>
+        // ...
+        <option value="1996">1996</option>
+    </select> <select name="data[Contact][date][hour]" id="ContactDateHour">
+        <option value="">HOUR</option>
+        <option value="01">1</option>
+        // ...
+        <option value="12">12</option>
+        </select>:<select name="data[Contact][date][min]" id="ContactDateMin">
+        <option value="">MINUTE</option>
+        <option value="00">00</option>
+        // ...
+        <option value="59">59</option>
+    </select> <select name="data[Contact][date][meridian]" id="ContactDateMeridian">
+        <option value="am">am</option>
+        <option value="pm">pm</option>
+    </select>
+
+* ``$options['hiddenField']`` 一部の input タイプ（チェックボックス、ラジオボタン）では
+  hidden フィールドが生成されるため、 $this->request->data の中のキーは値を伴わない形式でも
+  存在します:
 
   .. code-block:: html
 
@@ -1187,12 +1264,20 @@ select, checkbox, radio に関するオプション
             type="radio" />
         <label for="UserGenderF">Female</label>
 
+
     何らかの理由で hidden input が不要な場合、 ``$attributes['value']``
     を選択される値もしくは false にすることで hidden を出力しなく
     なります。
 
+    * ``$attributes['fieldset']`` legend 属性に false がセットされていなければ、
+      この属性は fieldset 要素のクラスを設定するために使用できます。
+
+ 
     .. versionchanged:: 2.1
         ``$attributes['disabled']`` オプションは 2.1 で追加されました。
+        
+    .. versionchanged:: 2.8.5
+        ``$attributes['fieldset']`` オプションは 2.8.5 で追加されました。
 
 .. php:method:: select(string $fieldName, array $options, array $attributes)
 
@@ -1253,6 +1338,7 @@ select, checkbox, radio に関するオプション
       .. code-block:: html
 
         <select name="data[User][field]" id="UserField">
+            <option value=""></option>
             <option value="Value 1">Label 1</option>
             <option value="Value 2">Label 2</option>
             <option value="Value 3">Label 3</option>
@@ -1528,10 +1614,12 @@ file タイプの入力フィールドを生成::
     HTML のリンクを作りますが、その URL へのアクセス方法を POST にします。
     ブラウザで JavaScript を有効にする場合はこれが必要です。
 
-    このメソッドは ``<form>`` 要素を作成します。そのため、この
-    メソッドを既存のフォームの中では使わないでください。その代わり、
-    :php:meth:`FormHelper::submit()` を使って submit ボタンを追加
-    してください。
+    このメソッドは ``<form>`` 要素を作成します。もし、このメソッドを、既存のフォームの中で
+    使用したい場合、 新しいフォームがそのフォームの外に作成されるようにするために ``inline``
+    や ``block`` オプションを使用しなければなりません。
+
+    もし、あなたのフォームを投稿するボタンを探しているなら、代わりに
+    :php:meth:`FormHelper::submit()` を使用してください。
 
     .. versionchanged:: 2.3
         ``method`` オプションが追加されました。

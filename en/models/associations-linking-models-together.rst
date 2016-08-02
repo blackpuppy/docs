@@ -932,6 +932,18 @@ LeadersController::
                 )
             )
         );
+        
+        // If we need keep this association after model reset
+        // we will pass a second boolean parameter like this:
+        $this->Leader->bindModel(
+            array('hasMany' => array(
+                    'Principle' => array(
+                        'className' => 'Principle'
+                    )
+                )
+            ),
+            false
+        );
 
         // Now that we're associated correctly,
         // we can use a single find function to fetch
@@ -1062,7 +1074,7 @@ example::
 
 .. note::
 
-    Note that the 'join' arrays are not keyed.
+    Note that the 'joins' arrays are not keyed.
 
 In the above example, a model called Item is left-joined to the
 channels table. You can alias the table with the Model name, so the

@@ -394,6 +394,6 @@ appropriate log level.
 .. php:staticmethod:: info($message, $scope = array())
 
 .. meta::
-    :title lang=zh_CN: Logging
-    :description lang=zh_CN: Log CakePHP data to the disk to help debug your application over longer periods of time.
-    :keywords lang=zh_CN: cakephp logging,log errors,debug,logging data,cakelog class,ajax logging,soap logging,debugging,logs
+    :title lang=zh: Logging
+    :description lang=zh: Log CakePHP data to the disk to help debug your application over longer periods of time.
+    :keywords lang=zh: cakephp logging,log errors,debug,logging data,cakelog class,ajax logging,soap logging,debugging,logs

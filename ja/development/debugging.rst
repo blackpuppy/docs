@@ -10,6 +10,7 @@ CakePHP は IDE やエディタと直接連携するようなツールは提供�
 ================
 
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
+    :noindex:
 
     :param mixed $var: 出力する内容。配列やオブジェクトを渡してもうまく動作します。
     :param boolean $showHTML: true をセットしたならエスケープが有効になります。2.0 では、
@@ -187,7 +188,7 @@ Debug Kit
 DebugKit は便利なデバッグツールをたくさん提供してくれるプラグインです。
 まずは、レンダリングされた HTML 内にツールバーを表示して、あなたのアプリケーションや
 現在のリクエストについての情報を大量に提供してくれます。GitHub の
-`DebugKit <https://github.com/cakephp/debug_kit>`_ からダウンロードが可能です。
+`DebugKit <https://github.com/cakephp/debug_kit/tree/2.2>`_ からダウンロードが可能です。
 
 Xdebug
 ======

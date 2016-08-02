@@ -956,7 +956,7 @@ HtmlHelper助件的一些方法及如何使用它们。
         /posts/search?foo=bar#first
 
     欲知详情，请查看API中的
-    `Router::url <http://api.cakephp.org/2.7/class-Router.html#_url>`_。
+    `Router::url <http://api.cakephp.org/2.8/class-Router.html#_url>`_。
 
 .. php:method:: useTag(string $tag)
 
@@ -1054,6 +1054,6 @@ HtmlHelper助件的一些方法及如何使用它们。
 
 
 .. meta::
-    :title lang=zh_CN: HtmlHelper
-    :description lang=zh_CN: The role of the HtmlHelper in CakePHP is to make HTML-related options easier, faster, and more resilient to change.
-    :keywords lang=zh_CN: html helper,cakephp css,cakephp script,content type,html image,html link,html tag,script block,script start,html url,cakephp style,cakephp crumbs
+    :title lang=zh: HtmlHelper
+    :description lang=zh: The role of the HtmlHelper in CakePHP is to make HTML-related options easier, faster, and more resilient to change.
+    :keywords lang=zh: html helper,cakephp css,cakephp script,content type,html image,html link,html tag,script block,script start,html url,cakephp style,cakephp crumbs

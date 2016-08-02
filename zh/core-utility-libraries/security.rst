@@ -146,5 +146,5 @@ hashing and encrypting data.
     添加更多实例 :|
 
 .. meta::
-    :title lang=zh_CN: Security
-    :keywords lang=zh_CN: security api,secret password,cipher text,php class,class security,text key,security library,object instance,security measures,basic security,security level,string type,fallback,hash,data security,singleton,inactivity,php encrypt,implementation,php security
+    :title lang=zh: Security
+    :keywords lang=zh: security api,secret password,cipher text,php class,class security,text key,security library,object instance,security measures,basic security,security level,string type,fallback,hash,data security,singleton,inactivity,php encrypt,implementation,php security

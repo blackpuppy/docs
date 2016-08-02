@@ -303,11 +303,11 @@ SQL 的错误。
         public $translateTable = 'post_translations';
     }
 
-请注意**你不能单独使用 $translateTable**。如果你不想使用定制的 
+请注意**你不能单独使用 $translateTable**。如果你不想使用定制的
 ``$translateModel``，就别碰这个属性。这是因为，(改了的话)那样会破坏你的设置，并
 针对运行时创建的缺省 I18n 模型显示一条"Missing Table"(表未找到)的信息。
 
 
 .. meta::
-    :title lang=zh_CN: Translate
-    :keywords lang=zh_CN: invalid sql,correct layout,translation table,layout changes,database tables,array,queries,cakephp,models,translate,public name
+    :title lang=zh: Translate
+    :keywords lang=zh: invalid sql,correct layout,translation table,layout changes,database tables,array,queries,cakephp,models,translate,public name

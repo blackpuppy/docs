@@ -65,5 +65,5 @@ documentation.
 
 
 .. meta::
-    :title lang=zh_CN: EmailComponent
-    :keywords lang=zh_CN: component subject,component delivery,php class,template layout,custom headers,template method,filenames,alias,lib,array,email,migration,attachments,elements,sun
+    :title lang=zh: EmailComponent
+    :keywords lang=zh: component subject,component delivery,php class,template layout,custom headers,template method,filenames,alias,lib,array,email,migration,attachments,elements,sun

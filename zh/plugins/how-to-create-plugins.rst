@@ -194,7 +194,6 @@ Creating this file, would allow you to override
 
 .. _plugin-assets:
 
-
 Plugin Assets
 =============
 
@@ -235,9 +234,10 @@ would serve the asset
     asset path. That makes the magic happen!
 
 .. versionchanged:: 2.1
-Use :term:`plugin syntax` to request assets. For example in your View:
-    <?php echo $this->Html->css("ContactManager.style"); ?>
 
+    Use :term:`plugin syntax` to request assets. For example in your View::
+
+        <?php echo $this->Html->css("ContactManager.style"); ?>
 
 Components, Helpers and Behaviors
 =================================
@@ -314,24 +314,33 @@ applications:
 -  If you use requestAction, make sure controller and model names
    are as unique as possible. Otherwise you might get PHP "redefined
    class ..." errors.
+-  When adding routes with extensions to your plugin, ensure you use
+   ``Router::setExtensions()`` so you do not override application routing.
 
 Publish Your Plugin
 ===================
 
-You can add your plugin to `plugins.cakephp.org <http://plugins.cakephp.org>`_.
+You can add your plugin to `plugins.cakephp.org <http://plugins.cakephp.org>`_
+or propose it to the
+`awesome-cakephp list <https://github.com/FriendsOfCake/awesome-cakephp>`_.
 
-Also, you might want to create a composer.json file and publish your plugin at `packagist.org <https://packagist.org/>`_.
-This way it can easily be used through composer.
+Also, you might want to create a composer.json file and publish your plugin at
+`packagist.org <https://packagist.org/>`_.
+This way it can easily be used through Composer.
 
-Choose a semantically meaningful name for the package name. This should ideally be prefixed with the dependency, in this case "cakephp" as the framework.
+Choose a semantically meaningful name for the package name. This should ideally
+be prefixed with the dependency, in this case "cakephp" as the framework.
 The vendor name will usually be your GitHub username.
-Do **not** use the CakePHP namespace (cakephp) as this is reserved to CakePHP owned plugins.
+Do **not** use the CakePHP namespace (cakephp) as this is reserved to CakePHP
+owned plugins.
 The convention is to use lowercase letters and dashes as separator.
 
-So if you created a plugin "Logging" with your GitHub account "FooBar", a good name
-would be `foo-bar/cakephp-logging`.
-And the CakePHP owned "Localized" plugin can be found under `cakephp/localized` respectively.
+So if you created a plugin "Logging" with your GitHub account "FooBar", a good
+name would be `foo-bar/cakephp-logging`.
+And the CakePHP owned "Localized" plugin can be found under `cakephp/localized`
+respectively.
+
 
 .. meta::
-    :title lang=en: How To Create Plugins
-    :keywords lang=en: plugin folder,configuration database,management module,little space,webroot,contactmanager,array,config,cakephp,models,php,directories,blog,plugins,applications
+    :title lang=zh: How To Create Plugins
+    :keywords lang=zh: plugin folder,configuration database,management module,little space,webroot,contactmanager,array,config,cakephp,models,php,directories,blog,plugins,applications

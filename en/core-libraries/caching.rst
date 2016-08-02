@@ -19,10 +19,11 @@ to implement your own caching systems. The built-in caching engines are:
   atomic operations. However, since disk storage is often quite cheap,
   storing large objects, or elements that are infrequently written
   work well in files. This is the default Cache engine for 2.3+
-* ``ApcCache`` APC cache uses the PHP `APC <http://php.net/apc>`_ extension.
-  This extension uses shared memory on the webserver to store objects.
-  This makes it very fast, and able to provide atomic read/write features.
-  By default CakePHP in 2.0-2.2 will use this cache engine if it's available.
+* ``ApcCache`` APC cache uses the `APC <http://php.net/apc>`_ or `APCu
+  <http://php.net/apcu>`_ extension. These extensions use shared memory on the
+  webserver to store objects. This makes it very fast, and able to provide
+  atomic read/write features. By default CakePHP in 2.0-2.2 will use this cache
+  engine, if it's available.
 * ``Wincache`` Wincache uses the `Wincache <http://php.net/wincache>`_
   extension. Wincache is similar to APC in features and performance, but
   optimized for Windows and Microsoft IIS.
@@ -39,7 +40,7 @@ to implement your own caching systems. The built-in caching engines are:
 
 .. versionchanged:: 2.3
     FileEngine is always the default cache engine. In the past a number of people
-    had difficulty setting up and deploying APC correctly both in cli + web.
+    had difficulty setting up and deploying APC correctly both in CLI + web.
     Using files should make setting up CakePHP simpler for new developers.
 
 .. versionchanged:: 2.5
@@ -190,6 +191,14 @@ The required API for a CacheEngine is
     Not required, but used to do clean up when resources expire.
     FileEngine uses this to delete files containing expired content.
 
+.. php:method:: add($key, $value)
+
+    Set a value in the cache if it did not already exist. Should use
+    an atomic check and set where possible.
+
+    .. versionadded:: 2.8
+        add method was added in 2.8.0.
+
 Using Cache to store common query results
 =========================================
 
@@ -214,7 +223,7 @@ You could improve the above code by moving the cache reading logic into
 a behavior, that read from the cache, or ran the associated model method.
 That is an exercise you can do though.
 
-As of 2.5 you can accomplish the above much more simply using
+As of 2.5 you can accomplish the above much more simple by using
 :php:meth:`Cache::remember()`. Assuming you are using PHP 5.3 or
 newer, using the ``remember()`` method would look like::
 
@@ -409,6 +418,15 @@ Cache API
 
     Atomically decrement a value stored in the cache engine. Ideal for
     modifying counters or semaphore type values.
+
+.. php:staticmethod:: add($key, $value, $config = 'default')
+
+    Add data to the cache, but only if the key does not exist already.
+    In the case that data did exist, this method will return false.
+    Where possible data is checked & set atomically.
+
+    .. versionadded:: 2.8
+        add method was added in 2.8.0.
 
 .. php:staticmethod:: clear($check, $config = 'default')
 

@@ -17,7 +17,7 @@ truncating long stretches of text.
    ``$this->Text->method($args);``.
 
 .. php:method:: autoLinkEmails(string $text, array $options=array())
-    
+
     :param string $text: The text to convert.
     :param array $options: An array of :term:`html attributes` for the generated links.
 
@@ -68,6 +68,6 @@ truncating long stretches of text.
     :end-before: end-string
 
 .. meta::
-    :title lang=zh_CN: TextHelper
-    :description lang=zh_CN: The Text Helper contains methods to make text more usable and friendly in your views.
-    :keywords lang=zh_CN: text helper,autoLinkEmails,autoLinkUrls,autoLink,excerpt,highlight,stripLinks,truncate,string text
+    :title lang=zh: TextHelper
+    :description lang=zh: The Text Helper contains methods to make text more usable and friendly in your views.
+    :keywords lang=zh: text helper,autoLinkEmails,autoLinkUrls,autoLink,excerpt,highlight,stripLinks,truncate,string text

@@ -15,7 +15,7 @@ Error configuration
 
 Error configuration is done inside your application's ``app/Config/core.php``
 file. You can define a callback to be fired each time your application triggers
-any PHP error - exceptions are handled :doc:`/development/exceptions` separately.
+any PHP error. :doc:`/development/exceptions` are handled separately.
 The callback can be any PHP callable, including an anonymous function. The
 default error handling configuration looks like::
 
@@ -109,7 +109,7 @@ If you do not want to show the cake error page, you can override it like::
         public static function handleError($code, $description, $file = null,
             $line = null, $context = null) {
             list(, $level) = ErrorHandler::mapErrorCode($code);
-            if ($level === LOG_ERROR) {
+            if ($level === LOG_ERR) {
                 // Ignore fatal error. It will keep the PHP error message only
                 return false;
             }

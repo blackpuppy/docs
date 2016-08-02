@@ -105,7 +105,7 @@ Les Types d'Attribut Correspondants
     récupérer les données à partir des tableaux, le long des chemins
     arbitraires rapidement sans avoir à parcourir les structures de données.
     A la place, vous utilisez les expressions de chemin pour qualifier
-    les éléments que vous souhaitez retourner ::
+    les éléments que vous souhaitez retourner::
 
         // Utilisation habituelle:
         $users = $this->User->find("all");
@@ -709,6 +709,10 @@ Les Types d'Attribut Correspondants
     * ``natural`` pour trier les valeurs d'une façon humaine. Va trier
       ``foo10`` en-dessous de ``foo2`` par exemple. Le tri naturel
       a besoin de PHP 5.4 ou supérieur.
+
+    .. versionadded:: 2.8
+        L'option ``$type`` accepte maintenant un tableau et l'option ``ignoreCase``
+        active le tri sans sensibilité à la casse.
 
 .. php:staticmethod:: diff(array $data, array $compare)
 

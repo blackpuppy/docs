@@ -991,7 +991,7 @@ PHPUnit instead of SimpleTest
 =============================
 
 All of the core test cases and supporting infrastructure have been ported to use
-PHPUnit 3.5. Of course you can continue to use SimpleTest in your application by
+PHPUnit 3.7. Of course you can continue to use SimpleTest in your application by
 replacing the related files. No further support will be given for SimpleTest and
 it is recommended that you migrate to PHPUnit as well. For some additional
 information on how to migrate your tests see PHPUnit migration hints.
@@ -1016,7 +1016,7 @@ all tests are cases. In the past you would have done
 Model/Post``.
 
 
-The testsuite shell has been refactored to use the PHPUnit cli tool. It now
+The testsuite shell has been refactored to use the PHPUnit CLI tool. It now
 supports all the command line options supported by PHPUnit.
 ``cake testsuite help`` will show you a list of all possible modifiers.
 

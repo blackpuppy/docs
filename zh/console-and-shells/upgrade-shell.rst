@@ -44,7 +44,7 @@ upgrade shell可以完成升级你的CakePHP从1.3到2.0的大部分工作。
 复制 ``cakephp/lib`` 目录到你的 ``mywebsite/lib`` 目录来为你的应用建立新的CakePHP
 版本。 例如: ``cp -R ../cakephp/lib .``. 或者做个软链接也可以 : ``ln -s /var/www/cakephp/lib``.
 
-在我们可以运行升级shell之前我们也需要新的终端脚本。复制 ``cakephp/app/Console`` 
+在我们可以运行升级shell之前我们也需要新的终端脚本。复制 ``cakephp/app/Console``
 目录到你的 ``mywebsite/app`` ，如 : ``cp -R ../cakephp/app/Console ./app``.
 
 你的目录结构现在应该是这个样子 ::
@@ -66,9 +66,9 @@ upgrade shell可以完成升级你的CakePHP从1.3到2.0的大部分工作。
     ./Console/cake upgrade all
 
 这将会完成**大部分**工作让你的app升级到 2.x 。
-检查你的升级后的 ``app`` 目录。如果一起正常就恭喜了，就可以将目录 ``mywebsite/cake`` 
+检查你的升级后的 ``app`` 目录。如果一起正常就恭喜了，就可以将目录 ``mywebsite/cake``
 删除了。欢迎进入2.x!
 
 .. meta::
-    :title lang=zh_CN: .. _upgrade-shell:
-    :keywords lang=zh_CN: api docs,shell
+    :title lang=zh: .. _upgrade-shell:
+    :keywords lang=zh: api docs,shell

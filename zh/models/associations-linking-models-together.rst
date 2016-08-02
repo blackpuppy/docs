@@ -913,7 +913,7 @@ Recipient 是 User 模型的别名。现在来瞧瞧 User 模型是什么样的:
 
 .. note::
 
-    注意 'join' 数组没有键。
+    注意 'joins' 数组没有键。
 
 在上面的例子中，名为 Item 的模型左连接(*left-join*)到 channels 表。可以用模型名
 作为表的别名，以使读取的数据符合 CakePHP 的数据结构。
@@ -981,5 +981,5 @@ books\_tags 表作为连接表，所以需要把 books 表连接(*join*)到 book
 
 
 .. meta::
-    :title lang=zh_CN: Associations: Linking Models Together
-    :keywords lang=zh_CN: relationship types,relational mapping,recipe database,relational database,this section covers,web applications,recipes,models,cakephp,storage
+    :title lang=zh: Associations: Linking Models Together
+    :keywords lang=zh: relationship types,relational mapping,recipe database,relational database,this section covers,web applications,recipes,models,cakephp,storage

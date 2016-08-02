@@ -6,7 +6,7 @@ audience is to cater for multiple languages. This can often prove
 to be a daunting task, but the internationalization and
 localization features in CakePHP make it much easier.
 
-First, it’s important to understand some terminology.
+First, it's important to understand some terminology.
 *Internationalization* refers to the ability of an application to
 be localized. The term *localization* refers to the adaptation of
 an application to meet specific language (or culture) requirements
@@ -41,7 +41,7 @@ With your code ready to be multilingual, the next step is to create
 your `pot file <http://en.wikipedia.org/wiki/Gettext>`_, which is
 the template for all translatable strings in your application. To
 generate your pot file(s), all you need to do is run the
-:doc:`i18n console task </console-and-shells>`,
+:doc:`i18n console task </console-and-shells/i18n-shell>`,
 which will look for where you've used a translate function in your
 code and generate your pot file(s) for you. You can and should
 re-run this console task any time you change the translations in
@@ -50,7 +50,7 @@ your code.
 The pot file(s) themselves are not used by CakePHP, they are the
 templates used to create or update your
 `po files <http://en.wikipedia.org/wiki/Gettext>`_, which contain
-the translations. Cake will look for your po files in the following
+the translations. CakePHP will look for your po files in the following
 location::
 
     /app/Locale/<locale>/LC_MESSAGES/<domain>.po
@@ -75,17 +75,22 @@ file with a newly updated pot file.
 
 The three-character locale codes conform to the
 `ISO 639-2 <http://www.loc.gov/standards/iso639-2/php/code_list.php>`_
-standard, although if you create regional locales (en\_US, en\_GB,
+standard, although if you create regional locales (`en\_US`, `en\_GB`,
 etc.) cake will use them if appropriate.
+
+.. warning::
+
+    In 2.3 and 2.4 some language codes have been corrected to meet the ISO standard.
+    Please see the corresponding migration guides for details.
 
 Remember that po files are useful for short messages, if you find
 you want to translate long paragraphs, or even whole pages - you
-should consider implementing a different solution. e.g.::
+should consider implementing a different solution. e.g. ::
 
     // App Controller Code.
     public function beforeFilter() {
         $locale = Configure::read('Config.language');
-        if ($locale && file_exists(VIEWS . $locale . DS . $this->viewPath)) {
+        if ($locale && file_exists(APP . 'View' . DS . $locale . DS . $this->viewPath)) {
             // e.g. use /app/View/fra/Pages/tos.ctp instead of /app/View/Pages/tos.ctp
             $this->viewPath = $locale . DS . $this->viewPath;
         }
@@ -96,13 +101,27 @@ or::
     // View code
     echo $this->element(Configure::read('Config.language') . '/tos');
 
+.. _lc-time:
+
+For translation of strings of LC_TIME category CakePHP uses POSIX compliant LC_TIME
+files. The i18n functions of :php:class:`CakeTime` utility class and helper :php:class:`TimeHelper`
+use these LC_TIME files.
+
+Just place LC_TIME file in its respective locale directory::
+
+    /app/Locale/fra/LC_TIME (French)
+    /app/Locale/por/LC_TIME (Portuguese)
+
+You can find these files for few popular languages from the official `Localized <https://github.com/cakephp/localized>`_
+repo.
+
 Internationalizing CakePHP Plugins
-===================================
+==================================
 
 If you want to include translation files within your application you'll need to
 follow a few conventions.
 
-Instead of __() and __n() you will have to use __d() and __dn(). The D means
+Instead of `__()` and `__n()` you will have to use `__d()` and `__dn()`. The D means
 domain. So if you have a plugin called 'DebugKit' you would have to do this::
 
     __d('debug_kit', 'My example text');
@@ -124,6 +143,18 @@ The reason for that is that CakePHP will use the lower cased and underscored
 plugin name to compare it to the translation domain and is going to look into
 the plugin if there is a match for the given translation file.
 
+Controlling the Translation Order
+=================================
+
+The Configure value ``I18n.preferApp`` can be used to control the order of translations.
+If set to true in bootstrap it will prefer the app translations over any plugins' ones::
+
+    Configure::write('I18n.preferApp', true);
+
+It defaults to ``false``.
+
+.. versionadded:: 2.6
+
 Localization in CakePHP
 =======================
 
@@ -132,13 +163,13 @@ do is the following::
 
     Configure::write('Config.language', 'fra');
 
-This tells Cake which locale to use (if you use a regional locale, such as
-fr\_FR, it will use the `ISO 639-2
+This tells CakePHP which locale to use (if you use a regional locale, such as
+`fr\_FR`, it will use the `ISO 639-2
 <http://www.loc.gov/standards/iso639-2/php/code_list.php>`_ locale as a fallback
 if it doesn't exist), you can change the language at any time during a request.
 e.g. in your bootstrap if you're setting the application default language, in
 your (app) controller beforeFilter if it's specific to the request or user, or
-in fact anytime at all before you want a message in a different language.  To
+in fact anytime at all before you want a message in a different language. To
 set the language for the current user, you can store the setting in the Session
 object, like this::
 
@@ -159,13 +190,13 @@ Doing this will ensure that both :php:class:`I18n` and
 :php:class:`TranslateBehavior` access the same language value.
 
 It's a good idea to serve up public content available in multiple
-languages from a unique url - this makes it easy for users (and
+languages from a unique URL - this makes it easy for users (and
 search engines) to find what they're looking for in the language
 they are expecting. There are several ways to do this, it can be by
 using language specific subdomains (en.example.com,
-fra.example.com, etc.), or using a prefix to the url such as is
+fra.example.com, etc.), or using a prefix to the URL such as is
 done with this application. You may also wish to glean the
-information from the browser’s user-agent, among other things.
+information from the browser's user-agent, among other things.
 
 As mentioned in the previous section, displaying localized content
 is done using the :php:func:`__()` convenience function, or one of the other
@@ -174,7 +205,7 @@ probably be best utilized in your views. The first parameter of the
 function is used as the msgid defined in the .po files.
 
 CakePHP will automatically assume that all model validation error messages in
-your ``$validate`` array are intended to be localized.  When running the i18n
+your ``$validate`` array are intended to be localized. When running the i18n
 shell these strings will also be extracted.
 
 There's one other aspect of localizing your application which is
@@ -190,6 +221,7 @@ command ``locale -a`` in a terminal.
 
 Translating model validation errors
 ===================================
+
 CakePHP will automatically extract the validation error when you are using the
 :doc:`i18n console task </console-and-shells>`. By default, the default domain is used.
 This can be overwritten by setting the ``$validationDomain`` property in your model::
@@ -220,6 +252,7 @@ Which will do the following internal call::
 
     __d('validation', 'Username should be between %d and %d characters', array(2, 10));
 
+
 .. meta::
-    :title lang=zh_CN: Internationalization & Localization
-    :keywords lang=zh_CN: internationalization localization,internationalization and localization,localization features,language application,gettext,l10n,daunting task,adaptation,pot,i18n,audience,translation,languages
+    :title lang=zh: Internationalization & Localization
+    :keywords lang=zh: internationalization localization,internationalization and localization,localization features,language application,gettext,l10n,daunting task,adaptation,pot,i18n,audience,translation,languages

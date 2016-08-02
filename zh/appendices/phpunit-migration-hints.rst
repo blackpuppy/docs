@@ -1,39 +1,10 @@
 PHPUnit Migration Hints
 #######################
 
-Migrating your test cases to `PHPUnit 3.5 <http://www.phpunit.de/manual/current/en/>`_
+Migrating your test cases to `PHPUnit 3.7 <http://www.phpunit.de/manual/current/en/>`_
 will hopefully be a fairly pain free transition. However, there are a few known
 differences between test cases under PHPUnit and
 `SimpleTest <http://www.simpletest.org/>`_.
-
-Installing PHPUnit
-==================
-
-Installing from PEAR (Recommended)
-----------------------------------
-
-PHPUnit recommends it be installed via the pear installer, to do so run the
-following commands::
-
-    pear channel-discover pear.phpunit.de
-    pear channel-discover components.ez.no
-    pear channel-discover pear.symfony-project.com
-
-This has to be done only once. Now the `PEAR Installer <http://pear.php.net/>`_
-can be used to install packages from the PHPUnit channel::
-
-    pear install phpunit/PHPUnit
-
-Installing manually
--------------------
-
-In addition to pear, CakePHP also supports placing the PHPUnit directory inside
-one of your vendors directories along with all its dependencies.  Doing so is
-generally not recommended as PHPUnit is complicated to install as it is composed
-of many pear packages.  Installing with the pear installer is easier and faster.
-
-If you do wish to install PHPUnit manually, you'll need to place it and all of
-its dependencies inside your applications ``Vendor`` directory.
 
 Differences between SimpleTest
 ==============================
@@ -173,15 +144,15 @@ the cases directory and use ``PHPUnit_Framework_TestSuite`` as a base class. An
 example Testsuite would look like::
 
     class AllJavascriptHelpersTest extends PHPUnit_Framework_TestSuite {
-    
+
     /**
      * Suite define the tests for this suite
      *
      * @return void
      */
         public static function suite() {
-            $suite = new PHPUnit_Framework_TestSuite('Js Helper and all Engine Helpers');
-            
+            $suite = new PHPUnit_Framework_TestSuite('JsHelper and all Engine Helpers');
+
             $helperTestPath = CORE_TEST_CASES . DS . 'View' . DS . 'Helper' . DS;
             $suite->addTestFile($helperTestPath . 'JsHelperTest.php');
             $suite->addTestFile($helperTestPath . 'JqueryEngineHelperTest.php');
@@ -196,5 +167,5 @@ recommended that you use the methods PHPUnit offers.
 
 
 .. meta::
-    :title lang=zh_CN: PHPUnit Migration Hints
-    :keywords lang=zh_CN: free transition,vendor directory,static methods,teardown,test cases,pear,dependencies,test case,replacements,phpunit,migration,simpletest,cakephp,discover channel
+    :title lang=zh: PHPUnit Migration Hints
+    :keywords lang=zh: free transition,vendor directory,static methods,teardown,test cases,pear,dependencies,test case,replacements,phpunit,migration,simpletest,cakephp,discover channel

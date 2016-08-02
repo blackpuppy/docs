@@ -137,6 +137,6 @@ Displaying notifications or flash messages
 
 
 .. meta::
-    :title lang=zh_CN: SessionHelper
-    :description lang=zh_CN: As a natural counterpart to the Session Component, the Session Helper replicates most of the components functionality and makes it available in your view.
-    :keywords lang=zh_CN: session helper,flash messages,session flash,session read,session check
+    :title lang=zh: SessionHelper
+    :description lang=zh: As a natural counterpart to the Session Component, the Session Helper replicates most of the components functionality and makes it available in your view.
+    :keywords lang=zh: session helper,flash messages,session flash,session read,session check

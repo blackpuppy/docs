@@ -1,5 +1,5 @@
 New features in CakePHP 1.3
---------------------------------
+---------------------------
 
 CakePHP 1.3 introduced a number of new features. This guide
 attempts to summarize those changes and point to expanded
@@ -66,7 +66,7 @@ See :doc:`JsHelper documentation </core-libraries/helpers/js>` for more informat
 
 **Pagination Helper**
 
-Pagination helper provides additional css classes for styling and
+Pagination helper provides additional CSS classes for styling and
 you can set the default sort() direction.
 ``PaginatorHelper::next()`` and ``PaginatorHelper::prev()`` now
 generate span tags by default, instead of divs.
@@ -106,7 +106,7 @@ to set currency parameter sets, so you don't have to retype them::
 
 The form helper has had a number of improvements and API
 modifications, see
-`Form Helper improvements <http://book.cakephp.org/view/1616/x1-3-improvements>`_
+`Form Helper improvements <http://book.cakephp.org/1.3/en/The-Manual/Core-Helpers/Form.html#improvements>`_
 for more information.
 
 Logging
@@ -114,7 +114,7 @@ Logging
 
 Logging and ``CakeLog`` have been enhanced considerably, both in
 features and flexibility. See
-`New Logging features <http://book.cakephp.org/view/1194/Logging>`_ for more information.
+`New Logging features <http://book.cakephp.org/1.3/en/The-Manual/Common-Tasks-With-CakePHP/Logging.html>`_ for more information.
 
 Caching
 ~~~~~~~
@@ -181,8 +181,7 @@ could do::
 
 -  Missing Validation methods now trigger errors, making debugging
    why validation isn't working easier.
--  Models now support
-   `virtual fields <http://book.cakephp.org/view/1608/Virtual-fields>`_
+-  Models now support virtual fields.
 
 **Behaviors**
 
@@ -233,7 +232,12 @@ You use ``tableParameters`` just as you would any other key in a
 schema file. Much like ``indexes``::
 
     var $comments => array(
-        'id' => array('type' => 'integer', 'null' => false, 'default' => 0, 'key' => 'primary'),
+        'id' => array(
+          'type' => 'integer',
+          'null' => false,
+          'default' => 0,
+          'key' => 'primary'
+        ),
         'post_id' => array('type' => 'integer', 'null' => false, 'default' => 0),
         'comment' => array('type' => 'text'),
         'indexes' => array(
@@ -261,7 +265,7 @@ Console
 
 Bake has had a number of significant changes made to it. Those
 changes are detailed in
-`the bake updates section <http://book.cakephp.org/view/1611/Bake-improvements-in-1-3>`_
+`the bake updates section <http://book.cakephp.org/1.3/en/The-Manual/Core-Helpers/Form.html#improvements>`_
 
 **Subclassing**
 
@@ -302,21 +306,41 @@ Router and Dispatcher
 
 **Router**
 
-Generating urls with new style prefixes works exactly the same as
+Generating URLs with new style prefixes works exactly the same as
 admin routing did in 1.2. They use the same syntax and
 persist/behave in the same way. Assuming you have
 ``Configure::write('Routing.prefixes', array('admin', 'member'));``
 in your core.php you will be able to do the following from a
-non-prefixed url::
+non-prefixed URL::
 
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'member' => true));
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'admin' => true));
+    $this->Html->link(
+      'Go',
+      array('controller' => 'posts', 'action' => 'index', 'member' => true)
+    );
+    $this->Html->link(
+      'Go',
+      array('controller' => 'posts', 'action' => 'index', 'admin' => true)
+    );
 
-Likewise, if you are in a prefixed url and want to go to a
-non-prefixed url, do the following::
+Likewise, if you are in a prefixed URL and want to go to a
+non-prefixed URL, do the following::
 
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'member' => false));
-    $this->Html->link('Go', array('controller' => 'posts', 'action' => 'index', 'admin' => false));
+    $this->Html->link(
+      'Go',
+      array(
+        'controller' => 'posts',
+        'action' => 'index',
+        'member' => false
+      )
+    );
+    $this->Html->link(
+      'Go',
+      array(
+        'controller' => 'posts',
+        'action' => 'index',
+        'admin' => false
+      )
+    );
 
 **Route classes**
 
@@ -456,7 +480,7 @@ updated to allow the scaffolding of any one prefix::
         var $scaffold = 'member';
     }
 
-Would use scaffolding for member prefixed urls.
+Would use scaffolding for member prefixed URLs.
 
 **Validation**
 
@@ -510,10 +534,10 @@ native validation mechanisms if available::
 **Validation::uuid()**
 
 A uuid() pattern validation has been added to the ``Validation``
-class. It will check that a given string matches a uuid by pattern
-only. It does not ensure uniqueness of the given uuid.
+class. It will check that a given string matches a UUID by pattern
+only. It does not ensure uniqueness of the given UUID.
 
 
 .. meta::
-    :title lang=zh_CN: New features in CakePHP 1.3
-    :keywords lang=zh_CN: component settings,array name,array controller,private methods,necessary components,core components,share names,collisions,func,message id,new features,clutter,consistency,messageid,email,htmlmessage,variables,doc
+    :title lang=en: New features in CakePHP 1.3
+    :keywords lang=en: component settings,array name,array controller,private methods,necessary components,core components,share names,collisions,func,message id,new features,clutter,consistency,messageid,email,htmlmessage,variables,doc

@@ -69,7 +69,7 @@ CacheHelper 助件还有其它一些配置选项，可以用来调整它的行�
     );
 
 通过设置``callbacks => true``，你告诉 CacheHelper 助件，你要在生成的文件中为控制
-器创建组件和模型。并且，触发组件的 initialize 、控制器的 beforeFilter 和组件的 
+器创建组件和模型。并且，触发组件的 initialize 、控制器的 beforeFilter 和组件的
 startup 这些回调。
 
 .. note::
@@ -105,7 +105,7 @@ startup 这些回调。
 
 .. warning::
 
-    如果你的视图变量含有不可序列化的内容，比如 SimpleXML 对象、资源句柄(resource 
+    如果你的视图变量含有不可序列化的内容，比如 SimpleXML 对象、资源句柄(resource
     handle)、或闭包(closure)，你就可能无法使用视图缓存了。
 
 清除缓存
@@ -125,6 +125,6 @@ UPDATE 或 DELETE 查询，则该视图的缓存会被清除，下一次请求�
 
 
 .. meta::
-    :title lang=zh_CN: CacheHelper
-    :description lang=zh_CN: The Cache helper assists in caching entire layouts and views, saving time repetitively retrieving data.
-    :keywords lang=zh_CN: cache helper,view caching,cache action,cakephp cache,nocache,clear cache
+    :title lang=zh: CacheHelper
+    :description lang=zh: The Cache helper assists in caching entire layouts and views, saving time repetitively retrieving data.
+    :keywords lang=zh: cache helper,view caching,cache action,cakephp cache,nocache,clear cache

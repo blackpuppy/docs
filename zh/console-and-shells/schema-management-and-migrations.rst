@@ -83,7 +83,7 @@ CakeSchema 回调
 迁移允许你对你的数据库schema进行版本控制。这样你的开发特点
 Migrations allow for versioning of your database schema, so that as
 you develop features you have an easy and database agnostic way to
-distribute database changes. 
+distribute database changes.
 迁移功能是通过SCM控制schema或者是schema快照。使用schema进行迁移很简单。如果你已经
 有了一个schema文件，执行 ::
 
@@ -123,12 +123,12 @@ distribute database changes.
     $ # once your database has been updated
     $ Console/cake schema generate
     $ git commit -a
-    
+
 
 .. note::
 
     如果项目没有被版本化，管理schema将会通过快照来完成（见上一节）。
-   
+
 
 获取最近一次的改动
 ------------------------
@@ -163,5 +163,5 @@ distribute database changes.
     [n] >
 
 .. meta::
-    :title lang=zh_CN: Schema management and migrations
-    :keywords lang=zh_CN: schema files,schema management,schema objects,database schema,table statements,database changes,migrations,versioning,snapshots,sql,snapshot,shell,config,functionality,choices,models,php files,php file,directory,running
+    :title lang=zh: Schema management and migrations
+    :keywords lang=zh: schema files,schema management,schema objects,database schema,table statements,database changes,migrations,versioning,snapshots,sql,snapshot,shell,config,functionality,choices,models,php files,php file,directory,running

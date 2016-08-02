@@ -1,8 +1,28 @@
+# Project specific files #
+##########################
 *.pyc
 build/*
 */_build/*
-.DS_Store
+
+# IDE and editor specific files #
+#################################
+/nbproject
+.idea
 .project
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Files used by Chinese Translation #
+#####################################
 zh_cakephp.sublime-project
 zh_cakephp.sublime-workspace
 .vagrant

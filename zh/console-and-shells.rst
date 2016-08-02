@@ -1,5 +1,5 @@
-命令行与Shells
-##################
+Shells，任务与命令行工具
+#############################
 
 CakePHP不单单是个Web框架,而且是一个通过控制台创建应用程序的框架。
 控制台应用程序非常适合处理各种后台任务，如维护等务,并完成请求-响应周期以外的工作。
@@ -978,7 +978,9 @@ More topics
 .. toctree::
     :maxdepth: 1
 
+    console-and-shells/helpers
     console-and-shells/cron-jobs
+    console-and-shells/completion-shell
     console-and-shells/code-generation-with-bake
     console-and-shells/schema-management-and-migrations
     console-and-shells/i18n-shell
@@ -988,5 +990,5 @@ More topics
 
 
 .. meta::
-    :title lang=zh_CN: Console and Shells
-    :keywords lang=zh_CN: shell scripts,system shell,application classes,background tasks,line script,cron job,request response,system path,acl,new projects,shells,specifics,parameters,i18n,cakephp,directory,maintenance,ideal,applications,mvc
+    :title lang=zh: Shells, Tasks & Console Tools
+    :keywords lang=zh: shell scripts,system shell,application classes,background tasks,line script,cron job,request response,system path,acl,new projects,shells,specifics,parameters,i18n,cakephp,directory,maintenance,ideal,applications,mvc

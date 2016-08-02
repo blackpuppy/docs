@@ -13,7 +13,7 @@ setup. You'll need the following software:
 
 * Git
 * PHP 5.2.8 or greater
-* PHPUnit 3.5.10 or greater
+* PHPUnit 3.5.10 or greater (3.7.38 recommended)
 
 Set up your user information with your name/handle and working email address::
 
@@ -102,9 +102,7 @@ fork::
 
     git push origin <branch-name>
 
-Once your branch is on GitHub, you can discuss it on the
-`cakephp-core <http://groups.google.com/group/cakephp-core>`_ mailing list or
-submit a pull request on GitHub.
+Once your branch is on GitHub, you can submit a pull request on GitHub.
 
 Choosing where your changes will be merged into
 -----------------------------------------------
@@ -128,7 +126,7 @@ branch, as you cannot edit it once the pull request is created.
 .. note::
 
     Remember that all code you contribute to CakePHP will be licensed under the
-    MIT License, and the `Cake Software Foundation <http://cakefoundation.org/pages/about>`_
+    MIT License, and the `Cake Software Foundation <http://cakefoundation.org/>`_
     will become the owner of any contributed code. Contributors should follow the 
     `CakePHP Community Guidelines <http://community.cakephp.org/guidelines>`_.
 

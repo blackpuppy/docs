@@ -6,6 +6,7 @@ Models
 
 Model::saveAll(), Model::saveAssociated(), Model::validateAssociated()
 ----------------------------------------------------------------------
+
 ``Model::saveAll()`` and friends now support passing the `fieldList` for multiple models. Example::
 
     $this->SomeModel->saveAll($data, array(
@@ -21,7 +22,10 @@ Model::saveAll(), Model::saveAssociated(), Model::validateAssociated()
         'Article' => array('title' => 'My first article'),
         'Comment' => array(
             array('body' => 'Comment 1', 'user_id' => 1),
-            array('body' => 'Save a new user as well', 'User' => array('first' => 'mad', 'last' => 'coder'))
+            array(
+                'body' => 'Save a new user as well',
+                'User' => array('first' => 'mad', 'last' => 'coder')
+            )
         ),
     );
     $this->SomeModel->saveAll($data, array('deep' => true));
@@ -150,13 +154,13 @@ When those methods are combined with having the :php:class:`RequestHandlerCompon
 enabled in your controller, the component will automatically decide if the
 response is already cached in the client and will send a `304 Not Modified`
 status code before rendering the view. Skipping the view rendering process saves
-CPU cycles and memory.::
+CPU cycles and memory. ::
 
     class ArticlesController extends AppController {
         public $components = array('RequestHandler');
 
         public function view($id) {
-            $article = $this->Article->read(null, $id);
+            $article = $this->Article->findById($id);
             $this->response->modified($article['Article']['modified']);
             $this->set(compact('article'));
         }
@@ -190,7 +194,7 @@ it in ``engine`` key::
     // Utility/MyAwesomeStringClass.php
     class MyAwesomeStringClass extends String {
         // my truncate is better than yours
-        public function static truncate($text, $length = 100, $options = array()) {
+        public static function truncate($text, $length = 100, $options = array()) {
             return null;
         }
     }
@@ -205,6 +209,6 @@ it in ``engine`` key::
     }
 
 HtmlHelper
------------
-A new function :php:meth:`HtmlHelper::media()` has been added for HTML5's audio/video element generation.
+----------
 
+A new function :php:meth:`HtmlHelper::media()` has been added for HTML5's audio/video element generation.

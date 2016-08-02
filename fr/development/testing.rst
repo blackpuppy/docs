@@ -28,9 +28,9 @@ Installation via Package .phar
 Vous pouvez également télécharger le fichier directement. Assurez-vous de
 récupérer la bonne version depuis https://phar.phpunit.de/.
 Assurez-vous également que /usr/local/bin est dans le include_path de votre
-fichier php.ini ::
+fichier php.ini::
 
-    wget https://phar.phpunit.de/phpunit-3.7.38.phar
+    wget https://phar.phpunit.de/phpunit-3.7.38.phar -O phpunit.phar
     chmod +x phpunit.phar
     mv phpunit.phar /usr/local/bin/phpunit
 
@@ -41,6 +41,9 @@ fichier php.ini ::
     Selon la configuration de votre système, vous devrez lancer les commandes
     précédentes avec ``sudo``.
 
+.. note::
+    A  partir de 2.5.7, vous pouvez placer le phar directement dans votre
+    dossier vendors ou App/Vendor.
 
 .. tip::
 
@@ -290,7 +293,7 @@ Filtrer les cas de test
 
 Quand vous avez des cas de test plus larges, vous voulez souvent lancer
 un sous-ensemble de méthodes de test quand vous essayez de travailler sur un
-cas unique d'échec. Avec l'exécuteur cli vous pouvez utiliser une option pour
+cas unique d'échec. Avec l'exécuteur CLI vous pouvez utiliser une option pour
 filtrer les méthodes de test::
 
     ./Console/cake test core Console/ConsoleOutput --filter testWriteArray
@@ -419,13 +422,16 @@ la définition de la table sont:
     Type de données interne à CakePHP. Actuellement supportés:
         - ``string``: redirige vers ``VARCHAR``.
         - ``text``: redirige vers ``TEXT``.
+        - ``biginteger``: redirige vers ``BIGINT``.
         - ``integer``: redirige vers ``INT``.
         - ``float``: redirige vers ``FLOAT``.
+        - ``decimal``: redirige vers ``DECIMAL``.
         - ``datetime``: redirige vers ``DATETIME``.
         - ``timestamp``: redirige vers ``TIMESTAMP``.
         - ``time``: redirige vers ``TIME``.
         - ``date``: redirige vers ``DATE``.
         - ``binary``: redirige vers ``BLOB``.
+        - ``boolean``: redirige vers ``TINYINT``.
 ``key``
     Défini à ``primary`` pour que le champ soit en AUTO\_INCREMENT, et une
     PRIMARY KEY pour la table.
@@ -536,7 +542,7 @@ Si vous voulez utiliser une connexion différente, utilisez::
 Puisqu'on utilise votre connexion à la base de données CakePHP, s'il y a un
 préfixe de table déclaré, il sera automatiquement utilisé quand on récupère
 l'information de la table. Pour forcer la fixture et aussi importer ses
-enregistrements, changez l'importation en ::
+enregistrements, changez l'importation en::
 
     class ArticleFixture extends CakeTestFixture {
         public $import = array('table' => 'articles', 'records' => true);

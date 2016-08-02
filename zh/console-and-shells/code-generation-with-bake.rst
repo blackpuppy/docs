@@ -7,7 +7,7 @@ Bake终端可以创建任何 CakePHP 的基本组成：模型，视图和控制�
 上，一旦一个应用被搭完架子后，Bake是自然的步骤。
 
 Bake新手(尤其是 Windows 用户) 可以在开始之前参考这篇
-设置文章 `Bake screencast <http://tv.cakephp.org/video/gwoo/2010/12/24/setting_up_the_cakephp_console_on_windows>`_ 
+设置文章 `Bake screencast <http://tv.cakephp.org/video/gwoo/2010/12/24/setting_up_the_cakephp_console_on_windows>`_
 
 根据你安装中的配置，你会需要将cake的bash脚本设置可执行权限，或者
 使用 ./cake bake来调用。
@@ -35,7 +35,7 @@ cake终端运行的是 PHP CLI (命令行界面)。如果你在运行脚本中�
     [T]est case
     [Q]uit
     What would you like to Bake? (D/M/V/C/P/F/T/Q)
-    >  
+    >
 
 换句话说，你可以直接在命令行中运行这些命令 ::
 
@@ -129,7 +129,7 @@ Fixture 和 test 的baking在过去是个难题。你只可以在baking类的时
 
 **新的 bake 命令**
 
-加入了新的bake命令，让bake更加的简单和快速。控制器、模型、视图都可以通过 ``all`` 
+加入了新的bake命令，让bake更加的简单和快速。控制器、模型、视图都可以通过 ``all``
 子命令，一次生成所有并且让重建更加简单快速::
 
     cake bake model all
@@ -141,10 +141,10 @@ Fixture 和 test 的baking在过去是个难题。你只可以在baking类的时
 以 ``Routing.admin`` 为开头的动作bake视图。
 
 以前提到的 ``cake bake fixture`` 和 ``cake bake test`` 是新的，每个都有一些子命令。
-``cake bake fixture all`` 将会声策划那个所有的你的应用的基本的fixtures。``-count`` 
+``cake bake fixture all`` 将会声策划那个所有的你的应用的基本的fixtures。``-count``
 参数允许你设置要生成的 模拟/假 数据的数目。交互运行fixture任务可以让你使用你自己的
 实时数据来生成fixtures。你可以使用 ``cake bake test <type> <class>`` 来为你的
-应用中已经创建的对象创建测试用例。type应该是CakePHP中的一个标准的类型 
+应用中已经创建的对象创建测试用例。type应该是CakePHP中的一个标准的类型
 ('component','controller', 'model', 'helper', 'behavior') 但并非必须是。class应
 该是上面选择的类型的已经存在的对象。
 
@@ -172,5 +172,5 @@ Todo插件。额外的/多个插件路径也被支持。在过去bake要求插�
 
 
 .. meta::
-    :title lang=zh_CN: Code Generation with Bake
-    :keywords lang=zh_CN: command line interface,functional application,atabase,database configuration,bash script,basic ingredients,roject,odel,path path,code generation,scaffolding,windows users,configuration file,few minutes,config,iew,shell,models,running,mysql
+    :title lang=zh: Code Generation with Bake
+    :keywords lang=zh: command line interface,functional application,atabase,database configuration,bash script,basic ingredients,roject,odel,path path,code generation,scaffolding,windows users,configuration file,few minutes,config,iew,shell,models,running,mysql

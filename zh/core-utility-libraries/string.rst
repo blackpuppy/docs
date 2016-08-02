@@ -284,5 +284,5 @@ String类包含了用于方便创建和操作字符串的方法，请通过静�
 .. end-string
 
 .. meta::
-    :title lang=zh_CN: String
-    :keywords lang=zh_CN: array php,array name,string options,data options,result string,class string,string data,string class,placeholders,default method,key value,markup,rfc,replacements,convenience,templates
+    :title lang=zh: String
+    :keywords lang=zh: array php,array name,string options,data options,result string,class string,string data,string class,placeholders,default method,key value,markup,rfc,replacements,convenience,templates

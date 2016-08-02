@@ -3,21 +3,20 @@ FormHelper
 
 .. php:class:: FormHelper(View $view, array $settings = array())
 
-Le Helper Form prend en charge la plupart des opérations lourdes
-en création du formulaire. Le Helper Form se concentre sur la
-possibilité de créé des formulaires rapidement, d'une manière qui
-permettra de rationaliser la validation, la re-population et la mise
-en page (layout). Le Helper Form est aussi flexible - Il va faire à
-peu près tout pour vous en utilisant les conventions, ou vous
-pouvez utiliser des méthodes spécifiques pour ne prendre
+Le Helper Form prend en charge la plupart des opérations lourdes en création du
+formulaire. Le Helper Form se concentre sur la possibilité de créer des
+formulaires rapidement, d'une manière qui permettra de rationaliser la
+validation, la re-population et la mise en page (layout). Le Helper Form est
+aussi flexible - Il va faire à peu près tout pour vous en utilisant les
+conventions, ou vous pouvez utiliser des méthodes spécifiques pour ne prendre
 uniquement que ce dont vous avez besoin.
 
 Création de Formulaire
 ======================
 
-La première méthode dont vous aurez besoin d'utiliser pour prendre
-pleinement avantage du Helper Form (Helper Formulaire) est
-``create()``. Cette méthode affichera un tag d'ouverture de formulaire.
+La première méthode dont vous aurez besoin d'utiliser pour prendre pleinement
+avantage du Helper Form (Helper Formulaire) est ``create()``. Cette méthode
+affichera un tag d'ouverture de formulaire.
 
 .. php:method:: create(string $model = null, array $options = array())
 
@@ -160,7 +159,7 @@ Il y plusieurs options pour create():
 *   ``$options['action']`` La clé action vous permet de définir vers quelle
     action de votre controller pointera le formulaire. Par exemple, si vous
     voulez que le formulaire appelle l'action login() de votre controller
-    courant, vous créeriez le tableau $options comme ceci ::
+    courant, vous créeriez le tableau $options comme ceci::
 
         echo $this->Form->create('User', array('action' => 'login'));
 
@@ -171,13 +170,18 @@ Il y plusieurs options pour create():
         <form id="UserLoginForm" method="post" action="/users/login">
         </form>
 
+  .. deprecated:: 2.8.0
+     L'option ``$options['action']`` a été dépréciée depuis 2.8.0. Utilisez
+     les options ``$options['url']`` et ``$options['id']`` à la place.
+
 *   ``$options['url']`` Si l'action que vous désirez appeler avec le formulaire
     n'est pas dans le controller courant, vous pouvez spécifier une URL
     dans le formulaire en utilisant la clé 'url' de votre tableau $options.
-    L'URL ainsi fournie peut être relative à votre application CakePHP ::
+    L'URL ainsi fournie peut être relative à votre application CakePHP::
 
-        echo $this->Form->create(null, array(
-            'url' => array('controller' => 'recipes', 'action' => 'add')
+        echo $this->Form->create(false, array(
+            'url' => array('controller' => 'recipes', 'action' => 'add'),
+            'id' => 'RecipesAdd'
         ));
 
     Affichera:
@@ -188,7 +192,7 @@ Il y plusieurs options pour create():
 
     ou pointer vers un domaine extérieur::
 
-        echo $this->Form->create(null, array(
+        echo $this->Form->create(false, array(
             'url' => 'http://www.google.com/search',
             'type' => 'get'
         ));
@@ -201,6 +205,11 @@ Il y plusieurs options pour create():
 
     Regardez aussi la méthode :php:meth:`HtmlHelper::url()` pour plus
     d'exemples sur les différents types d'URLs.
+
+  .. versionchanged:: 2.8.0
+
+     Utilisez ``'url' => false`` si vous ne voulez pas afficher une URL pour
+     l'action du formulaire.
 
 *   ``$options['default']`` Si la variable 'default' est définie à false,
     l'action de soumission du formulaire est changée de telle manière que le
@@ -313,7 +322,7 @@ ce champ. En interne ``input()`` délègue aux autre méthode du FormHelper.
     * input de(s) l'élément(s)  (Input element(s))
     * Erreur de l'élément avec un message si c'est applicable.
 
-    Le type d'input créés dépends de la colonne datatype:
+    Le type d'input créé dépends de la colonne datatype:
 
     Column Type
         Champ de formulaire résultant
@@ -397,7 +406,7 @@ ce champ. En interne ``input()`` délègue aux autre méthode du FormHelper.
     Supposons un User hasAndBelongsToMany Group. Dans votre controller,
     définissez une variable camelCase au pluriel (groupe -> groupes dans cette
     exemple, ou ExtraFunkyModele -> extraFunkyModeles) avec les options de
-    sélections. Dans l'action du controller vous pouvez définir ::
+    sélections. Dans l'action du controller vous pouvez définir::
 
         $this->set('groups', $this->User->Group->find('list'));
 
@@ -418,7 +427,7 @@ ce champ. En interne ``input()`` délègue aux autre méthode du FormHelper.
     Si votre nom de model est composé de deux mots ou plus,
     ex. "UserGroup", quand vous passez les données en utilisant set()
     vous devrez nommer vos données dans un format CamelCase
-    (les Majuscules séparent les mots) et au pluriel comme ceci ::
+    (les Majuscules séparent les mots) et au pluriel comme ceci::
 
         $this->set('userGroups', $this->UserGroup->find('list'));
         // ou bien
@@ -577,7 +586,7 @@ comme les attributs html. Ce qui suit va couvrir les options spécifiques de
           <input name="data[User][name]" type="text" value="" id="UserName" />
       </div>
 
-  Désactiver le rendu de la div ::
+  Désactiver le rendu de la div::
 
       echo $this->Form->input('User.name', array('div' => false)); ?>
 
@@ -711,7 +720,8 @@ comme les attributs html. Ce qui suit va couvrir les options spécifiques de
         'after' => '--après--',
         'between' => '--entre---',
         'separator' => '--séparateur--',
-        'options' => array('1', '2')
+        'options' => array('1', '2'),
+        'type' => 'radio'
     ));
 
   Affichera:
@@ -764,8 +774,34 @@ comme les attributs html. Ce qui suit va couvrir les options spécifiques de
   Si vous avez besoin de changer plus tard les valeurs par défaut, vous
   pourrez utiliser :php:meth:`FormHelper::inputDefaults()`.
 
-Générer des types de inputs spécifiques
-=======================================
+* ``$options['maxlength']`` Définissez cette clé pour définir l'attribut
+  ``maxlength`` du champ ``input`` avec une valeur spécifique. Quand cette clé
+  n'est pas donnée et que le type d'input est ``text``, ``textarea``, ``email``,
+  ``tel``, ``url`` ou ``search`` et que la définition de champ n'est pas
+  ``decimal``, ``time`` ou ``datetime``, l'option length du champ de la base de
+  données est utilisée.
+
+GET Form Inputs
+---------------
+
+Quand vous utilisez ``FormHelper`` pour générer des inputs pour les formulaires
+``GET``, les noms d'input seront automatiquement raccourcis pour que les noms
+soient plus lisibles pour les humains. Par exemple::
+
+    // Crée <input name="email" type="text" />
+    echo $this->Form->input('User.email');
+
+    // Crée <select name="Tags" multiple="multiple">
+    echo $this->Form->input('Tags.Tags', array('multiple' => true));
+
+Si vous voulez surcharger les attributs name générés, vous pouvez utiliser
+l'option ``name``::
+
+    // Crée le plus habituel <input name="data[User][email]" type="text" />
+    echo $this->Form->input('User.email', array('name' => 'data[User][email]'));
+
+Générer des types d'inputs spécifiques
+======================================
 
 En plus de la méthode générique ``input()``, le ``FormHelper`` à des
 méthodes spécifiques pour générer différents types d'inputs. Ceci peut
@@ -819,9 +855,7 @@ répétitions les options communes partagées par toutes les méthodes input son
 
 En plus des options ci-dessus, vous pouvez mixer n'importe quel attribut HTML
 que vous souhaitez utiliser. Chacun des nom d'options non-special sera
-traité comme un attribut HTML, et appliqué a l'élément HTML input généré.
-NdT. celui qui capte cette phrase gagne un giroTermoOnduleur a double
-convection.
+traité comme un attribut HTML, et appliqué a l'élément HTML généré.
 
 Les options pour  select, checkbox et inputs radio
 --------------------------------------------------
@@ -871,11 +905,54 @@ Les options pour  select, checkbox et inputs radio
 
   .. note::
 
-      Si vous avez besoin de définir la valeur par défaut d'un champ
-      password à vide, utilisez 'value'=> '' (deux fois simple cote) à
-      la place.
+    Si vous avez besoin de définir la valeur par défaut d'un champ password à
+    vide, utilisez 'value'=> '' (deux fois simple cote) à la place.
 
-    Les Options peuvent aussi fournir une paire de clé-valeur.
+    Une liste de paire de clé-valeur peut être fournie pour un champ de type
+    date ou datetime::
+
+        echo $this->Form->dateTime('Contact.date', 'DMY', '12',
+	        array(
+	            'empty' => array(
+                    'day' => 'DAY', 'month' => 'MONTH', 'year' => 'YEAR',
+                    'hour' => 'HOUR', 'minute' => 'MINUTE', 'meridian' => false
+                )
+            )
+        );
+
+  Affiche:
+
+  .. code-block:: html
+
+    <select name="data[Contact][date][day]" id="ContactDateDay">
+        <option value="">DAY</option>
+        <option value="01">1</option>
+        // ...
+        <option value="31">31</option>
+    </select> - <select name="data[Contact][date][month]" id="ContactDateMonth">
+        <option value="">MONTH</option>
+        <option value="01">January</option>
+        // ...
+        <option value="12">December</option>
+    </select> - <select name="data[Contact][date][year]" id="ContactDateYear">
+        <option value="">YEAR</option>
+        <option value="2036">2036</option>
+        // ...
+        <option value="1996">1996</option>
+    </select> <select name="data[Contact][date][hour]" id="ContactDateHour">
+        <option value="">HOUR</option>
+        <option value="01">1</option>
+        // ...
+        <option value="12">12</option>
+        </select>:<select name="data[Contact][date][min]" id="ContactDateMin">
+        <option value="">MINUTE</option>
+        <option value="00">00</option>
+        // ...
+        <option value="59">59</option>
+    </select> <select name="data[Contact][date][meridian]" id="ContactDateMeridian">
+        <option value="am">am</option>
+        <option value="pm">pm</option>
+    </select>
 
 * ``$options['hiddenField']`` Pour certain types d' input (checkboxes,
   radios) un input caché est créé ainsi la clé dans $this->request->data
@@ -1194,8 +1271,15 @@ Ex: name=data[User][username], id=UserUsername
     Si pour quelque raisons vous ne voulez pas du input caché, définissez
     ``$attributes['value']`` à une valeur sélectionnée ou le booléen false
 
+    * ``$attributes['fieldset']`` Si l'attribut ``legend`` n'est pas défini à
+      false, alors cet attribut peut être utilisé pour définir la classe de
+      l'élément fieldset.
+
     .. versionchanged:: 2.1
         L'option d'attribut ``$attributes['disabled']`` a été ajoutée dans CakePHP 2.1.
+
+    .. versionchanged:: 2.8.5
+        L'option d'attribut ``$attributes['fieldset']`` a été ajoutée dans CakePHP  dans 2.8.5.
 
 .. php:method:: select(string $fieldName, array $options, array $attributes)
 
@@ -1229,7 +1313,7 @@ Ex: name=data[User][username], id=UserUsername
       manuellement des options pour un input select (menu de sélection),
       ou pour un groupe radio. A moins que le 'type' soit spécifié à 'radio',
       le Helper Form supposera que la cible est un input select (menu de
-      sélection) ::
+      sélection)::
 
         echo $this->Form->select('field', array(1,2,3,4,5));
 
@@ -1238,6 +1322,7 @@ Ex: name=data[User][username], id=UserUsername
       .. code-block:: html
 
         <select name="data[User][field]" id="UserField">
+            <option value=""></option>
             <option value="0">1</option>
             <option value="1">2</option>
             <option value="2">3</option>
@@ -1514,7 +1599,7 @@ Création des boutons et des éléments submits
     Crée un tag``<button>`` avec un ``<form>`` l'entourant  qui soumets à
     travers POST.
 
-    Cette méthode créé un élément ``<form>``. Donc n'utilisez pas
+    Cette méthode crée un élément ``<form>``. Donc n'utilisez pas
     pas cette méthode dans un formulaire ouvert. Utilisez plutôt
     :php:meth:`FormHelper::submit() ou :php:meth:`FormHelper::button()`
     pour créer des boutons a l'intérieur de formulaires ouvert.
@@ -1522,11 +1607,15 @@ Création des boutons et des éléments submits
 .. php:method:: postLink(string $title, mixed $url = null, array $options = array ())
 
     Crée un lien HTML, mais accède à l'Url en utilisant la méthode POST.
-    Requiert que JavaScript  soit autorisé dans votre navigateur.
+    Requiert que JavaScript soit autorisé dans votre navigateur.
 
-    Cette méthode créée un élément ``<form>``. Donc n'utilisez pas cette
-    méthode dans un formulaire existant. En remplacement vous devriez
-    ajouter un bouton submit en utilisant :php:meth:`FormHelper::submit()`.
+    Cette méthode crée un élément ``<form>``. Si vous souhaitez utiliser cette
+    méthode dans un formulaire existant, vous devez utiliser les options
+    ``inline`` ou ``block`` pour que le nouveau formulaire soit affiché à
+    l'extérieur de son formulaire parent.
+
+    Si vous cherchez un bouton pour soumettre votre formulaire, vous devrez
+    plutôt utiliser :php:meth:`FormHelper::submit()` instead.
 
     .. versionchanged:: 2.3
 
@@ -1536,9 +1625,9 @@ Création des boutons et des éléments submits
         Les options ``inline`` et ``block`` ont été ajoutées. Elles permettent
         de mettre en tampon la balise de form générée au lieu de la retourner
         avec le lien. Ceci permet d'éviter les balises de form imbriquées.
-        Définir ``'inline' => true`` va ajouter la balise de form en block
-        de contenu ``postLink`` ou vous pouvez utiliser l'option ``block``
-        pour spécifier un block personnalisé.
+        Définir ``'inline' => false`` va ajouter la balise de form en block
+        de contenu ``postLink``, si vous voulez utiliser un block personnalisé
+        vous pouvez le spécifier en utilisant plutôt l'option ``block``.
 
     .. versionchanged:: 2.6
         L'argument ``$confirmMessage`` a été dépréciée. Utilisez la clé
@@ -1757,7 +1846,7 @@ du Helper Form (FormHelper). Toutes les méthodes supportent
 désormais un clé  ``$attributes['value']`` qui devra être utilisée
 en remplacement de ``$selected``. Ce changement simplifie
 les méthodes du Helper Form, en réduisant le nombre d'arguments,
-et réduit les duplications que ``$selected`` créé.
+et réduit les duplications que ``$selected`` crée.
 Les méthodes sont:
 
     * FormHelper::select()

@@ -24,11 +24,11 @@ votre propre système de mise en cache. Les moteurs de cache intégrés sont:
   grands objets ou des éléments qui sont rarement écrits fonctionne
   bien dans les fichiers. C'est le moteur de Cache par défaut pour 2.3+.
 * ``ApcCache`` Le cache APC utilise l'extension PHP
-  `APC <http://php.net/apc>`_. Cette extension utilise la mémoire partagée du
-  serveur Web pour stocker les objets. Cela le rend très rapide, et capable de
-  fournir les fonctionnalités atomiques en lecture/écriture.
-  Par défaut CakePHP dans 2.0-2.2 utilisera ce moteur de cache si il est
-  disponible.
+  `APC <http://php.net/apc>`_ ou `APCu <http://php.net/apcu>`_. Ces extensions
+  utilisent la mémoire partagée du serveur Web pour stocker les objets. Cela le
+  rend très rapide, et capable de fournir les fonctionnalités atomiques en
+  lecture/écriture. Par défaut CakePHP dans 2.0-2.2 utilisera ce moteur de cache
+  si il est disponible.
 * ``Wincache`` Utilise l'extension `Wincache <http://php.net/wincache>`_.
   Wincache offre des fonctionnalités et des performances semblables à APC, mais
   optimisées pour Windows et IIS.
@@ -48,7 +48,7 @@ votre propre système de mise en cache. Les moteurs de cache intégrés sont:
 . versionchanged:: 2.3
     FileEngine est toujours le moteur de cache par défaut. Dans le passé, un
     certain nombre de personnes avait des difficultés à configurer et à déployer
-    APC correctement dans les deux cli + web. Utiliser les fichiers devrait
+    APC correctement dans les deux CLI + web. Utiliser les fichiers devrait
     faciliter la configuration de CakePHP pour les nouveaux développeurs.
 
 .. versionchanged:: 2.5
@@ -88,18 +88,18 @@ comme vous l'entendez.
 Exemple::
 
     Cache::config('short', array(
-        'engine' => 'File',  
-        'duration' => '+1 hours',  
-        'path' => CACHE,  
+        'engine' => 'File',
+        'duration' => '+1 hours',
+        'path' => CACHE,
         'prefix' => 'cake_short_'
     ));
 
-    // long  
-    Cache::config('long', array(  
-        'engine' => 'File',  
-        'duration' => '+1 week',  
-        'probability' => 100,  
-        'path' => CACHE . 'long' . DS,  
+    // long
+    Cache::config('long', array(
+        'engine' => 'File',
+        'duration' => '+1 week',
+        'probability' => 100,
+        'path' => CACHE . 'long' . DS,
     ));
 
 En insérant le code ci-dessus dans votre ``app/Config/bootstrap.php`` vous
@@ -167,7 +167,7 @@ L'API requise pour CacheEngine est
 
     Lit une clé depuis le cache. Retourne false pour indiquer
     que l'entrée a expiré ou n'existe pas.
-    
+
 .. php:method:: delete($key, $config = 'default')
 
     :retourne: Un booléen true en cas de succès.
@@ -193,18 +193,27 @@ L'API requise pour CacheEngine est
     :retourne: La valeur décrémentée en en cas de succès, false sinon.
 
     Décrémente un nombre dans la clé et retourne la valeur décrémentée
-   
+
 .. php:method:: increment($key, $offset = 1)
 
     :retourne: La valeur incrémentée en en cas de succès, false sinon.
 
     Incrémente un nombre dans la clé et retourne la valeur incrémentée
-   
+
 .. php:method:: gc()
 
     Non requise, mais utilisée pour faire du nettoyage quand les ressources
     expirent. Le moteur FileEngine utilise cela pour effacer les fichiers
     qui contiennent des contenus expirés.
+
+.. php:method:: add($key, $value)
+
+    Définit une valeur dans le cache si elle n'existe pas déjà. Devrait
+    utiliser une vérification et une définition atomique quand cela est
+    possible.
+
+    .. versionadded:: 2.8
+        La méthode add a été ajoutée dans 2.8.0.
 
 Utilisation du Cache pour stocker le résultat des requêtes les plus courantes
 =============================================================================
@@ -214,10 +223,10 @@ en plaçant les résultats qui ne changent que peu fréquemment ou qui peuvent
 être sujets à de nombreuses lectures dans le cache. Un exemple parfait de
 ceci pourrait être les résultats d'un find :php:meth:`Model::find()`.
 Une méthode qui utilise la mise en Cache pour stocker les résultats pourrait
-ressembler à cela ::
+ressembler à cela::
 
     class Post extends AppModel {
-    
+
         public function newest() {
             $result = Cache::read('newest_posts', 'longterm');
             if ($result === false) {
@@ -375,7 +384,7 @@ l'API de Cache
         // génération des données cloud
         // ...
 
-        // stockage des donnée en cache 
+        // stockage des donnée en cache
         Cache::write('cloud', $cloud);
         return $cloud;
 
@@ -389,7 +398,7 @@ l'API de Cache
     peut stocker n'importe quel type d'objet et elle est idéale pour
     stocker les résultats des finds de vos models. ::
 
-   
+
             if (($posts = Cache::read('posts')) === false) {
                 $posts = $this->Post->find('all');
                 Cache::write('posts', $posts);
@@ -403,7 +412,7 @@ l'API de Cache
 
     ``Cache::delete()`` vous permet d'enlever complètement un objet mis en cache
     de son lieu de stockage de Cache.
-    
+
 .. php:staticmethod:: set($settings = array(), $value = null, $config = 'default')
 
     ``Cache::set()`` vous permet de réécrire temporairement les paramètres
@@ -412,12 +421,12 @@ l'API de Cache
     écriture, vous devez aussi utiliser ``Cache::set()`` avant de lire les
     données en retour. Si vous ne faites pas cela, les paramètres par défaut
     seront utilisés quand la clé de cache est lue. ::
-   
+
         Cache::set(array('duration' => '+30 days'));
         Cache::write('results', $data);
-    
+
         // plus tard
-    
+
         Cache::set(array('duration' => '+30 days'));
         $results = Cache::read('results');
 
@@ -429,18 +438,28 @@ l'API de Cache
 
     Incrémente de manière atomique une valeur stockée dans le moteur de cache.
     Idéal pour modifier un compteur ou des valeurs de sémaphore.
-   
+
 .. php:staticmethod:: decrement($key, $offset = 1, $config = 'default')
 
     Décrémente de manière atomique une valeur stockée dans le moteur de cache.
     Idéal pour modifier un compteur ou des valeurs de sémaphore.
 
+.. php:staticmethod:: add($key, $value, $config = 'default')
+
+    Ajoute des données au cache, mais seulement si la clé n'existe pas déjà.
+    Dans le cas où cette donnée existe, cette méthode va retourner false.
+    Lorsque c'est possible, les données sont vérifiées et définies de façon
+    atomique.
+
+    .. versionadded:: 2.8
+        La méthode add a été ajoutée dans 2.8.0.
+
 .. php:staticmethod:: clear($check, $config = 'default')
 
-    Détruit toutes les valeurs en cache pour une configuration de cache. Dans 
-    les moteurs comme Apc, Memcache et Wincache le préfixe de configuration de 
+    Détruit toutes les valeurs en cache pour une configuration de cache. Dans
+    les moteurs comme Apc, Memcache et Wincache le préfixe de configuration de
     cache est utilisé pour enlever les entrées de cache.
-    Assurez-vous que les différentes configuration de cache ont un préfixe
+    Assurez-vous que les différentes configurations de cache ont un préfixe
     différent.
 
 .. php:method:: clearGroup($group, $config = 'default')
@@ -455,7 +474,7 @@ l'API de Cache
     Utilisée principalement par FileEngine. Elle doit être mise en œuvre par
     n'importe quel moteur de cache qui requiert des évictions manuelles de
     données de cache.
-    
+
 .. php:staticmethod:: groupConfigs($group = null)
 
     :return: Tableau de groupes et leurs noms de configuration liés.

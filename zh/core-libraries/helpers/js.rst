@@ -70,7 +70,7 @@ To override the "$" shortcut, use the jQueryObject variable::
 
     $this->Js->JqueryEngine->jQueryObject = '$j';
     echo $this->Html->scriptBlock(
-        'var $j = jQuery.noConflict();', 
+        'var $j = jQuery.noConflict();',
         array('inline' => false)
     );
     // Tell jQuery to go into noconflict mode
@@ -141,7 +141,7 @@ Since most methods in Javascript begin with a selection of elements
 in the DOM, ``$this->Js->get()`` returns a $this, allowing you to
 chain the methods using the selection. Method chaining allows you
 to write shorter, more expressive code::
- 
+
     $this->Js->get('#foo')->event('click', $eventCode);
 
 Is an example of method chaining. Method chaining is not possible
@@ -281,7 +281,7 @@ return its result.
 在helpers中有些方法默认不被缓存，JS引擎默认缓存以下方法(译注:好像需要jqueryUI支持)
 -  event    事件
 -  sortable 排序
--  drag     拖拽   
+-  drag     拖拽
 -  drop     放下
 -  slider   滑动
 
@@ -307,7 +307,7 @@ translated into library specific options.这些方法包含在cakephp的核心�
     -  ``postfix`` - String 返回的数据追加额外内容.
 
     **举例**::
-    
+
         $json = $this->Js->object($data);
 
 
@@ -334,7 +334,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
     -  ``postfix`` - String appended to the returned data.
 
     **Example Use**::
-    
+
         $json = $this->Js->object($data);
 
 .. php:method:: sortable($options = array())
@@ -347,7 +347,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
     -  ``containment`` - Container for move action 移动动作
     -  ``handle`` - Selector to handle element. Only this element will
-       start sort action.  
+       start sort action.
     -  ``revert`` - Whether or not to use an effect to move sortable
        into final position.
     -  ``opacity`` - Opacity of the placeholder
@@ -365,7 +365,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
     detailed information on its options and parameters.
 
     **Example Use**::
-    
+
         $this->Js->get('#my-list');
         $this->Js->sortable(array(
             'distance' => 5,
@@ -378,7 +378,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
     Assuming you were using the jQuery engine, you would get the
     following code in your generated Javascript block
-    
+
     .. code-block:: javascript
 
         $("#myList").sortable({containment:"parent", distance:5, sort:onSort, start:onStart, stop:onStop});
@@ -421,7 +421,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
             )
         );
     生成:
-    <script type = "text/javascript" > 
+    <script type = "text/javascript" >
     $(document).ready(function() {
         $("#element").bind("click", function(event) {
             $.ajax({
@@ -435,14 +435,14 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
             return false;
         });
     });
-    </script>    
+    </script>
 
 .. php:method:: get($selector)
 
     Set the internal 'selection' to a CSS selector. The active
     selection is used in subsequent operations until a new selection is
     made::
-    
+
         $this->Js->get('#element');
 
     The ``JsHelper`` now will reference all other element based methods
@@ -456,9 +456,9 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
 .. php:method:: set(mixed $one, mixed $two = null)
 
-    Pass variables into Javascript. Allows you to set variables that will be 
-    output when the buffer is fetched with :php:meth:`JsHelper::getBuffer()` or 
-    :php:meth:`JsHelper::writeBuffer()`. The Javascript variable used to output 
+    Pass variables into Javascript. Allows you to set variables that will be
+    output when the buffer is fetched with :php:meth:`JsHelper::getBuffer()` or
+    :php:meth:`JsHelper::writeBuffer()`. The Javascript variable used to output
     set variables can be controlled with :php:attr:`JsHelper::$setVariable`.
 
 .. php:method:: drag($options = array())
@@ -492,7 +492,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
         ));
 
     如果你使用JQuery引擎，会生成下面的代码
-    
+
     .. code-block:: javascript
 
         $("#element").draggable({containment:"#content", drag:onDrag, grid:[10,10], start:onStart, stop:onStop});
@@ -529,7 +529,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
     If you were using the jQuery engine the following code would be
     added to the buffer
-    
+
     .. code-block:: javascript
 
         $("#element").droppable({accept:".items", drop:onDrop, out:onExit, over:onHover});
@@ -578,7 +578,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
     If you were using the jQuery engine the following code would be
     added to the buffer
-    
+
     .. code-block:: javascript
 
         $("#element").slider({change:onChange, max:10, min:0, orientation:"vertical", stop:onComplete, value:2});
@@ -630,13 +630,13 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
        true)
 
     **Example use**::
-    
+
         $this->Js->get('#some-link');
         $this->Js->event('click', $this->Js->alert('hey you!'));
 
     If you were using the jQuery library you would get the following
     Javascript code:
-    
+
     .. code-block:: javascript
 
         $('#some-link').bind('click', function (event) {
@@ -653,7 +653,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
     If you were using the jQuery library you would the following
     Javascript code would be added to the buffer. Note that the default
     browser event is not cancelled:
-    
+
     .. code-block:: javascript
 
         $('#some-link').bind('click', function (event) {
@@ -671,7 +671,7 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
 
         $this->Js->get('div.message');
         $this->Js->each('$(this).css({color: "red"});');
-   
+
     .. code-block:: javascript
 
         $('div.message').each(function () { $(this).css({color: "red"}); });
@@ -745,9 +745,9 @@ CakePHP core. Whenever you see separate lists for ``Options`` and
     Create an html anchor element that has a click event bound to it.
     Options can include both those for :php:func:`HtmlHelper::link()` and
     :php:func:`JsHelper::request()`, :php:func:`JsHelper::event()`, ``$options``
-    is a :term:`html attributes` array that are appended to the generated 
-    anchor element. If an option is not part of the standard attributes 
-    or ``$htmlAttributes`` it will be passed to :php:func:`JsHelper::request()` 
+    is a :term:`html attributes` array that are appended to the generated
+    anchor element. If an option is not part of the standard attributes
+    or ``$htmlAttributes`` it will be passed to :php:func:`JsHelper::request()`
     as an option. If an id is not supplied, a randomly generated one will be
     created for each link generated.
 
@@ -843,7 +843,7 @@ example we'll be using jQuery::
 Similar to 1.2 you need to tell the ``PaginatorHelper`` that you
 want to make Javascript enhanced links instead of plain HTML ones.
 To do so you use ``options()``::
-    
+
     $this->Paginator->options(array(
         'update' => '#content',
         'evalScripts' => true
@@ -917,6 +917,6 @@ control and more complex effects to be created.
 
 
 .. meta::
-    :title lang=zh_CN: JsHelper
-    :description lang=zh_CN: The Js Helper supports the javascript libraries Prototype, jQuery and Mootools and provides methods for manipulating javascript.
-    :keywords lang=zh_CN: js helper,javascript,cakephp jquery,cakephp mootools,cakephp prototype,cakephp jquery ui,cakephp scriptaculous,cakephp javascript,javascript engine
+    :title lang=zh: JsHelper
+    :description lang=zh: The Js Helper supports the javascript libraries Prototype, jQuery and Mootools and provides methods for manipulating javascript.
+    :keywords lang=zh: js helper,javascript,cakephp jquery,cakephp mootools,cakephp prototype,cakephp jquery ui,cakephp scriptaculous,cakephp javascript,javascript engine

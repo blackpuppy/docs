@@ -1,7 +1,7 @@
 ルーティング
 ##############
 
-ルーティングはURLをどコントローラーのアクションと関連付けてマッピングするか決める機能です。
+ルーティングはURLをどのコントローラーのアクションと関連付けてマッピングするか決める機能です。
 これはCakePHP でURLをより細かく柔軟に設定できるようにするために作られました。
 Apache の mod\_rewrite はルーティングのために必要でないです。しかし、これはアドレスバーを綺麗に見せます。
 
@@ -40,7 +40,7 @@ CakePHP のデフォルトルーティングはほかのアプリに比べてと
 一つのアクションに対して直接URLにアクション名を書くことでアクセスできます。
 アクションに対してURLを使って引数も渡すことができます。 ::
 
-        URL pattern default routes:
+        // デフォルトルートの URL パターン:
         http://example.com/controller/action/param1/param2/param3
 
 /posts/view は PostsController の view() アクションに接続することを示しています。
@@ -987,4 +987,4 @@ HTTP  302　ステータスを出しながらリダイレクトさせます。
 
 .. meta::
     :title lang=ja: ルーティング
-    :keywords lang=en: controller actions,default routes,mod rewrite,code index,string url,php class,incoming requests,dispatcher,url url,meth,maps,match,parameters,array,config,cakephp,apache,router
+    :keywords lang=ja: controller actions,default routes,mod rewrite,code index,string url,php class,incoming requests,dispatcher,url url,meth,maps,match,parameters,array,config,cakephp,apache,router

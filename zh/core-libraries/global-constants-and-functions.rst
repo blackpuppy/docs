@@ -376,5 +376,5 @@ Most of the following constants refer to paths in your application.
 
 
 .. meta::
-    :title lang=zh_CN: Global Constants and Functions
-    :keywords lang=zh_CN: internationalization and localization,global constants,example config,array php,convenience functions,core libraries,component classes,optional number,global functions,string string,core classes,format strings,unread messages,placeholders,useful functions,sprintf,arrays,parameters,existence,translations
+    :title lang=zh: Global Constants and Functions
+    :keywords lang=zh: internationalization and localization,global constants,example config,array php,convenience functions,core libraries,component classes,optional number,global functions,string string,core classes,format strings,unread messages,placeholders,useful functions,sprintf,arrays,parameters,existence,translations

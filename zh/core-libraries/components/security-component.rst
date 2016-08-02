@@ -398,5 +398,5 @@ You may "unlock" these actions by listing them in ``$this->Security->unlockedAct
 .. versionadded:: 2.3
 
 .. meta::
-    :title lang=zh_CN: Security
-    :keywords lang=zh_CN: configurable parameters,security component,configuration parameters,invalid request,protection features,tighter security,holing,php class,meth,404 error,period of inactivity,csrf,array,submission,security class,disable security,unlockActions
+    :title lang=zh: Security
+    :keywords lang=zh: configurable parameters,security component,configuration parameters,invalid request,protection features,tighter security,holing,php class,meth,404 error,period of inactivity,csrf,array,submission,security class,disable security,unlockActions

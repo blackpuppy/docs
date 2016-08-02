@@ -85,5 +85,5 @@ normally accessed statically. Example:
 
 
 .. meta::
-    :title lang=zh_CN: Inflector
-    :keywords lang=zh_CN: apple orange,word variations,apple pie,person man,latin versions,profile settings,php class,initial state,puree,slug,apples,oranges,user profile,underscore
+    :title lang=zh: Inflector
+    :keywords lang=zh: apple orange,word variations,apple pie,person man,latin versions,profile settings,php class,initial state,puree,slug,apples,oranges,user profile,underscore

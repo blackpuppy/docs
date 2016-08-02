@@ -90,7 +90,8 @@ Depuis 2.4 le moteur de ``FileLog`` a quelques nouvelles configurations:
   existant est renommé en ajoutant le timestamp au nom du fichier et un
   nouveau fichier de log est crée. Peut être une valeur de bytes en entier
   ou des valeurs de chaînes lisible par l'humain comme '10MB', '100KB' etc.
-  Par défaut à 10MB.
+  Par défaut à 10MB. Définir size à false va désactiver l'option ``rotate``
+  ci-dessous.
 * ``rotate`` Les fichiers de log font une rotation à un temps spécifié
   avant d\'être retiré.
   Si la valeur est 0, les versions anciennes seront retirées plutôt que
@@ -164,7 +165,7 @@ La classe Filelog intégrée par défaut traitera ce nom de log comme le fichier
 dans lequel vous voulez écrire les logs::
 
     // appelé de manière statique
-    CakeLog::write('activity', 'Un message spécial pour l'activité de logging');
+    CakeLog::write('activity', 'Un message spécial pour l\'activité de logging');
 
     // Aboutit à ce que cela soit ajouté à app/tmp/logs/activity.log (au lieu de error.log)
     // 2007-11-02 10:22:02 Activity: Un message spécial pour l'activité de logging

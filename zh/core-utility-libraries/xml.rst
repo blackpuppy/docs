@@ -76,7 +76,7 @@ If your input is invalid the Xml class will throw a Exception::
 
 .. note::
 
-    `DOMDocument <http://php.net/domdocument>`_ and 
+    `DOMDocument <http://php.net/domdocument>`_ and
     `SimpleXML <http://php.net/simplexml>`_ implement different API's.
     Be sure to use the correct methods on the object you request from Xml.
 
@@ -332,5 +332,5 @@ from a number of sources including strings, arrays and remote urls.
 
 
 .. meta::
-    :title lang=zh_CN: Xml
-    :keywords lang=zh_CN: array php,xml class,xml objects,post xml,xml object,string url,string data,xml parser,php 5,bakery,constructor,php xml,cakephp,php file,unicorns,meth
+    :title lang=zh: Xml
+    :keywords lang=zh: array php,xml class,xml objects,post xml,xml object,string url,string data,xml parser,php 5,bakery,constructor,php xml,cakephp,php file,unicorns,meth

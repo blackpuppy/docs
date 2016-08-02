@@ -162,13 +162,18 @@ There are a number of options for create():
 
      <form id="UserLoginForm" method="post" action="/users/login">
 
+  .. deprecated:: 2.8.0
+     The ``$options['action']`` option was deprecated as of 2.8.0.
+     Use the ``$options['url']`` and ``$options['id']`` options instead.
+
 * ``$options['url']`` If the desired form action isn't in the current
   controller, you can specify a URL for the form action using the 'url' key of
   the $options array. The supplied URL can be relative to your CakePHP
   application::
 
-    echo $this->Form->create(null, array(
-        'url' => array('controller' => 'recipes', 'action' => 'add')
+    echo $this->Form->create(false, array(
+        'url' => array('controller' => 'recipes', 'action' => 'add'),
+        'id' => 'RecipesAdd'
     ));
 
   Output:
@@ -179,7 +184,7 @@ There are a number of options for create():
 
   or can point to an external domain::
 
-    echo $this->Form->create(null, array(
+    echo $this->Form->create(false, array(
         'url' => 'http://www.google.com/search',
         'type' => 'get'
     ));
@@ -192,6 +197,10 @@ There are a number of options for create():
 
   Also check :php:meth:`HtmlHelper::url()` method for more examples of
   different types of URLs.
+
+  .. versionchanged:: 2.8.0
+
+     Use ``'url' => false`` if you don’t want to output a URL as the form action.
 
 * ``$options['default']`` If 'default' has been set to boolean false, the form's
   submit action is changed so that pressing the submit button does not submit
@@ -271,7 +280,7 @@ Closing the Form
         <div class="glass-pill"><input type="submit" value="Update" name="Update">
         </div>
 
-    See the `Form Helper API <http://api.cakephp.org/2.7/class-FormHelper.html>`_ for further details.
+    See the `Form Helper API <http://api.cakephp.org/2.8/class-FormHelper.html>`_ for further details.
 
     .. note::
 
@@ -691,7 +700,8 @@ HTML attributes. The following will cover the options specific to
           'after' => '--after--',
           'between' => '--between---',
           'separator' => '--separator--',
-          'options' => array('1', '2')
+          'options' => array('1', '2'),
+          'type' => 'radio'
       ));
 
   Output:
@@ -742,6 +752,31 @@ HTML attributes. The following will cover the options specific to
 
   If you need to later change the defaults you can use
   :php:meth:`FormHelper::inputDefaults()`.
+
+* ``$options['maxlength']`` Set this key to set the ``maxlength`` attribute of the ``input``
+  field to a specific value. When this key is omitted and the input-type is ``text``,
+  ``textarea``, ``email``, ``tel``, ``url`` or ``search`` and the field-definition is not
+  one of ``decimal``, ``time`` or ``datetime``, the length option of the database field is
+  used.
+
+GET Form Inputs
+---------------
+
+When using ``FormHelper`` to generate inputs for ``GET`` forms, the input names
+will automatically be shortened to provide more human friendly names. For
+example::
+
+    // Makes <input name="email" type="text" />
+    echo $this->Form->input('User.email');
+
+    // Makes <select name="Tags" multiple="multiple">
+    echo $this->Form->input('Tags.Tags', array('multiple' => true));
+
+If you want to override the generated name attributes you can use the ``name``
+option::
+
+    // Makes the more typical <input name="data[User][email]" type="text" />
+    echo $this->Form->input('User.email', array('name' => 'data[User][email]'));
 
 Generating specific types of inputs
 ===================================
@@ -849,10 +884,53 @@ Options for select, checkbox and  radio inputs
 
   .. note::
 
-      If you need to set the default value in a password field to blank,
-      use 'value' => '' instead.
+    If you need to set the default value in a password field to blank,
+    use 'value' => '' instead.
 
-  Options can also supplied as key-value pairs.
+    A list of key-value pairs can be supplied for a date or datetime field::
+
+        echo $this->Form->dateTime('Contact.date', 'DMY', '12',
+        	array(
+        		'empty' => array(
+        			'day' => 'DAY', 'month' => 'MONTH', 'year' => 'YEAR',
+        			'hour' => 'HOUR', 'minute' => 'MINUTE', 'meridian' => false
+        		)
+        	)
+        );
+
+  Output:
+
+  .. code-block:: html
+
+    <select name="data[Contact][date][day]" id="ContactDateDay">
+        <option value="">DAY</option>
+        <option value="01">1</option>
+        // ...
+        <option value="31">31</option>
+    </select> - <select name="data[Contact][date][month]" id="ContactDateMonth">
+        <option value="">MONTH</option>
+        <option value="01">January</option>
+        // ...
+        <option value="12">December</option>
+    </select> - <select name="data[Contact][date][year]" id="ContactDateYear">
+        <option value="">YEAR</option>
+        <option value="2036">2036</option>
+        // ...
+        <option value="1996">1996</option>
+    </select> <select name="data[Contact][date][hour]" id="ContactDateHour">
+        <option value="">HOUR</option>
+        <option value="01">1</option>
+        // ...
+        <option value="12">12</option>
+        </select>:<select name="data[Contact][date][min]" id="ContactDateMin">
+        <option value="">MINUTE</option>
+        <option value="00">00</option>
+        // ...
+        <option value="59">59</option>
+    </select> <select name="data[Contact][date][meridian]" id="ContactDateMeridian">
+        <option value="am">am</option>
+        <option value="pm">pm</option>
+    </select>
 
 * ``$options['hiddenField']`` For certain input types (checkboxes, radios) a
   hidden input is created so that the key in $this->request->data will exist
@@ -1172,7 +1250,7 @@ Ex: name=data[User][username], id=UserUsername
       Will output:
 
       .. code-block:: html
-
+	
         <input name="data[User][gender]" id="UserGender_" value=""
             type="hidden" />
         <input name="data[User][gender]" id="UserGenderM" value="M"
@@ -1181,13 +1259,21 @@ Ex: name=data[User][username], id=UserUsername
         <input name="data[User][gender]" id="UserGenderF" value="F"
             type="radio" />
         <label for="UserGenderF">Female</label>
-
+      
+      
     If for some reason you don't want the hidden input, setting
     ``$attributes['value']`` to a selected value or boolean false will
     do just that.
 
+    * ``$attributes['fieldset']`` If legend attribute is not set to false, then this 
+      attribute can be used to set the class of the fieldset element.
+
+
     .. versionchanged:: 2.1
         The ``$attributes['disabled']`` option was added in 2.1.
+        
+    .. versionchanged:: 2.8.5
+        The ``$attributes['fieldset']`` option was added in 2.8.5.
 
 
 .. php:method:: select(string $fieldName, array $options, array $attributes)
@@ -1249,6 +1335,7 @@ Ex: name=data[User][username], id=UserUsername
       .. code-block:: html
 
         <select name="data[User][field]" id="UserField">
+            <option value=""></option>
             <option value="Value 1">Label 1</option>
             <option value="Value 2">Label 2</option>
             <option value="Value 3">Label 3</option>
@@ -1523,10 +1610,12 @@ Creating buttons and submit elements
     Creates an HTML link, but access the URL using method POST. Requires
     JavaScript to be enabled in browser.
 
-    This method creates a ``<form>`` element. So do not use this method inside
-    an existing form. Instead you should add a submit button using
-    :php:meth:`FormHelper::submit()`
+    This method creates a ``<form>`` element. If you want to use this method
+    inside of an existing form, you must use the ``inline`` or ``block`` options
+    so that the new form can be rendered outside of its parent.
 
+    If all you are looking for is a button to submit your form, then you should
+    use :php:meth:`FormHelper::submit()` instead.
 
     .. versionchanged:: 2.3
         The ``method`` option was added.
@@ -1534,9 +1623,9 @@ Creating buttons and submit elements
     .. versionchanged:: 2.5
         The ``inline`` and ``block`` options were added. They allow buffering
         the generated form tag, instead of returning with the link. This helps
-        avoiding nested form tags. Setting ``'inline' => true`` will add
-        the form tag to ``postLink`` content block or you can use option ``block``
-        to specify a custom block.
+        avoiding nested form tags. Setting ``'inline' => false`` will add
+        the form tag to the ``postLink`` content block, if you want to use a
+        custom block you can specify it using the ``block`` option instead.
 
     .. versionchanged:: 2.6
         The argument ``$confirmMessage`` was deprecated. Use ``confirm`` key

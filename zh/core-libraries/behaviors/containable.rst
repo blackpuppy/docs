@@ -436,5 +436,5 @@ Here's an example of how to contain associations when paginating::
 
 
 .. meta::
-    :title lang=zh_CN: Containable
-    :keywords lang=zh_CN: model behavior,author daniel,article content,new addition,wear and tear,array,aaa,email,fly,models
+    :title lang=zh: Containable
+    :keywords lang=zh: model behavior,author daniel,article content,new addition,wear and tear,array,aaa,email,fly,models

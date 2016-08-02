@@ -1,6 +1,10 @@
 Bienvenue
 #########
 
+.. warning:: 
+    Cette version de documentation concerne CakePHP 2.x. Rendez vous 
+    `ici pour la documentation sur CakePHP 3.x <http://book.cakephp.org/3.0/fr>`_
+
 Le livre de cuisine CakePHP est un projet libre et communautaire d'édition de
 la documentation. Nous espérons maintenir une documentation pointue et de
 qualité. Remarquez le bouton "Improve this Doc" dans le coin en haut à droite;
@@ -11,6 +15,9 @@ la documentation.
 .. container:: offline-download
 
     **Lire le Livre partout**
+
+    .. image:: /_static/img/read-the-book.jpg
+       :alt: Read the Book - CakePHP
 
     Profitez du cookbook de CakePHP presque partout. Disponible, en PDF et en
     EPUB, vous pouvez maintenant lire les docs sur plus d'appareils et offline.

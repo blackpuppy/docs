@@ -2,7 +2,7 @@ Migrating from CakePHP 1.2 to 1.3
 #################################
 
 This guide summarizes many of the changes necessary when migrating
-from a 1.2 to 1.3 Cake core. Each section contains relevant
+from a 1.2 to 1.3 CakePHP core. Each section contains relevant
 information for the modifications made to existing methods as well
 as any methods that have been removed/renamed.
 
@@ -47,18 +47,54 @@ There is a new way to add those paths. As of 1.3 RC1 the
 ::
 
     App::build(array(
-        'plugins' => array('/full/path/to/plugins/', '/next/full/path/to/plugins/'),
-        'models' =>  array('/full/path/to/models/', '/next/full/path/to/models/'),
-        'views' => array('/full/path/to/views/', '/next/full/path/to/views/'),
-        'controllers' => array('/full/path/to/controllers/', '/next/full/path/to/controllers/'),
-        'datasources' => array('/full/path/to/datasources/', '/next/full/path/to/datasources/'),
-        'behaviors' => array('/full/path/to/behaviors/', '/next/full/path/to/behaviors/'),
-        'components' => array('/full/path/to/components/', '/next/full/path/to/components/'),
-        'helpers' => array('/full/path/to/helpers/', '/next/full/path/to/helpers/'),
-        'vendors' => array('/full/path/to/vendors/', '/next/full/path/to/vendors/'),
-        'shells' => array('/full/path/to/shells/', '/next/full/path/to/shells/'),
-        'locales' => array('/full/path/to/locale/', '/next/full/path/to/locale/'),
-        'libs' => array('/full/path/to/libs/', '/next/full/path/to/libs/')
+        'plugins' => array(
+          '/full/path/to/plugins/',
+          '/next/full/path/to/plugins/'
+        ),
+        'models' =>  array(
+          '/full/path/to/models/',
+          '/next/full/path/to/models/'
+        ),
+        'views' => array(
+          '/full/path/to/views/',
+          '/next/full/path/to/views/'
+        ),
+        'controllers' => array(
+          '/full/path/to/controllers/',
+          '/next/full/path/to/controllers/'
+        ),
+        'datasources' => array(
+          '/full/path/to/datasources/',
+          '/next/full/path/to/datasources/'
+        ),
+        'behaviors' => array(
+          '/full/path/to/behaviors/',
+          '/next/full/path/to/behaviors/'
+        ),
+        'components' => array(
+          '/full/path/to/components/',
+          '/next/full/path/to/components/'
+        ),
+        'helpers' => array(
+          '/full/path/to/helpers/',
+          '/next/full/path/to/helpers/'
+        ),
+        'vendors' => array(
+          '/full/path/to/vendors/',
+          '/next/full/path/to/vendors/'
+        ),
+        'shells' => array(
+          '/full/path/to/shells/',
+          '/next/full/path/to/shells/'
+        ),
+        'locales' => array(
+          '/full/path/to/locale/',
+          '/next/full/path/to/locale/'
+        ),
+        'libs' => array(
+          '/full/path/to/libs/',
+          '/next/full/path/to/libs/'
+        )
     ));
 
 Also changed is the order in which bootstrapping occurs. In the
@@ -76,7 +112,10 @@ increase their flexibility. You now use ``Inflector::rules()`` to
 load custom inflections::
 
     Inflector::rules('singular', array(
-        'rules' => array('/^(bil)er$/i' => '\1', '/^(inflec|contribu)tors$/i' => '\1ta'),
+        'rules' => array(
+          '/^(bil)er$/i' => '\1',
+          '/^(inflec|contribu)tors$/i' => '\1ta'
+        ),
         'uninflected' => array('singulars'),
         'irregular' => array('spins' => 'spinor')
     ));
@@ -98,25 +137,25 @@ issues):
 
 -  session.php -> cake\_session.php
 
-   
+
    -  App::import('Core', 'Session') -> App::import('Core',
       'CakeSession')
 
 -  socket.php -> cake\_socket.php
 
-   
+
    -  App::import('Core', 'Socket') -> App::import('Core',
       'CakeSocket')
 
 -  schema.php -> cake\_schema.php
 
-   
+
    -  App::import('Model', 'Schema') -> App::import('Model',
       'CakeSchema')
 
 -  behavior.php -> model\_behavior.php
 
-   
+
    -  App::import('Core', 'Behavior') -> App::import('Core',
       'ModelBehavior')
 
@@ -278,7 +317,7 @@ update simply change your core.php::
 
     //from:
     Configure::write('Routing.admin', 'admin');
-    
+
     //to:
     Configure::write('Routing.prefixes', array('admin'));
 
@@ -297,7 +336,10 @@ problematic and buggy even with the existing code base. First path
 segments using full regular expressions was removed. You can no
 longer create routes like::
 
-    Router::connect('/([0-9]+)-p-(.*)/', array('controller' => 'products', 'action' => 'show'));
+    Router::connect(
+      '/([0-9]+)-p-(.*)/',
+      array('controller' => 'products', 'action' => 'show')
+    );
 
 These routes complicated route compilation and impossible to
 reverse route. If you need routes like this, it is recommended that
@@ -307,7 +349,7 @@ use a greedy star in the middle of a route::
 
     Router::connect(
         '/pages/*/:event',
-        array('controller' => 'pages', 'action' => 'display'), 
+        array('controller' => 'pages', 'action' => 'display'),
         array('event' => '[a-z0-9_-]+')
     );
 
@@ -540,7 +582,7 @@ styling easier.
 The disabled state of these methods now defaults to ``<span>`` tags
 instead of ``<div>`` tags.
 
-passedArgs are now auto merged with url options in paginator.
+passedArgs are now auto merged with URL options in paginator.
 
 ``sort()``, ``prev()``, ``next()`` now add additional class names
 to the generated html. ``prev()`` adds a class of prev. ``next()``
@@ -564,10 +606,10 @@ being sorted, either asc or desc.
    parameter. Use ``$attributes['empty']`` instead.
 -  ``FormHelper::select()`` no longer has a ``$showEmpty``
    parameter. Use ``$attributes['empty']`` instead.
--  Default urls generated by form helper no longer contain 'id'
-   parameter. This makes default urls more consistent with documented
+-  Default URLs generated by form helper no longer contain 'id'
+   parameter. This makes default URLs more consistent with documented
    userland routes. Also enables reverse routing to work in a more
-   intuitive fashion with default FormHelper urls.
+   intuitive fashion with default FormHelper URLs.
 -  ``FormHelper::submit()`` Can now create other types of inputs
    other than type=submit. Use the type option to control the type of
    input generated.
@@ -579,7 +621,7 @@ being sorted, either asc or desc.
    create hidden fieldset elements. Instead they create hidden div
    elements. This improves validation with HTML4.
 
-Also be sure to check the :ref:`form-improvements-1-3` for additional changes and 
+Also be sure to check the :ref:`form-improvements-1-3` for additional changes and
 new features in the FormHelper.
 
 **HtmlHelper**
@@ -611,7 +653,7 @@ new features in the FormHelper.
 
 CacheHelper's interactions with ``Controller::$cacheAction`` has
 changed slightly. In the past if you used an array for
-``$cacheAction`` you were required to use the routed url as the
+``$cacheAction`` you were required to use the routed URL as the
 keys, this caused caching to break whenever routes were changed.
 You also could set different cache durations for different passed
 argument values, but not different named parameters or query string
@@ -695,7 +737,7 @@ different formatting.
     // exits with status code 1
 
 ``ShellDispatcher::stderr()`` has been modified to not prepend
-Error: to the message anymore. It's signature is now similar to
+Error: to the message anymore. Its signature is now similar to
 ``Shell::stdout()``.
 
 **ShellDispatcher::shiftArgs()**
@@ -732,5 +774,5 @@ versions, it is recommend that the new path is used.
 
 
 .. meta::
-    :title lang=zh_CN: Migrating from CakePHP 1.2 to 1.3
-    :keywords lang=zh_CN: inflections,bootstrap,unit tests,constants,cipher,php 5,replacements,pear,array,variables,models,cakephp,plugins
+    :title lang=en: Migrating from CakePHP 1.2 to 1.3
+    :keywords lang=en: inflections,bootstrap,unit tests,constants,cipher,php 5,replacements,pear,array,variables,models,cakephp,plugins

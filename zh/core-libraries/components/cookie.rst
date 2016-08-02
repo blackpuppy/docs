@@ -213,5 +213,5 @@ The CookieComponent offers a number of methods for working with Cookies.
 
 
 .. meta::
-    :title lang=zh_CN: Cookie
-    :keywords lang=zh_CN: array controller,php setcookie,cookie string,controller setup,string domain,default description,string name,session cookie,integers,variables,domain name,null
+    :title lang=zh: Cookie
+    :keywords lang=zh: array controller,php setcookie,cookie string,controller setup,string domain,default description,string name,session cookie,integers,variables,domain name,null

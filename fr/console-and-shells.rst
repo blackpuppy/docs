@@ -1,5 +1,5 @@
-Console et Shells
-#################
+Shells, Tasks & Outils de Console
+#################################
 
 CakePHP ne dispose pas seulement d'un framework web mais aussi d'une console
 de framework pour la création d'applications. Les applications par la console
@@ -626,7 +626,7 @@ pour définir le comportement de l'option:
   boléen.
   Par défaut à false.
 * ``choices`` Un tableau de choix valides pour cette option. Si elle est vide,
-  toutes les valeurs sont valides. Une exception sera lancée lorque parse()
+  toutes les valeurs sont valides. Une exception sera lancée lorsque parse()
   rencontre une valeur non valide.
 
 .. php:method:: addOptions(array $options)
@@ -1097,6 +1097,7 @@ Plus de sujets
 .. toctree::
     :maxdepth: 1
 
+    console-and-shells/helpers
     console-and-shells/cron-jobs
     console-and-shells/completion-shell
     console-and-shells/code-generation-with-bake
@@ -1108,5 +1109,5 @@ Plus de sujets
 
 
 .. meta::
-    :title lang=fr: Console et Shells
+    :title lang=fr: Shells, Tasks & Outils de Console
     :keywords lang=fr: scripts de shell,système shell,classes application,tâches de fond,script en ligne,tâche cron,réponse requête request response,système path,acl,nouveaux projets,shells,spécifiques,paramètres,i18n,cakephp,répertoire,maintenance,idéal,applications,mvc

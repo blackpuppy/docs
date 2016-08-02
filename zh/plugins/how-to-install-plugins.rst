@@ -100,5 +100,5 @@ plugins you explicitly specify.
 
 
 .. meta::
-    :title lang=en: How To Install Plugins
-    :keywords lang=en: plugin folder, install, git, zip, tar, submodule, manual, clone, contactmanager, enable
+    :title lang=zh: How To Install Plugins
+    :keywords lang=zh: plugin folder, install, git, zip, tar, submodule, manual, clone, contactmanager, enable

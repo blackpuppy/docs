@@ -630,11 +630,11 @@ Attribute Matching Types
     across the results. You can use both expression and matching elements with
     this method::
 
-        //call the noop function $this->noop() on every element of $data
+        // Call the noop function $this->noop() on every element of $data
         $result = Hash::map($data, "{n}", array($this, 'noop'));
 
         function noop($array) {
-         //do stuff to array and return the result
+         // Do stuff to array and return the result
          return $array;
         }
 
@@ -690,6 +690,10 @@ Attribute Matching Types
     * ``natural`` for sorting values in a human friendly way. Will
       sort ``foo10`` below ``foo2`` as an example. Natural sorting
       requires PHP 5.4 or greater.
+
+    .. versionadded:: 2.8
+        The ``$type`` option now supports an array and the ``ignoreCase`` option
+        enabled case-insensitive sorting.
 
 .. php:staticmethod:: diff(array $data, array $compare)
 

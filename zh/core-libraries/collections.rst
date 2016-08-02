@@ -158,5 +158,5 @@ You can also change priorities at run time using the ``ObjectCollection::setPrio
 
 
 .. meta::
-    :title lang=zh_CN: Collections
-    :keywords lang=zh_CN: array name,loading components,several different kinds,unified api,loading objects,component names,special key,core components,callbacks,prg,callback,alias,fatal error,collections,memory,priority,priorities
+    :title lang=zh: Collections
+    :keywords lang=zh: array name,loading components,several different kinds,unified api,loading objects,component names,special key,core components,callbacks,prg,callback,alias,fatal error,collections,memory,priority,priorities

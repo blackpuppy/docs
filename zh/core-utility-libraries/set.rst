@@ -1629,5 +1629,5 @@ available.
         */
 
 .. meta::
-    :title lang=zh_CN: Set
-    :keywords lang=zh_CN: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path
+    :title lang=zh: Set
+    :keywords lang=zh: array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path
