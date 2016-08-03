@@ -72,7 +72,7 @@ You can also include other :php:meth:`~Model::find()` options, such as
         );
     }
 
-``$paginate`` 数组中可以包括的其他键与 ``Model->find('all')`` 方法的参数相似，即：``conditions``、 ``fields``、``order``、``limit``、``page``、``contain``、``joins``和``recursive``。除了前面提到的这些键之外，以及任何其他键都会传递给模型（*model*）的 find 方法。这简化了和分页一起使用象 :php:class:`ContainableBehavior` 这样的行为（*behavior*）。
+``$paginate`` 数组中可以包括的其他键与 ``Model->find('all')`` 方法的参数相似，即：``conditions``、 ``fields``、``order``、``limit``、``page``、``contain``、``joins``和``recursive``。除了前面提到的这些键之外，以及任何其他键都会传递给模型（*model*）的 find 方法。这样就很容易和分页一起使用象 :php:class:`ContainableBehavior` 这样的行为（*behavior*）。
 
 Other keys that can be included in the ``$paginate`` array are
 similar to the parameters of the ``Model->find('all')`` method, that
@@ -93,7 +93,7 @@ pagination::
         );
     }
 
-除了可以定义通用的分页参数，也可以在控制器中定义多组分页默认值，只需用要配置的模型名称作为数组的键::
+除了可以定义通用的分页参数，也可以在控制器中定义多组分页默认值，只需把要配置的模型名称作为数组的键::
 
 In addition to defining general pagination values, you can define more than one
 set of pagination defaults in the controller, you just name the keys of the
@@ -107,7 +107,7 @@ array after the model you wish to configure::
         );
     }
 
-键 ``Post`` 和 ``Author`` 对应的值可以包含不带模型/键的 ``$paginate`` 数组可以包含的所有属性。
+键 ``Post`` 和 ``Author`` 对应的值可以包含不带模型/键的 ``$paginate`` 数组能够包含的所有属性。
 
 The values of the ``Post`` and ``Author`` keys could contain all the properties
 that a model/key less ``$paginate`` array could.
@@ -163,7 +163,7 @@ your action::
 Custom Query Pagination
 =======================
 
-如果你无法用标准的 find 操作来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`custom find type <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有标准的多出来的第一个参数 ``$model``::
+如果你无法用标准的 find 操作来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`自定义查询类型 <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有惯有的额外的第一个参数 ``$model``::
 
 If you're not able to use the standard find options to create the query you need
 to display your data, there are a few options. You can use a
@@ -187,7 +187,7 @@ normal additional first parameter of ``$model``::
         // 方法主体
     }
 
-你极少会需要实现 ``paginate()`` 和 ``paginateCount()`` 方法。你应当确保的确无法用核心的模型方法或自定义查询来达到目的。要用自定义 find 类型进行分页，在 2.3 版本，你应当设置第 ``0``' 个元素或者 ``findType``::
+你极少会需要实现 ``paginate()`` 和 ``paginateCount()`` 方法。你应当确保的确无法用核心的模型方法或自定义查询来达到目的。要用自定义 find 类型进行分页，在 2.3 版本，你应当设置第 ``0`` 个元素或者 ``findType``::
 
 It's seldom you'll need to implement paginate() and paginateCount(). You should
 make sure  you can't achieve your goal with the core model methods, or a custom
@@ -253,11 +253,14 @@ accordingly depending on what database you are using::
         return count($results);
     }
 
+观察力好的读者应该已经注意到了，到此为止我们定义的分页方法实际上并不必要——你只需要在控制器的 ``$paginate`` 类变量中加入关键字::
+
 The observant reader will have noticed that the paginate method
 we've defined wasn't actually necessary - All you have to do is add
 the keyword in controller's ``$paginate`` class variable::
 
     /**
+     * 加上 GROUP BY 子句
      * Add GROUP BY clause
      */
     public $paginate = array(
@@ -268,6 +271,7 @@ the keyword in controller's ``$paginate`` class variable::
         )
     );
     /**
+     * 或者在动作中随时加入
      * Or on-the-fly from within the action
      */
     public function index() {
@@ -280,12 +284,19 @@ the keyword in controller's ``$paginate`` class variable::
         );
     }
 
+在 CakePHP 2.0 中，使用 GROUP BY 子句时不再需要实现 ``paginateCount()`` 方法。核心的 ``find('count')`` 方法会正确地计算总行数。
+
 In CakePHP 2.0, you no longer need to implement ``paginateCount()`` when using
 group clauses. The core ``find('count')`` will correctly count the total number
 of rows.
 
+控制哪些字段用于排序
+======================================
+
 Control which fields used for ordering
 ======================================
+
+默认情况下可以用模型的任何列进行排序。有时候这样也不好，因为这允许用户把没有索引的列、或者虚拟字段用于排序，而后者得计算更可能要耗费昂贵的资源。在这种情况下，你可以用 ``PaginatorComponent::paginate()`` 方法的第三个参数来限制能用于排序的字段::
 
 By default sorting can be done with any column on a model. This is sometimes
 undesirable as it can allow users to sort on un-indexed columns, or virtual
@@ -295,11 +306,18 @@ done on::
 
     $this->Paginator->paginate('Post', array(), array('title', 'slug'));
 
+这样就只允许用 title 和 slug 列进行排序。设置任何其他字段进行排序都会被忽略。
+
 This would allow sorting on the title and slug columns only. A user that sets
 sort to any other value will be ignored.
 
+限制可以读取的最大行数
+====================================================
+
 Limit the maximum number of rows that can be fetched
 ====================================================
+
+读取的结果的行数以 ``limit`` 参数提供给用户。在分页结果中允许用户读取所有行，通常不好。默认情况下 CakePHP 限制可以读取的最大行数为 100。如果此默认值不适合你的应用程序，你可以把它作为分页选项的一部分进行调整::
 
 The number of results that are fetched is exposed to the user as the
 ``limit`` parameter. It is generally undesirable to allow users to fetch all
@@ -308,17 +326,25 @@ that can be fetched to 100. If this default is not appropriate for your
 application, you can adjust it as part of the pagination options::
 
     public $paginate = array(
+        // 这里还有其他键。
         // other keys here.
         'maxLimit' => 10
     );
+
+如果请求的 limit 参数大于该值，就会被减小为 ``maxLimit`` 的值。
 
 If the request's limit param is greater than this value, it will be reduced to
 the ``maxLimit`` value.
 
 .. _pagination-with-get:
 
+用 GET 参数进行分页
+==============================
+
 Pagination with GET parameters
 ==============================
+
+在之前版本的 CakePHP 中，只能用命名参数（*named parameter*）来生成分页链接。但是如果页面用 GET 参数进行请求，它们还可以照常运行。对 2.0 版本，我们决定使生成分页参数的方式更加可控和一致。你可以在组件中选择使用查询字符串（*querystring*）或命名参数。收到的请求只会接受选中的类型，而且 :php:class:`PaginatorHelper` 助件只会生成带有选中类型的参数的链接::
 
 In previous versions of CakePHP you could only generate pagination links using
 named parameters. But if pages were requested with GET parameters they would
@@ -332,27 +358,38 @@ parameter::
         'paramType' => 'querystring'
     );
 
+上面的代码会启用查询字符串参数的解析和生成。你也可以改变 PaginatorComponent 组件的 ``$settings`` 属性::
+
 The above would enable querystring parameter parsing and generation. You can
 also modify the ``$settings`` property on the PaginatorComponent::
 
     $this->Paginator->settings['paramType'] = 'querystring';
+
+默认情况下，所有标准的分页参数都会转换成 GET 参数。
 
 By default all of the typical paging parameters will be converted into GET
 arguments.
 
 .. note::
 
+    你可能会遇到这样的情况，赋值给不存在的属性会抛出错误::
+
     You can run into a situation where assigning a value to a nonexistent property will throw errors::
 
         $this->paginate['limit'] = 10;
+
+    这会抛出错误 "Notice: Indirect modification of overloaded property $paginate has no effect."。给该属性赋予初始值就解决了问题::
 
     will throw the error "Notice: Indirect modification of overloaded property $paginate has no effect."
     Assigning an initial value to the property solves the issue::
 
         $this->paginate = array();
         $this->paginate['limit'] = 10;
+        //或者
         //or
         $this->paginate = array('limit' => 10);
+
+    或者在控制器类中声明该属性::
 
     Or just declare the property in the controller class::
 
@@ -360,10 +397,16 @@ arguments.
             public $paginate = array();
         }
 
+    或者使用 ``$this->Paginator->settings = array('limit' => 10);``。
+
     Or use ``$this->Paginator->settings = array('limit' => 10);``
+
+    如果要改变 PaginatorComponent 组件的 ``$settings`` 属性，确保添加 Paginator 组件到 $components 数组
 
     Make sure you have added the Paginator component to your $components array if
     you want to modify the ``$settings`` property of the PaginatorComponent.
+
+    这两种方法都能够解决 notice 错误。
 
     Either of these approaches will solve the notice errors.
 
