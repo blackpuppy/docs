@@ -1,16 +1,6 @@
 Appendices
 ##########
 
-.. note::
-    The documentation is not currently supported in zh language for this page.
-
-    Please feel free to send us a pull request on
-    `Github <https://github.com/cakephp/docs>`_ or use the **Improve This Doc**
-    button to directly propose your changes.
-
-    You can refer to the English version in the select top menu to have
-    information about this page's topic.
-
 Appendices contain information regarding the new features
 introduced in 2.x, and the migration path from 1.3 to 2.0.
 
@@ -21,6 +11,7 @@ introduced in 2.x, and the migration path from 1.3 to 2.0.
     :maxdepth: 1
 
     appendices/2-8-migration-guide
+
 
 2.7 Migration Guide
 ===================
