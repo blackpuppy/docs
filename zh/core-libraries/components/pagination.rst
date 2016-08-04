@@ -401,20 +401,28 @@ arguments.
 
     Or use ``$this->Paginator->settings = array('limit' => 10);``
 
-    如果要改变 PaginatorComponent 组件的 ``$settings`` 属性，确保添加 Paginator 组件到 $components 数组
+    如果要改变 PaginatorComponent 组件的 ``$settings`` 属性，确保添加 Paginator 组件到 $components 数组中。
 
     Make sure you have added the Paginator component to your $components array if
     you want to modify the ``$settings`` property of the PaginatorComponent.
 
-    这两种方法都能够解决 notice 错误。
+    以上这两种方法都能够解决 notice 错误。
 
     Either of these approaches will solve the notice errors.
 
+请求的页超出范围
+==========================
+
 Out of range page requests
 ==========================
+
+从 2.3 版本开始，当试图访问不存在的页，即请求的页数大于总页数，PaginatorComponent 组件会抛出 `NotFoundException` 异常。
+
 As of 2.3 the PaginatorComponent will throw a `NotFoundException` when trying to
 access a non-existent page, i.e. page number requested is greater than total
 page count.
+
+那么，或者任正常的错误页面显示，或者使用 try catch 块，并在捕获 `NotFoundException` 异常时做出适当的处理。
 
 So you could either let the normal error page be rendered or use a try catch
 block and take appropriate action when a `NotFoundException` is caught::
@@ -423,21 +431,32 @@ block and take appropriate action when a `NotFoundException` is caught::
         try {
             $this->Paginator->paginate();
         } catch (NotFoundException $e) {
+            //在这里进行处理，比如跳转到第一页或最后一页。
             //Do something here like redirecting to first or last page.
             //$this->request->params['paging'] will give you required info.
         }
     }
 
+AJAX 分页
+===============
+
 AJAX Pagination
 ===============
+
+在分页中加入 AJAX 功能是很容易的。使用 :php:class:`JsHelper` 助件和 :php:class:`RequestHandlerComponent` 组件就能够容易地给应用程序加上 AJAX 分页。欲知详情，请见 :ref:`ajax-pagination`。
 
 It's very easy to incorporate AJAX functionality into pagination.
 Using the :php:class:`JsHelper` and :php:class:`RequestHandlerComponent` you can
 easily add AJAX pagination to your application. See :ref:`ajax-pagination` for
 more information.
 
+视图中的分页
+======================
+
 Pagination in the view
 ======================
+
+关于如何创建分页导航的链接，请查看 :php:class:`PaginatorHelper` 的文档。
 
 Check the :php:class:`PaginatorHelper` documentation for how to create links for
 pagination navigation.
