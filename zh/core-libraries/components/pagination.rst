@@ -253,7 +253,7 @@ accordingly depending on what database you are using::
         return count($results);
     }
 
-观察力好的读者应该已经注意到了，到此为止我们定义的分页方法实际上并不必要——你只需要在控制器的 ``$paginate`` 类变量中加入关键字::
+观察力好的读者应该已经注意到了，到此为止我们定义的分页方法实际上并不必要——你只需要在控制器的 ``$paginate`` 类变量中加入关键字就足够了::
 
 The observant reader will have noticed that the paginate method
 we've defined wasn't actually necessary - All you have to do is add
@@ -296,7 +296,7 @@ of rows.
 Control which fields used for ordering
 ======================================
 
-默认情况下可以用模型的任何列进行排序。有时候这样也不好，因为这允许用户把没有索引的列、或者虚拟字段用于排序，而后者得计算更可能要耗费昂贵的资源。在这种情况下，你可以用 ``PaginatorComponent::paginate()`` 方法的第三个参数来限制能用于排序的字段::
+默认情况下可以用模型的任何列进行排序。有时候这样也不好，因为这允许用户把没有索引的列、或者虚拟字段用于排序，而后者的计算更可能要耗费昂贵的资源。在这种情况下，你可以用 ``PaginatorComponent::paginate()`` 方法的第三个参数来限制能用于排序的字段::
 
 By default sorting can be done with any column on a model. This is sometimes
 undesirable as it can allow users to sort on un-indexed columns, or virtual
@@ -422,7 +422,7 @@ As of 2.3 the PaginatorComponent will throw a `NotFoundException` when trying to
 access a non-existent page, i.e. page number requested is greater than total
 page count.
 
-那么，或者任正常的错误页面显示，或者使用 try catch 块，并在捕获 `NotFoundException` 异常时做出适当的处理。
+那么，或者允许正常的错误页面显示，或者使用 try catch 块，并在捕获 `NotFoundException` 异常时做出适当的处理。
 
 So you could either let the normal error page be rendered or use a try catch
 block and take appropriate action when a `NotFoundException` is caught::
