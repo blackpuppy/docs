@@ -42,7 +42,7 @@ datasource
     使用的插件数据源。
 persistent
     是否使用连接数据库的持久化连接。当使用 SQLServer 时，应当不要启用持久化连接，
-    因为这会造成诊断崩溃的困难。
+    因为这会造成难以诊断的崩溃。
 host
     数据库服务器的主机名(或IP地址)。
 login
@@ -292,7 +292,7 @@ Session
     * 'cache' - 使用 Cache 类保存会话。
 
     要定义自定义会话处理器，把它保存在
-    ``app/ModelSDatasource/Session/<name>.php`` 中。确保这个类实现了
+    ``app/Model/Datasource/Session/<name>.php`` 中。确保这个类实现了
     :php:interface:`CakeSessionHandlerInterface`，并设置 Session.handler 为
     <name>。
 
