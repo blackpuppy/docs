@@ -152,7 +152,26 @@ decide how many numbers to show on each side of the current page. By default
 Links will not be generated for pages that do not exist. The current page is
 also not a link.
 
+支持的选项为：
+
 Supported options are:
+
+* ``before`` 数字之前插入的内容。
+* ``after`` 数字之后插入的内容。
+* ``model`` 用来创建数字的模型，默认为 :php:meth:`PaginatorHelper::defaultModel()`。
+* ``modulus`` 当前页两边要有多少数字，默认为 8。
+* ``separator`` 分隔内容，默认为 `` | ``。
+* ``tag`` 包裹链接的标签，默认为 'span'。
+* ``first`` 是否要生成开头的链接，设置为整数来指定要生成的开头的链接的数量。默认为 false。如果设置为字符串，就以该值为标题生成第一页的链接::
+
+      echo $this->Paginator->numbers(array('first' => 'First page'));
+
+* ``last`` 是否要生成末尾的链接，设置为整数来指定要生成的末尾的链接的数量。默认为 false。遵循和 ``first`` 选项相同的逻辑。如果你需要，也有 :php:meth:`~PaginatorHelper::last()`` 方法可以单独使用。
+
+* ``ellipsis`` 省略的内容，默认为 '...'。
+* ``class`` 包裹的标签使用的（样式）类名。
+* ``currentClass`` 当前/点击过的链接使用的（样式）类名。默认为 *current*。
+* ``currentTag`` 当前页数字使用的标签，默认为 null。这可以生成，例如，类似 Twitter Bootstrap 的链接，当前页数字包裹在额外的 'a' 或 'span' 标签内。
 
 * ``before`` Content to be inserted before the numbers.
 * ``after`` Content to be inserted after the numbers.
@@ -182,6 +201,8 @@ Supported options are:
 * ``currentTag`` Tag to use for current page number, defaults to null.
   This allows you to generate for example Twitter Bootstrap like links with the
   current page number wrapped in extra 'a' or 'span' tag.
+
+虽然该方法的输出允许很多定制，不过不带任何参数调用也完全没问题。 ::
 
 While this method allows a lot of customization for its output. It is
 also ok to just call the method without any params. ::
