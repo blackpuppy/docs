@@ -6,7 +6,7 @@ Pagination
 
 .. php:class:: PaginatorComponent(ComponentCollection $collection, array $settings = array())
 
-创建灵活和对用户友好的网页应用程序，最主要的障碍之一就是设计直观的用户界面。很多应用程序的规模和复杂性会与日俱增，设计师们和程序员们发现他们无法应付成百上千条记录的显示。重构要花时间，而性能和用户满意度将受损。
+创建灵活和对用户友好的网页应用程序，最主要的障碍之一就是设计直观的用户界面。很多应用程序的规模和复杂性会与日俱增，设计师们和程序员们发现他们处理应付成百上千条记录的显示。重构需要时间，而性能和用户满意度将受损。
 
 One of the main obstacles of creating flexible and user-friendly
 web applications is designing an intuitive user interface. Many applications
@@ -22,7 +22,7 @@ a critical part of every application and used to cause many
 headaches for developers. CakePHP eases the burden on the developer
 by providing a quick, easy way to paginate data.
 
-CakePHP 中的分页功能在控制器（*controller*）中是由组件（*component*）来提供的，使得构建分页的查询更容易。在视图（*view*）中则用 :php:class:`PaginatorHelper` 助件简化了分页链接和按键的生成。
+CakePHP 中的分页功能在控制器（*controller*）中是由组件（*component*）来提供的，使得构建分页的查询更容易。在视图（*view*）中则用 :php:class:`PaginatorHelper` 助件（*helper*）简化了分页链接和按键的生成。
 
 Pagination in CakePHP is offered by a Component in the controller, to make
 building paginated queries easier. In the View :php:class:`PaginatorHelper` is
@@ -34,7 +34,7 @@ used to make the generation of pagination links & buttons simple.
 Query Setup
 ===========
 
-在控制器中，我们先着手在控制器变量 ``$paginate`` 中定义分页默认会使用的查询条件。这些条件，将作为分页查询的基础。它们会与排序、方向、（每页）最大记录数和页数这些从网址（*URL*）传入的参数相结合。这里需要指出，排序键必须用下面的数组结构定义::
+在控制器中，我们先着手在控制器变量 ``$paginate`` 中定义分页默认会使用的查询条件。这些条件，将作为分页查询的基础。它们会与排序、方向、（每页）最大记录数和页数这些从网址（*URL*）传入的参数相结合。这里需要指出，排序的键必须用下面的数组结构定义::
 
 In the controller, we start by defining the query conditions pagination will use
 by default in the ``$paginate`` controller variable. These conditions, serve as
@@ -72,7 +72,7 @@ You can also include other :php:meth:`~Model::find()` options, such as
         );
     }
 
-``$paginate`` 数组中可以包括的其他键与 ``Model->find('all')`` 方法的参数相似，即：``conditions``、 ``fields``、``order``、``limit``、``page``、``contain``、``joins`` 和 ``recursive``。前面提到的这些键，以及任何其他键都会传递给模型（*model*）的 find 方法。这样就很容易结合分页一起使用象 :php:class:`ContainableBehavior` 这样的行为（*behavior*）。
+``$paginate`` 数组中可以包括的其他键与 ``Model->find('all')`` 方法的参数相似，即：``conditions``、 ``fields``、``order``、``limit``、``page``、``contain``、``joins`` 和 ``recursive``。前面提到的这些键，以及任何其他键都直接会传递给模型（*model*）的 find 方法。这样就很容易结合分页一起使用象 :php:class:`ContainableBehavior` 这样的行为（*behavior*）。
 
 Other keys that can be included in the ``$paginate`` array are
 similar to the parameters of the ``Model->find('all')`` method, that
@@ -112,7 +112,7 @@ array after the model you wish to configure::
 The values of the ``Post`` and ``Author`` keys could contain all the properties
 that a model/key less ``$paginate`` array could.
 
-一旦定义了 ``$paginate`` 变量，就可以在控制器动作（*action*）中使用 :php:class:`PaginatorComponent` 的 ``paginate()`` 方法了。这会从模型返回 ``find()`` 结果。同时也设置一些额外的分页参数，并添加到请求（*request*）对象中。这些额外的信息设置在 ``$this->request->params['paging']`` 中，被 :php:class:`PaginatorHelper` 助件用于创建链接。:php:meth:`PaginatorComponent::paginate()` 方法同时也把 :php:class:`PaginatorHelper` 助件（*helper*）添加到控制器的助件列表中，如果还没有加入的话::
+一旦定义了 ``$paginate`` 变量，就可以在控制器动作（*action*）中使用 :php:class:`PaginatorComponent` 组件的 ``paginate()`` 方法了。这会从模型返回 ``find()`` 结果。同时也设置一些额外的分页参数，并添加到请求（*request*）对象中。这些额外的信息设置在 ``$this->request->params['paging']`` 中，被 :php:class:`PaginatorHelper` 助件用于创建链接。:php:meth:`PaginatorComponent::paginate()` 方法同时也把 :php:class:`PaginatorHelper` 助件添加到控制器的助件列表中，如果还没有加入的话::
 
 Once the ``$paginate`` variable has been defined, we can use the
 :php:class:`PaginatorComponent`'s ``paginate()`` method from our controller
@@ -163,7 +163,7 @@ your action::
 Custom Query Pagination
 =======================
 
-如果你无法用标准的 find 操作来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`自定义查询类型 <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和/或 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有惯有的额外的第一个参数 ``$model``::
+如果你无法用标准的 find 操作来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`自定义查询类型 <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和/或 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有通常的额外的第一个参数 ``$model``::
 
 If you're not able to use the standard find options to create the query you need
 to display your data, there are a few options. You can use a
@@ -198,7 +198,7 @@ element, or the ``findType`` key as of 2.3::
         'popular'
     );
 
-由于第 0 个元素难于处理，在 2.3 版本中增加了 ``findType`` 选项::
+由于第 0 个下标难于处理，在 2.3 版本中增加了 ``findType`` 选项::
 
 Since the 0th index is difficult to manage, in 2.3 the ``findType`` option was
 added::
@@ -207,7 +207,7 @@ added::
         'findType' => 'popular'
     );
 
-``paginate()`` 方法应当实现下面的方法签名。要使用你自己的方法/逻辑，在要用来查询数据的模型中重载它::
+``paginate()`` 方法应当实现下面的方法签名。要使用你自己的方法/逻辑，在要用来获取数据的模型中重载它::
 
 The ``paginate()`` method should implement the following method signature. To
 use your own method/logic override it in the model you wish to get the data
@@ -284,7 +284,7 @@ the keyword in controller's ``$paginate`` class variable::
         );
     }
 
-在 CakePHP 2.0 中，使用 GROUP BY 子句时不再需要实现 ``paginateCount()`` 方法。核心的 ``find('count')`` 方法会正确地计算总行数。
+在 CakePHP 2.0 中，使用 GROUP BY 子句时不再需要实现 ``paginateCount()`` 方法。核心的 ``find('count')`` 方法会正确地计算出总行数。
 
 In CakePHP 2.0, you no longer need to implement ``paginateCount()`` when using
 group clauses. The core ``find('count')`` will correctly count the total number
@@ -296,7 +296,7 @@ of rows.
 Control which fields used for ordering
 ======================================
 
-默认情况下可以用模型的任何列进行排序。有时候这样也不好，因为这允许用户把没有索引的列、或者虚拟字段用于排序，而后者的计算更可能要耗费昂贵的资源。在这种情况下，你可以用 ``PaginatorComponent::paginate()`` 方法的第三个参数来限制能用于排序的字段::
+默认情况下可以用模型的任何列进行排序。有时候这样也不好，因为这允许用户把没有索引的列、或者虚拟字段用于排序，而后者的计算更可能要耗费昂贵的资源。在这种情况下，你可以用 ``PaginatorComponent::paginate()`` 方法的第三个参数来限制能用于排序的列::
 
 By default sorting can be done with any column on a model. This is sometimes
 undesirable as it can allow users to sort on un-indexed columns, or virtual
@@ -306,7 +306,7 @@ done on::
 
     $this->Paginator->paginate('Post', array(), array('title', 'slug'));
 
-这样就只允许用 title 和 slug 列进行排序。设置任何其他字段进行排序都会被忽略。
+这样就只允许用 title 和 slug 列进行排序。设置任何其他列进行排序都会被忽略。
 
 This would allow sorting on the title and slug columns only. A user that sets
 sort to any other value will be ignored.
@@ -344,7 +344,7 @@ the ``maxLimit`` value.
 Pagination with GET parameters
 ==============================
 
-在之前版本的 CakePHP 中，只能用命名参数（*named parameter*）来生成分页链接。但是如果页面用 GET 参数进行请求，它们也同样有效。对 2.0 版本，我们决定使生成分页参数的方式更加可控和一致。你可以在组件中选择使用查询字符串（*querystring*）或命名参数。收到的请求只会接受选中的类型，而且 :php:class:`PaginatorHelper` 助件只会生成带有选中类型的参数的链接::
+在之前版本的 CakePHP 中，只能用命名参数（*named parameter*）来生成分页链接。但是如果页面用 GET 参数进行请求，它们也同样有效。对 2.0 版本，我们决定使生成分页参数的方式更加可控和一致。你可以在组件中选择使用查询字符串（*querystring*）或命名参数。对收到的请求只会接受选中的类型，而且 :php:class:`PaginatorHelper` 助件只会生成带有选中类型的参数的链接::
 
 In previous versions of CakePHP you could only generate pagination links using
 named parameters. But if pages were requested with GET parameters they would
