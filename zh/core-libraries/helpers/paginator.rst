@@ -209,6 +209,8 @@ also ok to just call the method without any params. ::
 
     echo $this->Paginator->numbers();
 
+使用 first 和 last 选项可以创建开始和末尾的页数的链接。下面的代码会创建一组页数的链接，包括分页结果中开始 2 页和最后 2 页的链接::
+
 Using the first and last options you can create links to the beginning
 and end of the page set. The following would create a set of page links that
 include links to the first 2 and last 2 pages in the paged results::
@@ -216,13 +218,20 @@ include links to the first 2 and last 2 pages in the paged results::
     echo $this->Paginator->numbers(array('first' => 2, 'last' => 2));
 
 .. versionadded:: 2.1
+    在 2.1 版本中加入了 ``currentClass`` 选项。
     The ``currentClass`` option was added in 2.1.
 
 .. versionadded:: 2.3
+    在 2.3 版本中加入了 ``currentTag`` 选项。
     The ``currentTag`` option was added in 2.3.
+
+创建跳转链接
+===================
 
 Creating jump links
 ===================
+
+除了生成直接前往特定页数的链接外，经常也需要前往前一页和后一页的链接、分页数据集中第一页和最后一页的链接。
 
 In addition to generating links that go directly to specific page numbers,
 you'll often want links that go to the previous and next links, first and last
@@ -230,21 +239,34 @@ pages in the paged data set.
 
 .. php:method:: prev($title = '<?= __('<< previous') ?>', $options = array(), $disabledTitle = null, $disabledOptions = array())
 
+    :param string $title: 链接的标题。
+    :param mixed $options: 分页链接的选项。
+    :param string $disabledTitle: 当链接无效时的标题，比如已经在第一页、没有前一页可去时。
+    :param mixed $disabledOptions: 无效链接的选项。
     :param string $title: Title for the link.
     :param mixed $options: Options for pagination link.
     :param string $disabledTitle: Title when the link is disabled, as when
         you're already on the first page, no previous page to go.
     :param mixed $disabledOptions: Options for the disabled pagination link.
 
+    前往分页记录集中前一页的链接。
+
     Generates a link to the previous page in a set of paged records.
 
+    ``$options`` 和 ``$disabledOptions`` 支持下面这些键：
     ``$options`` and ``$disabledOptions`` supports the following keys:
 
+    * ``tag`` 要使用的包裹标签，默认为 'span'。设置为 ``false`` 来关闭该选项。
+    * ``escape`` 内容是否要 HTML 实体编码（*HTML entity encode*），默认为 true。
+    * ``model`` 要使用的模型，默认为 :php:meth:`PaginatorHelper::defaultModel()`。
+    * ``disabledTag`` 当没有前一页时代替 A 标签的标签。
     * ``tag`` The tag wrapping tag you want to use, defaults to 'span'. Set this to ``false`` to disable this option.
     * ``escape`` Whether you want the contents HTML entity encoded,
       defaults to true.
     * ``model`` The model to use, defaults to :php:meth:`PaginatorHelper::defaultModel()`.
     * ``disabledTag`` Tag to use instead of A tag when there is no previous page
+
+    这是一个简单的例子::
 
     A simple example would be::
 
@@ -254,6 +276,8 @@ pages in the paged data set.
           null,
           array('class' => 'prev disabled')
         );
+
+    如果现在正在文章（*posts*）的第二页，就会得到如下输出：
 
     If you were currently on the second page of posts, you would get the following:
 
@@ -265,15 +289,21 @@ pages in the paged data set.
           </a>
         </span>
 
+    如果之前没有更多页，得到的就是：
+
     If there were no previous pages you would get:
 
     .. code-block:: html
 
         <span class="prev disabled"><?= __('<< previous') ?></span>
 
+    可以用 ``tag`` 标签改变包裹的标签::
+
     You can change the wrapping tag using the ``tag`` option::
 
         echo $this->Paginator->prev(__('previous'), array('tag' => 'li'));
+
+    输出：
 
     Output:
 
@@ -285,9 +315,13 @@ pages in the paged data set.
           </a>
         </li>
 
+    也可以不用包裹的::
+
     You can also disable the wrapping tag::
 
         echo $this->Paginator->prev(__('previous'), array('tag' => false));
+
+    输出：
 
     Output:
 
@@ -299,9 +333,13 @@ pages in the paged data set.
         </a>
 
 .. versionchanged:: 2.3
+    对 methods: :php:meth:`PaginatorHelper::prev()` 和 :php:meth:`PaginatorHelper::next()` 方法，现在可以设置 ``tag`` 选项为 ``false`` 来不使用包裹元素。
+    新增了 ``disabledTag`` 选项。
     For methods: :php:meth:`PaginatorHelper::prev()` and :php:meth:`PaginatorHelper::next()` it
     is now possible to set the ``tag`` option to ``false`` to disable the wrapper.
     New options ``disabledTag`` has been added.
+
+    如果设置 ``$disabledOptions`` 参数为空，就会使用 ``$options`` 参数。如果两组选项相同，这就可以少敲一些代码。
 
     If you leave the ``$disabledOptions`` empty the ``$options`` parameter will be
     used. This can save some additional typing if both sets of options are the
@@ -309,16 +347,22 @@ pages in the paged data set.
 
 .. php:method:: next($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array())
 
+    该方法与 :php:meth:`~PagintorHelper::prev()` 方法除了一些差别，完全相同。它生成指向下一页而不是前一页的链接，使用 ``next`` 而不是 ``prev`` 作为 rel 属性的值。
+
     This method is identical to :php:meth:`~PagintorHelper::prev()` with a few exceptions. It
     creates links pointing to the next page instead of the previous one. It also
     uses ``next`` as the rel attribute value instead of ``prev``
 
 .. php:method:: first($first = '<< first', $options = array())
 
+    返回第一页或者开始一些页数的链接。如果给出的是字符串，就以提供的文字创建指向第一页的链接::
+
     Returns a first or set of numbers for the first pages. If a string is given,
     then only a link to the first page with the provided text will be created::
 
         echo $this->Paginator->first('< first');
+
+    以上代码会创建单个指向第一页的链接。如果在第一页上，什么也不会输出。也可以使用整数来指明要生成开始的多少个链接::
 
     The above creates a single link for the first page. Will output nothing if you
     are on the first page. You can also use an integer to indicate how many first
@@ -326,10 +370,20 @@ pages in the paged data set.
 
         echo $this->Paginator->first(3);
 
+    如果在第 3 页或之后的页上，上面的代码就会创建开始 3 页的链接。在之前的页上，什么也不会输出。
+
     The above will create links for the first 3 pages, once you get to the third or
     greater page. Prior to that nothing will be output.
 
+    参数 options 接受下面（这些键）：
+
     The options parameter accepts the following:
+
+    - ``tag`` 同来包裹的标签，默认为 'span'。
+    - ``after`` 链接/标签之后要插入的内容。
+    - ``model`` 要使用的模型，默认为 :php:meth:`PaginatorHelper::defaultModel()`。
+    - ``separator`` 生成的链接之间的内容，默认为 ' | '。
+    - ``ellipsis`` 代表省略的内容，默认为 '...'。
 
     - ``tag`` The tag wrapping tag you want to use, defaults to 'span'
     - ``after`` Content to insert after the link/tag
@@ -338,6 +392,8 @@ pages in the paged data set.
     - ``ellipsis`` Content for ellipsis, defaults to '...'
 
 .. php:method:: last($last = 'last >>', $options = array())
+
+    该方法与 :php:meth:`~PaginatorHelper::first()` 方法很相似。不过有一些不同。对 ``$last`` 参数的字符串值，如果在最后一页就不会生成任何链接。对 ``$last`` 参数的整数值，如果在最后几页的范围内就不会生成任何链接。
 
     This method works very much like the :php:meth:`~PaginatorHelper::first()`
     method. It has a few differences though. It will not generate any links if you
