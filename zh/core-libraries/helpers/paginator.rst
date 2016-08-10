@@ -403,39 +403,67 @@ pages in the paged data set.
 
 .. php:method:: current(string $model = null)
 
+    得到给定模型的记录集的当前页::
+
     Gets the current page of the recordset for the given model::
 
+        // 网址是： http://example.com/comments/view/page:3
         // Our URL is: http://example.com/comments/view/page:3
         echo $this->Paginator->current('Comment');
+        // 输出为 3
         // Output is 3
 
 .. php:method:: hasNext(string $model = null)
+
+    如果给定结果集不在最后一页就返回 true。
 
     Returns true if the given result set is not at the last page.
 
 .. php:method:: hasPrev(string $model = null)
 
+    如果给定结果集不在第一页就返回 true。
+
     Returns true if the given result set is not at the first page.
 
 .. php:method:: hasPage(string $model = null, integer $page = 1)
 
+    如果给定结果集有 ``$page`` 参数指定的页就返回 true。
+
     Returns true if the given result set has the page number given by ``$page``.
+
+创建页数计数器
+=======================
 
 Creating a page counter
 =======================
 
 .. php:method:: counter($options = array())
 
+返回结果集的计数器字符串。使用提供的格式字符串和一系列选项，就可以创建本地化的和应用程序特有的方式来说明在分页的数据集中所在位置。
+
 Returns a counter string for the paged result set. Using a provided format
 string and a number of options you can create localized and application
 specific indicators of where a user is in the paged data set.
 
+``counter()`` 方法有一系列选项。支持的选项有：
+
 There are a number of options for ``counter()``. The supported ones are:
+
+* ``format`` 计数器的格式。支持的格式为 'range'、'pages' 和自定义。默认的页数，输出类似于 '1 of 10'。在自定义模式中，提供的字符串会被解析，得到的标记会用实际值代替。可以使用的标记为：
 
 * ``format`` Format of the counter. Supported formats are 'range', 'pages'
   and custom. Defaults to pages which would output like '1 of 10'. In the
   custom mode the supplied string is parsed and tokens are replaced with
   actual values. The available tokens are:
+
+  -  ``{:page}`` - 显示的当前页。
+  -  ``{:pages}`` - 总页数。
+  -  ``{:current}`` - 当前显示的记录数。
+  -  ``{:count}`` - 结果集中的总记录数。
+  -  ``{:start}`` - 显示的第一条记录的序号。
+  -  ``{:end}`` - 显示的最后一条记录的序号。
+  -  ``{:model}`` - 模型名称的复数可读形式。如果模型为 'RecipePage'，``{:model}`` 就会是 'recipe pages'。
+     在 2.0 版本中加入了该选项。
 
   -  ``{:page}`` - the current page displayed.
   -  ``{:pages}`` - total number of pages.
@@ -447,6 +475,8 @@ There are a number of options for ``counter()``. The supported ones are:
      If your model was 'RecipePage', ``{:model}`` would be 'recipe pages'.
      This option was added in 2.0.
 
+  也可以为 counter 方法只提供包含可用标记的字符串。例如::
+
   You could also supply only a string to the counter method using the tokens
   available. For example::
 
@@ -454,6 +484,8 @@ There are a number of options for ``counter()``. The supported ones are:
           'Page {:page} of {:pages}, showing {:current} records out of
            {:count} total, starting on record {:start}, ending on {:end}'
       );
+
+  设置 'format' 选项为 range，则输出类似于 '1 - 3 of 13'::
 
   Setting 'format' to range would output like '1 - 3 of 13'::
 
