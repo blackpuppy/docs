@@ -493,6 +493,9 @@ There are a number of options for ``counter()``. The supported ones are:
           'format' => 'range'
       ));
 
+* ``separator`` 在真正的页数和总页数之间的分隔符。默认为 ' of '。这和 'format' =
+  'pages' 结合使用，是 'format' 的默认值::
+
 * ``separator`` The separator between the actual page and the number of
   pages. Defaults to ' of '. This is used in conjunction with 'format' =
   'pages' which is 'format' default value::
@@ -501,25 +504,40 @@ There are a number of options for ``counter()``. The supported ones are:
           'separator' => ' of a total of '
       ));
 
+* ``model`` 分页查询的模型名称，默认为 :php:meth:`PaginatorHelper::defaultModel()`。这和 'format' 选项的自定义字符串结合使用。
+
 * ``model`` The name of the model being paginated, defaults to
   :php:meth:`PaginatorHelper::defaultModel()`. This is used in
   conjunction with the custom string on 'format' option.
+
+改变 PaginatorHelper 助件使用的选项
+==========================================
 
 Modifying the options PaginatorHelper uses
 ==========================================
 
 .. php:method:: options($options = array())
 
+    :param mixed $options: 分页链接的默认选项。如果提供字符串——就会作为元素使用的 DOM id。
     :param mixed $options: Default options for pagination links. If a
        string is supplied - it is used as the DOM id element to update.
 
+设置 Paginator 助件的所有选项。支持的选项为：
+
 Sets all the options for the Paginator Helper. Supported options are:
 
+* ``url`` 分页动作的网址（*URL*）。'url' 也有一些子选项：
 * ``url`` The URL of the paginating action. 'url' has a few sub options as well:
+
+  -  ``sort`` 记录排序的键。
+  -  ``direction`` 排序的方向。默认为 'ASC'。
+  -  ``page`` 显示的页数。
 
   -  ``sort`` The key that the records are sorted by.
   -  ``direction`` The direction of the sorting. Defaults to 'ASC'.
   -  ``page`` The page number to display.
+
+  上述选项可以用来强制到特定的页/方向。也可以附加额外的网址片段到所有助件生成的网址::
 
   The above mentioned options can be used to force particular pages/directions.
   You can also append additional URL content into all URLs generated in the
@@ -532,29 +550,40 @@ Sets all the options for the Paginator Helper. Supported options are:
           )
       ));
 
+  上面的代码添加 ``en`` 路由参数到所有助件会生成的网址。这也会带有特定排序、方向和页数的值的链接。默认情况下，PaginatorHelper 助件会合并所有当前传入（*pass*）和命名（*named*）参数。所以不必在每个视图（*view*）文件设置这些。
+
   The above adds the ``en`` route parameter to all links the helper will
   generate. It will also create links with specific sort, direction and page
   values. By default PaginatorHelper will merge in all of the current pass and
   named parameters. So you don't have to do that in each view file.
 
+* ``escape`` 指定链接的 title 属性是否要进行 HTML 转义。默认为 true。
 * ``escape`` Defines if the title field for links should be HTML escaped.
   Defaults to true.
 
+* ``update`` AJAX 分页调用的结果要更新的元素的 CSS 选择器。如果未指定，就会生成标准的链接::
 * ``update`` The CSS selector of the element to update with the results of AJAX
   pagination calls. If not specified, regular links will be created::
 
     $this->Paginator->options(array('update' => '#content'));
 
+  这在进行 :ref:`ajax-pagination` 时会有用。记住 update 的值可以是任何合法的 CSS 选择器，但是通常只是简单的 id 选择器。
+
   This is useful when doing :ref:`ajax-pagination`. Keep in mind that the value
   of update can be any valid CSS selector, but most often is simpler to use an
   id selector.
 
+* ``model`` 分页查询的模型名称，默认为 :php:meth:`PaginatorHelper::defaultModel()`。
 * ``model`` The name of the model being paginated, defaults to
   :php:meth:`PaginatorHelper::defaultModel()`.
 
+使用 GET 参数进行分页
+-----------------------------------
 
 Using GET parameters for pagination
 -----------------------------------
+
+通常 CakePHP 的分页使用 :ref:`named-parameters`。不过，有时你想使用 GET 参数。尽管分页的配置选项主要在 :php:class:`PaginatorComponent` 中，在视图中也有一些额外的控制。你可以使用 ``options()`` 方法来说明也要包括其他命名参数::
 
 Normally Pagination in CakePHP uses :ref:`named-parameters`. There are times
 you want to use GET parameters instead. While the main configuration option for
