@@ -595,31 +595,45 @@ named parameters to be converted::
       'convertKeys' => array('your', 'keys', 'here')
     ));
 
+配置 PaginatorHelper 助件使用 JavaScript 助件
+----------------------------------------------------------
+
 Configuring the PaginatorHelper to use a JavaScript helper
 ----------------------------------------------------------
+
+默认情况下，``PaginatorHelper`` 助件使用 :php:class:`JsHelper` 助件来执行 AJAX 功能。不过，如果你不想用它，而想用自定义助件生成AJAX 链接，你可以通过改变控制器中的 ``$helpers`` 数组来达到目的。在运行 ``paginate()`` 方法后执行::
 
 By default the ``PaginatorHelper`` uses :php:class:`JsHelper` to do AJAX
 features. However, if you don't want that and want to use a custom helper
 for AJAX links, you can do so by changing the ``$helpers`` array in your controller.
 After running ``paginate()`` do the following::
 
+    // 在控制器动作中。
     // In your controller action.
     $this->set('posts', $this->paginate());
     $this->helpers['Paginator'] = array('ajax' => 'CustomJs');
+
+这会改变 ``PaginatorHelper`` 助件使用 ``CustomJs`` 助件来执行 AJAX 操作。也可以设置 'ajax' 键为任何助件，只要该类实现了类似于 :php:meth:`HtmlHelper::link()` 方法的 ``link()`` 方法。
 
 Will change the ``PaginatorHelper`` to use the ``CustomJs`` for
 AJAX operations. You could also set the 'ajax' key to be any
 helper, as long as that class implements a ``link()`` method that
 behaves like :php:meth:`HtmlHelper::link()`
 
+视图中的分页
+===================
 
 Pagination in Views
 ===================
+
+如何显示记录给用户，由你决定，但是通常这是在表格内。下面的例子假定使用表格个布局，但是可以用于视图的 PaginatorHelper 助件并不总是要受此限制。
 
 It's up to you to decide how to show records to the user, but most
 often this will be done inside HTML tables. The examples below
 assume a tabular layout, but the PaginatorHelper available in views
 doesn't always need to be restricted as such.
+
+详情可见 `PaginatorHelper <http://api.cakephp.org/2.8/class-PaginatorHelper.html>`_ API 文档。正如之前提到的，PaginatorHelper 助件也提供排序功能，可以容易地集成到表格列的标题中：
 
 See the details on
 `PaginatorHelper <http://api.cakephp.org/2.8/class-PaginatorHelper.html>`_
@@ -642,9 +656,13 @@ which can be easily integrated into your table column headers:
         <?php endforeach; ?>
     </table>
 
+从 ``PaginatorHelper`` '助件的 ``sort()`` 方法输出的链接让用户可以通过点击表格的标题来切换数据按照某一字段的排序。
+
 The links output from the ``sort()`` method of the ``PaginatorHelper``
 allow users to click on table headers to toggle the sorting of the
 data by a given field.
+
+也可以按照关联（模型）的字段排序：
 
 It is also possible to sort a column based on associations:
 
@@ -663,12 +681,16 @@ It is also possible to sort a column based on associations:
         <?php endforeach; ?>
     </table>
 
+视图中分页显示的最终组成是页面导航的叠加，也是由 PaginationHelper 助件提供的::
+
 The final ingredient to pagination display in views is the addition
 of page navigation, also supplied by the PaginationHelper::
 
+    // 显示也数
     // Shows the page numbers
     echo $this->Paginator->numbers();
 
+    // 显示前一页和后一页的链接
     // Shows the next and previous links
     echo $this->Paginator->prev(
       '« Previous',
@@ -683,8 +705,11 @@ of page navigation, also supplied by the PaginationHelper::
       array('class' => 'disabled')
     );
 
+    // 显示 X of Y，其中 X 是当前页，Y 是总页数
     // prints X of Y, where X is current page and Y is number of pages
     echo $this->Paginator->counter();
+
+counter() 方法输出的文字可以用特定的标记定制::
 
 The wording output by the counter() method can also be customized
 using special markers::
@@ -694,10 +719,17 @@ using special markers::
                  {:count} total, starting on record {:start}, ending on {:end}'
     ));
 
+其他方法
+=============
+
 Other Methods
 =============
 
 .. php:method:: link($title, $url = array(), $options = array())
+
+    :param string $title：链接的标题。
+    :param mixed $url：网址的动作。参见 Router::url()。
+    :param array $options：链接的选项。键的列表可参见 options() 方法。
 
     :param string $title: Title for the link.
     :param mixed $url: Url for the action. See Router::url()
