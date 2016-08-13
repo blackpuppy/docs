@@ -6,7 +6,7 @@ Pagination
 
 .. php:class:: PaginatorComponent(ComponentCollection $collection, array $settings = array())
 
-创建灵活和对用户友好的网页应用程序，最主要的障碍之一就是设计直观的用户界面。很多应用程序的规模和复杂性会与日俱增，设计师们和程序员们发现他们处理应付成百上千条记录的显示。重构需要时间，而性能和用户满意度将受损。
+创建灵活和对用户友好的网页应用程序，最主要的障碍之一就是设计直观的用户界面。很多应用程序的规模和复杂性会与日俱增，设计师们和程序员们发现他们无法处理成百上千条记录的显示。重构需要时间，而性能和用户满意度将受损。
 
 One of the main obstacles of creating flexible and user-friendly
 web applications is designing an intuitive user interface. Many applications
@@ -34,7 +34,7 @@ used to make the generation of pagination links & buttons simple.
 Query Setup
 ===========
 
-在控制器中，我们先着手在控制器变量 ``$paginate`` 中定义分页默认会使用的查询条件。这些条件，将作为分页查询的基础。它们会与排序、方向、（每页）最大记录数和页数这些从网址（*URL*）传入的参数相结合。这里需要指出，排序的键必须用下面的数组结构定义::
+在控制器中，我们先着手在控制器变量 ``$paginate`` 中定义分页默认会使用的查询条件。这些条件，将作为分页查询的基础。它们会与排序、方向、（每页）最大记录数和页数这些从网址（*URL*）传入的参数相结合。这里需要指出，order 键必须用下面的数组结构定义::
 
 In the controller, we start by defining the query conditions pagination will use
 by default in the ``$paginate`` controller variable. These conditions, serve as
@@ -163,7 +163,7 @@ your action::
 Custom Query Pagination
 =======================
 
-如果你无法用标准的 find 操作来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`自定义查询类型 <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和/或 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有通常的额外的第一个参数 ``$model``::
+如果你无法用标准的 find 选项来创建显示数据所需要的查询，还有一些其他办法。你可以使用 :ref:`自定义查询类型 <model-custom-find>`。你也可以在模型中实现 ``paginate()`` 和 ``paginateCount()`` 方法，或者把它们放在附加到模型的行为中。实现 ``paginate()`` 和/或 ``paginateCount()`` 方法的行为应当实现如下定义的方法签名，带有通常的额外的第一个参数 ``$model``::
 
 If you're not able to use the standard find options to create the query you need
 to display your data, there are a few options. You can use a
@@ -253,7 +253,7 @@ accordingly depending on what database you are using::
         return count($results);
     }
 
-观察力好的读者应该已经注意到了，到此为止我们定义的分页方法实际上并不必要——你只需要在控制器的 ``$paginate`` 类变量中加入关键字就足够了::
+观察力好的读者应该已经注意到了，我们之前定义的分页方法实际上并不必要——你只需要在控制器的 ``$paginate`` 类变量中加入关键字就足够了::
 
 The observant reader will have noticed that the paginate method
 we've defined wasn't actually necessary - All you have to do is add
@@ -422,7 +422,7 @@ As of 2.3 the PaginatorComponent will throw a `NotFoundException` when trying to
 access a non-existent page, i.e. page number requested is greater than total
 page count.
 
-那么，可以允许正常的错误页面显示，也可以使用 try catch 块，并在捕获 `NotFoundException` 异常时做出适当的处理。
+那么，可以允许显示正常的错误页面，也可以使用 try catch 块，并在捕获 `NotFoundException` 异常时做出适当的处理。
 
 So you could either let the normal error page be rendered or use a try catch
 block and take appropriate action when a `NotFoundException` is caught::
